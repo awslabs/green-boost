@@ -10,12 +10,15 @@ on:
 
 jobs:
   build:
+    name: Build
     uses: ./.github/workflows/build.yaml
 
   lint:
+    name: Lint
     uses: ./.github/workflows/lint.yaml
 
   test:
+    name: Test
     uses: ./.github/workflows/test.yaml
 
   publish:
@@ -24,8 +27,8 @@ jobs:
     environment: release
     needs: build
     steps:
-      - name: Checkout & Install
-        uses: ./github/actions/install.yaml
+      - name: Install
+        uses: ./github/actions/install
 
       - name: Download gb-lib build artifact
         uses: actions/download-artifact@v2

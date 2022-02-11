@@ -1,7 +1,7 @@
 name: Install
 description: Install PNPM, Node.js, and dependencies
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Install PNPM
       uses: pnpm/action-setup@v2.1.0

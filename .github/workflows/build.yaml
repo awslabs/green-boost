@@ -12,7 +12,7 @@ jobs:
           uses: actions/checkout@v2
 
       - name: Install
-        uses: ./.github/actions/install.yaml
+        uses: ./.github/actions/install
       
       - name: Compile TypeScript
         run: pnpm build:packages
