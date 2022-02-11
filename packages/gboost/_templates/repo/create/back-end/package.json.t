@@ -24,7 +24,7 @@ to: back-end/package.json
     "constructs": "^10.0.37",
     "cdk-nag": "^2.4.43",
     "esbuild": "^0.14.11",
-    "gb-lib": "link:../../../green-boost/packages/gb-lib"
+    "gb-lib": "^0.2.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.89",

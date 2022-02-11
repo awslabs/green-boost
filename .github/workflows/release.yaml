@@ -30,8 +30,25 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Install
-        uses: ./.github/actions/install
+      - name: Install PNPM
+      uses: pnpm/action-setup@v2.1.0
+      with:
+        version: 6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: pnpm
+
+      - name: Install dependencies
+        # by default in CI environment pnpm i run siwth --frozen-lockfile but
+        # since the version in package.json's have been changed by changeset
+        # it throws an error. Therefore we allow pnpm to update lockfile
+        # (no deps are being updated) and then add the changes. Run git add .
+        # because later changesets will commit changes for us 
+        # https://github.com/pnpm/pnpm/issues/3664
+        run: pnpm install --no-frozen-lockfile && git add .
 
       - name: Download gb-lib build artifact
         uses: actions/download-artifact@v2
@@ -51,13 +68,6 @@ jobs:
       - name: Create and Publish Versions
         uses: changesets/action@v1
         with:
-          # by default in CI environment pnpm i run siwth --frozen-lockfile but
-          # since the version in package.json's have been changed by changeset
-          # it throws an error. Therefore we allow pnpm to update lockfile
-          # (no deps are being updated) and then add the changes. Run git add .
-          # because later changesets will commit changes for us 
-          # https://github.com/pnpm/pnpm/issues/3664
-          version: pnpm exec changeset version && pnpm i --no-frozen-lockfile && git add .
           commit: "chore: update versions"
           title: "chore: update versions"
           publish: pnpm exec changeset publish

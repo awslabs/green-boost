@@ -7,7 +7,8 @@
   },
   "type": "module",
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "_templates/**/*"
   ],
   "engines": {
     "node": ">=16"

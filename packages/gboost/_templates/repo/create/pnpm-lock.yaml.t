@@ -15,43 +15,43 @@ importers:
   back-end:
     specifiers:
       '@aws-cdk/aws-appsync-alpha': ^2.5.0-alpha.0
-      '@aws-sdk/client-cognito-identity-provider': ^3.49.0
-      '@types/aws-lambda': ^8.10.92
+      '@aws-sdk/client-cognito-identity-provider': ^3.46.0
+      '@types/aws-lambda': ^8.10.89
       '@types/jest': ^27.4.0
-      '@types/node': ^14.18.10
-      '@typescript-eslint/eslint-plugin': ^5.10.2
-      '@typescript-eslint/parser': ^5.10.2
-      aws-cdk: ^2.10.0
-      aws-cdk-lib: ^2.10.0
-      cdk-nag: ^2.4.47
-      constructs: ^10.0.51
-      esbuild: ^0.14.16
-      eslint: ^8.8.0
+      '@types/node': ^14.18.5
+      '@typescript-eslint/eslint-plugin': ^5.9.0
+      '@typescript-eslint/parser': ^5.9.0
+      aws-cdk: ^2.8.0
+      aws-cdk-lib: ^2.8.0
+      cdk-nag: ^2.4.43
+      constructs: ^10.0.37
+      esbuild: ^0.14.11
+      eslint: ^8.6.0
       eslint-config-prettier: ^8.3.0
-      eslint-define-config: ^1.2.3
+      eslint-define-config: ^1.2.2
       eslint-plugin-jest: ^25.3.4
       eslint-plugin-prettier: ^4.0.0
-      gb-lib: link:../../green-boost/packages/gb-lib
+      gb-lib: ^0.2.0
       jest: ^27.4.7
       prettier: ^2.5.1
       ts-jest: ^27.1.2
       ts-node: ^10.4.0
-      typescript: ^4.5.5
+      typescript: ^4.5.4
     dependencies:
       '@aws-cdk/aws-appsync-alpha': 2.5.0-alpha.0_44c61fbecc635138459f3a222c73def8
       '@aws-sdk/client-cognito-identity-provider': 3.49.0
       aws-cdk: 2.10.0
       aws-cdk-lib: 2.10.0_constructs@10.0.51
+      cdk-nag: 2.4.47_44c61fbecc635138459f3a222c73def8
       constructs: 10.0.51
       esbuild: 0.14.16
-      gb-lib: link:../../green-boost/packages/gb-lib
+      gb-lib: 0.2.0_f73434775de7b8e6c92dd8112aa6c39e
     devDependencies:
       '@types/aws-lambda': 8.10.92
       '@types/jest': 27.4.0
       '@types/node': 14.18.10
       '@typescript-eslint/eslint-plugin': 5.10.2_2595c2126aec4d4b6e944b931dabb4c2
       '@typescript-eslint/parser': 5.10.2_eslint@8.8.0+typescript@4.5.5
-      cdk-nag: 2.4.47_44c61fbecc635138459f3a222c73def8
       eslint: 8.8.0
       eslint-config-prettier: 8.3.0_eslint@8.8.0
       eslint-define-config: 1.2.3
@@ -96,6 +96,7 @@ importers:
       react-dom: ^17.0.2
       react-icons: ^4.3.1
       react-router-dom: ^6.2.1
+      react-table: ^7.7.0
       ts-jest: ^27.1.2
       typescript: ^4.5.5
       vite: ^2.7.13
@@ -118,6 +119,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-icons: 4.3.1_react@17.0.2
       react-router-dom: 6.2.1_react-dom@17.0.2+react@17.0.2
+      react-table: 7.7.0_react@17.0.2
     devDependencies:
       '@types/jest': 27.4.0
       '@types/react': 17.0.39
@@ -6321,7 +6323,7 @@ packages:
     dependencies:
       aws-cdk-lib: 2.10.0_constructs@10.0.51
       constructs: 10.0.51
-    dev: true
+    dev: false
 
   /cfb/1.2.1:
     resolution: {integrity: sha512-wT2ScPAFGSVy7CY+aauMezZBnNrfnaLSrxHUHdea+Td/86vrk6ZquggV+ssBR88zNs0OnBkL2+lf9q0K+zVGzQ==}
@@ -7772,7 +7774,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 5.10.2_2595c2126aec4d4b6e944b931dabb4c2
       '@typescript-eslint/experimental-utils': 5.10.0_eslint@8.8.0+typescript@4.5.5
       eslint: 8.8.0
-      jest: 27.4.7
+      jest: 27.4.7_ts-node@10.4.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -8284,6 +8286,36 @@ packages:
   /functional-red-black-tree/1.0.1:
     resolution: {integrity: sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=}
     dev: true
+
+  /gb-lib/0.2.0_f73434775de7b8e6c92dd8112aa6c39e:
+    resolution: {integrity: sha512-HYOR5BiS6kAEFShv0CPkP727nLjFNSf+yB53Rv7kmdkBGJBdxzNnaWic9cTDgcbT2D06UTHUc6lSDeYOpfpUZg==}
+    engines: {node: '>=14.13.1'}
+    peerDependencies:
+      '@aws-amplify/api-graphql': ^2.2.20
+      '@aws-amplify/auth': ^4.4.0
+      '@aws-amplify/ui': ^3.0.12
+      '@aws-amplify/ui-react': ^2.2.2
+      '@aws-cdk/aws-appsync-alpha': ^2.5.0-alpha.0
+      '@aws-sdk/client-cognito-identity-provider': ^3.46.0
+      '@mantine/hooks': ^3.6.5
+      '@radix-ui/colors': ^0.1.8
+      '@stitches/react': ^1.2.6
+      aws-cdk-lib: ^2.5.0
+      constructs: ^10.0.29
+      esbuild: ^0.14.11
+      graphql: ^15.8.0
+      graphql-tag: ^2.12.6
+      react: ^17.0.2
+      react-dom: ^17.0.2
+      react-icons: ^4.3.1
+      react-router-dom: ^6.2.1
+    dependencies:
+      '@aws-cdk/aws-appsync-alpha': 2.5.0-alpha.0_44c61fbecc635138459f3a222c73def8
+      '@aws-sdk/client-cognito-identity-provider': 3.49.0
+      aws-cdk-lib: 2.10.0_constructs@10.0.51
+      constructs: 10.0.51
+      esbuild: 0.14.16
+    dev: false
 
   /gensync/1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
@@ -10455,6 +10487,14 @@ packages:
       tslib: 1.14.1
     dev: false
 
+  /react-table/7.7.0_react@17.0.2:
+    resolution: {integrity: sha512-jBlj70iBwOTvvImsU9t01LjFjy4sXEtclBovl3mTiqjz23Reu0DKnRza4zlLtOPACx6j2/7MrQIthIK1Wi+LIA==}
+    peerDependencies:
+      react: ^16.8.3 || ^17.0.0-0
+    dependencies:
+      react: 17.0.2
+    dev: false
+
   /react/17.0.2:
     resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
     engines: {node: '>=0.10.0'}
@@ -11234,7 +11274,7 @@ packages:
       bs-logger: 0.2.6
       esbuild: 0.14.16
       fast-json-stable-stringify: 2.1.0
-      jest: 27.4.7
+      jest: 27.4.7_ts-node@10.4.0
       jest-util: 27.4.2
       json5: 2.2.0
       lodash.memoize: 4.1.2

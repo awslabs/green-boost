@@ -36,7 +36,7 @@ export async function create() {
       {
         type: "multiselect",
         name: "features",
-        message: "Features:",
+        message: "Features: (space to select, enter to confirm)",
         choices: [
           { name: "User Management", value: "userManagement" },
           { name: "Demo Dashboard", value: "demoDashboard" },

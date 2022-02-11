@@ -16,7 +16,6 @@ to: front-end/tsconfig.json
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "gb-lib/*": ["../../../green-boost/packages/gb-lib/src/*"],
       "common/*": ["../common/src/*"]
     },
   },
