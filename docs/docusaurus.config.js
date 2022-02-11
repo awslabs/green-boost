@@ -10,8 +10,10 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "Green Boost",
   tagline: "Build Full Stack Serverless Web Apps on AWS Fast ⚡",
-  url: "https://your-docusaurus-test-site.com",
-  baseUrl: "/",
+  url: "https://awslabs.github.io",
+  baseUrl: "/green-boost/",
+  trailingSlash: false,
+  deploymentBranch: "gh-pages",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "favicon.ico",
