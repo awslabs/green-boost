@@ -1,7 +1,7 @@
 # Green Boost
 ![example workflow](https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/<WORKFLOW_FILE>/badge.svg)
 
-Build Full Stack Serverless Web Apps on AWS Fast ⏩
+Build Full Stack Serverless Web Apps on AWS Fast! ⏩
 
 Documentation: https://awslabs.github.io/green-boost/
 
