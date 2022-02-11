@@ -25,7 +25,7 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     environment: release
-    needs: build
+    needs: [build, lint, test]
     steps:
       - name: Install
         uses: ./github/actions/install
