@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkgb_docs=self.webpackChunkgb_docs||[]).push([[659],{3978:function(s){s.exports=JSON.parse('{"allTagsPath":"/green-boost/blog/tags","slug":"/green-boost/blog/tags/docusaurus","name":"docusaurus","count":4,"permalink":"/green-boost/blog/tags/docusaurus"}')}}]);
