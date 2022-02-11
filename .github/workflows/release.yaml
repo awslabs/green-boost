@@ -45,6 +45,9 @@ jobs:
           name: gboost-build-artifact
           path: packages/gboost/lib
 
+      # This step will create or update the PR, "chore: update versions" if 
+      # main it directly committed to, or it will publish the NPM package
+      # if the "chore: update versions" PR is merged into main
       - name: Create and Publish Versions
         uses: changesets/action@v1
         with:

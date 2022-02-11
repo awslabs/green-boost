@@ -1,0 +1,19 @@
+name: PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yaml
+
+  lint:
+    name: Lint
+    uses: ./.github/workflows/lint.yaml
+
+  test:
+    name: Test
+    uses: ./.github/workflows/test.yaml
