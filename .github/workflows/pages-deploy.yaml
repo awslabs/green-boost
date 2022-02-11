@@ -2,8 +2,12 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
-    paths: [docs/**]
+    branches:
+      - main
+    paths:
+      - docs/**
+      - .github/workflows/pages-deploy.yaml
+      - .github/workflows/pages-test-deploy.yaml
 
 jobs:
   deploy:
