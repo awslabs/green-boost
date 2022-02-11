@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - packages/**
+      - .github/workflows/release.yaml
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yaml
+
+  lint:
+    uses: ./.github/workflows/lint.yaml
+
+  test:
+    uses: ./.github/workflows/test.yaml
+
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - name: Checkout & Install
+        uses: ./github/actions/checkout-install
+
+      - name: Download gb-lib build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: gb-lib-build-artifact
+          path: packages/gb-lib/lib
+
+      - name: Download gboost build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: gboost-build-artifact
+          path: packages/gboost/lib
+
+      - name: Create and Publish Versions
+        uses: changesets/action@v1
+        with:
+          commit: "chore: update versions"
+          title: "chore: update versions"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

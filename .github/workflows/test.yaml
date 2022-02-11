@@ -1,0 +1,15 @@
+name: Test
+
+on:
+  workflow_call:
+
+jobs:
+  audit:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout & Install
+        uses: ./.github/actions/checkout-install
+      
+      - name: Test
+        run: pnpm test

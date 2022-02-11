@@ -12,7 +12,7 @@ import {
 import { Box } from "../Box.jsx";
 import { Pagination } from "./Pagination.jsx";
 import { styled } from "../stitches.config.js";
-import { gQuery } from "../../../lib/front/utils/gQuery.js";
+import { gQuery } from "../utils/gQuery.js";
 import { DocumentNode } from "graphql";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { ActionBar, FilterOptions } from "./ActionBar.jsx";

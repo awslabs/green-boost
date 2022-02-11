@@ -14,7 +14,7 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint": "eslint \"src/**/*.ts\"",
     "build": "rimraf lib && tsc",
     "test": "jest"
   },
@@ -46,7 +46,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/awslabs/green-boost.git"
+    "url": "git+https://github.com/awslabs/green-boost.git",
+    "directory": "packages/gboost"
   },
   "keywords": [
     "aws",
@@ -63,5 +64,5 @@
   "bugs": {
     "url": "https://github.com/awslabs/green-boost/issues"
   },
-  "homepage": "https://github.com/awslabs/green-boost"
+  "homepage": "https://awslabs.github.io/green-boost"
 }

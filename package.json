@@ -7,6 +7,9 @@
   "type": "module",
   "packageManager": "pnpm@6.26.1",
   "scripts": {
+    "build:packages": "pnpm --recursive --filter ./packages --parallel build",
+    "lint:packages": "pnpm --recursive --filter ./packages --parallel lint",
+    "test:packages": "pnpm --recursive --filter ./packages --parallel test",
     "prepare": "husky install",
     "license-check": "node --loader ts-node/esm scripts/license-check.ts",
     "preinstall": "npx only-allow pnpm"
@@ -20,5 +23,8 @@
     "ts-node": "^10.4.0",
     "typescript": "^4.5.5"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@changesets/cli": "^2.20.0"
+  }
 }

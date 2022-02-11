@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout & Install
+        uses: ./.github/actions/checkout-install
+      
+      - name: Compile TypeScript
+        run: pnpm build:packages
+
+      - name: Upload gb-lib build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: gb-lib-build-artifact
+          path: packages/gb-lib/lib
+
+      - name: Upload gboost build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: gboost-build-artifact
+          path: packages/gboost/lib

@@ -9,7 +9,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Green Boost",
-  tagline: "Build Full Stack Serverless Web Apps on AWS Fast ⚡",
+  tagline: "Build Full Stack Serverless Web Apps on AWS Fast ⏩",
   url: "https://awslabs.github.io",
   baseUrl: "/green-boost/",
   trailingSlash: false,
