@@ -1,0 +1,4 @@
+packages:
+  - 'packages/gb-lib'
+  - 'packages/gboost'
+  - 'docs'

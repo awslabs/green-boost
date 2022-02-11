@@ -1,0 +1,123 @@
+import { Heading, Menu, MenuItem, MenuButton } from "@aws-amplify/ui-react";
+import { Dispatch, ReactElement, SetStateAction, useState } from "react";
+import { MdAccountCircle, MdLogout, MdMenu, MdMenuOpen } from "react-icons/md";
+import { useBps } from "../context/BreakpointsContext";
+import { styled } from "../stitches.config.js";
+import { Box } from "../Box.jsx";
+import { Drawer } from "./Drawer.jsx";
+import { List, ListItem } from "../List.jsx";
+import type { CognitoUser } from "./Layout.jsx";
+import { useNavigate } from "react-router-dom";
+
+const StyledHeader = styled("header", {
+  bc: "$primary9",
+  boxSizing: "border-box",
+  color: "white",
+  gridArea: "header",
+  width: "100%",
+  height: "$8",
+  px: "$4",
+  py: "$2",
+  minWidth: "320px", // small mobile
+});
+
+const StyledHeading = styled(Heading);
+const StyledMenuIcon = styled(MdMenu, { fontSize: "$7", cursor: "pointer" });
+const StyledMenuOpen = styled(MdMenuOpen, {
+  fontSize: "$7",
+  cursor: "pointer",
+});
+const StyledAccountCircle = styled(MdAccountCircle, { fontSize: "$7" });
+const StyledLogout = styled(MdLogout, { fontSize: "$7" });
+const StyledMenuButton = styled(MenuButton, { color: "white", gap: "$2" });
+const StyledMenuItem = styled(MenuItem, { gap: "$2" });
+
+interface HeaderProps {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  open: boolean;
+  signOut: (data?: Record<string, string>) => void;
+  user: CognitoUser;
+}
+
+export function Header(props: HeaderProps): ReactElement {
+  const { setOpen, open, signOut, user } = props;
+  const [leftOpen, setLeftOpen] = useState(false);
+  const bps = useBps();
+  const navigate = useNavigate();
+  const username = user.username;
+  const { email, family_name, given_name } =
+    user.signInUserSession.idToken.payload;
+  const fullName = `${given_name} ${family_name}`;
+  let menu: ReactElement;
+  if (bps.bp3) {
+    menu = (
+      <Menu
+        trigger={
+          <StyledMenuButton>
+            {username}
+            <StyledAccountCircle />
+          </StyledMenuButton>
+        }
+      >
+        <MenuItem>{fullName}</MenuItem>
+        <MenuItem>{email}</MenuItem>
+        <StyledMenuItem onClick={() => signOut()}>
+          <StyledLogout />
+          Sign Out
+        </StyledMenuItem>
+      </Menu>
+    );
+  } else {
+    menu = (
+      <StyledMenuButton onClick={() => setLeftOpen(true)}>
+        {user.username}
+        <StyledAccountCircle />
+      </StyledMenuButton>
+    );
+  }
+  return (
+    <StyledHeader>
+      <Box css={{ alignItems: "center", display: "flex" }}>
+        <Box
+          css={{
+            alignItems: "center",
+            display: "flex",
+            flexGrow: 1,
+            gap: "$2",
+          }}
+        >
+          {open ? (
+            <StyledMenuOpen onClick={() => setOpen(false)} />
+          ) : (
+            <StyledMenuIcon onClick={() => setOpen(true)} />
+          )}
+          <StyledHeading
+            level={4}
+            css={{ color: "white", cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          >
+            {import.meta.env.VITE_APP_TITLE}
+          </StyledHeading>
+        </Box>
+        <Box css={{ display: "flex" }}>{menu}</Box>
+      </Box>
+      <Drawer
+        open={leftOpen}
+        position="right"
+        onClose={() => setLeftOpen(false)}
+      >
+        <List>
+          <ListItem>{fullName}</ListItem>
+          <ListItem>{email}</ListItem>
+          <ListItem
+            css={{ gridTemplateColumns: "1fr 1fr" }}
+            onClick={() => signOut()}
+          >
+            <StyledLogout />
+            <div>Sign Out</div>
+          </ListItem>
+        </List>
+      </Drawer>
+    </StyledHeader>
+  );
+}

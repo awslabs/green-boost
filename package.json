@@ -1,0 +1,24 @@
+{
+  "name": "gb-monorepo",
+  "private": "true",
+  "engines": {
+    "node": ">=16"
+  },
+  "type": "module",
+  "packageManager": "pnpm@6.26.1",
+  "scripts": {
+    "prepare": "husky install",
+    "license-check": "node --loader ts-node/esm scripts/license-check.ts",
+    "preinstall": "npx only-allow pnpm"
+  },
+  "devDependencies": {
+    "@types/license-checker": "^25.0.3",
+    "@types/node": "^14.18.10",
+    "husky": "^7.0.4",
+    "license-checker": "^25.0.1",
+    "lint-staged": "^12.3.3",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
+  },
+  "license": "Apache-2.0"
+}
