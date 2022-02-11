@@ -1,5 +1,5 @@
 ---
-"gb-lib": patch
+"gb-lib": minor
 ---
 
-Fix bad import in GqlTable
+Initial release
