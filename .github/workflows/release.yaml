@@ -22,9 +22,10 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     environment: release
+    needs: build
     steps:
       - name: Checkout & Install
-        uses: ./github/actions/checkout-install
+        uses: ./github/actions/install.yaml
 
       - name: Download gb-lib build artifact
         uses: actions/download-artifact@v2
