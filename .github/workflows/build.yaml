@@ -7,8 +7,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout & Install
-        uses: ./.github/actions/checkout-install
+      - name: Checkout Repo
+          uses: actions/checkout@v2
+
+      - name: Install
+        uses: ./.github/actions/install
       
       - name: Compile TypeScript
         run: pnpm build:packages

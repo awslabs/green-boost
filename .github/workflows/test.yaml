@@ -8,8 +8,11 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout & Install
-        uses: ./.github/actions/checkout-install
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install
+        uses: ./.github/actions/install
       
       - name: Test
         run: pnpm test

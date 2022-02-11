@@ -1,11 +1,8 @@
-name: Checkout & Install
-description: Checkout Repository and Install PNPM, Node.js, and dependencies
+name: Install
+description: Install PNPM, Node.js, and dependencies
 runs:
   using: "composite"
   steps:
-    - name: Checkout Repo
-        uses: actions/checkout@v2
-
     - name: Install PNPM
       uses: pnpm/action-setup@v2.1.0
       with:

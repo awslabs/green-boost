@@ -14,8 +14,11 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
       - name: Checkout & Install
-        uses: ./.github/actions/checkout-install
+        uses: ./.github/actions/install
 
       - name: Build docs
         working-directory: docs
