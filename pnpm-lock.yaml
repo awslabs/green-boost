@@ -44,7 +44,7 @@ importers:
       eslint-define-config: ^1.2.3
       eslint-plugin-jest: ^25.7.0
       eslint-plugin-prettier: ^4.0.0
-      gb-lib: workspace:^0.1.0
+      gb-lib: workspace:^0.2.0
       prettier: ^2.5.1
       prism-react-renderer: ^1.2.1
       react: ^17.0.2
@@ -180,7 +180,7 @@ importers:
       eslint-define-config: ^1.2.3
       eslint-plugin-jest: ^25.7.0
       eslint-plugin-prettier: ^4.0.0
-      gb-lib: workspace:^0.1.0
+      gb-lib: workspace:^0.2.0
       hygen: ^6.1.0
       jest: ^27.4.7
       minimist: ^1.2.5
