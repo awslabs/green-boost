@@ -1,6 +1,6 @@
 {
   "name": "gb-lib",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Green Boost Library of CDK Constructs and React Components",
   "type": "module",
   "exports": {
