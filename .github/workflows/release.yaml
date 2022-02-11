@@ -27,6 +27,9 @@ jobs:
     environment: release
     needs: [build, lint, test]
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
       - name: Install
         uses: ./github/actions/install
 
