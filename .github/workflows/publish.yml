@@ -4,15 +4,9 @@ on:
   push:
     branches:
       - main
-    paths:
-      - packages/**
-      - .github/workflows/publish.yml
+    paths: [./.github/workflows/publish.yml, packages/**]
 
 jobs:
-  build:
-    name: Build
-    uses: ./.github/workflows/build.yml
-
   publish:
     name: Publish
     needs: [build]
