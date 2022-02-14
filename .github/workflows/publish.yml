@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - packages/**
-      - .github/workflows/release.yaml
+      - .github/workflows/publish.yml
 
 jobs:
   build:
