@@ -1,0 +1,51 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - packages/**
+      - .github/workflows/release.yaml
+
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yml
+
+  publish:
+    name: Publish
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Compile TypeScript
+        run: pnpm build
+
+      # This step will create or update the PR, "Package Versions". When that
+      # PR is merged, it will release to NPM. Maintainers should ensure PR is
+      # passing all checks before merging PR since audit, lint, test doesn't run
+      # in this workflow
+      - name: Create or Update PR or Release to NPM
+        uses: changesets/action@v1
+        with:
+          # pnpm changeset version will update package version which makes
+          # pnpm-lock.yaml out of date with packages resulting in a failed
+          # install for pnpm install in a CI environment (which uses)
+          # --frozen-lockfile by default. Therefore, we need to use
+          # --no-frozen-lockfile and also add changes so they can be committed
+          # by publish command
+          # https://github.com/pnpm/pnpm/issues/3664
+          version: pnpm changeset version && pnpm install --no-frozen-lockfile && git add .
+          # publish command will only run upon merge of PR created by changesets.
+          # publish doesn't run on every push to main
+          publish: pnpm changeset publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,6 +1,6 @@
 import { Stack, StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
-import { StaticSite } from "gb-lib/infra/static-site";
+import { StaticSite } from "gboost-infra/static-site";
 
 export class DocsSiteStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

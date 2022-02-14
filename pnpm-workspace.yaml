@@ -1,4 +1,6 @@
 packages:
-  - 'packages/gb-lib'
   - 'packages/gboost'
+  - 'packages/gboost-common'
+  - 'packages/gboost-infra'
+  - 'packages/gboost-ui'
   - 'docs'

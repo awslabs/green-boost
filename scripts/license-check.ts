@@ -15,8 +15,10 @@ const frontEndTemplatePkgJsonPath = resolve(
 const packages = [
   ".",
   "docs",
-  "packages/gb-lib",
-  "packages/gb-cli",
+  "packages/gboost",
+  "packages/gboost-common",
+  "packages/gboost-infra",
+  "packages/gboost-ui",
   backEndTemplatePath,
   frontEndTemplatePath,
 ];

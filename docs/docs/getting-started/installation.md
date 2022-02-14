@@ -13,9 +13,9 @@ pnpm env use --global 16
 pnpm add -g gboost
 ```
 
-:::note
+:::info
 
-Commitment issues? No problem. use: `pnpm dlx gboost ...` wherever you see `gboost`
+Don't want to globally install? use: `pnpm dlx gboost ...` wherever you see `gboost`
 
 :::
 

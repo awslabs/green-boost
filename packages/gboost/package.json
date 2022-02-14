@@ -14,9 +14,9 @@
     "node": ">=16"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint \"src/**/*.ts\"",
     "build": "rimraf lib && tsc",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint-staged": "lint-staged",
     "test": "jest"
   },
   "dependencies": {
@@ -37,7 +37,6 @@
     "eslint-define-config": "^1.2.3",
     "eslint-plugin-jest": "^25.7.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "gb-lib": "workspace:^0.2.0",
     "jest": "^27.4.7",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
@@ -63,7 +62,8 @@
   "author": "AWS Professional Service Remote Development Team",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/awslabs/green-boost/issues"
+    "url": "https://github.com/awslabs/green-boost/issues",
+    "directory": "packages/gboost"
   },
   "homepage": "https://awslabs.github.io/green-boost"
 }

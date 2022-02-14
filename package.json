@@ -1,15 +1,16 @@
 {
-  "name": "gb-monorepo",
+  "name": "gboost-monorepo",
   "private": "true",
   "engines": {
     "node": ">=16"
   },
   "type": "module",
-  "packageManager": "pnpm@6.26.1",
+  "packageManager": "pnpm@6.31.0",
   "scripts": {
-    "build:packages": "pnpm --recursive --filter ./packages --parallel build",
-    "lint:packages": "pnpm --recursive --filter ./packages --parallel lint",
-    "test:packages": "pnpm --recursive --filter ./packages --parallel test",
+    "build": "pnpm --recursive --filter ./packages --parallel build",
+    "lint": "pnpm --recursive --filter ./packages --parallel lint",
+    "unit-test": "pnpm --recursive --filter ./packages --parallel test",
+    "changeset": "changeset",
     "prepare": "husky install",
     "license-check": "node --loader ts-node/esm scripts/license-check.ts",
     "preinstall": "npx only-allow pnpm"

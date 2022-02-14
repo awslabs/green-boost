@@ -1,9 +1,11 @@
 # Packages
 
-## create-gb
+## gboost
 
 TODO: Explain the purpose of `gboost`
 
-## gb-lib
+## gboost-common
 
-TODO: Explain the purpose of `gb-lib`
+## gboost-infra
+
+## gboost-ui

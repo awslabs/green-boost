@@ -13,38 +13,38 @@ const appOpt = '--app "node --loader ts-node/esm src/app.ts"';
 const approvalOpt = "--require-approval never";
 
 export function deployDev() {
-  const { backEndDir, frontEndDir } = getDirs();
-  const prefix = getDevPrefix(backEndDir);
+  const { infraDir, uiDir } = getDirs();
+  const prefix = getDevPrefix(infraDir);
   const backEndStack = `${prefix}-back-end`;
   try {
     execSync(
       `cdk ${appOpt} deploy ${backEndStack} ${approvalOpt} --outputs-file ${outputsFilePath}`,
       {
-        cwd: backEndDir,
+        cwd: infraDir,
         stdio: "inherit",
       }
     );
-    writeEnvVars({ backEndDir, backEndStack, frontEndDir });
+    writeEnvVars({ infraDir, backEndStack, uiDir });
     execSync("npm run build", {
-      cwd: frontEndDir,
+      cwd: uiDir,
       stdio: "inherit",
     });
     execSync(`cdk ${appOpt} deploy ${`${prefix}-front-end`} ${approvalOpt}`, {
-      cwd: backEndDir,
+      cwd: infraDir,
       stdio: "inherit",
     });
   } catch (err) {
     console.error(err);
   } finally {
-    const absOutputsFilPath = resolve(backEndDir, outputsFilePath);
+    const absOutputsFilPath = resolve(infraDir, outputsFilePath);
     if (existsSync(absOutputsFilPath)) {
       unlinkSync(absOutputsFilPath);
     }
   }
 }
 
-function getDevPrefix(backEndDir: string) {
-  const cdkJsonPath = resolve(backEndDir, "cdk.json");
+function getDevPrefix(infraDir: string) {
+  const cdkJsonPath = resolve(infraDir, "cdk.json");
   const cdkJsonString = readFileSync(cdkJsonPath, {
     encoding: "utf8",
   });
@@ -53,15 +53,15 @@ function getDevPrefix(backEndDir: string) {
 }
 
 function writeEnvVars({
-  backEndDir,
+  infraDir,
   backEndStack,
-  frontEndDir,
+  uiDir,
 }: {
-  backEndDir: string;
+  infraDir: string;
   backEndStack: string;
-  frontEndDir: string;
+  uiDir: string;
 }) {
-  const outputsString = readFileSync(resolve(backEndDir, outputsFilePath), {
+  const outputsString = readFileSync(resolve(infraDir, outputsFilePath), {
     encoding: "utf-8",
   });
   const outputs = JSON.parse(outputsString);
@@ -74,9 +74,9 @@ function writeEnvVars({
     ([k, v]) => `${k}=${v}`
   );
   // .env.local used in local front end development
-  console.log(`Writing ${frontEndDir}/.env.local with ${backEndStack} outputs`);
+  console.log(`Writing ${uiDir}/.env.local with ${backEndStack} outputs`);
   writeFileSync(
-    resolve(process.cwd(), `${frontEndDir}/.env.local`),
+    resolve(process.cwd(), `${uiDir}/.env.local`),
     envVarKeyValues.join("\n")
   );
 }
@@ -86,16 +86,16 @@ function writeEnvVars({
  * my-gb-app root directory or a child directory like back-end or front-end
  * when running: gboost deploy-dev
  */
-function getDirs(): { frontEndDir: string; backEndDir: string } {
-  let frontEndDir = "front-end";
-  let backEndDir = "back-end";
-  if (existsSync("../" + backEndDir) && existsSync("../" + frontEndDir)) {
-    backEndDir = "../" + backEndDir;
-    frontEndDir = "../" + frontEndDir;
-  } else if (!existsSync(frontEndDir) || !existsSync(backEndDir)) {
+function getDirs(): { uiDir: string; infraDir: string } {
+  let uiDir = "ui";
+  let infraDir = "infra";
+  if (existsSync("../" + infraDir) && existsSync("../" + uiDir)) {
+    infraDir = "../" + infraDir;
+    uiDir = "../" + uiDir;
+  } else if (!existsSync(uiDir) || !existsSync(infraDir)) {
     throw new Error(
       "gboost deploy-dev must be run in root or root child directories"
     );
   }
-  return { backEndDir, frontEndDir };
+  return { infraDir, uiDir };
 }

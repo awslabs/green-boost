@@ -83,9 +83,9 @@ export async function create() {
         "gboost deploy-dev"
       )}\n`,
       `💻  Develop the front end: ${chalk.yellow(
-        "cd front-end && pnpm dev"
+        "cd ui && pnpm dev"
       )} or develop the back end: ${chalk.yellow(
-        "cdk deploy <stack-name> --hotswap"
+        "cd infra && cdk deploy <stack-name> --hotswap"
       )}\n`,
       `🚀  Deploy CI/CD pipeline for dev/test/prod environments: ${chalk.yellow(
         "cdk deploy\n\n"
