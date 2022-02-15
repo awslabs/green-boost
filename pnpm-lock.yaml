@@ -44,7 +44,7 @@ importers:
       eslint-define-config: ^1.2.3
       eslint-plugin-jest: ^25.7.0
       eslint-plugin-prettier: ^4.0.0
-      gboost-infra: workspace:^0.1.0
+      gboost-infra: workspace:^0.2.0
       prettier: ^2.5.1
       prism-react-renderer: ^1.2.1
       react: ^17.0.2
@@ -174,7 +174,7 @@ importers:
       eslint-define-config: ^1.2.3
       eslint-plugin-jest: ^25.7.0
       eslint-plugin-prettier: ^4.0.0
-      gboost-common: workspace:^0.1.0
+      gboost-common: workspace:^0.2.0
       jest: ^27.5.1
       joi: ^17.6.0
       prettier: ^2.5.1
@@ -230,7 +230,7 @@ importers:
       eslint-define-config: ^1.2.3
       eslint-plugin-jest: ^25.7.0
       eslint-plugin-prettier: ^4.0.0
-      gboost-common: workspace:^0.1.0
+      gboost-common: workspace:^0.2.0
       graphql: ^15.8.0
       graphql-tag: ^2.12.6
       jest: ^27.4.7
@@ -11824,7 +11824,7 @@ packages:
       micromatch: 4.0.4
       pretty-format: 27.4.6
       slash: 3.0.0
-      ts-node: 10.4.0_d9704c9be36ede869b5c33ef6688872e
+      ts-node: 10.4.0_247b6ed5e900a7cb1f087e65be0c3da9
     transitivePeerDependencies:
       - bufferutil
       - canvas
