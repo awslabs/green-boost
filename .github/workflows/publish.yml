@@ -35,7 +35,7 @@ jobs:
           # --no-frozen-lockfile and also add changes so they can be committed
           # by publish command
           # https://github.com/pnpm/pnpm/issues/3664
-          version: pnpm changeset version && pnpm install --no-frozen-lockfile && git add .
+          version: pnpm changeset version -- && pnpm install --no-frozen-lockfile && git add .
           # publish command will only run upon merge of PR created by changesets.
           # publish doesn't run on every push to main
           publish: pnpm changeset publish
