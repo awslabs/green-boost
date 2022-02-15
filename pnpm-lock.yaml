@@ -44,7 +44,7 @@ importers:
       eslint-define-config: ^1.2.3
       eslint-plugin-jest: ^25.7.0
       eslint-plugin-prettier: ^4.0.0
-      gboost-infra: workspace:^0.2.1
+      gboost-infra: workspace:^0.2.2
       prettier: ^2.5.1
       prism-react-renderer: ^1.2.1
       react: ^17.0.2
