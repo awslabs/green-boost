@@ -13,7 +13,7 @@ import {
   ResponseHeadersXSSProtection,
   HeadersFrameOption,
 } from "aws-cdk-lib/aws-cloudfront";
-import { camelToKebab } from "gboost-common/convertCase";
+import { camelToKebab } from "gboost-common";
 
 /**
  * Configures the response headers added by CloudFront Rersponse Headers Policy

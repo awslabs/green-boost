@@ -14,7 +14,7 @@ import {
   XYCursor,
 } from "@amcharts/amcharts5/xy";
 import Animated from "@amcharts/amcharts5/themes/Animated";
-import { styled } from "gboost-ui/stitches.config";
+import { styled } from "gboost-ui";
 
 const data = [
   {

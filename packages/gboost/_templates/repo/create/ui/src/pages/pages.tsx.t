@@ -2,15 +2,14 @@
 to: ui/src/pages/pages.tsx
 ---
 
-import type { Page } from "gboost-ui/page";
-import { styled } from "gboost-ui/stitches.config";
+import type { Page } from "gboost-ui";
+import { styled, UserManagement } from "gboost-ui";
 <% if (features.includes("demoDashboard")) { -%>
 import { MdDashboard } from "react-icons/md";
 import { Dashboard } from "./Dashboard/Dashboard.jsx";
 <% } -%>
 <% if (features.includes("userManagement")) { -%>
 import { groups } from "common/groups";
-import { UserManagement } from "gboost-ui/UserManagement/UserManagement"
 import { MdManageAccounts } from "react-icons/md";
 <% } -%>
 <% if (features.includes("userManagement")) { -%>

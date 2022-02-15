@@ -4,7 +4,7 @@ to: infra/src/front-end-stack.ts
 
 import { Stack, StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
-import { StaticSite } from "gboost-infra/static-site/index";
+import { StaticSite } from "gboost-infra";
 
 export interface FrontEndStackProps extends StackProps {
   gqlUrl: string;

@@ -2,7 +2,7 @@
 to: ui/src/theme.ts
 ---
 
-import { createTheme, config } from "gboost-ui/stitches.config";
+import { createTheme, config } from "gboost-ui";
 // import {
 //   crimson,
 //   crimsonA,

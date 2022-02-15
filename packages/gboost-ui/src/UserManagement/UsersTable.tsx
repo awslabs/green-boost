@@ -3,11 +3,8 @@ import { Badge } from "@aws-amplify/ui-react";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { Column, GqlTable } from "../GqlTable/GqlTable.jsx";
 import { listUsers } from "./gql.js";
-import type {
-  CognitoUser,
-  ListUsersArgs,
-} from "gboost-common/user-management.js";
-import { CognitoUserStatus } from "gboost-common/user-management.js";
+import type { CognitoUser, ListUsersArgs } from "gboost-common";
+import { CognitoUserStatus } from "gboost-common";
 import { OnQueryParams } from "../GqlTable/GqlTable.js";
 import { UsersTableRightActionBar } from "./UsersTableRightActionBar.jsx";
 

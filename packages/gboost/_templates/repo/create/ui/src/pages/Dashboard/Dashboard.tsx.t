@@ -4,7 +4,7 @@ to: "<%= features.includes(`demoDashboard`) ? `ui/src/pages/Dashboard/Dashboard.
 
 import { Card, Grid } from "@aws-amplify/ui-react";
 import { ReactElement } from "react";
-import { styled } from "gboost-ui/stitches.config";
+import { styled } from "gboost-ui";
 import { ColumnChart } from "./ColumnChart.jsx";
 import { LineChart } from "./LineChart.jsx";
 import { PieChart } from "./PieChart.jsx";

@@ -5,15 +5,18 @@ to: ui/src/App.tsx
 import "@aws-amplify/ui-react/styles.css";
 import "@fontsource/inter/variable.css";
 import { AmplifyProvider } from "@aws-amplify/ui-react";
-import { camelToSnake } from "gboost-common/convertCase";
-import { AppProviders } from "gboost-ui/context/AppProviders";
-import { Layout } from "gboost-ui/Layout/Layout";
-import { config, globalStyles } from "gboost-ui/stitches.config";
-import { Authenticator } from "gboost-ui/Authenticator";
+import { camelToSnake } from "gboost-common";
+import {
+  AppProviders,
+  Authenticator,
+  Layout,
+  config,
+  globalStyles,
+  getAmplifyTheme,
+} from "gboost-ui";
 import { userAttributes } from "common/userAttributes";
 import { pages } from "./pages/pages.jsx";
 import { theme } from "./theme.js";
-import { getAmplifyTheme } from "gboost-ui/amplifyTheme";
 
 const signUpAttributes = Object.keys(userAttributes).map(
   camelToSnake

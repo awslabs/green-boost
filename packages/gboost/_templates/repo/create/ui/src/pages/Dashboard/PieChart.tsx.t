@@ -6,7 +6,7 @@ import { ReactElement, useLayoutEffect, useRef } from "react";
 import { Root } from "@amcharts/amcharts5";
 import { PieChart as amPieChart, PieSeries } from "@amcharts/amcharts5/percent";
 import Animated from "@amcharts/amcharts5/themes/Animated";
-import { styled } from "gboost-ui/stitches.config";
+import { styled } from "gboost-ui";
 
 const data = [
   {

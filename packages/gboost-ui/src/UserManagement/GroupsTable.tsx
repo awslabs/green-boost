@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { Column, GqlTable, OnQueryParams } from "../GqlTable/GqlTable.jsx";
 import { listGroups } from "./gql.js";
-import { CognitoGroup } from "gboost-common/user-management";
+import { CognitoGroup } from "gboost-common";
 
 interface ListGroupsResponse {
   listGroups: {

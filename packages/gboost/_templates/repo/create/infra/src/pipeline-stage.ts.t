@@ -6,7 +6,7 @@ import { CfnOutput, Stage, StageProps as _StageProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
 import { BackEndStack } from "./back-end-stack.js";
 import { FrontEndStack } from "./front-end-stack.js";
-import { Stage as StageEnv } from "gboost-infra/stages";
+import { Stage as StageEnv } from "gboost-infra";
 
 interface StageProps extends _StageProps {
   stage: StageEnv;

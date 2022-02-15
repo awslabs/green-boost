@@ -9,9 +9,7 @@ import {
   FieldLogLevel,
   GraphqlApi,
 } from "@aws-cdk/aws-appsync-alpha";
-import { UserBase } from "gboost-infra/user-base/index";
-import { UserManagement } from "gboost-infra/user-management/index";
-import { Stage } from "gboost-infra/stages";
+import { Stage, UserBase, UserManagement } from "gboost-infra";
 import { groups } from "../../common/src/groups.js";
 import { userAttributes } from "../../common/src/userAttributes.js";
 import { NagSuppressions } from "cdk-nag";

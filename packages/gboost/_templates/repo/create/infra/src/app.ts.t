@@ -4,7 +4,7 @@ to: infra/src/app.ts
 
 import { readFileSync } from "node:fs";
 import { App, Aspects, Environment } from "aws-cdk-lib";
-import { Stage } from "gboost-infra/stages";
+import { Stage } from "gboost-infra";
 import { BackEndStack } from "./back-end-stack.js";
 import { FrontEndStack } from "./front-end-stack.js";
 import { AwsSolutionsChecks } from "cdk-nag";

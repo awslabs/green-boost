@@ -10,7 +10,7 @@ import {
   ShellStep,
 } from "aws-cdk-lib/pipelines";
 import type { Construct } from "constructs";
-import { Stage } from "gboost-infra/stages";
+import { Stage } from "gboost-infra";
 import { PipelineStage } from "./pipeline-stage.js";
 
 export class PipelineStack extends Stack {

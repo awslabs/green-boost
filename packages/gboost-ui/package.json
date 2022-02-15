@@ -4,26 +4,14 @@
   "description": "Green Boost UI Library of React Components",
   "type": "module",
   "exports": {
-    "./*": "./src/*.js"
+    ".": "./src/index.ts"
   },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "src/*"
-      ]
-    }
-  },
+  "types": "./src/index.ts",
   "publishConfig": {
     "exports": {
-      "./*": "./lib/*.js"
+      ".": "./lib/index.js"
     },
-    "typesVersions": {
-      "*": {
-        "*": [
-          "lib/*"
-        ]
-      }
-    }
+    "types": "./lib/index.d.ts"
   },
   "files": [
     "lib/**/*"

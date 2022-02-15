@@ -4,7 +4,7 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { AppSyncResolverEvent } from "aws-lambda";
 import { User, transformUser } from "./user.js";
-import { ListUsersArgs } from "gboost-common/user-management";
+import { ListUsersArgs } from "gboost-common";
 import Joi from "joi";
 
 interface ListUsersParams {
