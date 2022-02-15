@@ -1,6 +1,6 @@
 {
   "name": "gboost-common",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Green Boost Common Library",
   "type": "module",
   "exports": {
@@ -8,7 +8,9 @@
   },
   "typesVersions": {
     "*": {
-      "*": ["src/*"]
+      "*": [
+        "src/*"
+      ]
     }
   },
   "publishConfig": {
@@ -17,7 +19,9 @@
     },
     "typesVersions": {
       "*": {
-        "*": ["lib/*"]
+        "*": [
+          "lib/*"
+        ]
       }
     }
   },
