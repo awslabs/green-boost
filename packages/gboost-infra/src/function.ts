@@ -4,6 +4,7 @@ import {
   NodejsFunctionProps,
 } from "aws-cdk-lib/aws-lambda-nodejs";
 import { RetentionDays } from "aws-cdk-lib/aws-logs";
+import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
 import { Stage } from "./stages.js";
 
@@ -35,5 +36,26 @@ export class Function extends NodejsFunction {
       newProps.architecture = Architecture.ARM_64;
     }
     super(scope, id, newProps);
+    NagSuppressions.addResourceSuppressions(
+      this,
+      [
+        {
+          id: "AwsSolutions-IAM4",
+          reason:
+            "AWS Managed Policy is not overly permissive for AWSLambdaBasicExecutionRole",
+        },
+      ],
+      true
+    );
+    NagSuppressions.addResourceSuppressions(
+      this,
+      [
+        {
+          id: "AwsSolutions-IAM5",
+          reason: "Allow wildcard permission for Lambda Logs",
+        },
+      ],
+      true
+    );
   }
 }

@@ -6,6 +6,13 @@
   "exports": {
     "./*": "./src/*.js"
   },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*"
+      ]
+    }
+  },
   "publishConfig": {
     "exports": {
       "./*": "./lib/*.js"
@@ -33,9 +40,9 @@
   "dependencies": {
     "@aws-cdk/aws-appsync-alpha": "^2.5.0-alpha.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.49.0",
-    "aws-cdk-lib": "^2.10.0",
+    "aws-cdk-lib": "^2.12.0",
     "cdk-nag": "^2.4.43",
-    "constructs": "^10.0.51",
+    "constructs": "^10.0.63",
     "esbuild": "^0.14.16",
     "gboost-common": "workspace:^0.2.1",
     "joi": "^17.6.0"

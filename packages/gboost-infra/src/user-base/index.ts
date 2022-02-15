@@ -3,11 +3,13 @@ import {
   CfnUserPoolGroup,
   CfnUserPoolGroupProps,
   Mfa,
+  PasswordPolicy,
   StandardAttributes,
   UserPool,
   UserPoolClient,
 } from "aws-cdk-lib/aws-cognito";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { NagSuppressions } from "cdk-nag";
 import { Construct } from "constructs";
 import { Function } from "../function.js";
 import { Stage } from "../stages.js";
@@ -21,6 +23,7 @@ export interface UserBaseProps {
   email?: string;
   groups: UserPoolGroupProps[];
   defaultGroupName: string;
+  passwordPolicy?: PasswordPolicy;
   standardAttributes: StandardAttributes;
   stage: string;
 }
@@ -35,7 +38,13 @@ export class UserBase extends Construct {
 
   constructor(scope: Construct, id: string, props: UserBaseProps) {
     super(scope, id);
-    const { defaultGroupName, groups, standardAttributes, stage } = props;
+    const {
+      defaultGroupName,
+      groups,
+      passwordPolicy,
+      standardAttributes,
+      stage,
+    } = props;
     const isProd = stage === Stage.Prod;
 
     const fileExt = import.meta.url.slice(-2);
@@ -61,7 +70,27 @@ export class UserBase extends Construct {
       timeout: Duration.seconds(5),
       stage,
     });
+    NagSuppressions.addResourceSuppressions(
+      postConfirmationFn,
+      [
+        {
+          id: "AwsSolutions-IAM5",
+          reason: "Needed to prevent circular dependency",
+        },
+      ],
+      true
+    );
 
+    // user define password policy or default CFN policy
+    // must explicitly define defaul CFN policy for cdk nag
+    const _passwordPolicy = passwordPolicy ?? {
+      minLength: 8,
+      requireDigits: true,
+      requireLowercase: true,
+      requireSymbols: true,
+      requireUppercase: true,
+      tempPasswordValidity: Duration.days(7),
+    };
     this.userPool = new UserPool(this, "UserPool", {
       removalPolicy: isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
@@ -79,7 +108,14 @@ export class UserBase extends Construct {
         challengeRequiredOnNewDevice: true,
         deviceOnlyRememberedOnUserPrompt: true,
       },
+      passwordPolicy: _passwordPolicy,
     });
+    NagSuppressions.addResourceSuppressions(this.userPool, [
+      {
+        id: "AwsSolutions-COG3",
+        reason: "Let user opt in if desired - to expensive for default",
+      },
+    ]);
 
     // TODO enable for prod
     // const cfnUserPool = userPool.node.defaultChild as CfnUserPool;

@@ -1,11 +1,11 @@
 # Installation
-_TODO: add installation links to requirements_
-
 Requirements:
 - [Git](https://git-scm.com/)
 - [PNPM](https://pnpm.io/)
 - [AWS CDK Toolkit](https://docs.aws.amazon.com/cdk/v2/guide/cli.html)
-- [AWS Account](https://aws.amazon.com/getting-started/)
+  - `pnpm add -g cdk`
+- [Bootstrapped AWS Account](https://aws.amazon.com/getting-started/)
+  - `cdk bootstrap aws://<account-number>/<region>`
 
 1. Setup environment
 ```bash
