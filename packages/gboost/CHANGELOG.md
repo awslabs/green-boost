@@ -1,5 +1,13 @@
 # gboost
 
+## 0.3.1
+
+### Patch Changes
+
+- [`cbcbc3b`](https://github.com/awslabs/green-boost/commit/cbcbc3b89b7e25473e8f5e487da5b38fc1ba9e33) Thanks [@bestickley](https://github.com/bestickley)! - Fix README badges
+
+* [`cbcbc3b`](https://github.com/awslabs/green-boost/commit/cbcbc3b89b7e25473e8f5e487da5b38fc1ba9e33) Thanks [@bestickley](https://github.com/bestickley)! - Correct package version references to initial release
+
 ## 0.3.0
 
 ### Minor Changes
