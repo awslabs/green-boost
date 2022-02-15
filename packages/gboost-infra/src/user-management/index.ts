@@ -70,7 +70,7 @@ export class UserManagement extends Construct {
     });
 
     const userDs = api.addLambdaDataSource("UserFn", userFn);
-    createSchema(api);
+    createSchema(api, userDs);
     const resolverConfigs = [
       {
         fieldName: "getUser",

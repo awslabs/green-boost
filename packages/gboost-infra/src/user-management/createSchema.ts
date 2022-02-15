@@ -6,10 +6,11 @@ import {
   ResolvableField,
   EnumType,
   Directive,
+  BaseDataSource,
 } from "@aws-cdk/aws-appsync-alpha";
 import { groupNames, adminGroupNames } from "./function/group.js";
 
-export function createSchema(api: GraphqlApi) {
+export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
   // Enum Types
   const groupNameEnum = new EnumType("GroupNameEnum", {
     definition: groupNames,
@@ -119,39 +120,44 @@ export function createSchema(api: GraphqlApi) {
   api.addQuery(
     "getUser",
     new ResolvableField({
-      returnType: userType.attribute(),
       args: { username: GraphqlType.string({ isRequired: true }) },
+      dataSource,
+      returnType: userType.attribute(),
     })
   );
   api.addQuery(
     "listGroupsForUser",
     new ResolvableField({
+      args: { username: GraphqlType.string({ isRequired: true }) },
+      dataSource,
       returnType: groupType.attribute({
         isRequired: true,
         isRequiredList: true,
         isList: true,
       }),
-      args: { username: GraphqlType.string({ isRequired: true }) },
     })
   );
   api.addQuery(
     "listGroups",
     new ResolvableField({
+      dataSource,
       returnType: groupConnection.attribute({ isRequired: true }),
     })
   );
   api.addQuery(
     "listUsersInGroup",
     new ResolvableField({
-      returnType: userConnection.attribute({ isRequired: true }),
       args: { input: listUsersInGroupInput.attribute() },
+      dataSource,
+      returnType: userConnection.attribute({ isRequired: true }),
     })
   );
   api.addQuery(
     "listUsers",
     new ResolvableField({
-      returnType: userConnection.attribute({ isRequired: true }),
       args: { input: listUsersInput.attribute() },
+      dataSource,
+      returnType: userConnection.attribute({ isRequired: true }),
     })
   );
 
@@ -159,14 +165,14 @@ export function createSchema(api: GraphqlApi) {
   api.addMutation(
     "createUser",
     new ResolvableField({
-      returnType: userType.attribute({ isRequired: true }),
       args: { input: createUserInput.attribute() },
+      dataSource,
+      returnType: userType.attribute({ isRequired: true }),
     })
   );
   api.addMutation(
     "deleteUsers",
     new ResolvableField({
-      returnType: GraphqlType.string(),
       args: {
         usernames: GraphqlType.string({
           isRequired: true,
@@ -174,13 +180,14 @@ export function createSchema(api: GraphqlApi) {
           isRequiredList: true,
         }),
       },
+      dataSource,
       directives: [Directive.cognito(...adminGroupNames)],
+      returnType: GraphqlType.string(),
     })
   );
   api.addMutation(
     "disableUsers",
     new ResolvableField({
-      returnType: GraphqlType.string(),
       args: {
         usernames: GraphqlType.string({
           isRequired: true,
@@ -188,13 +195,14 @@ export function createSchema(api: GraphqlApi) {
           isRequiredList: true,
         }),
       },
+      dataSource,
       directives: [Directive.cognito(...adminGroupNames)],
+      returnType: GraphqlType.string(),
     })
   );
   api.addMutation(
     "enableUsers",
     new ResolvableField({
-      returnType: GraphqlType.string(),
       args: {
         usernames: GraphqlType.string({
           isRequired: true,
@@ -202,13 +210,14 @@ export function createSchema(api: GraphqlApi) {
           isRequiredList: true,
         }),
       },
+      dataSource,
       directives: [Directive.cognito(...adminGroupNames)],
+      returnType: GraphqlType.string(),
     })
   );
   api.addMutation(
     "resetPasswords",
     new ResolvableField({
-      returnType: GraphqlType.string(),
       args: {
         usernames: GraphqlType.string({
           isRequired: true,
@@ -216,15 +225,18 @@ export function createSchema(api: GraphqlApi) {
           isRequiredList: true,
         }),
       },
+      dataSource,
       directives: [Directive.cognito(...adminGroupNames)],
+      returnType: GraphqlType.string(),
     })
   );
   api.addMutation(
     "updateUser",
     new ResolvableField({
-      returnType: GraphqlType.string(),
       args: { input: updateUserInput.attribute() },
+      dataSource,
       directives: [Directive.cognito(...groupNames)],
+      returnType: GraphqlType.string(),
     })
   );
 }
