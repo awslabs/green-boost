@@ -18,8 +18,20 @@ jobs:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
-      - name: Install
-        uses: ./.github/actions/install
+      - name: Install PNPM
+        uses: pnpm/action-setup@v2.1.0
+        with:
+          version: 6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: pnpm
+
+      - name: Install dependencies
+        # https://github.com/pnpm/pnpm/issues/3664
+        run: pnpm install --no-frozen-lockfile && git add .
 
       - name: Compile TypeScript
         run: pnpm build
@@ -31,14 +43,6 @@ jobs:
       - name: Create PR, Update PR, or Release to NPM
         uses: changesets/action@v1
         with:
-          # pnpm changeset version will update package version which makes
-          # pnpm-lock.yaml out of date with packages resulting in a failed
-          # install for pnpm install in a CI environment (which uses)
-          # --frozen-lockfile by default. Therefore, we need to use
-          # --no-frozen-lockfile and also add changes so they can be committed
-          # by publish command
-          # https://github.com/pnpm/pnpm/issues/3664
-          # version: pnpm version
           # publish command will only run upon merge of PR created by changesets.
           # publish doesn't run on every push to main
           publish: pnpm changeset publish
