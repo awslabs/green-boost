@@ -24,7 +24,7 @@ to: infra/package.json
     "constructs": "^10.0.37",
     "cdk-nag": "^2.4.43",
     "esbuild": "^0.14.11",
-    "gboost-infra": "^0.1.0"
+    "gboost-infra": "^0.2.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.89",
