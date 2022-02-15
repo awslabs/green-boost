@@ -1,5 +1,11 @@
 # gboost
 
+## 0.3.2
+
+### Patch Changes
+
+- [`1b3e580`](https://github.com/awslabs/green-boost/commit/1b3e5808533cc0a27b970a0ab01ba080d1efad12) Thanks [@bestickley](https://github.com/bestickley)! - Fix typo in \_templates
+
 ## 0.3.1
 
 ### Patch Changes
