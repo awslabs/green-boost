@@ -23,7 +23,7 @@ const { gqlUrl } = new BackEndStack(app, `${devPrefix}-back-end`, {
   env,
   stage: Stage.Dev,
 });
-new FrontEndStack(app, `${devStackPrefix}-front-end`, {
+new FrontEndStack(app, `${devPrefix}-front-end`, {
   env,
   gqlUrl: gqlUrl.value,
   stage: Stage.Dev,
