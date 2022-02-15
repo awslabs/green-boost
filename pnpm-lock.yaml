@@ -161,6 +161,7 @@ importers:
       '@aws-cdk/aws-appsync-alpha': ^2.5.0-alpha.0
       '@aws-sdk/client-cognito-identity-provider': ^3.49.0
       '@types/aws-lambda': ^8.10.92
+      '@types/fs-extra': ^9.0.13
       '@types/jest': ^27.4.0
       '@types/node': ^16.11.22
       '@typescript-eslint/eslint-plugin': ^5.10.2
@@ -174,11 +175,11 @@ importers:
       eslint-define-config: ^1.2.3
       eslint-plugin-jest: ^25.7.0
       eslint-plugin-prettier: ^4.0.0
+      fs-extra: ^10.0.0
       gboost-common: workspace:^0.2.1
       jest: ^27.5.1
       joi: ^17.6.0
       prettier: ^2.5.1
-      rimraf: ^3.0.2
       ts-jest: ^27.1.3
       ts-node: ^10.4.0
       typescript: ^4.5.5
@@ -193,6 +194,7 @@ importers:
       joi: 17.6.0
     devDependencies:
       '@types/aws-lambda': 8.10.92
+      '@types/fs-extra': 9.0.13
       '@types/jest': 27.4.0
       '@types/node': 16.11.22
       '@typescript-eslint/eslint-plugin': 5.10.2_2595c2126aec4d4b6e944b931dabb4c2
@@ -202,9 +204,9 @@ importers:
       eslint-define-config: 1.2.3
       eslint-plugin-jest: 25.7.0_2ecefe8baf6c9840deaae9e92e50e399
       eslint-plugin-prettier: 4.0.0_43197c8d12d1d439034cfcf65e1c48c2
+      fs-extra: 10.0.0
       jest: 27.5.1_ts-node@10.4.0
       prettier: 2.5.1
-      rimraf: 3.0.2
       ts-jest: 27.1.3_bc2c7cc9fe42e2c55c6ff7537023e6e1
       ts-node: 10.4.0_247b6ed5e900a7cb1f087e65be0c3da9
       typescript: 4.5.5
@@ -6813,6 +6815,12 @@ packages:
       '@types/qs': 6.9.7
       '@types/serve-static': 1.13.10
 
+  /@types/fs-extra/9.0.13:
+    resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
+    dependencies:
+      '@types/node': 17.0.14
+    dev: true
+
   /@types/graceful-fs/4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
     dependencies:
@@ -12513,7 +12521,7 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.5.0
-      '@types/node': 16.11.22
+      '@types/node': 17.0.14
       chalk: 4.1.2
       ci-info: 3.3.0
       graceful-fs: 4.2.9

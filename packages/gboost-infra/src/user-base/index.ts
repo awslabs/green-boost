@@ -38,8 +38,10 @@ export class UserBase extends Construct {
     const { defaultGroupName, groups, standardAttributes, stage } = props;
     const isProd = stage === Stage.Prod;
 
+    const fileExt = import.meta.url.slice(-2);
     const postConfirmationFn = new Function(this, "PostConfirmationFunction", {
-      entry: new URL("./post-confirmation.ts", import.meta.url).pathname,
+      entry: new URL(`./post-confirmation.${fileExt}`, import.meta.url)
+        .pathname,
       environment: {
         DEFAULT_GROUP_NAME: defaultGroupName,
       },

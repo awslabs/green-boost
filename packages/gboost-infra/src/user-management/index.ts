@@ -28,8 +28,9 @@ export class UserManagement extends Construct {
     super(scope, id);
     const { api, groupNames, adminGroupNames, userPoolId, stage } = props;
 
+    const fileExt = import.meta.url.slice(-2);
     const userFn = new Function(this, "UserFunction", {
-      entry: new URL("./function/index.ts", import.meta.url).pathname,
+      entry: new URL(`./function/index.${fileExt}`, import.meta.url).pathname,
       environment: {
         USER_POOL_ID: userPoolId,
         GROUP_NAMES: JSON.stringify(groupNames),

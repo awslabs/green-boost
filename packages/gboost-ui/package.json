@@ -10,7 +10,13 @@
     "exports": {
       "./*": "./lib/*.js"
     },
-    "types": "./lib/index.d.ts"
+    "typesVersions": {
+      "*": {
+        "*": [
+          "lib/*"
+        ]
+      }
+    }
   },
   "files": [
     "lib/**/*"
