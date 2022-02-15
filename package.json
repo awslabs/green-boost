@@ -10,7 +10,6 @@
     "build": "pnpm --recursive --filter ./packages --parallel build",
     "lint": "pnpm --recursive --filter ./packages --parallel lint",
     "unit-test": "pnpm --recursive --filter ./packages --parallel test",
-    "changeset": "changeset",
     "prepare": "husky install",
     "license-check": "node --loader ts-node/esm scripts/license-check.ts",
     "preinstall": "npx only-allow pnpm"

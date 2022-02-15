@@ -25,7 +25,7 @@ jobs:
       # PR is merged, it will release to NPM. Maintainers should ensure PR is
       # passing all checks before merging PR since audit, lint, test doesn't run
       # in this workflow
-      - name: Create or Update PR or Release to NPM
+      - name: Create PR, Update PR, or Release to NPM
         uses: changesets/action@v1
         with:
           # pnpm changeset version will update package version which makes
@@ -35,7 +35,7 @@ jobs:
           # --no-frozen-lockfile and also add changes so they can be committed
           # by publish command
           # https://github.com/pnpm/pnpm/issues/3664
-          version: pnpm exec changeset version -- && pnpm install --no-frozen-lockfile && git add .
+          version: pnpm changeset version && pnpm install --no-frozen-lockfile && git add .
           # publish command will only run upon merge of PR created by changesets.
           # publish doesn't run on every push to main
           publish: pnpm changeset publish
