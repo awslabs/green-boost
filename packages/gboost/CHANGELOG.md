@@ -1,5 +1,11 @@
 # gboost
 
+## 0.3.3
+
+### Patch Changes
+
+- [`54ffb33`](https://github.com/awslabs/green-boost/commit/54ffb33bb50f408cc34a2a59e01f042e348a260a) Thanks [@bestickley](https://github.com/bestickley)! - Update dependencies
+
 ## 0.3.2
 
 ### Patch Changes
