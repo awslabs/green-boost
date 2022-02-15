@@ -49,7 +49,6 @@ export function UserManagement(props: UserManagementProps): ReactElement {
       <Tabs currentIndex={tab} onChange={(t) => setTab(t as number)}>
         <TabItem
           title={
-            //@ts-expect-error incorrect types on Link component https://github.com/aws-amplify/amplify-ui/issues/705
             <Link as={ReactRouterLink} to={usersPath}>
               Users
             </Link>
@@ -59,7 +58,6 @@ export function UserManagement(props: UserManagementProps): ReactElement {
         </TabItem>
         <TabItem
           title={
-            //@ts-expect-error incorrect types on Link component https://github.com/aws-amplify/amplify-ui/issues/705
             <Link as={ReactRouterLink} to={groupsPath}>
               Groups
             </Link>
