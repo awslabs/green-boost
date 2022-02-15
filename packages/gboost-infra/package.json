@@ -34,7 +34,6 @@
   "scripts": {
     "build": "node --loader ts-node/esm scripts/build.ts",
     "lint": "eslint \"src/**/*.ts\"",
-    "lint-staged": "lint-staged",
     "test": "jest"
   },
   "dependencies": {

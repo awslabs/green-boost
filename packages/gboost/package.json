@@ -16,7 +16,6 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "lint": "eslint \"src/**/*.ts\"",
-    "lint-staged": "lint-staged",
     "test": "jest"
   },
   "dependencies": {
