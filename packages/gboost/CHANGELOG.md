@@ -1,5 +1,11 @@
 # gboost
 
+## 0.3.4
+
+### Patch Changes
+
+- [`940421c`](https://github.com/awslabs/green-boost/commit/940421c19ea4b71c1ee0a3fbbb667a2d9e437ad2) Thanks [@bestickley](https://github.com/bestickley)! - Fix types by exporting from index barrel file
+
 ## 0.3.3
 
 ### Patch Changes

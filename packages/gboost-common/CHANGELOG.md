@@ -1,5 +1,11 @@
 # gboost-common
 
+## 0.3.0
+
+### Minor Changes
+
+- [`940421c`](https://github.com/awslabs/green-boost/commit/940421c19ea4b71c1ee0a3fbbb667a2d9e437ad2) Thanks [@bestickley](https://github.com/bestickley)! - Fix types by exporting from index barrel file
+
 ## 0.2.2
 
 ### Patch Changes
