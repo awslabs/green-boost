@@ -70,16 +70,6 @@ export class UserBase extends Construct {
       timeout: Duration.seconds(5),
       stage,
     });
-    NagSuppressions.addResourceSuppressions(
-      postConfirmationFn,
-      [
-        {
-          id: "AwsSolutions-IAM5",
-          reason: "Needed to prevent circular dependency",
-        },
-      ],
-      true
-    );
 
     // user define password policy or default CFN policy
     // must explicitly define defaul CFN policy for cdk nag

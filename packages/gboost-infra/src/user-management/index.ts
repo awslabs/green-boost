@@ -1,7 +1,7 @@
 import { Arn, Stack } from "aws-cdk-lib";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
-import { GraphqlApi, MappingTemplate } from "@aws-cdk/aws-appsync-alpha";
+import { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
 import { Function } from "../function.js";
 import { createSchema } from "./createSchema.js";
 import { Stage } from "../stages.js";
@@ -71,35 +71,5 @@ export class UserManagement extends Construct {
 
     const userDs = api.addLambdaDataSource("UserFn", userFn);
     createSchema(api, userDs);
-    const resolverConfigs = [
-      {
-        fieldName: "getUser",
-        // https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html
-        // Note: When using $utils.toJson() on context.info, the values that
-        // selectionSetGraphQL and selectionSetList return are not serialized by default.
-        reqMapTemp: MappingTemplate.fromFile(
-          new URL("./includeSelectionSetList.vtl", import.meta.url).pathname
-        ),
-        typeName: "Query",
-      },
-      { fieldName: "listGroupsForUser", typeName: "Query" },
-      { fieldName: "listGroups", typeName: "Query" },
-      { fieldName: "listUsersInGroup", typeName: "Query" },
-      { fieldName: "listUsers", typeName: "Query" },
-      { fieldName: "createUser", typeName: "Mutation" },
-      { fieldName: "deleteUsers", typeName: "Mutation" },
-      { fieldName: "disableUsers", typeName: "Mutation" },
-      { fieldName: "enableUsers", typeName: "Mutation" },
-      { fieldName: "resetPasswords", typeName: "Mutation" },
-      { fieldName: "updateUser", typeName: "Mutation" },
-    ];
-    resolverConfigs.forEach(({ fieldName, reqMapTemp, typeName }) =>
-      userDs.createResolver({
-        fieldName,
-        typeName,
-        requestMappingTemplate: reqMapTemp ?? MappingTemplate.lambdaRequest(),
-        responseMappingTemplate: MappingTemplate.lambdaResult(),
-      })
-    );
   }
 }
