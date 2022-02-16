@@ -1,5 +1,13 @@
 # gboost-infra
 
+## 0.3.2
+
+### Patch Changes
+
+- [`c450aa7`](https://github.com/awslabs/green-boost/commit/c450aa748013a3ef1291ce9149d5cc8f52ef7727) Thanks [@bestickley](https://github.com/bestickley)! - Resolve cdk-nag errors
+
+* [`6003eda`](https://github.com/awslabs/green-boost/commit/6003eda64f2bbc9b558f9976831aca25cb8b0d0e) Thanks [@bestickley](https://github.com/bestickley)! - Fix double resolvers being created
+
 ## 0.3.1
 
 ### Patch Changes
