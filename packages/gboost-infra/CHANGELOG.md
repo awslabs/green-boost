@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.3.4
+
+### Patch Changes
+
+- [`20fe0e5`](https://github.com/awslabs/green-boost/commit/20fe0e5b42b61a0c0e9ca9e160b64715c99e05ce) Thanks [@bestickley](https://github.com/bestickley)! - Fix cdk-nags on static site
+
 ## 0.3.3
 
 ### Patch Changes
