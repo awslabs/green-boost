@@ -17,7 +17,7 @@ export class FrontEndStack extends Stack {
     const { gqlUrl, stage } = props;
     new StaticSite(this, "StaticSite", {
       stage,
-      webAssetsPath: new URL("../../front-end/dist", import.meta.url).pathname,
+      webAssetsPath: new URL("../../ui/dist", import.meta.url).pathname,
       responseHeaders: {
         securityHeaders: {
           contentSecurityPolicy: {
