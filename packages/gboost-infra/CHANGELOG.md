@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.3.3
+
+### Patch Changes
+
+- [`dbf0cd1`](https://github.com/awslabs/green-boost/commit/dbf0cd1889d07ccf8ba8171dc0f99eb90d506a67) Thanks [@bestickley](https://github.com/bestickley)! - Fix duplicate construct name in StaticSite
+
 ## 0.3.2
 
 ### Patch Changes
