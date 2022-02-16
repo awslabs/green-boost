@@ -1,5 +1,11 @@
 # gboost
 
+## 0.3.6
+
+### Patch Changes
+
+- [`c450aa7`](https://github.com/awslabs/green-boost/commit/c450aa748013a3ef1291ce9149d5cc8f52ef7727) Thanks [@bestickley](https://github.com/bestickley)! - Resolve cdk-nag errors
+
 ## 0.3.5
 
 ### Patch Changes
