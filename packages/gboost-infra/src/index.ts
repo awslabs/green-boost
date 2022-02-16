@@ -5,3 +5,4 @@ export { StaticSite } from "./static-site/index.js";
 export { Table } from "./table.js";
 export { UserBase } from "./user-base/index.js";
 export { UserManagement } from "./user-management/index.js";
+export { suppressAwsManagedConstructs } from "./suppressAwsConstructs.js";

@@ -9,10 +9,15 @@ import {
   FieldLogLevel,
   GraphqlApi,
 } from "@aws-cdk/aws-appsync-alpha";
-import { Stage, UserBase, UserManagement } from "gboost-infra";
-import { groups } from "../../common/src/groups.js";
-import { userAttributes } from "../../common/src/userAttributes.js";
+import {
+  Stage,
+  UserBase,
+  UserManagement,
+  suppressAwsManagedConstructs,
+} from "gboost-infra";
 import { NagSuppressions } from "cdk-nag";
+import { userAttributes } from "../../common/src/userAttributes.js";
+import { groups } from "../../common/src/groups.js";
 
 export interface BackEndStackProps extends StackProps {
   stage: Stage;
@@ -83,5 +88,7 @@ export class BackEndStack extends Stack {
       adminGroupNames: ["Admin"],
       stage,
     });
+
+    suppressAwsManagedConstructs(this);
   }
 }
