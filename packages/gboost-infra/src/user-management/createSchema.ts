@@ -134,18 +134,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: userType.attribute(),
     })
   );
-  // TODO: figure out why I need to make api.createResolver() call,
-  // passing dataSource to api.addQuery() should be enough to do this
-  // create resolver from api NOT data source: https://github.com/aws/aws-cdk/issues/13269#issuecomment-874158150
-  api.createResolver({
-    dataSource,
-    fieldName: "getUser",
-    typeName: "Query",
-    requestMappingTemplate: MappingTemplate.fromFile(
-      new URL("./includeSelectionSetList.vtl", import.meta.url).pathname
-    ),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
   api.addQuery(
     "listGroupsForUser",
     new ResolvableField({
@@ -160,13 +148,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       }),
     })
   );
-  api.createResolver({
-    dataSource,
-    fieldName: "listGroupsForUser",
-    typeName: "Query",
-    requestMappingTemplate: MappingTemplate.lambdaRequest(),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
   api.addQuery(
     "listGroups",
     new ResolvableField({
@@ -176,13 +157,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: groupConnection.attribute({ isRequired: true }),
     })
   );
-  api.createResolver({
-    dataSource,
-    fieldName: "listGroups",
-    typeName: "Query",
-    requestMappingTemplate: MappingTemplate.lambdaRequest(),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
   api.addQuery(
     "listUsersInGroup",
     new ResolvableField({
@@ -193,13 +167,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: userConnection.attribute({ isRequired: true }),
     })
   );
-  api.createResolver({
-    dataSource,
-    fieldName: "listUsersInGroup",
-    typeName: "Query",
-    requestMappingTemplate: MappingTemplate.lambdaRequest(),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
   api.addQuery(
     "listUsers",
     new ResolvableField({
@@ -210,13 +177,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: userConnection.attribute({ isRequired: true }),
     })
   );
-  api.createResolver({
-    dataSource,
-    fieldName: "listUsers",
-    typeName: "Query",
-    requestMappingTemplate: MappingTemplate.lambdaRequest(),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
 
   // Mutations
   api.addMutation(
@@ -229,13 +189,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: userType.attribute({ isRequired: true }),
     })
   );
-  api.createResolver({
-    dataSource,
-    fieldName: "createUser",
-    typeName: "Mutation",
-    requestMappingTemplate: MappingTemplate.lambdaRequest(),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
   api.addMutation(
     "deleteUsers",
     new ResolvableField({
@@ -253,13 +206,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: GraphqlType.string(),
     })
   );
-  api.createResolver({
-    dataSource,
-    fieldName: "deleteUsers",
-    typeName: "Mutation",
-    requestMappingTemplate: MappingTemplate.lambdaRequest(),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
   api.addMutation(
     "disableUsers",
     new ResolvableField({
@@ -277,13 +223,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: GraphqlType.string(),
     })
   );
-  api.createResolver({
-    dataSource,
-    fieldName: "disableUsers",
-    typeName: "Mutation",
-    requestMappingTemplate: MappingTemplate.lambdaRequest(),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
   api.addMutation(
     "enableUsers",
     new ResolvableField({
@@ -301,13 +240,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: GraphqlType.string(),
     })
   );
-  api.createResolver({
-    dataSource,
-    fieldName: "enableUsers",
-    typeName: "Mutation",
-    requestMappingTemplate: MappingTemplate.lambdaRequest(),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
   api.addMutation(
     "resetPasswords",
     new ResolvableField({
@@ -325,13 +257,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: GraphqlType.string(),
     })
   );
-  api.createResolver({
-    dataSource,
-    fieldName: "resetPasswords",
-    typeName: "Mutation",
-    requestMappingTemplate: MappingTemplate.lambdaRequest(),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
   api.addMutation(
     "updateUser",
     new ResolvableField({
@@ -343,11 +268,37 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: GraphqlType.string(),
     })
   );
-  api.createResolver({
-    dataSource,
-    fieldName: "updateUser",
-    typeName: "Mutation",
-    requestMappingTemplate: MappingTemplate.lambdaRequest(),
-    responseMappingTemplate: MappingTemplate.lambdaResult(),
-  });
+
+  // These api.createResolver calls must be uncommented for this to work
+  // when developing with sym-links (pnpm add ../../../gboost/packages/gboost-infra)
+  // const resolverConfigs = [
+  //   {
+  //     fieldName: "getUser",
+  //     // https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html
+  //     // Note: When using $utils.toJson() on context.info, the values that
+  //     // selectionSetGraphQL and selectionSetList return are not serialized by default.
+  //     reqMapTemp: MappingTemplate.fromFile(
+  //       new URL("./includeSelectionSetList.vtl", import.meta.url).pathname
+  //     ),
+  //     typeName: "Query",
+  //   },
+  //   { fieldName: "listGroupsForUser", typeName: "Query" },
+  //   { fieldName: "listGroups", typeName: "Query" },
+  //   { fieldName: "listUsersInGroup", typeName: "Query" },
+  //   { fieldName: "listUsers", typeName: "Query" },
+  //   { fieldName: "createUser", typeName: "Mutation" },
+  //   { fieldName: "deleteUsers", typeName: "Mutation" },
+  //   { fieldName: "disableUsers", typeName: "Mutation" },
+  //   { fieldName: "enableUsers", typeName: "Mutation" },
+  //   { fieldName: "resetPasswords", typeName: "Mutation" },
+  //   { fieldName: "updateUser", typeName: "Mutation" },
+  // ];
+  // resolverConfigs.forEach(({ fieldName, reqMapTemp, typeName }) =>
+  //   dataSource.createResolver({
+  //     fieldName,
+  //     typeName,
+  //     requestMappingTemplate: reqMapTemp ?? MappingTemplate.lambdaRequest(),
+  //     responseMappingTemplate: MappingTemplate.lambdaResult(),
+  //   })
+  // );
 }
