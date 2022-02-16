@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.3.1
+
+### Patch Changes
+
+- [`ec1a0a6`](https://github.com/awslabs/green-boost/commit/ec1a0a61b19e58444d785de7cfd6747a8abf0611) Thanks [@bestickley](https://github.com/bestickley)! - Fix exports and types package.json config. Preserve jsx via tsc
+
 ## 0.3.0
 
 ### Minor Changes

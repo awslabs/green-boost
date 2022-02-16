@@ -1,5 +1,13 @@
 # gboost-infra
 
+## 0.3.1
+
+### Patch Changes
+
+- [`dd22fb4`](https://github.com/awslabs/green-boost/commit/dd22fb4e7d25b8f26a02572b58100dfde4b3992c) Thanks [@bestickley](https://github.com/bestickley)! - Suppress AWS managed CDK constructs
+
+* [`d054d49`](https://github.com/awslabs/green-boost/commit/d054d49367e001a873cf1263b64b2cef480d4ffb) Thanks [@bestickley](https://github.com/bestickley)! - Fix user management api resolvers
+
 ## 0.3.0
 
 ### Minor Changes
