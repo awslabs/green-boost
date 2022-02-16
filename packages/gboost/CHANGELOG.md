@@ -1,5 +1,13 @@
 # gboost
 
+## 0.3.5
+
+### Patch Changes
+
+- [`2f755c9`](https://github.com/awslabs/green-boost/commit/2f755c9fb96dad555f10af3ff27ecc48915f367a) Thanks [@bestickley](https://github.com/bestickley)! - Fix reference to web assets for static site
+
+* [`dd22fb4`](https://github.com/awslabs/green-boost/commit/dd22fb4e7d25b8f26a02572b58100dfde4b3992c) Thanks [@bestickley](https://github.com/bestickley)! - Suppress AWS managed CDK constructs
+
 ## 0.3.4
 
 ### Patch Changes
