@@ -10,6 +10,7 @@ import type { Construct } from "constructs";
 
 interface BucketProps extends CdkBucketProps {
   stage: string;
+  disableServerAccessLogsBucket?: boolean;
 }
 
 export class Bucket extends CdkBucket {
@@ -27,7 +28,10 @@ export class Bucket extends CdkBucket {
     if (newProps.blockPublicAccess === undefined) {
       newProps.blockPublicAccess = BlockPublicAccess.BLOCK_ALL;
     }
-    if (newProps.serverAccessLogsBucket === undefined) {
+    if (
+      !newProps.disableServerAccessLogsBucket &&
+      !newProps.serverAccessLogsBucket
+    ) {
       const serverAccessLogsBucket = new CdkBucket(
         scope,
         "ServerAccessLogsBucket",

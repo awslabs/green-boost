@@ -255,7 +255,10 @@ export class StaticSite extends Construct {
   }): DistributionProps {
     const responseHeadersPolicyProps =
       getResponseHeadersPolicyProps(responseHeaders);
-    const logBucket = new Bucket(this, "ServerAccessLogsBucket", { stage });
+    const logBucket = new Bucket(this, "StaticSiteServerAccessLogsBucket", {
+      stage,
+      disableServerAccessLogsBucket: true,
+    });
     return {
       defaultBehavior: {
         origin: new S3Origin(this.bucket),
