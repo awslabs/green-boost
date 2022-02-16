@@ -5,6 +5,6 @@
     "declarationMap": true,
     "outDir": "lib",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "jsx": "react-jsx",
+    "jsx": "preserve",
   }
 }
