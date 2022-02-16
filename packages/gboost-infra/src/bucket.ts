@@ -6,6 +6,7 @@ import {
   BucketProps as CdkBucketProps,
   StorageClass,
 } from "aws-cdk-lib/aws-s3";
+import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
 
 interface BucketProps extends CdkBucketProps {
@@ -36,6 +37,7 @@ export class Bucket extends CdkBucket {
         scope,
         "ServerAccessLogsBucket",
         {
+          blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
           enforceSSL: true,
           encryption: BucketEncryption.S3_MANAGED,
           lifecycleRules: [
@@ -48,8 +50,16 @@ export class Bucket extends CdkBucket {
               ],
             },
           ],
+          publicReadAccess: false,
         }
       );
+      NagSuppressions.addResourceSuppressions(serverAccessLogsBucket, [
+        {
+          id: "AwsSolutions-S1",
+          reason:
+            "Server Access Logs Bucket doesn't need a Server Access Logs Bucket",
+        },
+      ]);
       newProps.serverAccessLogsBucket = serverAccessLogsBucket;
     }
     super(scope, id, newProps);

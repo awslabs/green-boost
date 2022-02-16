@@ -259,6 +259,13 @@ export class StaticSite extends Construct {
       stage,
       disableServerAccessLogsBucket: true,
     });
+    NagSuppressions.addResourceSuppressions(logBucket, [
+      {
+        id: "AwsSolutions-S1",
+        reason:
+          "Server Access Logs Bucket doesn't need a Server Access Logs Bucket",
+      },
+    ]);
     return {
       defaultBehavior: {
         origin: new S3Origin(this.bucket),
