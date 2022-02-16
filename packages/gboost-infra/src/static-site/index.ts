@@ -26,8 +26,8 @@ import { Bucket } from "../bucket.js";
 import type { ResponseHeaders } from "./responseHeaders.js";
 import { getResponseHeadersPolicyProps } from "./responseHeaders.js";
 import { createWafRules } from "./createWafRules.js";
-import { Stage } from "../stages.js";
 import { CfnOutput } from "aws-cdk-lib";
+import { NagSuppressions } from "cdk-nag";
 
 export interface StaticSiteProps {
   /**
@@ -169,6 +169,10 @@ export class StaticSite extends Construct {
       distributionProps
     );
 
+    NagSuppressions.addResourceSuppressions(this.distribution, [
+      { id: "AwsSolutions-CFR1", reason: "Geo restrictions do not apply" },
+    ]);
+
     new CfnOutput(this, "CloudFrontUrl", {
       value: this.distribution.distributionDomainName,
     });
@@ -251,10 +255,7 @@ export class StaticSite extends Construct {
   }): DistributionProps {
     const responseHeadersPolicyProps =
       getResponseHeadersPolicyProps(responseHeaders);
-    let logBucket: Bucket | undefined;
-    if (stage === Stage.Prod) {
-      logBucket = new Bucket(this, "ServerAccessLogsBucket", { stage });
-    }
+    const logBucket = new Bucket(this, "ServerAccessLogsBucket", { stage });
     return {
       defaultBehavior: {
         origin: new S3Origin(this.bucket),
@@ -278,7 +279,7 @@ export class StaticSite extends Construct {
           responsePagePath: "/index.html",
         },
       ],
-      enableLogging: Boolean(logBucket),
+      enableLogging: true,
       logBucket,
       minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_2_2021,
     };
