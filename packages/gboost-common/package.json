@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "description": "Green Boost Common Library",
   "type": "module",
+  "main": "./lib/index.js",
   "exports": {
     ".": "./src/index.ts"
   },

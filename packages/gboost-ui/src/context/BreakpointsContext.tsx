@@ -7,13 +7,13 @@ const BreakpointsContext = createContext<
 >(undefined);
 export type Media = Record<Breakpoints, string>;
 
-interface SnackbarProviderProps {
+interface BreakpointProviderProps {
   children: ReactNode;
   media: Media;
 }
 
 export function BreakpointsProvider(
-  props: SnackbarProviderProps
+  props: BreakpointProviderProps
 ): ReactElement {
   const { media } = props;
   const bp1 = useMediaQuery(media.bp1);
