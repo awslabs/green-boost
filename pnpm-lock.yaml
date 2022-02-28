@@ -219,7 +219,7 @@ importers:
       '@aws-amplify/api-graphql': ^2.2.20
       '@aws-amplify/auth': ^4.4.0
       '@aws-amplify/ui': ^3.0.13
-      '@aws-amplify/ui-react': ^2.4.0
+      '@aws-amplify/ui-react': ^2.6.2
       '@mantine/hooks': ^3.6.7
       '@radix-ui/colors': ^0.1.8
       '@stitches/react': ^1.2.6
@@ -253,7 +253,7 @@ importers:
       '@aws-amplify/api-graphql': 2.2.21
       '@aws-amplify/auth': 4.4.1
       '@aws-amplify/ui': 3.0.13_aws-amplify@4.3.14
-      '@aws-amplify/ui-react': 2.4.0_6716b37029a3ed57f88964eaf5dd0740
+      '@aws-amplify/ui-react': 2.6.2_6716b37029a3ed57f88964eaf5dd0740
       '@mantine/hooks': 3.6.7_react@17.0.2
       '@radix-ui/colors': 0.1.8
       '@stitches/react': 1.2.6_react@17.0.2
@@ -608,14 +608,14 @@ packages:
       - aws-amplify
     dev: false
 
-  /@aws-amplify/ui-react/2.4.0_6716b37029a3ed57f88964eaf5dd0740:
-    resolution: {integrity: sha512-LRNR4MXKLuKMRuZ+7SojlLLVRpasK1q53AF/9wapc+ARN/jD6SSRbTylDPzsXjFRY/rTi5O03tK1k6FutWWNcA==}
+  /@aws-amplify/ui-react/2.6.2_6716b37029a3ed57f88964eaf5dd0740:
+    resolution: {integrity: sha512-LSHXtAhlnKmrluY0keKNXYDVhJ3Xx4PMLuqk7HWMsB5qbpW69P9BYHolvnqRICia5PvIRLcIfENTD3zdwCk1Jw==}
     peerDependencies:
       aws-amplify: 3.x.x || 4.x.x
       react: '>= 16.8.0'
       react-dom: '>= 16.8.0'
     dependencies:
-      '@aws-amplify/ui': 3.0.13_aws-amplify@4.3.14
+      '@aws-amplify/ui': 3.0.15_aws-amplify@4.3.14
       '@aws-amplify/ui-react-v1': /@aws-amplify/ui-react/1.2.9_6dc93506b8f92740ed0f1e8441764781
       '@radix-ui/react-accordion': 0.1.1_react@17.0.2
       '@radix-ui/react-dropdown-menu': 0.1.1_b8fdba992ce7d797017dc07106486496
@@ -643,6 +643,17 @@ packages:
 
   /@aws-amplify/ui/3.0.13_aws-amplify@4.3.14:
     resolution: {integrity: sha512-+2DP3J+eo931DvKPmNeR3D7vm/3o+CMnLrKTEvMwC4e+yNkbsC+gATJybepXZoWR+AK5fj9HY4kqB2Y5R1QtIQ==}
+    peerDependencies:
+      aws-amplify: 3.x.x || 4.x.x
+    dependencies:
+      aws-amplify: 4.3.14
+      lodash: 4.17.21
+      style-dictionary: 3.0.3
+      xstate: 4.28.0
+    dev: false
+
+  /@aws-amplify/ui/3.0.15_aws-amplify@4.3.14:
+    resolution: {integrity: sha512-THA+wcv5kyzc1sZMc6hCGN75FuHUAcQ+n/4RpuWkK5RUCWt4b/v4PGxdc2n/slW+JkfQd8fADKpx5PvGeY1nZg==}
     peerDependencies:
       aws-amplify: 3.x.x || 4.x.x
     dependencies:
@@ -10369,7 +10380,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.4
+      minimatch: 3.1.1
       once: 1.4.0
       path-is-absolute: 1.0.1
 

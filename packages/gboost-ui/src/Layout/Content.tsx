@@ -1,7 +1,7 @@
 import { ReactElement, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Page } from "../page.js";
-// import { NotFound } from "gboost-ui/NotFound.jsx";
+import { NotFound } from "../NotFound.jsx";
 import { styled } from "../stitches.config.js";
 import { Loading } from "../Loading.jsx";
 
@@ -30,7 +30,7 @@ export function Content(props: ContentProps): ReactElement {
           {pages.map((p) => (
             <Route key={p.path} path={`${p.path}/*`} element={p.component} />
           ))}
-          <Route path="*" element={<div>Not Found</div>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </StyledMain>

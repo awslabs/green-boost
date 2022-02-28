@@ -4,5 +4,6 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "lib",
-  }
+  },
+  "exclude": ["**/*.test.ts", "lib"]
 }

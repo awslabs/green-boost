@@ -10,38 +10,13 @@ import { Box } from "../Box.jsx";
 import { Drawer } from "./Drawer.jsx";
 import { NavList } from "./NavList.jsx";
 
-export type CognitoUser = CognitoUserAmplify & {
-  attributes?: Record<string, string>;
-  signInUserSession: {
-    idToken: {
-      payload: {
-        aut: string;
-        auth_time: number;
-        "cognito:groups": string[];
-        "cognito:username": string;
-        email: string;
-        email_verified: string;
-        event_id: string;
-        exp: string;
-        family_name: string;
-        given_name: string;
-        iat: string;
-        iss: string;
-        jti: string;
-        origin_jti: string;
-        sub: string;
-      };
-    };
-  };
-};
-
 interface LayoutProps {
   className?: string;
   defaultPath?: string;
   logoSrc: string;
   pages: Page[];
   signOut: (data?: Record<string, string>) => void;
-  user: CognitoUser;
+  user: CognitoUserAmplify;
 }
 
 export function Layout(props: LayoutProps) {

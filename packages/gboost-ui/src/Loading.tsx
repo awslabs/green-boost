@@ -4,6 +4,8 @@ import { Box } from "./Box.jsx";
 interface LoadingProps {
   logoSrc: string;
 }
+const imgWidth = 100;
+const loaderSize = imgWidth * 2;
 
 export function Loading(props: LoadingProps) {
   const { logoSrc } = props;
@@ -21,7 +23,7 @@ export function Loading(props: LoadingProps) {
           justifyContent: "center",
         }}
       >
-        <Loader width="5rem" height="5rem" />
+        <Loader width={loaderSize} height={loaderSize} />
       </Box>
       <Box
         css={{
@@ -35,7 +37,7 @@ export function Loading(props: LoadingProps) {
           justifyContent: "center",
         }}
       >
-        <img src={logoSrc} alt="icon" />
+        <img src={logoSrc} alt="icon" width={imgWidth} />
       </Box>
     </Box>
   );
