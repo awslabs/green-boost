@@ -9,7 +9,7 @@ import {
 import { Button, SelectField, Text, TextField } from "@aws-amplify/ui-react";
 import { MdCheck, MdClose } from "react-icons/md";
 import { Box } from "../Box.jsx";
-import { Column, Filter } from "./GqlTable.jsx";
+import { Column, Filter } from "./QueryTable.jsx";
 import { styled } from "../stitches.config.js";
 
 const StyledText = styled(Text, { alignSelf: "center" });
@@ -55,6 +55,7 @@ export function ActionBar(props: ActionBarProps): ReactElement {
               filterOptions: cur.filterOptions,
               name: cur.name,
             },
+            ...prev,
           }),
           {} as Record<string, { filterOptions?: FilterOptions; name: string }>
         ),

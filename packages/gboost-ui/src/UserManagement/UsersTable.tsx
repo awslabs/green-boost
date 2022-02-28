@@ -1,12 +1,15 @@
 import { ReactElement } from "react";
 import { Badge } from "@aws-amplify/ui-react";
-import { GraphQLResult } from "@aws-amplify/api-graphql";
-import { Column, GqlTable } from "../GqlTable/GqlTable.jsx";
+import { Column, QueryTable } from "../QueryTable/QueryTable.jsx";
 import { listUsers } from "./gql.js";
 import type { CognitoUser, ListUsersArgs } from "gboost-common";
 import { CognitoUserStatus } from "gboost-common";
-import { OnQueryParams } from "../GqlTable/GqlTable.js";
+import type {
+  OnQueryParams,
+  OnQueryReturnValue,
+} from "../QueryTable/QueryTable.jsx";
 import { UsersTableRightActionBar } from "./UsersTableRightActionBar.jsx";
+import { gQuery } from "../utils/gQuery.js";
 
 interface ListUsersResponse {
   listUsers: {
@@ -36,12 +39,7 @@ function renderStatus(status: CognitoUserStatus) {
   );
 }
 
-function handleResponse(res: GraphQLResult<ListUsersResponse>) {
-  const { nextToken, users: rows } = (res.data as ListUsersResponse).listUsers;
-  return { nextToken: nextToken ?? "", rows };
-}
-
-function handleQuery(params: OnQueryParams) {
+async function handleQuery(params: OnQueryParams): Promise<OnQueryReturnValue> {
   const { pageSize: limit, nextToken } = params;
   const vars: ListUsersArgs = {
     input: {
@@ -49,6 +47,15 @@ function handleQuery(params: OnQueryParams) {
       nextToken: nextToken || undefined,
     },
   };
+  try {
+    const res = await gQuery({ query: listUsers, vars });
+    const { nextToken, users: rows } = (res.data as ListUsersResponse)
+      .listUsers;
+    return { rows, nextToken: nextToken ?? "" };
+  } catch (err) {
+    console.error(err);
+    return { errorMessage: err as string };
+  }
   // const filter = getFilter(filters);
   // if (filter && filter.value === undefined) {
   //   // return undefined so request isn't sent when user
@@ -56,7 +63,6 @@ function handleQuery(params: OnQueryParams) {
   //   return undefined;
   // }
   // if (vars.input && filter) vars.input.filter = filter;
-  return vars;
 }
 
 const columns: Column[] = [
@@ -83,11 +89,9 @@ const columns: Column[] = [
 
 export function UsersTable(): ReactElement {
   return (
-    <GqlTable
+    <QueryTable
       columns={columns}
       onQuery={handleQuery}
-      onResponse={handleResponse}
-      query={listUsers}
       RightActionBar={<UsersTableRightActionBar />}
       rowIdAccessor="username"
       tableProps={{ highlightOnHover: true }}

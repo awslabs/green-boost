@@ -1,8 +1,13 @@
 import { ReactElement } from "react";
-import { GraphQLResult } from "@aws-amplify/api-graphql";
-import { Column, GqlTable, OnQueryParams } from "../GqlTable/GqlTable.jsx";
+import {
+  Column,
+  QueryTable,
+  OnQueryParams,
+  OnQueryReturnValue,
+} from "../QueryTable/QueryTable.jsx";
 import { listGroups } from "./gql.js";
 import { CognitoGroup } from "gboost-common";
+import { gQuery } from "../utils/gQuery.js";
 
 interface ListGroupsResponse {
   listGroups: {
@@ -11,15 +16,23 @@ interface ListGroupsResponse {
   };
 }
 
-function handleResponse(res: GraphQLResult<ListGroupsResponse>) {
-  const { nextToken, groups: rows } = (res.data as ListGroupsResponse)
-    .listGroups;
-  return { nextToken, rows };
-}
-
-function handleQuery(params: OnQueryParams) {
-  const { pageSize: limit, nextToken } = params;
-  return { limit, nextToken: nextToken ? nextToken : undefined };
+async function handleQuery(params: OnQueryParams): Promise<OnQueryReturnValue> {
+  try {
+    const res = await gQuery({ query: listGroups });
+    const { nextToken, groups: rows } = (res.data as ListGroupsResponse)
+      .listGroups;
+    return { rows, nextToken: nextToken ?? "" };
+  } catch (err) {
+    console.error(err);
+    return { errorMessage: err as string };
+  }
+  // const filter = getFilter(filters);
+  // if (filter && filter.value === undefined) {
+  //   // return undefined so request isn't sent when user
+  //   // opens filter modal
+  //   return undefined;
+  // }
+  // if (vars.input && filter) vars.input.filter = filter;
 }
 
 const columns: Column[] = [
@@ -31,12 +44,5 @@ const columns: Column[] = [
 ];
 
 export function GroupsTable(): ReactElement {
-  return (
-    <GqlTable
-      columns={columns}
-      onResponse={handleResponse}
-      onQuery={handleQuery}
-      query={listGroups}
-    />
-  );
+  return <QueryTable columns={columns} onQuery={handleQuery} />;
 }

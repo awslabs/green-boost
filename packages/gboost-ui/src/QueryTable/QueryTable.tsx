@@ -12,71 +12,57 @@ import {
 import { Box } from "../Box.jsx";
 import { Pagination } from "./Pagination.jsx";
 import { styled } from "../stitches.config.js";
-import { gQuery } from "../utils/gQuery.js";
-import { DocumentNode } from "graphql";
-import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { ActionBar, FilterOptions } from "./ActionBar.jsx";
 
 const StyledPlaceholder = styled(Placeholder, { height: 55 });
-const StyledTableHead = styled(TableHead, { bc: "$primary2" });
+const StyledTableHead = styled(TableHead, { bc: "$primary5" });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Row = any;
 export interface Column {
   accessor: string;
   filterOptions?: FilterOptions;
   name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderCell?: (value: any) => ReactElement | string;
+  renderCell?: (value: any, row: Row) => ReactElement | string;
   /**
    * @default false
    */
   sortable?: boolean;
 }
-
 export interface Filter {
   column: string;
   comparator: string;
   value: string;
 }
-
 export interface Sort {
   column: string;
   direction: "asc" | "desc";
 }
-
 export interface OnQueryParams {
   filters: Filter[];
   nextToken: string;
   pageSize: number;
   sorts: Sort[];
 }
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Row = Record<string, any>;
-
-interface GqlTableProps {
+export interface OnQueryReturnValue {
+  rows?: Row[];
+  nextToken?: string;
+  errorMessage?: string;
+}
+interface QueryTableProps {
   columns: Column[];
   /**
    * @default 10
    */
   defaultPageSize?: number;
   /**
-   * Function called after GQL response come back to retrieve
-   * rows and nextToken
+   * Function called to query data from external data source. Params include:
+   * nextToken, filterModel, selectionModel, and sortModel. Must return object
+   * with rows and nextToken or errorMessage.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onResponse: (res: GraphQLResult<any>) => {
-    rows: Row[];
-    nextToken: string;
-  };
-  /**
-   * Function called before GQL query that is passed nextToken,
-   * filterModel, selectionModel, and sortModel and whatever it returns
-   * will be used as variables in GQL query. If undefined is returned,
-   * the query will not run
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onQuery: (params: OnQueryParams) => Record<string, any> | undefined;
-  query: DocumentNode;
+  onQuery: (params: OnQueryParams) => Promise<OnQueryReturnValue>;
   /**
    * Component placed on top right of table, often used for creating a row or
    * displaying an actions menu button for user to perform actions on selected
@@ -101,8 +87,7 @@ const tableState = {
   pageSize: 10,
   pageSizeOptions: [10, 20, 50],
   prevTokens: [] as string[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  rows: [] as Record<string, any>[],
+  rows: [] as Row[],
   sorts: [] as Sort[],
 };
 
@@ -160,6 +145,7 @@ function tableReducer(
         ...state,
         rows: action.rows,
         nextNextToken: action.nextNextToken,
+        loading: false,
       };
     case "filter":
       return { ...state, filters: action.filters };
@@ -172,14 +158,13 @@ function tableReducer(
       throw new Error(`Unknown action ${action.type as string}`);
   }
 }
+const defaultErrorMessage = "Something went wrong";
 
-export function GqlTable(props: GqlTableProps): ReactElement {
+export function QueryTable(props: QueryTableProps): ReactElement {
   const {
     columns,
     defaultPageSize = 10,
     onQuery,
-    onResponse,
-    query,
     RightActionBar,
     rowIdAccessor = "id",
     tableProps,
@@ -206,20 +191,28 @@ export function GqlTable(props: GqlTableProps): ReactElement {
   });
   useEffect(() => {
     async function fetchData() {
-      const vars = onQuery({ filters, nextToken, pageSize, sorts });
       try {
         dispatch({ type: "changeLoading", loading: true });
-        const res = await gQuery({ query, vars });
-        dispatch({ type: "changeLoading", loading: false });
-        const { rows, nextToken: nextNextToken } = onResponse(res);
-        dispatch({ type: "changeRows", nextNextToken, rows });
+        const res = await onQuery({ filters, nextToken, pageSize, sorts });
+        if (res.rows && res.nextToken) {
+          dispatch({
+            type: "changeRows",
+            nextNextToken: res.nextToken,
+            rows: res.rows,
+          });
+        } else {
+          dispatch({
+            type: "changeError",
+            message: res.errorMessage || defaultErrorMessage,
+          });
+        }
       } catch (err) {
         console.error(err);
-        dispatch({ type: "changeError", message: "Something went wrong" });
+        dispatch({ type: "changeError", message: defaultErrorMessage });
       }
     }
     fetchData();
-  }, [filters, nextToken, onQuery, onResponse, pageSize, query, sorts]);
+  }, [filters, nextToken, onQuery, pageSize, sorts]);
   const handlePageChange = useCallback(async (newPage: number) => {
     dispatch({ type: "changePage", page: newPage });
   }, []);
@@ -267,7 +260,9 @@ export function GqlTable(props: GqlTableProps): ReactElement {
               <TableRow key={r[rowIdAccessor]} rowSpan={columns.length}>
                 {columns.map((c) => (
                   <TableCell key={c.accessor}>
-                    {c.renderCell ? c.renderCell(r[c.accessor]) : r[c.accessor]}
+                    {c.renderCell
+                      ? c.renderCell(r[c.accessor], r)
+                      : r[c.accessor]}
                   </TableCell>
                 ))}
               </TableRow>
