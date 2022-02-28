@@ -5,17 +5,11 @@ import {
   useMemo,
   useRef,
 } from "react";
-import { createPortal } from "react-dom";
 import { useHotkeys, useFocusTrap } from "@mantine/hooks";
+import { Portal } from "../Portal.jsx";
 import { Box } from "../Box.jsx";
 import { Overlay } from "./Overlay.jsx";
 import { CSS } from "../stitches.config.js";
-
-function createPortalRoot() {
-  const drawerRoot = document.createElement("div");
-  drawerRoot.setAttribute("id", "drawer-root");
-  return drawerRoot;
-}
 
 interface DrawerProps {
   open: boolean;
@@ -38,9 +32,6 @@ export function Drawer(props: DrawerProps): ReactElement | null {
     position = "left",
   } = props;
   const focusTrapRef = useFocusTrap(open);
-  const portalRootRef = useRef(
-    document.getElementById("drawer-root") || createPortalRoot()
-  );
   const bodyRef = useRef(document.querySelector("body") as HTMLBodyElement);
   const drawerCss: CSS = useMemo(() => {
     if (position === "left") {
@@ -94,38 +85,28 @@ export function Drawer(props: DrawerProps): ReactElement | null {
     updatePageScroll();
   }, [open]);
 
-  useEffect(() => {
-    bodyRef.current.appendChild(portalRootRef.current);
-    const portal = portalRootRef.current;
-    const bodyEl = bodyRef.current;
-    return () => {
-      // Clean up the portal when drawer component unmounts
-      portal.remove();
-      // Ensure scroll overflow is removed
-      bodyEl.style.overflow = "";
-    };
-  }, []);
   useHotkeys([["Escape", onClose as (e: KeyboardEvent) => void]]);
 
-  return createPortal(
-    <Box ref={focusTrapRef} aria-hidden={!open} css={{ bs: "0 0 15px gray" }}>
-      <Box
-        css={{
-          bc: "$gray1",
-          overflow: "auto",
-          position: "fixed",
-          bs: "0 0 15px gray",
-          transition: "transform 0.3s ease",
-          zIndex: "$2",
-          ...drawerCss,
-        }}
-        data-autofocus
-        role="dialog"
-      >
-        {children}
+  return (
+    <Portal>
+      <Box ref={focusTrapRef} aria-hidden={!open} css={{ bs: "0 0 15px gray" }}>
+        <Box
+          css={{
+            bc: "$gray1",
+            overflow: "auto",
+            position: "fixed",
+            bs: "0 0 15px gray",
+            transition: "transform 0.3s ease",
+            zIndex: "$2",
+            ...drawerCss,
+          }}
+          data-autofocus
+          role="dialog"
+        >
+          {children}
+        </Box>
+        <Overlay onClick={onClose as MouseEventHandler} show={open} />
       </Box>
-      <Overlay onClick={onClose as MouseEventHandler} show={open} />
-    </Box>,
-    portalRootRef.current
+    </Portal>
   );
 }

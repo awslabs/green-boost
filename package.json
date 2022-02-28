@@ -11,7 +11,7 @@
     "lint": "pnpm --recursive --filter ./packages --parallel lint",
     "unit-test": "pnpm --recursive --filter ./packages --parallel test",
     "prepare": "husky install",
-    "changeset-version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
+    "changeset-version": "node --loader ts-node/esm scripts/changeset-version.ts",
     "license-check": "node --loader ts-node/esm scripts/license-check.ts",
     "preinstall": "npx only-allow pnpm"
   },

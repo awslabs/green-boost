@@ -6,5 +6,6 @@
     "outDir": "lib",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "preserve",
-  }
+  },
+  "exclude": ["**/*.test.ts", "lib"]
 }
