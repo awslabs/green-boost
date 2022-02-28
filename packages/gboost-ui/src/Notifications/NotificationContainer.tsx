@@ -46,7 +46,6 @@ export function NotificationContainer(
   props: NotificationContainerProps
 ): ReactElement {
   // rest includes props passed by <TransitionGroup>
-  console.log(props);
   const {
     index,
     notification,
