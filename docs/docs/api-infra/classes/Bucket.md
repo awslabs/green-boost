@@ -36,4 +36,4 @@ CdkBucket.constructor
 
 #### Defined in
 
-[bucket.ts:23](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/bucket.ts#L23)
+[bucket.ts:23](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/bucket.ts#L23)

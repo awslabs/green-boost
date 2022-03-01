@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[user-management.ts:2](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L2)
+[user-management.ts:2](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L2)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[user-management.ts:3](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L3)
+[user-management.ts:3](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L3)
 
 ___
 
@@ -34,4 +34,4 @@ ___
 
 #### Defined in
 
-[user-management.ts:4](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L4)
+[user-management.ts:4](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L4)

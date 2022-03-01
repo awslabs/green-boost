@@ -41,4 +41,4 @@ retention, bucket deployments, and bucket notifications
 
 #### Defined in
 
-[suppressAwsConstructs.ts:8](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/suppressAwsConstructs.ts#L8)
+[suppressAwsConstructs.ts:8](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/suppressAwsConstructs.ts#L8)

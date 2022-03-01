@@ -28,7 +28,7 @@ Partial.email
 
 #### Defined in
 
-[user-management.ts:28](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L28)
+[user-management.ts:28](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L28)
 
 ___
 
@@ -42,7 +42,7 @@ Partial.family\_name
 
 #### Defined in
 
-[user-management.ts:29](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L29)
+[user-management.ts:29](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L29)
 
 ___
 
@@ -56,7 +56,7 @@ Partial.given\_name
 
 #### Defined in
 
-[user-management.ts:30](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L30)
+[user-management.ts:30](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L30)
 
 ___
 
@@ -70,7 +70,7 @@ Partial.groups
 
 #### Defined in
 
-[user-management.ts:31](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L31)
+[user-management.ts:31](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L31)
 
 ___
 
@@ -84,4 +84,4 @@ Partial.username
 
 #### Defined in
 
-[user-management.ts:32](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L32)
+[user-management.ts:32](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L32)

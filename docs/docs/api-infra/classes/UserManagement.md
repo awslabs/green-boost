@@ -34,4 +34,4 @@ Construct.constructor
 
 #### Defined in
 
-[user-management/index.ts:26](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/user-management/index.ts#L26)
+[user-management/index.ts:26](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/user-management/index.ts#L26)

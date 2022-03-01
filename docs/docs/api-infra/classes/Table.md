@@ -34,4 +34,4 @@ CdkTable.constructor
 
 #### Defined in
 
-[table.ts:16](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/table.ts#L16)
+[table.ts:16](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/table.ts#L16)

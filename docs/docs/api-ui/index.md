@@ -19,7 +19,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/gboost-ui/src/stitches.config.ts:441](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/stitches.config.ts#L441)
+[packages/gboost-ui/src/stitches.config.ts:441](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/stitches.config.ts#L441)
 
 ## Variables
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/stitches.config.ts:443](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/stitches.config.ts#L443)
+[packages/gboost-ui/src/stitches.config.ts:443](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/stitches.config.ts#L443)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/Authenticator.tsx:31](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/Authenticator.tsx#L31)
+[packages/gboost-ui/src/Authenticator.tsx:31](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/Authenticator.tsx#L31)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/context/BreakpointsContext.tsx:15](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/context/BreakpointsContext.tsx#L15)
+[packages/gboost-ui/src/context/BreakpointsContext.tsx:15](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/context/BreakpointsContext.tsx#L15)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/Layout/Layout.tsx:22](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/Layout/Layout.tsx#L22)
+[packages/gboost-ui/src/Layout/Layout.tsx:22](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/Layout/Layout.tsx#L22)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/context/NotificationsContext.tsx:39](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/context/NotificationsContext.tsx#L39)
+[packages/gboost-ui/src/context/NotificationsContext.tsx:39](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/context/NotificationsContext.tsx#L39)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/UserManagement/UserManagement.tsx:25](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/UserManagement/UserManagement.tsx#L25)
+[packages/gboost-ui/src/UserManagement/UserManagement.tsx:25](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/UserManagement/UserManagement.tsx#L25)
 
 ___
 
@@ -216,7 +216,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/amplifyTheme.ts:21](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/amplifyTheme.ts#L21)
+[packages/gboost-ui/src/amplifyTheme.ts:21](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/amplifyTheme.ts#L21)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/stitches.config.ts:629](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/stitches.config.ts#L629)
+[packages/gboost-ui/src/stitches.config.ts:629](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/stitches.config.ts#L629)
 
 ___
 
@@ -345,7 +345,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/context/BreakpointsContext.tsx:28](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/context/BreakpointsContext.tsx#L28)
+[packages/gboost-ui/src/context/BreakpointsContext.tsx:28](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/context/BreakpointsContext.tsx#L28)
 
 ___
 
@@ -359,4 +359,4 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/context/NotificationsContext.tsx:73](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/context/NotificationsContext.tsx#L73)
+[packages/gboost-ui/src/context/NotificationsContext.tsx:73](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/context/NotificationsContext.tsx#L73)

@@ -22,4 +22,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[user-management.ts:8](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L8)
+[user-management.ts:8](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L8)

@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[stages.ts:4](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/stages.ts#L4)
+[stages.ts:4](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/stages.ts#L4)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[stages.ts:2](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/stages.ts#L2)
+[stages.ts:2](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/stages.ts#L2)
 
 ___
 
@@ -34,4 +34,4 @@ ___
 
 #### Defined in
 
-[stages.ts:3](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/stages.ts#L3)
+[stages.ts:3](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/stages.ts#L3)

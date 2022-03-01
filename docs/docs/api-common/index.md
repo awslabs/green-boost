@@ -44,7 +44,7 @@ camelCase to kebab-case
 
 #### Defined in
 
-[convertCase.ts:5](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/convertCase.ts#L5)
+[convertCase.ts:5](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/convertCase.ts#L5)
 
 ___
 
@@ -68,7 +68,7 @@ camelCase to snake_case
 
 #### Defined in
 
-[convertCase.ts:13](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/convertCase.ts#L13)
+[convertCase.ts:13](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/convertCase.ts#L13)
 
 ___
 
@@ -90,4 +90,4 @@ lowercase to Pascalcase
 
 #### Defined in
 
-[convertCase.ts:20](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/convertCase.ts#L20)
+[convertCase.ts:20](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/convertCase.ts#L20)

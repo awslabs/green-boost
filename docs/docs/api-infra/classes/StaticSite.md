@@ -36,7 +36,7 @@ Construct.constructor
 
 #### Defined in
 
-[static-site/index.ts:104](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/static-site/index.ts#L104)
+[static-site/index.ts:104](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/static-site/index.ts#L104)
 
 ## Properties
 
@@ -46,7 +46,7 @@ Construct.constructor
 
 #### Defined in
 
-[static-site/index.ts:99](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/static-site/index.ts#L99)
+[static-site/index.ts:99](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/static-site/index.ts#L99)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[static-site/index.ts:100](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/static-site/index.ts#L100)
+[static-site/index.ts:100](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/static-site/index.ts#L100)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[static-site/index.ts:102](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/static-site/index.ts#L102)
+[static-site/index.ts:102](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/static-site/index.ts#L102)
 
 ___
 
@@ -76,4 +76,4 @@ ___
 
 #### Defined in
 
-[static-site/index.ts:101](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/static-site/index.ts#L101)
+[static-site/index.ts:101](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/static-site/index.ts#L101)

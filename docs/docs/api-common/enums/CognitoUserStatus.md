@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[user-management.ts:38](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L38)
+[user-management.ts:38](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L38)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[user-management.ts:39](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L39)
+[user-management.ts:39](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L39)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[user-management.ts:37](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L37)
+[user-management.ts:37](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L37)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[user-management.ts:42](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L42)
+[user-management.ts:42](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L42)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[user-management.ts:41](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L41)
+[user-management.ts:41](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L41)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[user-management.ts:36](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L36)
+[user-management.ts:36](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L36)
 
 ___
 
@@ -74,4 +74,4 @@ ___
 
 #### Defined in
 
-[user-management.ts:40](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-common/src/user-management.ts#L40)
+[user-management.ts:40](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-common/src/user-management.ts#L40)

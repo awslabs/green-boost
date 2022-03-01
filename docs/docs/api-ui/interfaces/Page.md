@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/gboost-ui/src/page.ts:4](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/page.ts#L4)
+[packages/gboost-ui/src/page.ts:4](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/page.ts#L4)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/page.ts:5](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/page.ts#L5)
+[packages/gboost-ui/src/page.ts:5](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/page.ts#L5)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/page.ts:6](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/page.ts#L6)
+[packages/gboost-ui/src/page.ts:6](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/page.ts#L6)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/page.ts:7](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/page.ts#L7)
+[packages/gboost-ui/src/page.ts:7](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/page.ts#L7)
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 #### Defined in
 
-[packages/gboost-ui/src/page.ts:8](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-ui/src/page.ts#L8)
+[packages/gboost-ui/src/page.ts:8](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-ui/src/page.ts#L8)

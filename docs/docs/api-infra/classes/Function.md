@@ -35,4 +35,4 @@ NodejsFunction.constructor
 
 #### Defined in
 
-[function.ts:20](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/function.ts#L20)
+[function.ts:20](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/function.ts#L20)

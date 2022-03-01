@@ -35,7 +35,7 @@ Construct.constructor
 
 #### Defined in
 
-[user-base/index.ts:39](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/user-base/index.ts#L39)
+[user-base/index.ts:39](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/user-base/index.ts#L39)
 
 ## Properties
 
@@ -45,7 +45,7 @@ Construct.constructor
 
 #### Defined in
 
-[user-base/index.ts:36](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/user-base/index.ts#L36)
+[user-base/index.ts:36](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/user-base/index.ts#L36)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[user-base/index.ts:37](https://github.com/awslabs/green-boost/blob/1e9314a/packages/gboost-infra/src/user-base/index.ts#L37)
+[user-base/index.ts:37](https://github.com/awslabs/green-boost/blob/822aaf4/packages/gboost-infra/src/user-base/index.ts#L37)
