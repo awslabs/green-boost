@@ -1,5 +1,14 @@
 # gboost-infra
 
+## 0.3.5
+
+### Patch Changes
+
+- [#14](https://github.com/awslabs/green-boost/pull/14) [`5e2c868`](https://github.com/awslabs/green-boost/commit/5e2c868757eb0b3927bf9824ca025389f0bf580e) Thanks [@bestickley](https://github.com/bestickley)! - Add package.json#main
+
+- Updated dependencies [[`5e2c868`](https://github.com/awslabs/green-boost/commit/5e2c868757eb0b3927bf9824ca025389f0bf580e)]:
+  - gboost-common@0.3.1
+
 ## 0.3.4
 
 ### Patch Changes

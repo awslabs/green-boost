@@ -1,5 +1,11 @@
 # gboost
 
+## 0.3.7
+
+### Patch Changes
+
+- [#14](https://github.com/awslabs/green-boost/pull/14) [`5e2c868`](https://github.com/awslabs/green-boost/commit/5e2c868757eb0b3927bf9824ca025389f0bf580e) Thanks [@bestickley](https://github.com/bestickley)! - Add package.json#main
+
 ## 0.3.6
 
 ### Patch Changes

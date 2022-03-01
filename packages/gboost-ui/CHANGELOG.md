@@ -1,5 +1,20 @@
 # gboost-ui
 
+## 0.4.0
+
+### Minor Changes
+
+- [#14](https://github.com/awslabs/green-boost/pull/14) [`5e2c868`](https://github.com/awslabs/green-boost/commit/5e2c868757eb0b3927bf9824ca025389f0bf580e) Thanks [@bestickley](https://github.com/bestickley)! - Add Notifications components and context provider
+
+### Patch Changes
+
+- [#15](https://github.com/awslabs/green-boost/pull/15) [`0b0f70c`](https://github.com/awslabs/green-boost/commit/0b0f70c8a7a0db24cf0efe3516d8b5ab5a55db87) Thanks [@bestickley](https://github.com/bestickley)! - Improve typings on Authenticator, Loading screen, bump @aws-amplify/ui-react
+
+* [#14](https://github.com/awslabs/green-boost/pull/14) [`5e2c868`](https://github.com/awslabs/green-boost/commit/5e2c868757eb0b3927bf9824ca025389f0bf580e) Thanks [@bestickley](https://github.com/bestickley)! - Add package.json#main
+
+* Updated dependencies [[`5e2c868`](https://github.com/awslabs/green-boost/commit/5e2c868757eb0b3927bf9824ca025389f0bf580e)]:
+  - gboost-common@0.3.1
+
 ## 0.3.1
 
 ### Patch Changes
