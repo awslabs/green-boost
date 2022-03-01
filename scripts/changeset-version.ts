@@ -1,10 +1,59 @@
 import { execSync } from "node:child_process";
+import { readFileSync, writeFileSync } from "node:fs";
 
-const versionOutputString = execSync("changeset version --json", {
-  encoding: "utf8",
-}).toString();
-const versionOutputJson = JSON.parse(versionOutputString);
-console.log(versionOutputJson);
-// TODO: update versions in packages/gboost/_templates/repo/create
-execSync("pnpm install --no-frozen-lockfile");
-execSync("git add --all");
+execSync("pnpm changeset version", {
+  stdio: "inherit",
+});
+// get updated package versions
+const commonVersion = readJson(
+  "../packages/gboost-common/package.json"
+).version;
+const infraVersion = readJson("../packages/gboost-infra/package.json").version;
+const uiVersion = readJson("../packages/gboost-ui/package.json").version;
+
+// update package versions in template
+const frontMatter: Record<string, string> = {}; // temp variable for template frontmatter
+const templatePrefix = "../packages/gboost/_templates/repo/create/";
+const infraPkgJson = readJson(templatePrefix + "infra/package.json.t", 4);
+infraPkgJson.dependencies["gboost-common"] = "^" + commonVersion;
+infraPkgJson.dependencies["gboost-infra"] = "^" + infraVersion;
+const uiPkgJson = readJson(templatePrefix + "ui/package.json.t", 4);
+uiPkgJson.dependencies["gboost-common"] = "^" + commonVersion;
+uiPkgJson.dependencies["gboost-ui"] = "^" + uiVersion;
+
+// write new package versions
+writeJson(templatePrefix + "infra/package.json.t", infraPkgJson);
+writeJson(templatePrefix + "ui/package.json.t", uiPkgJson);
+// pnpm turns on frozen-lockfile by default, so we need to manually turn off to
+// allow updating pnpm-lock.yaml
+// https://github.com/pnpm/pnpm/issues/3664
+execSync("pnpm install --no-frozen-lockfile", {
+  stdio: "inherit",
+});
+execSync("git add --all", {
+  stdio: "inherit",
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function readJson(relativePath: string, skipLines?: number): any {
+  let fileString = "";
+  fileString = readFileSync(new URL(relativePath, import.meta.url), {
+    encoding: "utf8",
+  }).toString();
+  if (skipLines) {
+    const splitFile = fileString.split("\n");
+    frontMatter[relativePath] = splitFile.slice(0, skipLines).join("\n");
+    fileString = splitFile.slice(skipLines).join("\n");
+  }
+  return JSON.parse(fileString);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function writeJson(relativePath: string, obj: any): void {
+  let fileString = "";
+  if (frontMatter[relativePath]) {
+    fileString += frontMatter[relativePath] + "\n";
+  }
+  fileString += JSON.stringify(obj, null, 2);
+  writeFileSync(new URL(relativePath, import.meta.url), fileString);
+}

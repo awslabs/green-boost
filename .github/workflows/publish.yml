@@ -31,6 +31,7 @@ jobs:
       - name: Create PR, Update PR, or Release to NPM
         uses: changesets/action@v1
         with:
+          # see ./scripts/changeset-version.ts
           version: pnpm changeset-version
           # publish command will only run upon merge of PR created by changesets.
           # publish doesn't run on every push to main
