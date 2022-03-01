@@ -4,3 +4,4 @@ packages:
   - 'packages/gboost-infra'
   - 'packages/gboost-ui'
   - 'docs'
+  - 'docs/demos/**'
