@@ -5,6 +5,7 @@
   "bin": {
     "gboost": "lib/index.js"
   },
+  "main": "./lib/index.js",
   "type": "module",
   "files": [
     "lib/**/*",

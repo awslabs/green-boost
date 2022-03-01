@@ -11,6 +11,6 @@ module.exports = {
     "^(\\.{1,2}/.*)\\.js$": "$1",
     // until jest 28 is released with support for package.json exports map,
     // need to include this transform
-    "^gboost-common/(.*)$": "<rootDir>/node_modules/gboost-common/src/$1",
+    "^gboost-common$": "<rootDir>/node_modules/gboost-common/src/index.ts",
   },
 };

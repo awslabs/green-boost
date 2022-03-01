@@ -7,9 +7,10 @@ import "@fontsource/inter/variable.css";
 import { AmplifyProvider } from "@aws-amplify/ui-react";
 import { camelToSnake } from "gboost-common";
 import {
-  AppProviders,
   Authenticator,
+  BreakpointsProvider,
   Layout,
+  NotificationsProvider,
   config,
   globalStyles,
   getAmplifyTheme,
@@ -26,19 +27,21 @@ export function App() {
   globalStyles();
   return (
     <AmplifyProvider theme={getAmplifyTheme(theme)}>
-      <AppProviders media={config.media}>
-        <Authenticator signUpAttributes={signUpAttributes}>
-          {({ user, signOut }) => (
-            <Layout
-              className={theme}
-              logoSrc="/favicon-32x32.png"
-              pages={pages}
-              signOut={signOut}
-              user={user}
-            />
-          )}
-        </Authenticator>
-      </AppProviders>
+      <BreakpointsProvider media={config.media}>
+        <NotificationsProvider>
+          <Authenticator signUpAttributes={signUpAttributes}>
+            {({ user, signOut }) => (
+              <Layout
+                className={theme}
+                logoSrc="/favicon-32x32.png"
+                pages={pages}
+                signOut={signOut}
+                user={user}
+              />
+            )}
+          </Authenticator>
+        </NotificationsProvider>
+      </BreakpointsProvider>
     </AmplifyProvider>
   );
 }

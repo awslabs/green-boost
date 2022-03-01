@@ -26,11 +26,16 @@ cd my-gb-app
 pnpm i # install dependencies
 ```
 
+:::note
+
+Make sure your AWS Account has been bootstrapped with the AWS CDK and your 
+AWS CLI credentials are present in the terminal before you run the next command
+
+:::
+
 3. Boostrap your AWS account and deploy infrastructure
 ```bash
-cdk bootstrap aws://123456789012/us-east-1
 gboost deploy-dev
-# remember to acknowledge IAM changes when prompted
 ```
 
 4. Visit the CloudFront URL logged by `gboost deploy-dev`

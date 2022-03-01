@@ -12,5 +12,5 @@
     "outDir": "lib",
   },
   "include": ["src/**/*"], // overwrites base config file so we cannot extend
-  "exclude": ["**/*.test.ts"]
+  "exclude": ["**/*.test.ts", "lib"]
 }
