@@ -1,6 +1,6 @@
 {
   "name": "gboost-ui",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Green Boost UI Library of React Components",
   "type": "module",
   "main": "./lib/index.jsx",
@@ -34,7 +34,7 @@
     "@radix-ui/colors": "^0.1.8",
     "@stitches/react": "^1.2.6",
     "aws-amplify": "^4.3.14",
-    "gboost-common": "workspace:^0.3.0",
+    "gboost-common": "workspace:^0.3.1",
     "graphql": "^15.8.0",
     "graphql-tag": "^2.12.6",
     "react": "^17.0.2",
