@@ -118,6 +118,56 @@ const config = {
       },
     ],
   ],
+
+  plugins: [
+    [
+      "docusaurus-plugin-typedoc",
+      // Plugin / TypeDoc options
+      // https://typedoc.org/guides/options
+      {
+        id: "api-common",
+        entryPoints: ["../packages/gboost-common"],
+        tsconfig: "../packages/gboost-common/tsconfig.json",
+        entryPointStrategy: "packages",
+        out: "api-common",
+        name: "gboost-common",
+        readme: "none",
+        excludeExternals: true,
+        excludePrivate: true,
+        excludeProtected: true,
+      },
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      {
+        id: "api-infra",
+        entryPoints: ["../packages/gboost-infra"],
+        tsconfig: "../packages/gboost-infra/tsconfig.json",
+        entryPointStrategy: "packages",
+        out: "api-infra",
+        name: "gboost-infra",
+        readme: "none",
+        excludeExternals: true,
+        excludePrivate: true,
+        excludeProtected: true,
+      },
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      {
+        id: "api-ui",
+        entryPoints: ["../packages/gboost-ui"],
+        tsconfig: "../packages/gboost-ui/tsconfig.json",
+        out: "api-ui",
+        name: "gboost-ui",
+        entryPointStrategy: "packages",
+        readme: "none",
+        excludeExternals: true,
+        excludePrivate: true,
+        excludeProtected: true,
+      },
+    ],
+  ],
 };
 
 module.exports = config;

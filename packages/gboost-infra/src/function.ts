@@ -12,6 +12,10 @@ interface FunctionProps extends NodejsFunctionProps {
   stage: string;
 }
 
+/**
+ * Node.js Lambda Function with default log retention set based on stage,
+ * bundling with source maps and minification enabled, and ARM_64 architecture
+ */
 export class Function extends NodejsFunction {
   constructor(scope: Construct, id: string, props: FunctionProps) {
     const { stage, ...newProps } = props;
