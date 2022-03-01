@@ -29,7 +29,7 @@
     "@aws-amplify/api-graphql": "^2.2.20",
     "@aws-amplify/auth": "^4.4.0",
     "@aws-amplify/ui": "^3.0.13",
-    "@aws-amplify/ui-react": "^2.4.0",
+    "@aws-amplify/ui-react": "^2.6.2",
     "@mantine/hooks": "^3.6.7",
     "@radix-ui/colors": "^0.1.8",
     "@stitches/react": "^1.2.6",
