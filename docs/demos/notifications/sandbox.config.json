@@ -1,0 +1,5 @@
+{
+  "node": 16,
+  "startScript": "dev",
+  "template": "node"
+}
