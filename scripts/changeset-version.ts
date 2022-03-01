@@ -1,8 +1,9 @@
 import { execSync } from "node:child_process";
 
-const versionOutputJson = execSync("changeset version --json", {
+const versionOutputString = execSync("changeset version --json", {
   stdio: "inherit",
-}).toJSON();
+}).toString();
+const versionOutputJson = JSON.parse(versionOutputString);
 console.log(versionOutputJson);
 // TODO: update versions in packages/gboost/_templates/repo/create
 execSync("pnpm install --no-frozen-lockfile");
