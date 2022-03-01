@@ -6,8 +6,8 @@ import { styled } from "../stitches.config.js";
 import { Box } from "../Box.jsx";
 import { Drawer } from "./Drawer.jsx";
 import { List, ListItem } from "../List.jsx";
-import type { CognitoUser } from "./Layout.jsx";
 import { useNavigate } from "react-router-dom";
+import type { CognitoAttributes, CognitoUserAmplify } from "@aws-amplify/ui";
 
 const StyledHeader = styled("header", {
   bc: "$primary9",
@@ -29,14 +29,17 @@ const StyledMenuOpen = styled(MdMenuOpen, {
 });
 const StyledAccountCircle = styled(MdAccountCircle, { fontSize: "$7" });
 const StyledLogout = styled(MdLogout, { fontSize: "$7" });
-const StyledMenuButton = styled(MenuButton, { color: "white", gap: "$2" });
+const StyledMenuButton = styled(MenuButton, {
+  bc: "$primary11 !important",
+  gap: "$2",
+});
 const StyledMenuItem = styled(MenuItem, { gap: "$2" });
 
 interface HeaderProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   open: boolean;
   signOut: (data?: Record<string, string>) => void;
-  user: CognitoUser;
+  user: CognitoUserAmplify;
 }
 
 export function Header(props: HeaderProps): ReactElement {
@@ -46,14 +49,14 @@ export function Header(props: HeaderProps): ReactElement {
   const navigate = useNavigate();
   const username = user.username;
   const { email, family_name, given_name } =
-    user.signInUserSession.idToken.payload;
+    user.attributes as CognitoAttributes;
   const fullName = `${given_name} ${family_name}`;
   let menu: ReactElement;
   if (bps.bp3) {
     menu = (
       <Menu
         trigger={
-          <StyledMenuButton>
+          <StyledMenuButton variation="primary">
             {username}
             <StyledAccountCircle />
           </StyledMenuButton>

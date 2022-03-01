@@ -18,7 +18,9 @@ const amplifyToRadixScale = {
   100: 12,
 };
 
-export function getAmplifyTheme(t: StitchesTheme) {
+export function getAmplifyTheme(
+  t: StitchesTheme
+): ReturnType<typeof createTheme> {
   return createTheme({
     name: "gb",
     tokens: {
