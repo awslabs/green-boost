@@ -1,7 +1,7 @@
 import { execSync } from "node:child_process";
 
 const versionOutputString = execSync("changeset version --json", {
-  stdio: "inherit",
+  encoding: "utf8",
 }).toString();
 const versionOutputJson = JSON.parse(versionOutputString);
 console.log(versionOutputJson);
