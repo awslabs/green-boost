@@ -37,7 +37,7 @@ jobs:
           # publish doesn't run on every push to main
           # TODO: update to use native changeset option to use PNPM when this merges:
           # https://github.com/changesets/changesets/pull/674
-          publish: alias npm="pnpm" && pnpm changeset publish
+          publish: shopt -s expand_aliases && alias npm="pnpm" && pnpm changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
