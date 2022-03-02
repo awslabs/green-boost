@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkgboost_docs=self.webpackChunkgboost_docs||[]).push([[7030],{7097:function(o){o.exports=JSON.parse('{"permalink":"/green-boost/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"previousPage":null,"nextPage":null,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
