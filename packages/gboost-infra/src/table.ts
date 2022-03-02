@@ -9,6 +9,9 @@ interface TableProps extends CdkTableProps {
   stage: string;
 }
 
+/**
+ * DynamoDB table with default point-in-time recovery enabled
+ */
 export class Table extends CdkTable {
   constructor(scope: Construct, id: string, props: TableProps) {
     const { stage, ...newProps } = props;

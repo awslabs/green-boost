@@ -10,7 +10,7 @@ import { Box } from "../Box.jsx";
 import { Drawer } from "./Drawer.jsx";
 import { NavList } from "./NavList.jsx";
 
-interface LayoutProps {
+export interface LayoutProps {
   className?: string;
   defaultPath?: string;
   logoSrc: string;
@@ -19,7 +19,11 @@ interface LayoutProps {
   user: CognitoUserAmplify;
 }
 
-export function Layout(props: LayoutProps) {
+/**
+ * App Layout including header, aside, main and footer
+ * @param props
+ */
+export function Layout(props: LayoutProps): ReactElement {
   const { className, defaultPath, logoSrc, pages, signOut, user } = props;
   const bps = useBps();
   // initial state makes sidebar open for laptop but closed for tablet and mobile

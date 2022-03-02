@@ -6,6 +6,18 @@ const lightCodeTheme = require("prism-react-renderer/themes/github");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
+const typeDocOptions = {
+  excludeExternals: true,
+  excludePrivate: true,
+  excludeProtected: true,
+  excludeInternal: true,
+  gitRevision: "main",
+  validation: {
+    invalidLink: true,
+  },
+  readme: "none",
+};
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Green Boost",
@@ -115,6 +127,44 @@ const config = {
       {
         // `hashed` is recommended as long-term-cache of index file is possible.
         hashed: true,
+      },
+    ],
+  ],
+
+  plugins: [
+    [
+      "docusaurus-plugin-typedoc",
+      // Plugin / TypeDoc options
+      // https://typedoc.org/guides/options
+      {
+        id: "api-common",
+        entryPoints: ["../packages/gboost-common/src"],
+        tsconfig: "../packages/gboost-common/tsconfig.json",
+        out: "api-common",
+        name: "gboost-common",
+        ...typeDocOptions,
+      },
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      {
+        id: "api-infra",
+        entryPoints: ["../packages/gboost-infra/src"],
+        tsconfig: "../packages/gboost-infra/tsconfig.json",
+        out: "api-infra",
+        name: "gboost-infra",
+        ...typeDocOptions,
+      },
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      {
+        id: "api-ui",
+        entryPoints: ["../packages/gboost-ui/src"],
+        tsconfig: "../packages/gboost-ui/tsconfig.json",
+        out: "api-ui",
+        name: "gboost-ui",
+        ...typeDocOptions,
       },
     ],
   ],

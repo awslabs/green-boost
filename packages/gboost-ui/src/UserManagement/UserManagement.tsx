@@ -15,13 +15,17 @@ import { GroupsTable } from "./GroupsTable.jsx";
 import { UsersTable } from "./UsersTable.jsx";
 import { UsersInGroupTable } from "./UsersInGroupTable.jsx";
 
-interface UserManagementProps {
+export interface UserManagementProps {
   groupNames: string[];
 }
 
 const usersPath = "users";
 const groupsPath = "groups";
 
+/**
+ * Page that enables management of users in Cognito User Pool or view of
+ * federated users in Cognito User Pool
+ */
 export function UserManagement(props: UserManagementProps): ReactElement {
   const { groupNames } = props;
   const groupNameOptions = useMemo(

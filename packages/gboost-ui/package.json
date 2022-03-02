@@ -3,12 +3,13 @@
   "version": "0.4.0",
   "description": "Green Boost UI Library of React Components",
   "type": "module",
-  "main": "./lib/index.jsx",
+  "main": "./src/index.tsx",
   "exports": {
     ".": "./src/index.tsx"
   },
   "types": "./src/index.tsx",
   "publishConfig": {
+    "main": "./lib/index.jsx",
     "exports": {
       ".": "./lib/index.jsx"
     },

@@ -14,6 +14,11 @@ interface BucketProps extends CdkBucketProps {
   disableServerAccessLogsBucket?: boolean;
 }
 
+/**
+ * S3 Bucket with default managed encryption, enforced SSL and blocked public
+ * access
+ * Also adds a server access logs bucket following AWS best practices
+ */
 export class Bucket extends CdkBucket {
   constructor(scope: Construct, id: string, props: BucketProps) {
     const { ...newProps } = props;
