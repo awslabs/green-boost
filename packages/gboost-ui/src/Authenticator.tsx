@@ -28,6 +28,10 @@ function Header() {
   );
 }
 
+/**
+ * Wrapper around @aws-amplify/ui-react Authenticator that adds header
+ * @link https://ui.docs.amplify.aws/components/authenticator?platform=react
+ */
 export function Authenticator(props: AuthenticatorProps): ReactElement {
   const { children, signUpAttributes, components = {}, ...rest } = props;
   if (!components.Header) components.Header = Header;

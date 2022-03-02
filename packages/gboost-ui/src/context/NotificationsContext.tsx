@@ -9,6 +9,9 @@ import { NotificationProps } from "../Notifications/Notification.jsx";
 import { useQueue, randomId } from "@mantine/hooks";
 import { Notifications } from "../Notifications/Notifications.jsx";
 
+/**
+ * @internal
+ */
 export interface ContextNotification
   extends Omit<NotificationProps, "removeNotification"> {
   /**
@@ -16,6 +19,9 @@ export interface ContextNotification
    */
   timeout?: number;
 }
+/**
+ * @internal
+ */
 export interface QueueNotification extends ContextNotification {
   id: string;
 }
@@ -36,6 +42,10 @@ interface NotificationsProviderProps {
   children: ReactNode;
 }
 
+/**
+ * Notification Provider that allows use of useNotifications hook to create
+ * notifications
+ */
 export function NotificationsProvider(
   props: NotificationsProviderProps
 ): ReactElement {
@@ -70,6 +80,9 @@ export function NotificationsProvider(
   );
 }
 
+/**
+ * Hook to create notifications
+ */
 export function useNotifications() {
   const context = useContext(NotificationsContext);
   if (context === undefined) {

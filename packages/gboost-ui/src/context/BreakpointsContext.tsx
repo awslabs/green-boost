@@ -5,6 +5,9 @@ type Breakpoints = "bp1" | "bp2" | "bp3" | "bp4";
 const BreakpointsContext = createContext<
   Record<Breakpoints, boolean> | undefined
 >(undefined);
+/**
+ * @internal
+ */
 export type Media = Record<Breakpoints, string>;
 
 interface BreakpointProviderProps {
@@ -12,6 +15,9 @@ interface BreakpointProviderProps {
   media: Media;
 }
 
+/**
+ * Provider to enable use of useBps hook
+ */
 export function BreakpointsProvider(
   props: BreakpointProviderProps
 ): ReactElement {
@@ -25,6 +31,9 @@ export function BreakpointsProvider(
   return <BreakpointsContext.Provider value={bps} {...props} />;
 }
 
+/**
+ * Hook to access breakpoints
+ */
 export function useBps() {
   const context = useContext(BreakpointsContext);
   if (context === undefined) {
