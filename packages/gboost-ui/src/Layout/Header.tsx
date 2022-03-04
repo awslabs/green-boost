@@ -72,7 +72,7 @@ export function Header(props: HeaderProps): ReactElement {
     );
   } else {
     menu = (
-      <StyledMenuButton onClick={() => setLeftOpen(true)}>
+      <StyledMenuButton onClick={() => setLeftOpen(true)} variation="primary">
         {user.username}
         <StyledAccountCircle />
       </StyledMenuButton>
