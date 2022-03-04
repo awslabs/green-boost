@@ -45,14 +45,20 @@ export interface OnQueryParams {
   pageSize: number;
   sorts: Sort[];
 }
-export interface OnQueryReturnValue {
-  rows?: Row[];
-  nextToken?: string;
-  errorMessage?: string;
-}
+type OnQuerySuccessReturnValue = {
+  rows: Row[];
+  nextToken: string;
+};
+type OnQueryErrorReturnValue = {
+  errorMessage: string;
+};
+export type OnQueryReturnValue =
+  | OnQuerySuccessReturnValue
+  | OnQueryErrorReturnValue;
 interface QueryTableProps {
   columns: Column[];
   /**
+   * Number of rows per page
    * @default 10
    */
   defaultPageSize?: number;
@@ -74,6 +80,9 @@ interface QueryTableProps {
    * @default "id"
    */
   rowIdAccessor?: string;
+  /**
+   * Amplify UI TableProps to be passes to the table
+   */
   tableProps?: TableProps;
 }
 
@@ -118,19 +127,21 @@ function tableReducer(
       if (action.page > state.page) {
         // next page
         nextToken = state.nextNextToken;
-        if (state.nextToken) {
-          // prevents empty string being added for first page
-          prevTokens = [...state.prevTokens, state.nextToken];
-        }
+        // if (state.nextToken) {
+        // prevents empty string being added for first page
+        prevTokens = [...state.prevTokens, state.nextToken];
+        // }
       } else if (action.page < state.page) {
-        // previous page (could jump back multiple)
-        nextToken = state.prevTokens[action.page - 2];
-        prevTokens = state.prevTokens.slice(0, action.page - 2);
+        // action.page / state.page are 1-based
+        // indexing on state.prevTokens is 0-based
+        nextToken = state.prevTokens[action.page - 1];
+        prevTokens = state.prevTokens.slice(0, action.page - 1);
       }
       return {
         ...state,
         nextToken,
         prevTokens,
+        page: action.page,
       };
     case "changePageSize": // reset currentToken, nextToken, prevTokens
       return {
@@ -160,15 +171,21 @@ function tableReducer(
 }
 const defaultErrorMessage = "Something went wrong";
 
-export function QueryTable(props: QueryTableProps): ReactElement {
-  const {
-    columns,
-    defaultPageSize = 10,
-    onQuery,
-    RightActionBar,
-    rowIdAccessor = "id",
-    tableProps,
-  } = props;
+/**
+ * Table component with powerful onQuery prop useful for server side or client
+ * side pagination. First class token pagination support with page number
+ * pagination also supported. Features filtering, sorting, and custom column
+ * widths through columns prop.
+ * @component Component
+ */
+export function QueryTable({
+  columns,
+  defaultPageSize = 10,
+  onQuery,
+  RightActionBar,
+  rowIdAccessor = "id",
+  tableProps,
+}: QueryTableProps): ReactElement {
   let spanTableEl: ReactElement | undefined;
   const [
     {
@@ -194,7 +211,7 @@ export function QueryTable(props: QueryTableProps): ReactElement {
       try {
         dispatch({ type: "changeLoading", loading: true });
         const res = await onQuery({ filters, nextToken, pageSize, sorts });
-        if (res.rows && res.nextToken) {
+        if ("rows" in res) {
           dispatch({
             type: "changeRows",
             nextNextToken: res.nextToken,
@@ -247,8 +264,8 @@ export function QueryTable(props: QueryTableProps): ReactElement {
       <Table {...tableProps}>
         <StyledTableHead>
           <TableRow>
-            {columns.map((c) => (
-              <TableCell key={c.accessor} as="th">
+            {columns.map((c, i) => (
+              <TableCell key={c.name + i} as="th">
                 {c.name}
               </TableCell>
             ))}
