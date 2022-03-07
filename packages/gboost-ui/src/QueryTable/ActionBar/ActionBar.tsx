@@ -11,6 +11,7 @@ interface ActionBarProps {
   columns: Column[];
   columnVisibility: Record<string, boolean>;
   density: Density;
+  disableMultiFilter: boolean;
   download: boolean;
   downloadFileName: string;
   filters: InternalFilter[];
@@ -30,6 +31,7 @@ export function ActionBar(props: ActionBarProps): ReactElement {
     columns,
     columnVisibility,
     density,
+    disableMultiFilter,
     download,
     downloadFileName,
     filters,
@@ -57,6 +59,7 @@ export function ActionBar(props: ActionBarProps): ReactElement {
       <Box css={{ display: "flex", gap: "$2" }}>
         {filterColumns.length && (
           <FilterAction
+            disableMultiFilter={disableMultiFilter}
             filterColumns={filterColumns}
             filters={filters}
             onFilter={onFilter}

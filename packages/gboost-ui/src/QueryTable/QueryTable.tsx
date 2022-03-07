@@ -6,14 +6,14 @@ import {
   useReducer,
 } from "react";
 import {
+  Alert,
+  Placeholder,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
   TableProps,
-  Alert,
-  Placeholder,
 } from "@aws-amplify/ui-react";
 import { Box } from "../Box.jsx";
 import { Pagination } from "./Pagination.jsx";
@@ -25,6 +25,7 @@ import {
   InternalFilter,
 } from "./ActionBar/FilterAction/FilterAction.jsx";
 import type { Density } from "./ActionBar/DensityAction.jsx";
+import { TableHeaderCell } from "./TableHeaderCell.jsx";
 
 const StyledPlaceholder = styled(Placeholder, { height: 55 });
 const StyledTable = styled(Table, { display: "grid" });
@@ -94,6 +95,14 @@ interface QueryTableProps {
    */
   defaultPageSize?: number;
   /**
+   * @default false
+   */
+  disableMultiSort?: boolean;
+  /**
+   * @default false
+   */
+  disableMultiFilter?: boolean;
+  /**
    * Enable CSV file download
    * @default false
    */
@@ -160,8 +169,7 @@ type Action =
   | { type: "changeLoading"; loading: boolean }
   | { type: "changePage"; page: number }
   | { type: "changePageSize"; pageSize: number }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  | { type: "changeRows"; rows: Record<string, any>[]; nextNextToken: string }
+  | { type: "changeRows"; rows: Row[]; nextNextToken: string }
   | { type: "filter"; filters: InternalFilter[] }
   | { type: "refresh" }
   | { type: "sort"; sorts: Sort[] }
@@ -241,6 +249,8 @@ export function QueryTable({
   columns,
   defaultPageSize = 10,
   defaultDensity = "standard",
+  disableMultiSort = false,
+  disableMultiFilter = false,
   download = false,
   downloadFileName = "data.csv",
   heading,
@@ -331,6 +341,37 @@ export function QueryTable({
   const handleFilter = useCallback((newFilters: InternalFilter[]) => {
     dispatch({ type: "filter", filters: newFilters });
   }, []);
+  const handleCreateSort = useCallback(
+    (sort) =>
+      dispatch({
+        type: "sort",
+        sorts: disableMultiSort ? [...sorts, sort] : [sort],
+      }),
+    [disableMultiSort, sorts]
+  );
+  const handleUpdateSort = useCallback(
+    (column: string, direction: "asc" | "desc") => {
+      const newSorts: Sort[] = [];
+      for (const s of sorts) {
+        if (s.column === column) {
+          newSorts.push({ column, direction });
+        } else {
+          newSorts.push(s);
+        }
+      }
+      dispatch({ type: "sort", sorts: newSorts });
+    },
+    [sorts]
+  );
+  const handleRemoveSort = useCallback(
+    (column: string) => {
+      dispatch({
+        type: "sort",
+        sorts: sorts.filter((s) => s.column !== column),
+      });
+    },
+    [sorts]
+  );
   const visibleColumns = useMemo(
     () => columns.filter((c) => columnVisibility[c.name]),
     [columns, columnVisibility]
@@ -352,6 +393,7 @@ export function QueryTable({
         columns={columns}
         columnVisibility={columnVisibility}
         density={density}
+        disableMultiFilter={disableMultiFilter}
         download={download}
         downloadFileName={downloadFileName}
         filters={filters}
@@ -373,16 +415,15 @@ export function QueryTable({
         <StyledTableHead>
           <StyledTableRow>
             {visibleColumns.map((c, i) => (
-              <StyledTableCell
-                key={c.name + i}
-                as="th"
-                // amplify-table__th is removed when using display: "contents"
-                // is used for thead, tbody, and tr's
-                className="amplify-table__th"
-                css={{ padding, bc: "$primary5" }}
-              >
-                {c.name}
-              </StyledTableCell>
+              <TableHeaderCell
+                key={c.accessor}
+                column={c}
+                onCreateSort={handleCreateSort}
+                onUpdateSort={handleUpdateSort}
+                onRemoveSort={handleRemoveSort}
+                padding={padding}
+                sort={sorts.find((s) => s.column === c.accessor)}
+              />
             ))}
           </StyledTableRow>
         </StyledTableHead>

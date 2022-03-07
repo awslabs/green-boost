@@ -36,12 +36,14 @@ export interface FilterOptions {
 }
 
 interface FilterActionProps {
+  disableMultiFilter: boolean;
   filterColumns: Column[];
   filters: InternalFilter[];
   onFilter: (filters: InternalFilter[]) => void;
 }
 
 export function FilterAction({
+  disableMultiFilter,
   filterColumns,
   filters,
   onFilter,
@@ -67,16 +69,23 @@ export function FilterAction({
   );
   const handleCreateFilter = useCallback(
     (filter: InternalFilter) => {
-      const newFilters = [...filters];
+      const newFilters = disableMultiFilter ? [] : [...filters];
       newFilters.push(filter);
       onFilter(newFilters);
     },
-    [filters, onFilter]
+    [disableMultiFilter, filters, onFilter]
   );
   const handleUpdateFilter = useCallback(
     (id: string, filter: InternalFilter) => {
-      const idx = filters.findIndex((f) => f.id === id);
-      onFilter([...filters.slice(0, idx), filter, ...filters.slice(idx)]);
+      const newFilters: InternalFilter[] = [];
+      for (const f of filters) {
+        if (f.id === id) {
+          newFilters.push(filter);
+        } else {
+          newFilters.push(f);
+        }
+      }
+      onFilter(newFilters);
     },
     [filters, onFilter]
   );
@@ -87,6 +96,8 @@ export function FilterAction({
     },
     [filters, onFilter]
   );
+  const showNewFilter =
+    (disableMultiFilter && filters.length === 0) || !disableMultiFilter;
   return (
     <Dialog
       title={filters.length <= 1 ? "Filter" : "Filters"}
@@ -115,11 +126,13 @@ export function FilterAction({
             onRemoveFilter={handleRemoveFilter}
           />
         ))}
-        <NewFilterRow
-          columnOptions={columnOptions}
-          filterColumnsObj={filterColumnsObj}
-          onCreateFilter={handleCreateFilter}
-        />
+        {showNewFilter && (
+          <NewFilterRow
+            columnOptions={columnOptions}
+            filterColumnsObj={filterColumnsObj}
+            onCreateFilter={handleCreateFilter}
+          />
+        )}
       </Box>
     </Dialog>
   );

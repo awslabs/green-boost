@@ -1,6 +1,6 @@
-import { ChangeEventHandler, ReactElement, useCallback } from "react";
+import { ChangeEventHandler, ReactElement, useCallback, useState } from "react";
 import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
-import { MdDelete } from "react-icons/md";
+import { MdCheck, MdDelete } from "react-icons/md";
 import { FilterValue as FilterValueComponent } from "./FilterValue.jsx";
 import {
   ColumnOption,
@@ -26,22 +26,47 @@ export function FilterRow({
   onUpdateFilter: handleUpdateFilter,
 }: FilterProps): ReactElement {
   const filterOptions = filterColumnsObj[filter.column]?.filterOptions;
+  // dirty is true when user changes any part of filter
+  const [dirty, setDirty] = useState(false);
+  // value is used to temporarily hold user's dirty input value so that we're not
+  // calling onFilter each keystroke
+  const [value, setValue] = useState("");
   const handleChangeColumn: ChangeEventHandler<HTMLSelectElement> = useCallback(
-    (e) => handleUpdateFilter(id, { ...filter, column: e.target.value }),
+    (e) => {
+      setDirty(true);
+      handleUpdateFilter(id, {
+        ...filter,
+        column: e.target.value,
+        comparator: "",
+        value: "",
+      });
+    },
     [filter, handleUpdateFilter, id]
   );
   const handleChangeComparator: ChangeEventHandler<HTMLSelectElement> =
     useCallback(
-      (e) => handleUpdateFilter(id, { ...filter, comparator: e.target.value }),
+      (e) => {
+        setDirty(true);
+        handleUpdateFilter(id, {
+          ...filter,
+          comparator: e.target.value,
+          value: "",
+        });
+      },
       [filter, handleUpdateFilter, id]
     );
-  const handleChangeValue = useCallback(
-    (value) => handleUpdateFilter(id, { ...filter, value }),
-    [filter, handleUpdateFilter, id]
-  );
+  const handleChangeValue = useCallback(() => {
+    handleUpdateFilter(id, { ...filter, value });
+    setDirty(false);
+  }, [filter, handleUpdateFilter, id, value]);
+  const handleChangeTempValue = useCallback((value) => {
+    setDirty(true);
+    setValue(value);
+  }, []);
   const handleEnterValue = useCallback(() => {
-    handleUpdateFilter(id, filter);
-  }, [filter, handleUpdateFilter, id]);
+    handleUpdateFilter(id, { ...filter, value });
+    setDirty(false);
+  }, [filter, handleUpdateFilter, id, value]);
   return (
     <>
       <SelectField
@@ -75,12 +100,18 @@ export function FilterRow({
         comparator={filter.comparator}
         filterOptions={filterOptions}
         onEnterValue={handleEnterValue}
-        onChangeValue={handleChangeValue}
-        value={filter.value}
+        onChangeValue={handleChangeTempValue}
+        value={dirty ? value : filter.value}
       />
-      <Button onClick={() => handleRemoveFilter(id)}>
-        <Icon ariaLabel="delete" as={MdDelete} />
-      </Button>
+      {dirty ? (
+        <Button onClick={handleChangeValue}>
+          <Icon ariaLabel="update" as={MdCheck} />
+        </Button>
+      ) : (
+        <Button onClick={() => handleRemoveFilter(id)}>
+          <Icon ariaLabel="delete" as={MdDelete} />
+        </Button>
+      )}
     </>
   );
 }
