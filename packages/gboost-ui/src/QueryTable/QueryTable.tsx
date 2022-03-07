@@ -12,7 +12,12 @@ import {
 import { Box } from "../Box.jsx";
 import { Pagination } from "./Pagination.jsx";
 import { styled } from "../stitches.config.js";
-import { ActionBar, FilterOptions } from "./ActionBar.jsx";
+import { ActionBar } from "./ActionBar/ActionBar.jsx";
+import {
+  Filter,
+  FilterOptions,
+  InternalFilter,
+} from "./ActionBar/FilterAction/FilterAction.jsx";
 
 const StyledPlaceholder = styled(Placeholder, { height: 55 });
 const StyledTableHead = styled(TableHead, { bc: "$primary5" });
@@ -29,11 +34,6 @@ export interface Column {
    * @default false
    */
   sortable?: boolean;
-}
-export interface Filter {
-  column: string;
-  comparator: string;
-  value: string;
 }
 export interface Sort {
   column: string;
@@ -63,6 +63,17 @@ interface QueryTableProps {
    */
   defaultPageSize?: number;
   /**
+   * Enable CSV file download
+   * @default false
+   */
+  download?: boolean;
+  /**
+   * If download enabled, sets file name
+   * @default "data.csv"
+   */
+  downloadFileName?: string;
+  heading?: string;
+  /**
    * Function called to query data from external data source. Params include:
    * nextToken, filterModel, selectionModel, and sortModel. Must return object
    * with rows and nextToken or errorMessage.
@@ -87,7 +98,7 @@ interface QueryTableProps {
 }
 
 const tableState = {
-  filters: [] as Filter[],
+  filters: [] as InternalFilter[],
   errorMessage: "",
   loading: false,
   nextToken: "",
@@ -107,7 +118,7 @@ type Action =
   | { type: "changePageSize"; pageSize: number }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | { type: "changeRows"; rows: Record<string, any>[]; nextNextToken: string }
-  | { type: "filter"; filters: Filter[] }
+  | { type: "filter"; filters: InternalFilter[] }
   | { type: "refresh" }
   | { type: "sort"; sorts: Sort[] }
   | { type: "unknown" };
@@ -181,6 +192,9 @@ const defaultErrorMessage = "Something went wrong";
 export function QueryTable({
   columns,
   defaultPageSize = 10,
+  download = false,
+  downloadFileName = "data.csv",
+  heading,
   onQuery,
   RightActionBar,
   rowIdAccessor = "id",
@@ -210,7 +224,16 @@ export function QueryTable({
     async function fetchData() {
       try {
         dispatch({ type: "changeLoading", loading: true });
-        const res = await onQuery({ filters, nextToken, pageSize, sorts });
+        const externalFilters = filters.map((f) => {
+          const { id, ...externalFilter } = f;
+          return externalFilter;
+        });
+        const res = await onQuery({
+          filters: externalFilters,
+          nextToken,
+          pageSize,
+          sorts,
+        });
         if ("rows" in res) {
           dispatch({
             type: "changeRows",
@@ -249,7 +272,7 @@ export function QueryTable({
       </Box>
     );
   }
-  const handleFilter = useCallback((newFilters: Filter[]) => {
+  const handleFilter = useCallback((newFilters: InternalFilter[]) => {
     dispatch({ type: "filter", filters: newFilters });
   }, []);
   const showBody = !errorMessage && !loading;
@@ -257,8 +280,12 @@ export function QueryTable({
     <>
       <ActionBar
         columns={columns}
+        download={download}
+        downloadFileName={downloadFileName}
         filters={filters}
+        heading={heading}
         onFilter={handleFilter}
+        rows={rows}
         RightActionBar={RightActionBar}
       />
       <Table {...tableProps}>

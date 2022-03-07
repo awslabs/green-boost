@@ -7,4 +7,6 @@ export * from "./UserManagement/UserManagement.jsx";
 export type { Page } from "./page.js";
 export * from "./stitches.config.js";
 export * from "./QueryTable/QueryTable.jsx";
+export type { Filter } from "./QueryTable/ActionBar/FilterAction/FilterAction.jsx";
 export * from "./List.jsx";
+export * from "./Dialog.jsx";
