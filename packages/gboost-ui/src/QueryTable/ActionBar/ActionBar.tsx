@@ -4,16 +4,18 @@ import { Box } from "../../Box.jsx";
 import { Column } from "../QueryTable.jsx";
 import { DownloadAction } from "./DownloadAction.jsx";
 import { FilterAction, InternalFilter } from "./FilterAction/FilterAction.jsx";
-import { ColumnsAction } from "./ColumnsAction.jsx";
+import { ColumnVisibilityAction } from "./ColumnVisibilityAction.jsx";
 import { Density, DensityAction } from "./DensityAction.jsx";
 
 interface ActionBarProps {
   columns: Column[];
+  columnVisibility: Record<string, boolean>;
   density: Density;
   download: boolean;
   downloadFileName: string;
   filters: InternalFilter[];
   heading?: string;
+  onChangeColumnVisibility: (columnVisibility: Record<string, boolean>) => void;
   onChangeDensity: (density: Density) => void;
   onFilter: (filters: InternalFilter[]) => void;
   rows: Record<string, string>[];
@@ -26,11 +28,13 @@ interface ActionBarProps {
 export function ActionBar(props: ActionBarProps): ReactElement {
   const {
     columns,
+    columnVisibility,
     density,
     download,
     downloadFileName,
     filters,
     heading,
+    onChangeColumnVisibility: handleChangeColumnVisibility,
     onChangeDensity: handleChangeDensity,
     onFilter,
     rows,
@@ -58,7 +62,10 @@ export function ActionBar(props: ActionBarProps): ReactElement {
             onFilter={onFilter}
           />
         )}
-        <ColumnsAction />
+        <ColumnVisibilityAction
+          columnVisibility={columnVisibility}
+          onChangeColumnVisibility={handleChangeColumnVisibility}
+        />
         <DensityAction
           density={density}
           onChangeDensity={handleChangeDensity}

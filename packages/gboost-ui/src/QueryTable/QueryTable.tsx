@@ -1,4 +1,10 @@
-import { ReactElement, useCallback, useEffect, useReducer } from "react";
+import {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+} from "react";
 import {
   Table,
   TableBody,
@@ -129,6 +135,7 @@ const densityToPadding: Record<Density, string> = {
 };
 
 const tableState = {
+  columnVisibility: {} as Record<string, boolean>,
   density: "standard" as Density,
   errorMessage: "",
   filters: [] as InternalFilter[],
@@ -144,6 +151,10 @@ const tableState = {
 };
 
 type Action =
+  | {
+      type: "changeColumnVisibility";
+      columnVisibility: Record<string, boolean>;
+    }
   | { type: "changeDensity"; density: Density }
   | { type: "changeError"; message: string }
   | { type: "changeLoading"; loading: boolean }
@@ -161,6 +172,8 @@ function tableReducer(
   action: Action
 ): typeof tableState {
   switch (action.type) {
+    case "changeColumnVisibility":
+      return { ...state, columnVisibility: action.columnVisibility };
     case "changeDensity":
       return { ...state, density: action.density };
     case "changeError":
@@ -239,6 +252,7 @@ export function QueryTable({
   let spanTableEl: ReactElement | undefined;
   const [
     {
+      columnVisibility,
       density,
       errorMessage,
       filters,
@@ -257,6 +271,10 @@ export function QueryTable({
     ...tableState,
     pageSize: defaultPageSize,
     density: defaultDensity,
+    columnVisibility: columns.reduce(
+      (prev, cur) => ({ ...prev, [cur.name]: true }),
+      {}
+    ),
   });
   useEffect(() => {
     async function fetchData() {
@@ -313,23 +331,34 @@ export function QueryTable({
   const handleFilter = useCallback((newFilters: InternalFilter[]) => {
     dispatch({ type: "filter", filters: newFilters });
   }, []);
-  const getGridTemplateColumns = useCallback((columns: Column[]): string => {
-    return columns.reduce(
-      (prev, cur) => `${prev} minmax(150px, ${cur.width || "1fr"})`,
-      ""
-    );
-  }, []);
+  const visibleColumns = useMemo(
+    () => columns.filter((c) => columnVisibility[c.name]),
+    [columns, columnVisibility]
+  );
+  const getGridTemplateColumns = useCallback(
+    (columns: Column[]): string => {
+      return visibleColumns.reduce(
+        (prev, cur) => `${prev} minmax(150px, ${cur.width || "1fr"})`,
+        ""
+      );
+    },
+    [visibleColumns]
+  );
   const showBody = !errorMessage && !loading;
   const padding = densityToPadding[density];
   return (
     <>
       <ActionBar
         columns={columns}
+        columnVisibility={columnVisibility}
         density={density}
         download={download}
         downloadFileName={downloadFileName}
         filters={filters}
         heading={heading}
+        onChangeColumnVisibility={(columnVisibility: Record<string, boolean>) =>
+          dispatch({ type: "changeColumnVisibility", columnVisibility })
+        }
         onChangeDensity={(density) =>
           dispatch({ type: "changeDensity", density })
         }
@@ -343,7 +372,7 @@ export function QueryTable({
       >
         <StyledTableHead>
           <StyledTableRow>
-            {columns.map((c, i) => (
+            {visibleColumns.map((c, i) => (
               <StyledTableCell
                 key={c.name + i}
                 as="th"
@@ -361,7 +390,7 @@ export function QueryTable({
           <StyledTableBody>
             {rows.map((r) => (
               <StyledTableRow key={r[rowIdAccessor]} rowSpan={columns.length}>
-                {columns.map((c) => (
+                {visibleColumns.map((c) => (
                   <StyledTableCell key={c.accessor} css={{ padding }}>
                     {c.renderCell
                       ? c.renderCell(r[c.accessor], r)
