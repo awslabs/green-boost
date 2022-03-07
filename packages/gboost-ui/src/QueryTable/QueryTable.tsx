@@ -417,6 +417,7 @@ export function QueryTable({
             {visibleColumns.map((c, i) => (
               <TableHeaderCell
                 key={c.accessor}
+                activeFilter={filters.some((f) => f.column === c.accessor)}
                 column={c}
                 onCreateSort={handleCreateSort}
                 onUpdateSort={handleUpdateSort}

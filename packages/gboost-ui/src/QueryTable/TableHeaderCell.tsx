@@ -2,7 +2,7 @@ import { ReactElement, useCallback, useRef } from "react";
 import { Button, TableCell } from "@aws-amplify/ui-react";
 import { config, styled } from "../stitches.config.js";
 import * as Stitches from "@stitches/react";
-import { MdArrowDownward, MdArrowUpward } from "react-icons/md";
+import { MdArrowDownward, MdArrowUpward, MdFilterList } from "react-icons/md";
 import { Column, Sort } from "./QueryTable.jsx";
 
 const StyledTableCell = styled(TableCell, {
@@ -17,8 +17,10 @@ const StyledSortButton = styled(Button, {
 });
 const StyledArrowUpward = styled(MdArrowUpward);
 const StyledArrowDownward = styled(MdArrowDownward);
+const StyledFilterList = styled(MdFilterList, { display: "inline", ml: "$2" });
 
 interface TableHeaderCellProps {
+  activeFilter: boolean;
   column: Column;
   onCreateSort: (sort: Sort) => void;
   onRemoveSort: (column: string) => void;
@@ -29,6 +31,7 @@ interface TableHeaderCellProps {
 
 export function TableHeaderCell(props: TableHeaderCellProps): ReactElement {
   const {
+    activeFilter,
     column,
     onCreateSort: handleCreateSort,
     onRemoveSort: handleRemoveSort,
@@ -93,6 +96,7 @@ export function TableHeaderCell(props: TableHeaderCellProps): ReactElement {
       }}
     >
       {column.name}
+      {activeFilter && <StyledFilterList />}
       <StyledSortButton
         ref={sortButton}
         css={buttonCss}
