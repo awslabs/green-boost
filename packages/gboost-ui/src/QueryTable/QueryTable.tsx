@@ -18,9 +18,21 @@ import {
   FilterOptions,
   InternalFilter,
 } from "./ActionBar/FilterAction/FilterAction.jsx";
+import type { Density } from "./ActionBar/DensityAction.jsx";
 
 const StyledPlaceholder = styled(Placeholder, { height: 55 });
-const StyledTableHead = styled(TableHead, { bc: "$primary5" });
+const StyledTable = styled(Table, { display: "grid" });
+// https://adamlynch.com/flexible-data-tables-with-css-grid/
+const StyledTableHead = styled(TableHead, {
+  display: "contents !important",
+});
+const StyledTableBody = styled(TableBody, { display: "contents !important" });
+const StyledTableRow = styled(TableRow, { display: "contents !important" });
+const StyledTableCell = styled(TableCell, {
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+});
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Row = any;
@@ -34,6 +46,14 @@ export interface Column {
    * @default false
    */
   sortable?: boolean;
+  /**
+   * Defines max argument in grid-template-columns property
+   * <minmax(150px, <width>)
+   * @example "20%"
+   * @example "400px"
+   * @default "1fr"
+   */
+  width?: string;
 }
 export interface Sort {
   column: string;
@@ -57,6 +77,11 @@ export type OnQueryReturnValue =
   | OnQueryErrorReturnValue;
 interface QueryTableProps {
   columns: Column[];
+  /**
+   * Default padding in table
+   * @default "standard"
+   */
+  defaultDensity?: Density;
   /**
    * Number of rows per page
    * @default 10
@@ -97,9 +122,16 @@ interface QueryTableProps {
   tableProps?: TableProps;
 }
 
+const densityToPadding: Record<Density, string> = {
+  cozy: ".5rem !important",
+  standard: "1rem !important",
+  comfy: "1.5rem !important",
+};
+
 const tableState = {
-  filters: [] as InternalFilter[],
+  density: "standard" as Density,
   errorMessage: "",
+  filters: [] as InternalFilter[],
   loading: false,
   nextToken: "",
   nextNextToken: "",
@@ -112,6 +144,7 @@ const tableState = {
 };
 
 type Action =
+  | { type: "changeDensity"; density: Density }
   | { type: "changeError"; message: string }
   | { type: "changeLoading"; loading: boolean }
   | { type: "changePage"; page: number }
@@ -128,6 +161,8 @@ function tableReducer(
   action: Action
 ): typeof tableState {
   switch (action.type) {
+    case "changeDensity":
+      return { ...state, density: action.density };
     case "changeError":
       return { ...state, loading: false, errorMessage: action.message };
     case "changeLoading":
@@ -192,6 +227,7 @@ const defaultErrorMessage = "Something went wrong";
 export function QueryTable({
   columns,
   defaultPageSize = 10,
+  defaultDensity = "standard",
   download = false,
   downloadFileName = "data.csv",
   heading,
@@ -203,6 +239,7 @@ export function QueryTable({
   let spanTableEl: ReactElement | undefined;
   const [
     {
+      density,
       errorMessage,
       filters,
       loading,
@@ -218,7 +255,8 @@ export function QueryTable({
     dispatch,
   ] = useReducer(tableReducer, {
     ...tableState,
-    pageSize: defaultPageSize ?? tableState.pageSize,
+    pageSize: defaultPageSize,
+    density: defaultDensity,
   });
   useEffect(() => {
     async function fetchData() {
@@ -275,45 +313,66 @@ export function QueryTable({
   const handleFilter = useCallback((newFilters: InternalFilter[]) => {
     dispatch({ type: "filter", filters: newFilters });
   }, []);
+  const getGridTemplateColumns = useCallback((columns: Column[]): string => {
+    return columns.reduce(
+      (prev, cur) => `${prev} minmax(150px, ${cur.width || "1fr"})`,
+      ""
+    );
+  }, []);
   const showBody = !errorMessage && !loading;
+  const padding = densityToPadding[density];
   return (
     <>
       <ActionBar
         columns={columns}
+        density={density}
         download={download}
         downloadFileName={downloadFileName}
         filters={filters}
         heading={heading}
+        onChangeDensity={(density) =>
+          dispatch({ type: "changeDensity", density })
+        }
         onFilter={handleFilter}
         rows={rows}
         RightActionBar={RightActionBar}
       />
-      <Table {...tableProps}>
+      <StyledTable
+        {...tableProps}
+        css={{ gridTemplateColumns: getGridTemplateColumns(columns) }}
+      >
         <StyledTableHead>
-          <TableRow>
+          <StyledTableRow>
             {columns.map((c, i) => (
-              <TableCell key={c.name + i} as="th">
+              <StyledTableCell
+                key={c.name + i}
+                as="th"
+                // amplify-table__th is removed when using display: "contents"
+                // is used for thead, tbody, and tr's
+                className="amplify-table__th"
+                css={{ padding, bc: "$primary5" }}
+              >
                 {c.name}
-              </TableCell>
+              </StyledTableCell>
             ))}
-          </TableRow>
+          </StyledTableRow>
         </StyledTableHead>
         {showBody && (
-          <TableBody>
+          <StyledTableBody>
             {rows.map((r) => (
-              <TableRow key={r[rowIdAccessor]} rowSpan={columns.length}>
+              <StyledTableRow key={r[rowIdAccessor]} rowSpan={columns.length}>
                 {columns.map((c) => (
-                  <TableCell key={c.accessor}>
+                  <StyledTableCell key={c.accessor} css={{ padding }}>
                     {c.renderCell
                       ? c.renderCell(r[c.accessor], r)
                       : r[c.accessor]}
-                  </TableCell>
+                  </StyledTableCell>
                 ))}
-              </TableRow>
+              </StyledTableRow>
             ))}
-          </TableBody>
+          </StyledTableBody>
         )}
-      </Table>
+      </StyledTable>
       {spanTableEl}
       <Pagination
         disableNext={!nextNextToken}

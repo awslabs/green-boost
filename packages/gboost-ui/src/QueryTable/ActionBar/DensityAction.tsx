@@ -1,19 +1,45 @@
 import { ReactElement } from "react";
-import { MdTableRows } from "react-icons/md";
-import { Button, Icon } from "@aws-amplify/ui-react";
-import { Dialog } from "../../Dialog.jsx";
+import { MdLineWeight } from "react-icons/md";
+import { Icon, Menu, MenuButton, MenuItem } from "@aws-amplify/ui-react";
+import { styled } from "../../stitches.config.js";
 
-export function DensityAction(): ReactElement {
+export type Density = "cozy" | "standard" | "comfy";
+
+const StyledMenuItem = styled(MenuItem);
+
+interface DensityActionProps {
+  density: Density;
+  onChangeDensity: (density: Density) => void;
+}
+
+export function DensityAction(props: DensityActionProps): ReactElement {
+  const { density, onChangeDensity: handleChangeDensity } = props;
   return (
-    <Dialog
-      title="Density"
+    <Menu
       trigger={
-        <Button size="large">
-          <Icon ariaLabel="columns" as={MdTableRows} />
-        </Button>
+        <MenuButton size="large">
+          <Icon ariaLabel="columns" as={MdLineWeight} />
+        </MenuButton>
       }
     >
-      <>TODO</>
-    </Dialog>
+      <StyledMenuItem
+        css={{ bc: density === "cozy" ? "$primary5 !important" : "" }}
+        onClick={() => handleChangeDensity("cozy")}
+      >
+        Cozy
+      </StyledMenuItem>
+      <StyledMenuItem
+        css={{ bc: density === "standard" ? "$primary5 !important" : "" }}
+        onClick={() => handleChangeDensity("standard")}
+      >
+        Standard
+      </StyledMenuItem>
+      <StyledMenuItem
+        css={{ bc: density === "comfy" ? "$primary5 !important" : "" }}
+        onClick={() => handleChangeDensity("comfy")}
+      >
+        Comfy
+      </StyledMenuItem>
+    </Menu>
   );
 }

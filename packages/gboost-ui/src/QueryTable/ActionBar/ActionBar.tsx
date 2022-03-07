@@ -5,14 +5,16 @@ import { Column } from "../QueryTable.jsx";
 import { DownloadAction } from "./DownloadAction.jsx";
 import { FilterAction, InternalFilter } from "./FilterAction/FilterAction.jsx";
 import { ColumnsAction } from "./ColumnsAction.jsx";
-import { DensityAction } from "./DensityAction.jsx";
+import { Density, DensityAction } from "./DensityAction.jsx";
 
 interface ActionBarProps {
   columns: Column[];
+  density: Density;
   download: boolean;
   downloadFileName: string;
   filters: InternalFilter[];
   heading?: string;
+  onChangeDensity: (density: Density) => void;
   onFilter: (filters: InternalFilter[]) => void;
   rows: Record<string, string>[];
   RightActionBar?: ReactElement;
@@ -24,10 +26,12 @@ interface ActionBarProps {
 export function ActionBar(props: ActionBarProps): ReactElement {
   const {
     columns,
+    density,
     download,
     downloadFileName,
     filters,
     heading,
+    onChangeDensity: handleChangeDensity,
     onFilter,
     rows,
     RightActionBar,
@@ -55,7 +59,10 @@ export function ActionBar(props: ActionBarProps): ReactElement {
           />
         )}
         <ColumnsAction />
-        <DensityAction />
+        <DensityAction
+          density={density}
+          onChangeDensity={handleChangeDensity}
+        />
         {download && (
           <DownloadAction downloadFileName={downloadFileName} rows={rows} />
         )}
