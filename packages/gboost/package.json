@@ -1,6 +1,6 @@
 {
   "name": "gboost",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Green Boost Command Line Interface",
   "bin": {
     "gboost": "lib/index.js"
