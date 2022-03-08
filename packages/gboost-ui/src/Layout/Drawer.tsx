@@ -8,7 +8,7 @@ import {
 import { useHotkeys, useFocusTrap } from "@mantine/hooks";
 import { Portal } from "../Portal.jsx";
 import { Box } from "../Box.jsx";
-import { Overlay } from "./Overlay.jsx";
+import { Overlay } from "../Overlay.jsx";
 import { CSS } from "../stitches.config.js";
 
 interface DrawerProps {

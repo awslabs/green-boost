@@ -11,25 +11,22 @@
     "lint": "pnpm --recursive --filter ./packages --parallel lint",
     "unit-test": "pnpm --recursive --filter ./packages --parallel test",
     "prepare": "husky install",
-    "changeset-version": "node --loader ts-node/esm scripts/changeset-version.ts",
-    "license-check": "node --loader ts-node/esm scripts/license-check.ts",
+    "changeset-version": "ts-node --esm scripts/changeset-version.ts",
+    "license-check": "ts-node --esm scripts/license-check.ts",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.4.2",
-    "@changesets/cli": "^2.20.0",
+    "@changesets/changelog-github": "^0.4.3",
+    "@changesets/cli": "^2.21.1",
     "@types/license-checker": "^25.0.3",
     "@types/node": "^14.18.12",
     "husky": "^7.0.4",
     "license-checker": "^25.0.1",
-    "lint-staged": "^12.3.4",
-    "ts-node": "^10.5.0",
+    "lint-staged": "^12.3.5",
+    "ts-node": "^10.7.0",
     "typescript": "^4.6.2"
   },
   "license": "Apache-2.0",
-  "lint-staged": {
-    "*": "true"
-  },
   "dependencies": {
     "node^16.11.25": "link:@types/node^16.11.25"
   }
