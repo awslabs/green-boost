@@ -27,9 +27,6 @@
     "typescript": "^4.6.2"
   },
   "license": "Apache-2.0",
-  "lint-staged": {
-    "*": "true"
-  },
   "dependencies": {
     "node^16.11.25": "link:@types/node^16.11.25"
   }
