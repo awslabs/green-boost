@@ -92,7 +92,7 @@ export function UsersTable(): ReactElement {
     <QueryTable
       columns={columns}
       onQuery={handleQuery}
-      RightActionBar={<UsersTableRightActionBar />}
+      ActionMenu={<UsersTableRightActionBar />}
       rowIdAccessor="username"
       tableProps={{ highlightOnHover: true }}
     />

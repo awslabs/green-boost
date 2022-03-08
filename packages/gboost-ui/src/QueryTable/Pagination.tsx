@@ -11,6 +11,9 @@ const StyledText = styled(Text, {
   alignSelf: "center",
   mr: "$2",
 });
+const StyledSelectField = styled(SelectField, {
+  mr: "$2",
+});
 
 interface PaginationProps {
   disableNext: boolean;
@@ -35,19 +38,18 @@ export function Pagination(props: PaginationProps): ReactElement {
   return (
     <Box css={{ display: "flex", justifyContent: "end", mt: "$2" }}>
       <StyledText>Page Size:</StyledText>
-      <SelectField
+      <StyledSelectField
         label="Page Size"
         labelHidden={true}
         onChange={(e) => onPageSizeChange(Number(e.target.value))}
         value={pageSize.toString()}
-        size="small"
       >
         {pageSizeOptions.map((s) => (
           <option key={s} value={s}>
             {s}
           </option>
         ))}
-      </SelectField>
+      </StyledSelectField>
       <StyledButton
         disabled={disablePrev}
         variation="link"

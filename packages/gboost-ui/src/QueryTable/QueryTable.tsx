@@ -121,11 +121,11 @@ interface QueryTableProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onQuery: (params: OnQueryParams) => Promise<OnQueryReturnValue>;
   /**
-   * Component placed on top right of table, often used for creating a row or
+   * Action Menu Component placed on top right of table, often used for creating a row or
    * displaying an actions menu button for user to perform actions on selected
    * row
    */
-  RightActionBar?: ReactElement;
+  ActionMenu?: ReactElement;
   /**
    * Provides key for each row
    * @default "id"
@@ -255,7 +255,7 @@ export function QueryTable({
   downloadFileName = "data.csv",
   heading,
   onQuery,
-  RightActionBar,
+  ActionMenu,
   rowIdAccessor = "id",
   tableProps,
 }: QueryTableProps): ReactElement {
@@ -406,7 +406,7 @@ export function QueryTable({
         }
         onFilter={handleFilter}
         rows={rows}
-        RightActionBar={RightActionBar}
+        ActionMenu={ActionMenu}
       />
       <StyledTable
         {...tableProps}

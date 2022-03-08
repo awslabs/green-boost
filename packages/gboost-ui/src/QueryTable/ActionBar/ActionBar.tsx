@@ -20,7 +20,7 @@ interface ActionBarProps {
   onChangeDensity: (density: Density) => void;
   onFilter: (filters: InternalFilter[]) => void;
   rows: Record<string, string>[];
-  RightActionBar?: ReactElement;
+  ActionMenu?: ReactElement;
 }
 
 /**
@@ -40,7 +40,7 @@ export function ActionBar(props: ActionBarProps): ReactElement {
     onChangeDensity: handleChangeDensity,
     onFilter,
     rows,
-    RightActionBar,
+    ActionMenu,
   } = props;
   const filterColumns = useMemo(
     () => columns.filter((c) => c.filterOptions),
@@ -76,7 +76,7 @@ export function ActionBar(props: ActionBarProps): ReactElement {
         {download && (
           <DownloadAction downloadFileName={downloadFileName} rows={rows} />
         )}
-        {RightActionBar}
+        {ActionMenu}
       </Box>
     </Box>
   );
