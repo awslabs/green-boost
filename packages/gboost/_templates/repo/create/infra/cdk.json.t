@@ -3,7 +3,7 @@ to: infra/cdk.json
 ---
 
 {
-  "app": "node --loader ts-node/esm src/pipeline.ts",
+  "app": "ts-node --esm src/pipeline.ts",
   "watch": {
     "include": [
       "**"
