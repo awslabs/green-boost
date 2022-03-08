@@ -55,7 +55,7 @@ export interface Column {
   sortable?: boolean;
   /**
    * Defines max argument in grid-template-columns property
-   * <minmax(150px, <width>)
+   * minmax(150px, <width>)
    * @example "20%"
    * @example "400px"
    * @default "1fr"
