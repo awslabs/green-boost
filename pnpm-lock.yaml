@@ -206,7 +206,7 @@ importers:
       eslint-plugin-jest: ^25.7.0
       eslint-plugin-prettier: ^4.0.0
       fs-extra: ^10.0.1
-      gboost-common: workspace:^0.3.2
+      gboost-common: workspace:^0.3.3
       jest: ^27.5.1
       joi: ^17.6.0
       prettier: ^2.5.1
@@ -264,7 +264,7 @@ importers:
       eslint-define-config: ^1.2.5
       eslint-plugin-jest: ^25.7.0
       eslint-plugin-prettier: ^4.0.0
-      gboost-common: workspace:^0.3.2
+      gboost-common: workspace:^0.3.3
       graphql: ^15.8.0
       graphql-tag: ^2.12.6
       jest: ^27.5.1
