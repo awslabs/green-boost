@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.5.2
+
+### Patch Changes
+
+- [`6c67d8b`](https://github.com/awslabs/green-boost/commit/6c67d8bfded3a9cd0f4cc86b45a96a21b307949f) Thanks [@bestickley](https://github.com/bestickley)! - Remove unecessary peer deps
+
 ## 0.5.1
 
 ### Patch Changes
