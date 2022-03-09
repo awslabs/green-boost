@@ -9,7 +9,7 @@
   },
   "types": "./src/index.ts",
   "publishConfig": {
-    "main": "./lib/index.mjs",
+    "main": "./lib/index.js",
     "module": "./lib/index.js",
     "exports": {
       ".": "./lib/index.js"

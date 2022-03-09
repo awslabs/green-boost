@@ -3,16 +3,16 @@
   "version": "0.5.0",
   "description": "Green Boost UI Library of React Components",
   "type": "module",
-  "main": "./src/index.tsx",
+  "main": "./src/index.ts",
   "exports": {
-    ".": "./src/index.tsx"
+    ".": "./src/index.ts"
   },
-  "types": "./src/index.tsx",
+  "types": "./src/index.ts",
   "publishConfig": {
-    "main": "./lib/index.mjsx",
-    "module": "./lib/index.jsx",
+    "main": "./lib/index.js",
+    "module": "./lib/index.js",
     "exports": {
-      ".": "./lib/index.jsx"
+      ".": "./lib/index.js"
     },
     "types": "./lib/index.d.ts"
   },
@@ -28,15 +28,10 @@
     "test": "jest"
   },
   "dependencies": {
-    "@aws-amplify/api-graphql": "^2.2.22",
-    "@aws-amplify/auth": "^4.4.2",
-    "@aws-amplify/ui": "^3.2.0",
-    "@aws-amplify/ui-react": "^2.8.0",
     "@mantine/hooks": "^3.6.14",
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-dialog": "^0.1.7",
     "@stitches/react": "^1.2.7",
-    "aws-amplify": "^4.3.15",
     "gboost-common": "workspace:^0.3.2",
     "graphql": "^15.8.0",
     "graphql-tag": "^2.12.6",
@@ -48,12 +43,17 @@
     "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
+    "@aws-amplify/api-graphql": "^2.2.22",
+    "@aws-amplify/auth": "^4.4.2",
+    "@aws-amplify/ui": "^3.2.0",
+    "@aws-amplify/ui-react": "^2.8.0",
     "@types/jest": "^27.4.1",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.13",
     "@types/react-transition-group": "^4.4.4",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
+    "aws-amplify": "^4.3.15",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.0",
@@ -67,6 +67,13 @@
     "ts-node": "^10.7.0",
     "typescript": "^4.6.2",
     "vite": "^2.8.6"
+  },
+  "peerDependencies": {
+    "@aws-amplify/api-graphql": "^2.2.22",
+    "@aws-amplify/auth": "^4.4.2",
+    "@aws-amplify/ui": "^3.2.0",
+    "@aws-amplify/ui-react": "^2.8.0",
+    "aws-amplify": "^4.3.15"
   },
   "repository": {
     "type": "git",
