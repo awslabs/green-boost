@@ -69,9 +69,6 @@
     "vite": "^2.8.6"
   },
   "peerDependencies": {
-    "@aws-amplify/api-graphql": "^2.2.22",
-    "@aws-amplify/auth": "^4.4.2",
-    "@aws-amplify/ui": "^3.2.0",
     "@aws-amplify/ui-react": "^2.8.0",
     "aws-amplify": "^4.3.15"
   },
