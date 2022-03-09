@@ -1,6 +1,6 @@
 {
   "name": "gboost-infra",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Green Boost Infrastructure Library of CDK Constructs",
   "type": "module",
   "main": "./src/index.ts",
@@ -34,7 +34,7 @@
     "cdk-nag": "^2.9.5",
     "constructs": "^10.0.82",
     "esbuild": "^0.14.25",
-    "gboost-common": "workspace:^0.3.2",
+    "gboost-common": "workspace:^0.3.3",
     "joi": "^17.6.0"
   },
   "devDependencies": {
