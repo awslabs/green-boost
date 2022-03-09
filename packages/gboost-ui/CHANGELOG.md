@@ -1,5 +1,16 @@
 # gboost-ui
 
+## 0.5.1
+
+### Patch Changes
+
+- [#23](https://github.com/awslabs/green-boost/pull/23) [`b8dd9c0`](https://github.com/awslabs/green-boost/commit/b8dd9c094bbe40cf798df2016874ed1a79016b29) Thanks [@bestickley](https://github.com/bestickley)! - Make all aws-amplify deps peerDependencies to fix Vite pre-bundling issue
+
+* [#23](https://github.com/awslabs/green-boost/pull/23) [`b8dd9c0`](https://github.com/awslabs/green-boost/commit/b8dd9c094bbe40cf798df2016874ed1a79016b29) Thanks [@bestickley](https://github.com/bestickley)! - Fix main in package.json
+
+* Updated dependencies [[`b8dd9c0`](https://github.com/awslabs/green-boost/commit/b8dd9c094bbe40cf798df2016874ed1a79016b29)]:
+  - gboost-common@0.3.3
+
 ## 0.5.0
 
 ### Minor Changes
