@@ -7,12 +7,12 @@ import {
 } from "react";
 import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
 import { MdCheck } from "react-icons/md";
-import { FilterValue as FilterValueComponent } from "./FilterValue.jsx";
+import { FilterValue as FilterValueComponent } from "./FilterValue.js";
 import {
   ColumnOption,
   FilterColumnsObj,
   InternalFilter,
-} from "./FilterAction.jsx";
+} from "./FilterAction.js";
 import { randomId } from "@mantine/hooks";
 
 const initFilter: InternalFilter = {

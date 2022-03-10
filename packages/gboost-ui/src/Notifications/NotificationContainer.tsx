@@ -1,8 +1,8 @@
 import { ReactElement, useEffect, useRef } from "react";
 import { Transition, TransitionStatus } from "react-transition-group";
-import { QueueNotification } from "../context/NotificationsContext.jsx";
+import { QueueNotification } from "../context/NotificationsContext.js";
 import { styled } from "../stitches.config.js";
-import { Notification } from "./Notification.jsx";
+import { Notification } from "./Notification.js";
 import type * as Stitches from "@stitches/react";
 
 const duration = 300;

@@ -5,7 +5,7 @@ import {
   Image,
   View,
 } from "@aws-amplify/ui-react";
-import { Box } from "./Box.jsx";
+import { Box } from "./Box.js";
 import { styled } from "./stitches.config.js";
 import { ArgumentTypes } from "./utils/ArgumentTypes.js";
 type AuthenticatorProps = ArgumentTypes<typeof AmplifyAuthenticator>[0];

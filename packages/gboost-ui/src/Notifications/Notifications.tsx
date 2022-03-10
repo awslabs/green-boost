@@ -1,8 +1,8 @@
 import { cloneElement, ReactElement } from "react";
-import type { QueueNotification } from "../context/NotificationsContext.jsx";
+import type { QueueNotification } from "../context/NotificationsContext.js";
 import { TransitionGroup } from "react-transition-group";
-import { Portal } from "../Portal.jsx";
-import { NotificationContainer } from "./NotificationContainer.jsx";
+import { Portal } from "../Portal.js";
+import { NotificationContainer } from "./NotificationContainer.js";
 
 interface NotificationsProps {
   notifications: QueueNotification[];

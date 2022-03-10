@@ -3,8 +3,8 @@ import { Button, TableCell } from "@aws-amplify/ui-react";
 import { config, styled } from "../stitches.config.js";
 import * as Stitches from "@stitches/react";
 import { MdArrowDownward, MdArrowUpward, MdFilterList } from "react-icons/md";
-import { Column, Sort } from "./QueryTable.jsx";
-import { Box } from "../Box.jsx";
+import { Column, Sort } from "./QueryTable.js";
+import { Box } from "../Box.js";
 import { RefObject } from "react";
 
 const StyledTableCell = styled(TableCell, {

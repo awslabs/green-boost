@@ -1,14 +1,14 @@
 import { ReactElement } from "react";
 import { Badge } from "@aws-amplify/ui-react";
-import { Column, QueryTable } from "../QueryTable/QueryTable.jsx";
+import { Column, QueryTable } from "../QueryTable/QueryTable.js";
 import { listUsers } from "./gql.js";
 import type { CognitoUser, ListUsersArgs } from "gboost-common";
 import { CognitoUserStatus } from "gboost-common";
 import type {
   OnQueryParams,
   OnQueryReturnValue,
-} from "../QueryTable/QueryTable.jsx";
-import { UsersTableRightActionBar } from "./UsersTableRightActionBar.jsx";
+} from "../QueryTable/QueryTable.js";
+import { UsersTableRightActionBar } from "./UsersTableRightActionBar.js";
 import { gQuery } from "../utils/gQuery.js";
 
 interface ListUsersResponse {

@@ -1,5 +1,5 @@
 import { Alert } from "@aws-amplify/ui-react";
-// import { useSnackbar } from "./context/SnackbarProvider.jsx";
+// import { useSnackbar } from "./context/SnackbarProvider.js";
 
 export function Snackbar() {
   // const { snackbarState, dispatchSnackbar } = useSnackbar();

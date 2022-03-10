@@ -16,17 +16,17 @@ import {
   TableProps,
 } from "@aws-amplify/ui-react";
 import { randomId } from "@mantine/hooks";
-import { Box } from "../Box.jsx";
-import { Pagination } from "./Pagination.jsx";
+import { Box } from "../Box.js";
+import { Pagination } from "./Pagination.js";
 import { styled } from "../stitches.config.js";
-import { ActionBar } from "./ActionBar/ActionBar.jsx";
+import { ActionBar } from "./ActionBar/ActionBar.js";
 import {
   Filter,
   FilterOptions,
   InternalFilter,
-} from "./ActionBar/FilterAction/FilterAction.jsx";
-import type { Density } from "./ActionBar/DensityAction.jsx";
-import { TableHeaderCell } from "./TableHeaderCell.jsx";
+} from "./ActionBar/FilterAction/FilterAction.js";
+import type { Density } from "./ActionBar/DensityAction.js";
+import { TableHeaderCell } from "./TableHeaderCell.js";
 import { useRef } from "react";
 
 const StyledPlaceholder = styled(Placeholder, { height: 55 });

@@ -1,11 +1,11 @@
 import { ReactElement, RefObject, useMemo } from "react";
 import { Heading } from "@aws-amplify/ui-react";
-import { Box } from "../../Box.jsx";
-import { Column } from "../QueryTable.jsx";
-import { DownloadAction } from "./DownloadAction.jsx";
-import { FilterAction, InternalFilter } from "./FilterAction/FilterAction.jsx";
-import { ColumnVisibilityAction } from "./ColumnVisibilityAction.jsx";
-import { Density, DensityAction } from "./DensityAction.jsx";
+import { Box } from "../../Box.js";
+import { Column } from "../QueryTable.js";
+import { DownloadAction } from "./DownloadAction.js";
+import { FilterAction, InternalFilter } from "./FilterAction/FilterAction.js";
+import { ColumnVisibilityAction } from "./ColumnVisibilityAction.js";
+import { Density, DensityAction } from "./DensityAction.js";
 
 interface ActionBarProps {
   columns: Column[];

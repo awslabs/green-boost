@@ -1,5 +1,5 @@
 import { Loader } from "@aws-amplify/ui-react";
-import { Box } from "./Box.jsx";
+import { Box } from "./Box.js";
 
 interface LoadingProps {
   logoSrc: string;

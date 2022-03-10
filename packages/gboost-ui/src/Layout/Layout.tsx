@@ -1,14 +1,14 @@
 import { CognitoUserAmplify } from "@aws-amplify/ui";
 import { ReactElement, useEffect, useState } from "react";
 import { Page } from "../page.js";
-import { useBps } from "../context/BreakpointsContext.jsx";
-import { Header } from "./Header.jsx";
-import { Content } from "./Content.jsx";
-import { Sidebar } from "./Sidebar.jsx";
-import { Footer } from "./Footer.jsx";
-import { Box } from "../Box.jsx";
-import { Drawer } from "./Drawer.jsx";
-import { NavList } from "./NavList.jsx";
+import { useBps } from "../context/BreakpointsContext.js";
+import { Header } from "./Header.js";
+import { Content } from "./Content.js";
+import { Sidebar } from "./Sidebar.js";
+import { Footer } from "./Footer.js";
+import { Box } from "../Box.js";
+import { Drawer } from "./Drawer.js";
+import { NavList } from "./NavList.js";
 
 export interface LayoutProps {
   className?: string;

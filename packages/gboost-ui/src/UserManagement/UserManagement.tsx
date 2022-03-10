@@ -8,12 +8,12 @@ import {
   useResolvedPath,
   useMatch,
 } from "react-router-dom";
-import { Box } from "../Box.jsx";
-import { UpdateUser } from "./UpdateUser.jsx";
-import { CreateUser } from "./CreateUser.jsx";
-import { GroupsTable } from "./GroupsTable.jsx";
-import { UsersTable } from "./UsersTable.jsx";
-import { UsersInGroupTable } from "./UsersInGroupTable.jsx";
+import { Box } from "../Box.js";
+import { UpdateUser } from "./UpdateUser.js";
+import { CreateUser } from "./CreateUser.js";
+import { GroupsTable } from "./GroupsTable.js";
+import { UsersTable } from "./UsersTable.js";
+import { UsersInGroupTable } from "./UsersInGroupTable.js";
 
 export interface UserManagementProps {
   groupNames: string[];

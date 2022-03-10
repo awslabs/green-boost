@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { Heading, Icon } from "@aws-amplify/ui-react";
 import { keyframes, styled } from "./stitches.config.js";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { Box } from "./Box.jsx";
+import { Box } from "./Box.js";
 import { MdClose } from "react-icons/md";
 
 const overlayShow = keyframes({

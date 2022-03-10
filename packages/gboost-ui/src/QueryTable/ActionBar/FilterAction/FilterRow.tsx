@@ -1,12 +1,12 @@
 import { ChangeEventHandler, ReactElement, useCallback, useState } from "react";
 import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
 import { MdCheck, MdDelete } from "react-icons/md";
-import { FilterValue as FilterValueComponent } from "./FilterValue.jsx";
+import { FilterValue as FilterValueComponent } from "./FilterValue.js";
 import {
   ColumnOption,
   InternalFilter,
   FilterColumnsObj,
-} from "./FilterAction.jsx";
+} from "./FilterAction.js";
 
 interface FilterProps {
   columnOptions: ColumnOption[];

@@ -5,9 +5,9 @@ import {
   useContext,
   useCallback,
 } from "react";
-import { NotificationProps } from "../Notifications/Notification.jsx";
+import { NotificationProps } from "../Notifications/Notification.js";
 import { useQueue, randomId } from "@mantine/hooks";
-import { Notifications } from "../Notifications/Notifications.jsx";
+import { Notifications } from "../Notifications/Notifications.js";
 
 /**
  * @internal

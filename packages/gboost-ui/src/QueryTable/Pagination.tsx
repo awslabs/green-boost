@@ -1,7 +1,7 @@
 import { Button, SelectField, Text } from "@aws-amplify/ui-react";
 import { ReactElement } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { Box } from "../Box.jsx";
+import { Box } from "../Box.js";
 import { styled } from "../stitches.config.js";
 
 const StyledButton = styled(Button, {

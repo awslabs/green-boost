@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { styled } from "../stitches.config.js";
 import { Page } from "../page.js";
-import { NavList } from "./NavList.jsx";
+import { NavList } from "./NavList.js";
 
 const StyledAside = styled("aside", {
   display: "none",

@@ -4,7 +4,7 @@ import {
   QueryTable,
   OnQueryParams,
   OnQueryReturnValue,
-} from "../QueryTable/QueryTable.jsx";
+} from "../QueryTable/QueryTable.js";
 import { listGroups } from "./gql.js";
 import { CognitoGroup } from "gboost-common";
 import { gQuery } from "../utils/gQuery.js";

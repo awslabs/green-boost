@@ -5,7 +5,7 @@ import {
   useCallback,
 } from "react";
 import { SelectField, TextField } from "@aws-amplify/ui-react";
-import { FilterOptions } from "./FilterAction.jsx";
+import { FilterOptions } from "./FilterAction.js";
 
 interface FilterValueProps {
   comparator?: string;

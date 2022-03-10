@@ -3,9 +3,9 @@ import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { MdAccountCircle, MdLogout, MdMenu, MdMenuOpen } from "react-icons/md";
 import { useBps } from "../context/BreakpointsContext";
 import { styled } from "../stitches.config.js";
-import { Box } from "../Box.jsx";
-import { Drawer } from "./Drawer.jsx";
-import { List, ListItem } from "../List.jsx";
+import { Box } from "../Box.js";
+import { Drawer } from "./Drawer.js";
+import { List, ListItem } from "../List.js";
 import { useNavigate } from "react-router-dom";
 import type { CognitoAttributes, CognitoUserAmplify } from "@aws-amplify/ui";
 
