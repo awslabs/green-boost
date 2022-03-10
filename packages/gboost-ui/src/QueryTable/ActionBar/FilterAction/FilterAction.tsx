@@ -6,6 +6,7 @@ import { Dialog } from "../../../Dialog.jsx";
 import { Column } from "../../QueryTable.jsx";
 import { FilterRow } from "./FilterRow.jsx";
 import { NewFilterRow } from "./NewFilterRow.jsx";
+import { RefObject } from "react";
 
 export interface Filter {
   column: string;
@@ -39,6 +40,7 @@ interface FilterActionProps {
   disableMultiFilter: boolean;
   filterColumns: Column[];
   filters: InternalFilter[];
+  filterButtonRef: RefObject<HTMLButtonElement>;
   onFilter: (filters: InternalFilter[]) => void;
 }
 
@@ -46,6 +48,7 @@ export function FilterAction({
   disableMultiFilter,
   filterColumns,
   filters,
+  filterButtonRef,
   onFilter,
 }: FilterActionProps): ReactElement {
   const filterColumnsObj = useMemo(
@@ -102,7 +105,7 @@ export function FilterAction({
     <Dialog
       title={filters.length <= 1 ? "Filter" : "Filters"}
       trigger={
-        <Button size="large">
+        <Button ref={filterButtonRef} size="large">
           <Icon ariaLabel="filter" as={MdFilterList} />
         </Button>
       }

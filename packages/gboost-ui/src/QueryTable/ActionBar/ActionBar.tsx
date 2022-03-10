@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from "react";
+import { ReactElement, RefObject, useMemo } from "react";
 import { Heading } from "@aws-amplify/ui-react";
 import { Box } from "../../Box.jsx";
 import { Column } from "../QueryTable.jsx";
@@ -15,6 +15,7 @@ interface ActionBarProps {
   download: boolean;
   downloadFileName: string;
   filters: InternalFilter[];
+  filterButtonRef: RefObject<HTMLButtonElement>;
   heading?: string;
   onChangeColumnVisibility: (columnVisibility: Record<string, boolean>) => void;
   onChangeDensity: (density: Density) => void;
@@ -35,6 +36,7 @@ export function ActionBar(props: ActionBarProps): ReactElement {
     download,
     downloadFileName,
     filters,
+    filterButtonRef,
     heading,
     onChangeColumnVisibility: handleChangeColumnVisibility,
     onChangeDensity: handleChangeDensity,
@@ -62,6 +64,7 @@ export function ActionBar(props: ActionBarProps): ReactElement {
             disableMultiFilter={disableMultiFilter}
             filterColumns={filterColumns}
             filters={filters}
+            filterButtonRef={filterButtonRef}
             onFilter={onFilter}
           />
         )}

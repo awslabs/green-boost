@@ -15,6 +15,7 @@ import {
   TableRow,
   TableProps,
 } from "@aws-amplify/ui-react";
+import { randomId } from "@mantine/hooks";
 import { Box } from "../Box.jsx";
 import { Pagination } from "./Pagination.jsx";
 import { styled } from "../stitches.config.js";
@@ -26,6 +27,7 @@ import {
 } from "./ActionBar/FilterAction/FilterAction.jsx";
 import type { Density } from "./ActionBar/DensityAction.jsx";
 import { TableHeaderCell } from "./TableHeaderCell.jsx";
+import { useRef } from "react";
 
 const StyledPlaceholder = styled(Placeholder, { height: 55 });
 const StyledTable = styled(Table, { display: "grid" });
@@ -85,16 +87,6 @@ export type OnQueryReturnValue =
 interface QueryTableProps {
   columns: Column[];
   /**
-   * Default padding in table
-   * @default "standard"
-   */
-  defaultDensity?: Density;
-  /**
-   * Number of rows per page
-   * @default 10
-   */
-  defaultPageSize?: number;
-  /**
    * @default false
    */
   disableMultiSort?: boolean;
@@ -112,7 +104,28 @@ interface QueryTableProps {
    * @default "data.csv"
    */
   downloadFileName?: string;
+  /**
+   * Title of table
+   */
   heading?: string;
+  /**
+   * Default padding in table cells
+   * @default "standard"
+   */
+  initDensity?: Density;
+  /**
+   * Initial filters. Columns must have filterable: true
+   */
+  initFilters?: Filter[];
+  /**
+   * Number of rows per page
+   * @default 10
+   */
+  initPageSize?: number;
+  /**
+   * Initial sorts. Columns must have sortable: true in definition
+   */
+  initSorts?: Sort[];
   /**
    * Function called to query data from external data source. Params include:
    * nextToken, filterModel, selectionModel, and sortModel. Must return object
@@ -247,12 +260,14 @@ const defaultErrorMessage = "Something went wrong";
  */
 export function QueryTable({
   columns,
-  defaultPageSize = 10,
-  defaultDensity = "standard",
   disableMultiSort = false,
   disableMultiFilter = false,
   download = false,
   downloadFileName = "data.csv",
+  initDensity = "standard",
+  initFilters = [],
+  initPageSize = 10,
+  initSorts = [],
   heading,
   onQuery,
   ActionMenu,
@@ -279,12 +294,14 @@ export function QueryTable({
     dispatch,
   ] = useReducer(tableReducer, {
     ...tableState,
-    pageSize: defaultPageSize,
-    density: defaultDensity,
     columnVisibility: columns.reduce(
       (prev, cur) => ({ ...prev, [cur.name]: true }),
       {}
     ),
+    density: initDensity,
+    filters: initFilters.map((f) => ({ ...f, id: randomId() })),
+    pageSize: initPageSize,
+    sorts: initSorts,
   });
   useEffect(() => {
     async function fetchData() {
@@ -376,6 +393,7 @@ export function QueryTable({
     () => columns.filter((c) => columnVisibility[c.name]),
     [columns, columnVisibility]
   );
+  const filterButtonRef = useRef<HTMLButtonElement>(null);
   const getGridTemplateColumns = useCallback(
     (columns: Column[]): string => {
       return visibleColumns.reduce(
@@ -397,6 +415,7 @@ export function QueryTable({
         download={download}
         downloadFileName={downloadFileName}
         filters={filters}
+        filterButtonRef={filterButtonRef}
         heading={heading}
         onChangeColumnVisibility={(columnVisibility: Record<string, boolean>) =>
           dispatch({ type: "changeColumnVisibility", columnVisibility })
@@ -419,6 +438,7 @@ export function QueryTable({
                 key={c.accessor}
                 activeFilter={filters.some((f) => f.column === c.accessor)}
                 column={c}
+                filterButtonRef={filterButtonRef}
                 onCreateSort={handleCreateSort}
                 onUpdateSort={handleUpdateSort}
                 onRemoveSort={handleRemoveSort}

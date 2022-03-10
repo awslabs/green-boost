@@ -4,24 +4,23 @@ import { config, styled } from "../stitches.config.js";
 import * as Stitches from "@stitches/react";
 import { MdArrowDownward, MdArrowUpward, MdFilterList } from "react-icons/md";
 import { Column, Sort } from "./QueryTable.jsx";
+import { Box } from "../Box.jsx";
+import { RefObject } from "react";
 
 const StyledTableCell = styled(TableCell, {
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
 });
-const StyledSortButton = styled(Button, {
-  display: "inline",
-  px: "$1",
-  ml: "$1",
-});
+const StyledHeaderButton = styled(Button, { px: "$1" });
 const StyledArrowUpward = styled(MdArrowUpward);
 const StyledArrowDownward = styled(MdArrowDownward);
-const StyledFilterList = styled(MdFilterList, { display: "inline", ml: "$2" });
+const StyledFilterList = styled(MdFilterList);
 
 interface TableHeaderCellProps {
   activeFilter: boolean;
   column: Column;
+  filterButtonRef: RefObject<HTMLButtonElement>;
   onCreateSort: (sort: Sort) => void;
   onRemoveSort: (column: string) => void;
   onUpdateSort: (column: string, direction: "asc" | "desc") => void;
@@ -33,6 +32,7 @@ export function TableHeaderCell(props: TableHeaderCellProps): ReactElement {
   const {
     activeFilter,
     column,
+    filterButtonRef,
     onCreateSort: handleCreateSort,
     onRemoveSort: handleRemoveSort,
     onUpdateSort: handleUpdateSort,
@@ -88,27 +88,38 @@ export function TableHeaderCell(props: TableHeaderCellProps): ReactElement {
         padding,
         bc: "$primary5",
         [`&:hover`]: {
-          [`& ${StyledSortButton}`]: {
+          [`& ${StyledHeaderButton}`]: {
             visibility: "visible",
             width: "auto",
           },
         },
       }}
     >
-      {column.name}
-      {activeFilter && <StyledFilterList />}
-      <StyledSortButton
-        ref={sortButton}
-        css={buttonCss}
-        onClick={handleClick}
-        variation="link"
-      >
-        {sort?.direction === "desc" ? (
-          <StyledArrowDownward css={iconCss} />
-        ) : (
-          <StyledArrowUpward css={iconCss} />
+      <Box css={{ display: "flex", gap: "$1", height: "100%" }}>
+        <Box css={{ alignSelf: "end" }}>{column.name}</Box>
+        {activeFilter && (
+          <StyledHeaderButton
+            variation="link"
+            onClick={() => filterButtonRef.current?.click()}
+          >
+            <StyledFilterList css={{ color: "black" }} />
+          </StyledHeaderButton>
         )}
-      </StyledSortButton>
+        {column.sortable && (
+          <StyledHeaderButton
+            ref={sortButton}
+            css={buttonCss}
+            onClick={handleClick}
+            variation="link"
+          >
+            {sort?.direction === "desc" ? (
+              <StyledArrowDownward css={iconCss} />
+            ) : (
+              <StyledArrowUpward css={iconCss} />
+            )}
+          </StyledHeaderButton>
+        )}
+      </Box>
     </StyledTableCell>
   );
 }
