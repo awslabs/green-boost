@@ -25,7 +25,7 @@ const signUpAttributes = Object.keys(userAttributes).map(
 
 export function App() {
   globalStyles();
-  const title = import.meta.env.VITE_APP_TITLE;
+  const title = import.meta.env.VITE_APP_TITLE as string;
   return (
     <AmplifyProvider theme={getAmplifyTheme(theme)}>
       <BreakpointsProvider media={config.media}>
