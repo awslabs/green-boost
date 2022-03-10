@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.6.1
+
+### Patch Changes
+
+- [`4e26338`](https://github.com/awslabs/green-boost/commit/4e26338579f885df8f870f33f36b93f421ac8bab) Thanks [@bestickley](https://github.com/bestickley)! - Change imports from .jsx to .js
+
 ## 0.6.0
 
 ### Minor Changes
