@@ -1,5 +1,11 @@
 # gboost
 
+## 0.3.10
+
+### Patch Changes
+
+- [`26b0251`](https://github.com/awslabs/green-boost/commit/26b0251ed4491b1eecc56bddb42bcd4b4ffc8128) Thanks [@bestickley](https://github.com/bestickley)! - Add title prop to Auth and Layout
+
 ## 0.3.9
 
 ### Patch Changes
