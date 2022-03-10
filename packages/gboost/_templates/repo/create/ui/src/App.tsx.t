@@ -25,17 +25,19 @@ const signUpAttributes = Object.keys(userAttributes).map(
 
 export function App() {
   globalStyles();
+  const title = import.meta.env.VITE_APP_TITLE;
   return (
     <AmplifyProvider theme={getAmplifyTheme(theme)}>
       <BreakpointsProvider media={config.media}>
         <NotificationsProvider>
-          <Authenticator signUpAttributes={signUpAttributes}>
+          <Authenticator signUpAttributes={signUpAttributes} title={title}>
             {({ user, signOut }) => (
               <Layout
                 className={theme}
                 logoSrc="/favicon-32x32.png"
                 pages={pages}
                 signOut={signOut}
+                title={title}
                 user={user}
               />
             )}
