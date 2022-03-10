@@ -12,10 +12,12 @@ import { NavList } from "./NavList.js";
 
 export interface LayoutProps {
   className?: string;
+  companyName?: string;
   defaultPath?: string;
   logoSrc: string;
   pages: Page[];
   signOut: (data?: Record<string, string>) => void;
+  title: string;
   user: CognitoUserAmplify;
 }
 
@@ -24,7 +26,16 @@ export interface LayoutProps {
  * @param props
  */
 export function Layout(props: LayoutProps): ReactElement {
-  const { className, defaultPath, logoSrc, pages, signOut, user } = props;
+  const {
+    className,
+    companyName,
+    defaultPath,
+    logoSrc,
+    pages,
+    signOut,
+    title,
+    user,
+  } = props;
   const bps = useBps();
   // initial state makes sidebar open for laptop but closed for tablet and mobile
   const [open, setOpen] = useState(bps.bp3);
@@ -61,10 +72,16 @@ export function Layout(props: LayoutProps): ReactElement {
         },
       }}
     >
-      <Header setOpen={setOpen} open={open} signOut={signOut} user={user} />
+      <Header
+        setOpen={setOpen}
+        open={open}
+        signOut={signOut}
+        title={title}
+        user={user}
+      />
       {nav}
       <Content defaultPath={defaultPath} logoSrc={logoSrc} pages={pages} />
-      <Footer />
+      <Footer companyName={companyName} />
     </Box>
   );
 }

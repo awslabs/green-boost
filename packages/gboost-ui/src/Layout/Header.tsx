@@ -36,14 +36,15 @@ const StyledMenuButton = styled(MenuButton, {
 const StyledMenuItem = styled(MenuItem, { gap: "$2" });
 
 interface HeaderProps {
-  setOpen: Dispatch<SetStateAction<boolean>>;
   open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   signOut: (data?: Record<string, string>) => void;
+  title: string;
   user: CognitoUserAmplify;
 }
 
 export function Header(props: HeaderProps): ReactElement {
-  const { setOpen, open, signOut, user } = props;
+  const { setOpen, open, signOut, title, user } = props;
   const [leftOpen, setLeftOpen] = useState(false);
   const bps = useBps();
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ export function Header(props: HeaderProps): ReactElement {
             css={{ color: "white", cursor: "pointer" }}
             onClick={() => navigate("/")}
           >
-            {import.meta.env.VITE_APP_TITLE}
+            {title}
           </StyledHeading>
         </Box>
         <Box css={{ display: "flex" }}>{menu}</Box>
