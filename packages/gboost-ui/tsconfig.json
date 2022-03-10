@@ -5,7 +5,7 @@
     "declarationMap": true,
     "outDir": "lib",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "jsx": "preserve",
+    "jsx": "react-jsx",
   },
   "exclude": ["**/*.test.ts", "lib"]
 }
