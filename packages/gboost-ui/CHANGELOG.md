@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.6.2
+
+### Patch Changes
+
+- [`b51d166`](https://github.com/awslabs/green-boost/commit/b51d166239a8e44db745f24704bea48673ea68a5) Thanks [@bestickley](https://github.com/bestickley)! - Don't access import.meta.env within gboost-ui
+
 ## 0.6.1
 
 ### Patch Changes
