@@ -10,4 +10,5 @@ export * from "./QueryTable/QueryTable.js";
 export type { Filter } from "./QueryTable/ActionBar/FilterAction/FilterAction.js";
 export * from "./List.js";
 export * from "./Dialog.js";
-export { TransferList, TransferListProps } from "./TransferList.js";
+export type { TransferListProps } from "./TransferList.js";
+export { TransferList } from "./TransferList.js";
