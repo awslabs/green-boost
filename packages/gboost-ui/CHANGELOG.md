@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.7.1
+
+### Patch Changes
+
+- [`7fe60f2`](https://github.com/awslabs/green-boost/commit/7fe60f25579ccd9c480b70da69c8ec91c7b1ec92) Thanks [@bestickley](https://github.com/bestickley)! - Fix TransferListProps export
+
 ## 0.7.0
 
 ### Minor Changes
