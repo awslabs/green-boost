@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.7.0
+
+### Minor Changes
+
+- [#45](https://github.com/awslabs/green-boost/pull/45) [`d10a8ac`](https://github.com/awslabs/green-boost/commit/d10a8ac6d8a01d7d0cbdf62595a4b41b06a162e6) Thanks [@bestickley](https://github.com/bestickley)! - Add TransferList with ability to filter
+
 ## 0.6.2
 
 ### Patch Changes
