@@ -30,12 +30,12 @@ const StyledMenuOpen = styled(MdMenuOpen, {
 const StyledAccountCircle = styled(MdAccountCircle, { fontSize: "$7" });
 const StyledLogout = styled(MdLogout, { fontSize: "$7" });
 const StyledMenuButton = styled(MenuButton, {
-  bc: "$primary11 !important",
   gap: "$2",
 });
 const StyledMenuItem = styled(MenuItem, { gap: "$2" });
 
 interface HeaderProps {
+  accountMenuBc?: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   signOut: (data?: Record<string, string>) => void;
@@ -44,7 +44,7 @@ interface HeaderProps {
 }
 
 export function Header(props: HeaderProps): ReactElement {
-  const { setOpen, open, signOut, title, user } = props;
+  const { accountMenuBc, setOpen, open, signOut, title, user } = props;
   const [leftOpen, setLeftOpen] = useState(false);
   const bps = useBps();
   const navigate = useNavigate();
@@ -57,7 +57,10 @@ export function Header(props: HeaderProps): ReactElement {
     menu = (
       <Menu
         trigger={
-          <StyledMenuButton variation="primary">
+          <StyledMenuButton
+            css={{ bc: `${accountMenuBc} !important` }}
+            variation="primary"
+          >
             {username}
             <StyledAccountCircle />
           </StyledMenuButton>

@@ -9,7 +9,9 @@ import {
   ForwardedRef,
   forwardRef,
   ReactElement,
+  ReactNode,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -29,25 +31,32 @@ export interface TransferListProps<T> {
    */
   listHeight?: string;
   isDisabled?: boolean;
-  label: string;
+  label: ReactNode;
   onChange: (nextTargetKeys: string[]) => void;
+  /**
+   * If defined, will enable filter search box within lists
+   */
   onFilter?: (
     filterText: string,
     listOptions: T[],
     listType?: TransferListType
-  ) => T[];
+  ) => T[] | Promise<T[]>;
   /**
    * If getKey is not defined, each option object must have `key` property
    */
   options: T[];
   render: (option: T) => string;
-  targetKeys: string[];
+  /**
+   * Target or selected keys (in right list) of items
+   */
+  value: string[];
   /**
    * @default ["Source", "Target"]
    */
   titles?: [string, string];
 }
 
+export const defaultListHeight = "300px";
 const StyledFieldContainer = styled(Box, {
   display: "flex",
   flexDirection: "column",
@@ -87,25 +96,27 @@ const StyledList = styled("ul", {
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function _TransferList<T extends Record<string, any>>(
+function TransferList<T extends Record<string, any>>(
   props: TransferListProps<T>,
   ref: ForwardedRef<HTMLUListElement>
 ): ReactElement {
   const {
     errorMessage,
     hasError,
-    listHeight = "300px",
-    getKey = (option) => option.key,
+    listHeight = defaultListHeight,
+    getKey = (option) => option.key as string,
     label,
     onChange,
     onFilter: handleFilter,
     options,
     render,
-    targetKeys: initTargetKeys,
+    value: initTargetKeys,
     titles = ["Source", "Target"],
   } = props;
   const [sourceFilter, setSourceFilter] = useState("");
   const [targetFilter, setTargetFilter] = useState("");
+  const [sourceKeys, setSourceKeys] = useState<string[]>([]);
+  const [targetKeys, setTargetKeys] = useState<string[]>([]);
   const optionsMap = useMemo(
     () =>
       options.reduce(
@@ -114,31 +125,46 @@ function _TransferList<T extends Record<string, any>>(
       ),
     [getKey, options]
   );
-  const sourceKeys = useMemo(() => {
-    const initSourceKeys = options
-      .map((o) => getKey(o))
-      .filter((k) => !initTargetKeys.includes(k));
-    if (handleFilter && sourceFilter) {
-      return handleFilter(
-        sourceFilter,
-        initSourceKeys.map((k) => optionsMap[k]),
-        "source"
-      ).map((o) => getKey(o));
-    } else {
-      return initSourceKeys;
+  useEffect(() => {
+    async function filter() {
+      const initSourceKeys = options
+        .map((o) => getKey(o))
+        .filter((k) => !initTargetKeys.includes(k));
+      if (handleFilter && sourceFilter) {
+        let filteredItems = handleFilter(
+          sourceFilter,
+          initSourceKeys.map((k) => optionsMap[k]),
+          "source"
+        );
+        if ("then" in filteredItems) {
+          filteredItems = await filteredItems;
+        }
+        setSourceKeys(filteredItems.map((o) => getKey(o)));
+      } else {
+        setSourceKeys(initSourceKeys);
+      }
     }
+    filter();
   }, [getKey, handleFilter, initTargetKeys, options, optionsMap, sourceFilter]);
-  const targetKeys = useMemo(() => {
-    if (handleFilter && targetFilter) {
-      return handleFilter(
-        targetFilter,
-        initTargetKeys.map((k) => optionsMap[k]),
-        "target"
-      ).map((o) => getKey(o));
-    } else {
-      return initTargetKeys;
+  useEffect(() => {
+    async function filter() {
+      if (handleFilter && targetFilter) {
+        let filteredItems = handleFilter(
+          targetFilter,
+          initTargetKeys.map((k) => optionsMap[k]),
+          "target"
+        );
+        if ("then" in filteredItems) {
+          filteredItems = await filteredItems;
+        }
+        setTargetKeys(filteredItems.map((o) => getKey(o)));
+      } else {
+        return setTargetKeys(initTargetKeys);
+      }
     }
+    filter();
   }, [getKey, handleFilter, initTargetKeys, optionsMap, targetFilter]);
+
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const transfer = useCallback(
     (direction: TransferDirection) => {
@@ -262,6 +288,6 @@ function _TransferList<T extends Record<string, any>>(
 }
 
 // https://fettblog.eu/typescript-react-generic-forward-refs/#option-1%3A-type-assertion
-export const TransferList = forwardRef(_TransferList) as <T>(
+export const RefTransferList = forwardRef(TransferList) as <T>(
   props: TransferListProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
 ) => ReactElement;

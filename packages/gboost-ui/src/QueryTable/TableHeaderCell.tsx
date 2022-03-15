@@ -19,6 +19,7 @@ const StyledFilterList = styled(MdFilterList);
 
 interface TableHeaderCellProps {
   activeFilter: boolean;
+  backgroundColor: string;
   column: Column;
   filterButtonRef: RefObject<HTMLButtonElement>;
   onCreateSort: (sort: Sort) => void;
@@ -31,6 +32,7 @@ interface TableHeaderCellProps {
 export function TableHeaderCell(props: TableHeaderCellProps): ReactElement {
   const {
     activeFilter,
+    backgroundColor,
     column,
     filterButtonRef,
     onCreateSort: handleCreateSort,
@@ -86,7 +88,7 @@ export function TableHeaderCell(props: TableHeaderCellProps): ReactElement {
       className="amplify-table__th"
       css={{
         padding,
-        bc: "$primary5",
+        bc: backgroundColor,
         [`&:hover`]: {
           [`& ${StyledHeaderButton}`]: {
             visibility: "visible",

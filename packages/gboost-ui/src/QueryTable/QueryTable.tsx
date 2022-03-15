@@ -105,6 +105,10 @@ interface QueryTableProps {
    */
   downloadFileName?: string;
   /**
+   * @default "$primary5"
+   */
+  headerBackgroundColor?: string;
+  /**
    * Title of table
    */
   heading?: string;
@@ -264,6 +268,7 @@ export function QueryTable({
   disableMultiFilter = false,
   download = false,
   downloadFileName = "data.csv",
+  headerBackgroundColor = "$primary5",
   initDensity = "standard",
   initFilters = [],
   initPageSize = 10,
@@ -437,6 +442,7 @@ export function QueryTable({
               <TableHeaderCell
                 key={c.accessor}
                 activeFilter={filters.some((f) => f.column === c.accessor)}
+                backgroundColor={headerBackgroundColor}
                 column={c}
                 filterButtonRef={filterButtonRef}
                 onCreateSort={handleCreateSort}
