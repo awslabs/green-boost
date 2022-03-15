@@ -11,6 +11,11 @@ import { Drawer } from "./Drawer.js";
 import { NavList } from "./NavList.js";
 
 export interface LayoutProps {
+  /**
+   * Account Menu Background color
+   * @default "$whiteA7"
+   */
+  accountMenuBc?: string;
   className?: string;
   companyName?: string;
   defaultPath?: string;
@@ -19,14 +24,15 @@ export interface LayoutProps {
   signOut: (data?: Record<string, string>) => void;
   title: string;
   user: CognitoUserAmplify;
+  Footer?: ReactElement;
 }
 
 /**
  * App Layout including header, aside, main and footer
- * @param props
  */
 export function Layout(props: LayoutProps): ReactElement {
   const {
+    accountMenuBc = "$whiteA7",
     className,
     companyName,
     defaultPath,
@@ -35,6 +41,7 @@ export function Layout(props: LayoutProps): ReactElement {
     signOut,
     title,
     user,
+    Footer: UserFooter,
   } = props;
   const bps = useBps();
   // initial state makes sidebar open for laptop but closed for tablet and mobile
@@ -73,6 +80,7 @@ export function Layout(props: LayoutProps): ReactElement {
       }}
     >
       <Header
+        accountMenuBc={accountMenuBc}
         setOpen={setOpen}
         open={open}
         signOut={signOut}
@@ -81,7 +89,7 @@ export function Layout(props: LayoutProps): ReactElement {
       />
       {nav}
       <Content defaultPath={defaultPath} logoSrc={logoSrc} pages={pages} />
-      <Footer companyName={companyName} />
+      <Footer companyName={companyName} Footer={UserFooter} />
     </Box>
   );
 }
