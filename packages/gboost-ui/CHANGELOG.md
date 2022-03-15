@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.8.0
+
+### Minor Changes
+
+- [#49](https://github.com/awslabs/green-boost/pull/49) [`a104be1`](https://github.com/awslabs/green-boost/commit/a104be1751094c5376eaf49132d7384661b7ac8b) Thanks [@bestickley](https://github.com/bestickley)! - Add SmartInputs which integrate with react-hook-form. Add customizations to Layout and QueryTable.
+
 ## 0.7.1
 
 ### Patch Changes
