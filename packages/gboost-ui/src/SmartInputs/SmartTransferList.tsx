@@ -9,15 +9,22 @@ import {
 import type { TransferListProps } from "../TransferList.js";
 import { BaseSmartInputProps } from "./baseProps.js";
 
-export interface SmartTransferListProps<T>
+export interface SmartTransferListProps<T, U>
   extends BaseSmartInputProps<T>,
     Omit<
-      TransferListProps<T>,
+      TransferListProps<U>,
       "hasError" | "errorMessage" | "name" | "value" | "onChange"
     > {}
 
-export function SmartTransferList<T extends FieldValues>(
-  props: SmartTransferListProps<T>
+/**
+ * Smart Transfer List - first generic type is react-hook-form type,
+ * and second type is item of the transfer list. For example, the first type
+ * generic is the type of your form input which could be input for a user and include
+ * roleIds and the second type parameter could be the Role interface which user
+ * will be selecting but only roleIds are returned for user form input
+ */
+export function SmartTransferList<T extends FieldValues, U>(
+  props: SmartTransferListProps<T, U>
 ): ReactElement {
   const { control, label, loading, name, ...transferListProps } = props;
   const {
@@ -35,7 +42,7 @@ export function SmartTransferList<T extends FieldValues>(
     </Box>
   ) : (
     <TransferList
-      {...(transferListProps as Omit<TransferListProps<T>, "label" | "name">)}
+      {...(transferListProps as Omit<TransferListProps<U>, "label" | "name">)}
       ref={ref}
       label={label}
       errorMessage={error?.message}

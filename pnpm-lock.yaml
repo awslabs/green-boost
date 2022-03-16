@@ -7,24 +7,21 @@ importers:
       '@changesets/changelog-github': ^0.4.3
       '@changesets/cli': ^2.21.1
       '@types/license-checker': ^25.0.3
-      '@types/node': ^14.18.12
+      '@types/node': ^16.11.7
       husky: ^7.0.4
       license-checker: ^25.0.1
       lint-staged: ^12.3.5
-      node^16.11.25: link:@types/node^16.11.25
       ts-node: ^10.7.0
       typescript: ^4.6.2
-    dependencies:
-      node^16.11.25: link:@types/node^16.11.25
     devDependencies:
       '@changesets/changelog-github': 0.4.3
       '@changesets/cli': 2.21.1
       '@types/license-checker': 25.0.3
-      '@types/node': 14.18.12
+      '@types/node': 16.11.26
       husky: 7.0.4
       license-checker: 25.0.1
       lint-staged: 12.3.5
-      ts-node: 10.7.0_ef4f5b62551ca68fc45e5a6c3dd7806a
+      ts-node: 10.7.0_045cabcbf8818eda83522fe731c87088
       typescript: 4.6.2
 
   docs:
@@ -7875,10 +7872,6 @@ packages:
 
   /@types/node/12.20.46:
     resolution: {integrity: sha512-cPjLXj8d6anFPzFvOPxS3fvly3Shm5nTfl6g8X5smexixbuGUf7hfr21J5tX9JW+UPStp/5P5R8qrKL5IyVJ+A==}
-    dev: true
-
-  /@types/node/14.18.12:
-    resolution: {integrity: sha512-q4jlIR71hUpWTnGhXWcakgkZeHa3CCjcQcnuzU8M891BAWA2jHiziiWEPEkdS5pFsz7H9HJiy8BrK7tBRNrY7A==}
     dev: true
 
   /@types/node/16.11.26:
