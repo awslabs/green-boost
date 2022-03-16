@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.8.1
+
+### Patch Changes
+
+- [`2b6dbe2`](https://github.com/awslabs/green-boost/commit/2b6dbe2a503717802574d068894637ebf88b0377) Thanks [@bestickley](https://github.com/bestickley)! - Add second type generic to SmartTransferList to fix types
+
 ## 0.8.0
 
 ### Minor Changes
