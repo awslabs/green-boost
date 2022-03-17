@@ -19,8 +19,7 @@ interface ListGroupsResponse {
 async function handleQuery(params: OnQueryParams): Promise<OnQueryReturnValue> {
   try {
     const res = await gQuery({ query: listGroups });
-    const { nextToken, groups: rows } = (res.data as ListGroupsResponse)
-      .listGroups;
+    const { nextToken, groups: rows } = (res as ListGroupsResponse).listGroups;
     return { rows, nextToken: nextToken ?? "" };
   } catch (err) {
     console.error(err);
@@ -44,5 +43,7 @@ const columns: Column[] = [
 ];
 
 export function GroupsTable(): ReactElement {
-  return <QueryTable columns={columns} onQuery={handleQuery} />;
+  return (
+    <QueryTable columns={columns} heading="Groups" onQuery={handleQuery} />
+  );
 }
