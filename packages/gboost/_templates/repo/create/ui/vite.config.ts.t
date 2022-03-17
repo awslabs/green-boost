@@ -20,19 +20,6 @@ export default defineConfig(({ mode }) => {
           replacement: "./runtimeConfig.browser",
         },
       ],
-      // https://blog.maximeheckel.com/posts/duplicate-dependencies-npm-link/
-      dedupe: [
-        "@aws-amplify/auth",
-        "@aws-amplify/api-graphql",
-        "@aws-amplify/ui",
-        "@aws-amplify/ui-react",
-        "aws-amplify",
-        "graphql",
-        "graphql-tag",
-        "react",
-        "react-dom",
-        "react-router-dom",
-      ],
     },
   };
 });

@@ -1,5 +1,5 @@
 ---
-to: "<%= features.includes(`demoDashboard`) ? `ui/src/pages/Dashboard/ColumnChart.tsx` : null %>"
+to: "<%= features.includes(`Demo Dashboard`) ? `ui/src/pages/Dashboard/ColumnChart.tsx` : null %>"
 ---
 
 import { ReactElement, useLayoutEffect, useRef } from "react";
@@ -138,7 +138,6 @@ export function ColumnChart(props: ColumnChartProps): ReactElement {
     series.columns.template.adapters.add("fill", (fill, target) => {
       const colorSet = chart.get("colors");
       if (colorSet && target) {
-        // @ts-expect-error wrong typings
         return colorSet.getIndex(series.columns.indexOf(target));
       }
     });
@@ -146,7 +145,6 @@ export function ColumnChart(props: ColumnChartProps): ReactElement {
     series.columns.template.adapters.add("stroke", (stroke, target) => {
       const colorSet = chart.get("colors");
       if (colorSet && target) {
-        // @ts-expect-error wrong typings
         return colorSet.getIndex(series.columns.indexOf(target));
       }
     });

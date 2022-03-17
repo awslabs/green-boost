@@ -9,7 +9,21 @@ to: package.json
   "engines": {
     "node": ">=16"
   },
+  "scripts": {
+    "build": "pnpm --recursive --parallel build",
+    "lint": "pnpm --recursive --parallel lint",
+    "test": "pnpm --recursive --parallel test",
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm"
+  },
   "dependencies": {
-    "esbuild": "^0.14.16"
+    "esbuild": "^0.14.27"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.5"
+  },
+  "lint-staged": {
+    "*": "true"
   }
 }
