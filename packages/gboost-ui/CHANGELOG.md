@@ -1,5 +1,16 @@
 # gboost-ui
 
+## 0.9.0
+
+### Minor Changes
+
+- [#52](https://github.com/awslabs/green-boost/pull/52) [`f3bbfbe`](https://github.com/awslabs/green-boost/commit/f3bbfbeeac6343476dfc9a389539928b47f66bd2) Thanks [@bestickley](https://github.com/bestickley)! - Use useAuthenticator hook in Layout
+
+### Patch Changes
+
+- Updated dependencies [[`f3bbfbe`](https://github.com/awslabs/green-boost/commit/f3bbfbeeac6343476dfc9a389539928b47f66bd2)]:
+  - gboost-common@0.4.0
+
 ## 0.8.1
 
 ### Patch Changes
