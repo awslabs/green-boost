@@ -2,7 +2,7 @@
 
 import parse from "minimist";
 import { deployDev } from "./deploy-dev.js";
-import { create } from "./create.js";
+import { create } from "./create/create.js";
 
 try {
   const argv = parse(process.argv.slice(2));

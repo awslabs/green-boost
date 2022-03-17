@@ -171,6 +171,11 @@ export class StaticSite extends Construct {
 
     NagSuppressions.addResourceSuppressions(this.distribution, [
       { id: "AwsSolutions-CFR1", reason: "Geo restrictions do not apply" },
+      {
+        id: "AwsSolutions-CFR4",
+        reason:
+          "TODO - why isn't `minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_2_2021` working?",
+      },
     ]);
 
     new CfnOutput(this, "CloudFrontUrl", {

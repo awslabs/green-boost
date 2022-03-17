@@ -1,5 +1,5 @@
 ---
-to: "<%= features.includes(`demoDashboard`) ? `ui/src/pages/Dashboard/Dashboard.tsx` : null %>"
+to: "<%= features.includes(`Demo Dashboard`) ? `ui/src/pages/Dashboard/Dashboard.tsx` : null %>"
 ---
 
 import { Card, Grid } from "@aws-amplify/ui-react";

@@ -1,4 +1,3 @@
-import { CognitoUserAmplify } from "@aws-amplify/ui";
 import { ReactElement, useEffect, useState } from "react";
 import { Page } from "../page.js";
 import { useBps } from "../context/BreakpointsContext.js";
@@ -21,9 +20,7 @@ export interface LayoutProps {
   defaultPath?: string;
   logoSrc: string;
   pages: Page[];
-  signOut: (data?: Record<string, string>) => void;
   title: string;
-  user: CognitoUserAmplify;
   Footer?: ReactElement;
 }
 
@@ -38,9 +35,7 @@ export function Layout(props: LayoutProps): ReactElement {
     defaultPath,
     logoSrc,
     pages,
-    signOut,
     title,
-    user,
     Footer: UserFooter,
   } = props;
   const bps = useBps();
@@ -83,9 +78,7 @@ export function Layout(props: LayoutProps): ReactElement {
         accountMenuBc={accountMenuBc}
         setOpen={setOpen}
         open={open}
-        signOut={signOut}
         title={title}
-        user={user}
       />
       {nav}
       <Content defaultPath={defaultPath} logoSrc={logoSrc} pages={pages} />

@@ -10,7 +10,6 @@ module.exports = defineConfig({
   extends: [
     "react-app", // use CRA linting rules
     "react-app/jest",
-    "../.eslintrc.cjs",
   ],
   rules: {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs

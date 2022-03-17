@@ -5,19 +5,21 @@ to: infra/src/back-end-stack.ts
 import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
 import {
-  AuthorizationType,
+  <% if (authn === "Cognito User Pool") { -%> AuthorizationType, <% } %>
   FieldLogLevel,
   GraphqlApi,
 } from "@aws-cdk/aws-appsync-alpha";
 import {
   Stage,
-  UserBase,
-  UserManagement,
+  <% if (authn === "Cognito User Pool") { -%> UserBase, <% } %>
+  <% if (authn === "Cognito User Pool") { -%> UserManagement, <% } %>
   suppressAwsManagedConstructs,
 } from "gboost-infra";
 import { NagSuppressions } from "cdk-nag";
+<% if (authn === "Cognito User Pool") { -%>
 import { userAttributes } from "../../common/src/userAttributes.js";
 import { groups } from "../../common/src/groups.js";
+<% } -%>
 
 export interface BackEndStackProps extends StackProps {
   stage: Stage;
@@ -29,13 +31,15 @@ export class BackEndStack extends Stack {
     value: Stack.of(this).region,
   });
   gqlUrl!: CfnOutput;
+  <% if (authn === "Cognito User Pool") { -%>
   userPoolId!: CfnOutput;
   userPoolClientId!: CfnOutput;
+  <% } -%>
 
   constructor(scope: Construct, id: string, props: BackEndStackProps) {
     super(scope, id, props);
     const { email, stage } = props;
-
+    <% if (authn === "Cognito User Pool") { -%>
     const userBase = new UserBase(this, "UserBase", {
       defaultGroupName: "User",
       email,
@@ -49,9 +53,11 @@ export class BackEndStack extends Stack {
     this.userPoolClientId = new CfnOutput(this, "UserPoolClientIdOutput", {
       value: userBase.userPoolClient.userPoolClientId,
     });
+    <% } -%>
 
     const gqlApi = new GraphqlApi(this, "GqlApi", {
       name: `${stage}-gql-api`,
+      <% if (authn === "Cognito User Pool") { -%>
       authorizationConfig: {
         defaultAuthorization: {
           authorizationType: AuthorizationType.USER_POOL,
@@ -60,6 +66,7 @@ export class BackEndStack extends Stack {
           },
         },
       },
+      <% } -%>
       logConfig: {
         excludeVerboseContent: false,
         fieldLogLevel: FieldLogLevel.ERROR,
@@ -80,7 +87,7 @@ export class BackEndStack extends Stack {
     this.gqlUrl = new CfnOutput(this, "GqlUrlOutput", {
       value: gqlApi.graphqlUrl,
     });
-
+    <% if (features.includes("User Management")) { -%>
     new UserManagement(this, "UserManagement", {
       api: gqlApi,
       userPoolId: userBase.userPool.userPoolId,
@@ -88,6 +95,7 @@ export class BackEndStack extends Stack {
       adminGroupNames: ["Admin"],
       stage,
     });
+    <% } -%>
 
     suppressAwsManagedConstructs(this);
   }

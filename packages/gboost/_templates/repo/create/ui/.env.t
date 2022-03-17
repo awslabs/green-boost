@@ -2,4 +2,4 @@
 to: ui/.env
 ---
 
-VITE_APP_TITLE=<%= title %>
+VITE_APP_TITLE=My Web App

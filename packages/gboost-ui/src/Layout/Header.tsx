@@ -7,7 +7,7 @@ import { Box } from "../Box.js";
 import { Drawer } from "./Drawer.js";
 import { List, ListItem } from "../List.js";
 import { useNavigate } from "react-router-dom";
-import type { CognitoAttributes, CognitoUserAmplify } from "@aws-amplify/ui";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 
 const StyledHeader = styled("header", {
   bc: "$primary9",
@@ -38,19 +38,24 @@ interface HeaderProps {
   accountMenuBc?: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  signOut: (data?: Record<string, string>) => void;
   title: string;
-  user: CognitoUserAmplify;
 }
 
 export function Header(props: HeaderProps): ReactElement {
-  const { accountMenuBc, setOpen, open, signOut, title, user } = props;
+  const { accountMenuBc, setOpen, open, title } = props;
+  const { user, signOut } = useAuthenticator();
   const [leftOpen, setLeftOpen] = useState(false);
   const bps = useBps();
   const navigate = useNavigate();
   const username = user.username;
-  const { email, family_name, given_name } =
-    user.attributes as CognitoAttributes;
+  let email = "",
+    family_name = "",
+    given_name = "";
+  if (user.attributes) {
+    email = user.attributes.email;
+    family_name = user.attributes.family_name;
+    given_name = user.attributes.given_name;
+  }
   const fullName = `${given_name} ${family_name}`;
   let menu: ReactElement;
   if (bps.bp3) {

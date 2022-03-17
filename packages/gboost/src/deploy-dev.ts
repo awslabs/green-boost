@@ -9,7 +9,7 @@ const outputNameToEnvVarNameMap = {
   UserPoolClientIdOutput: "VITE_USER_POOL_CLIENT_ID",
 };
 const outputsFilePath = "backEndStackOutputs.json";
-const appOpt = '--app "ts-node --esm src/app.ts"';
+const appOpt = '--app "./node_modules/.bin/ts-node --esm src/app.ts"';
 const approvalOpt = "--require-approval never";
 
 export function deployDev() {

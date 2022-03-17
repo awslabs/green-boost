@@ -49,12 +49,10 @@ async function handleQuery(params: OnQueryParams): Promise<OnQueryReturnValue> {
   };
   try {
     const res = await gQuery({ query: listUsers, vars });
-    const { nextToken, users: rows } = (res.data as ListUsersResponse)
-      .listUsers;
+    const { nextToken, users: rows } = (res as ListUsersResponse).listUsers;
     return { rows, nextToken: nextToken ?? "" };
   } catch (err) {
-    console.error(err);
-    return { errorMessage: err as string };
+    return { errorMessage: "Error fetching user data" };
   }
   // const filter = getFilter(filters);
   // if (filter && filter.value === undefined) {
@@ -91,10 +89,11 @@ export function UsersTable(): ReactElement {
   return (
     <QueryTable
       columns={columns}
+      heading="Users"
       onQuery={handleQuery}
-      ActionMenu={<UsersTableRightActionBar />}
       rowIdAccessor="username"
       tableProps={{ highlightOnHover: true }}
+      ActionMenu={<UsersTableRightActionBar />}
     />
   );
 }

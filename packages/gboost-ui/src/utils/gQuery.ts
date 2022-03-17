@@ -1,8 +1,13 @@
-import Api, {
-  GraphQLResult,
-  GRAPHQL_AUTH_MODE,
-} from "@aws-amplify/api-graphql";
+import { API } from "aws-amplify";
 import { DocumentNode } from "graphql/language/ast";
+
+enum GRAPHQL_AUTH_MODE {
+  API_KEY = "API_KEY",
+  AWS_IAM = "AWS_IAM",
+  OPENID_CONNECT = "OPENID_CONNECT",
+  AMAZON_COGNITO_USER_POOLS = "AMAZON_COGNITO_USER_POOLS",
+  AWS_LAMBDA = "AWS_LAMBDA",
+}
 
 interface GqlParams {
   query: DocumentNode;
@@ -10,20 +15,20 @@ interface GqlParams {
   vars?: Record<string, any>;
   authMode?: GRAPHQL_AUTH_MODE;
 }
-interface CustomGraphQLResult<T> extends GraphQLResult<T> {
-  data: T;
-}
 
 export async function gQuery<T>({
   query,
   vars,
   authMode,
-}: GqlParams): Promise<CustomGraphQLResult<T>> {
-  const q = (await Api.graphql({
+}: GqlParams): Promise<T> {
+  const res = await API.graphql({
     query,
     variables: vars,
     authMode,
-  })) as GraphQLResult<T>;
-  if (!q.data) throw new Error("GQL query returned no data");
-  return q as CustomGraphQLResult<T>;
+  });
+  if ("data" in res) {
+    return res.data;
+  } else {
+    throw new Error("No 'data' in GQL response");
+  }
 }

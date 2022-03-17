@@ -1,5 +1,5 @@
 ---
-to: "<%= features.includes(`demoDashboard`) ? `ui/src/pages/Dashboard/PieChart.tsx` : null %>"
+to: "<%= features.includes(`Demo Dashboard`) ? `ui/src/pages/Dashboard/PieChart.tsx` : null %>"
 ---
 
 import { ReactElement, useLayoutEffect, useRef } from "react";
