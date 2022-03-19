@@ -63,7 +63,7 @@ async function handleQuery(params: OnQueryParams): Promise<OnQueryReturnValue> {
   // if (vars.input && filter) vars.input.filter = filter;
 }
 
-const columns: Column[] = [
+const columns: Column<CognitoUser>[] = [
   {
     accessor: "username",
     filterOptions: {
@@ -91,9 +91,9 @@ export function UsersTable(): ReactElement {
       columns={columns}
       heading="Users"
       onQuery={handleQuery}
-      rowIdAccessor="username"
+      getRowId={(r) => r.username}
       tableProps={{ highlightOnHover: true }}
-      ActionMenu={<UsersTableRightActionBar />}
+      ActionButton={<UsersTableRightActionBar />}
     />
   );
 }

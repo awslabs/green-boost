@@ -36,21 +36,21 @@ export interface FilterOptions {
   value: FilterValue;
 }
 
-interface FilterActionProps {
+interface FilterActionProps<T> {
   disableMultiFilter: boolean;
-  filterColumns: Column[];
+  filterColumns: Column<T>[];
   filters: InternalFilter[];
   filterButtonRef: RefObject<HTMLButtonElement>;
   onFilter: (filters: InternalFilter[]) => void;
 }
 
-export function FilterAction({
+export function FilterAction<T>({
   disableMultiFilter,
   filterColumns,
   filters,
   filterButtonRef,
   onFilter,
-}: FilterActionProps): ReactElement {
+}: FilterActionProps<T>): ReactElement {
   const filterColumnsObj = useMemo(
     () =>
       filterColumns.reduce((prev, cur) => {

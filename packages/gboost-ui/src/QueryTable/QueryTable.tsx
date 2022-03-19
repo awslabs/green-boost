@@ -1,9 +1,11 @@
 import {
   ReactElement,
+  Reducer,
   useCallback,
   useEffect,
   useMemo,
   useReducer,
+  useRef,
 } from "react";
 import {
   Alert,
@@ -27,7 +29,8 @@ import {
 } from "./ActionBar/FilterAction/FilterAction.js";
 import type { Density } from "./ActionBar/DensityAction.js";
 import { TableHeaderCell } from "./TableHeaderCell.js";
-import { useRef } from "react";
+import { SelectionHeader } from "./SelectionHeader.js";
+import { SelectionCell } from "./SelectionCell.js";
 
 const StyledPlaceholder = styled(Placeholder, { height: 55 });
 const StyledTable = styled(Table, { display: "grid" });
@@ -37,7 +40,7 @@ const StyledTableHead = styled(TableHead, {
 });
 const StyledTableBody = styled(TableBody, { display: "contents !important" });
 const StyledTableRow = styled(TableRow, { display: "contents !important" });
-const StyledTableCell = styled(TableCell, {
+export const StyledTableCell = styled(TableCell, {
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
@@ -45,12 +48,12 @@ const StyledTableCell = styled(TableCell, {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Row = any;
-export interface Column {
-  accessor: string;
+export interface Column<T> {
+  accessor: Extract<keyof T, string>;
   filterOptions?: FilterOptions;
   name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderCell?: (value: any, row: Row) => ReactElement | string;
+  renderCell?: (value: any, row: T) => ReactElement | string;
   /**
    * @default false
    */
@@ -84,8 +87,9 @@ type OnQueryErrorReturnValue = {
 export type OnQueryReturnValue =
   | OnQuerySuccessReturnValue
   | OnQueryErrorReturnValue;
-interface QueryTableProps {
-  columns: Column[];
+type SelectAction = "select" | "unselect";
+interface QueryTableProps<T> {
+  columns: Column<T>[];
   /**
    * @default false
    */
@@ -104,6 +108,21 @@ interface QueryTableProps {
    * @default "data.csv"
    */
   downloadFileName?: string;
+  /**
+   * Enables ability to select rows with checkboxes
+   * @default false
+   */
+  enableSelect?: boolean;
+  /**
+   * Use radio buttons instead of checkboxes
+   * @default false
+   */
+  enableSingleSelect?: boolean;
+  /**
+   * Function to get id for reach row
+   * @default (r) => r.id
+   */
+  getRowId?: (r: T) => string;
   /**
    * @default "$primary5"
    */
@@ -131,6 +150,10 @@ interface QueryTableProps {
    */
   initSorts?: Sort[];
   /**
+   * Initial selected rows.
+   */
+  initSelected?: T[];
+  /**
    * Function called to query data from external data source. Params include:
    * nextToken, filterModel, selectionModel, and sortModel. Must return object
    * with rows and nextToken or errorMessage.
@@ -138,16 +161,15 @@ interface QueryTableProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onQuery: (params: OnQueryParams) => Promise<OnQueryReturnValue>;
   /**
-   * Action Menu Component placed on top right of table, often used for creating a row or
+   * Function called upon update to selected rows
+   */
+  onSelect?: (action: SelectAction, rows: T[], selected: T[]) => void;
+  /**
+   * Action Button Component placed on top right of table, often used for creating a row or
    * displaying an actions menu button for user to perform actions on selected
    * row
    */
-  ActionMenu?: ReactElement;
-  /**
-   * Provides key for each row
-   * @default "id"
-   */
-  rowIdAccessor?: string;
+  ActionButton?: ReactElement;
   /**
    * Amplify UI TableProps to be passes to the table
    */
@@ -160,23 +182,24 @@ const densityToPadding: Record<Density, string> = {
   comfy: "1.5rem !important",
 };
 
-const tableState = {
-  columnVisibility: {} as Record<string, boolean>,
-  density: "standard" as Density,
-  errorMessage: "",
-  filters: [] as InternalFilter[],
-  loading: false,
-  nextToken: "",
-  nextNextToken: "",
-  page: 1,
-  pageSize: 10,
-  pageSizeOptions: [10, 20, 50],
-  prevTokens: [] as string[],
-  rows: [] as Row[],
-  sorts: [] as Sort[],
-};
+interface TableState<T> {
+  columnVisibility: Record<string, boolean>;
+  density: Density;
+  errorMessage: string;
+  filters: InternalFilter[];
+  loading: boolean;
+  nextToken: string;
+  nextNextToken: string;
+  page: number;
+  pageSize: number;
+  pageSizeOptions: number[];
+  prevTokens: string[];
+  rows: T[];
+  selected: T[];
+  sorts: Sort[];
+}
 
-type Action =
+type Action<T> =
   | {
       type: "changeColumnVisibility";
       columnVisibility: Record<string, boolean>;
@@ -186,16 +209,17 @@ type Action =
   | { type: "changeLoading"; loading: boolean }
   | { type: "changePage"; page: number }
   | { type: "changePageSize"; pageSize: number }
-  | { type: "changeRows"; rows: Row[]; nextNextToken: string }
+  | { type: "changeRows"; rows: T[]; nextNextToken: string }
+  | { type: "changeSelected"; selected: T[] }
   | { type: "filter"; filters: InternalFilter[] }
   | { type: "refresh" }
   | { type: "sort"; sorts: Sort[] }
   | { type: "unknown" };
 
-function tableReducer(
-  state: typeof tableState,
-  action: Action
-): typeof tableState {
+function tableReducer<T>(
+  state: TableState<T>,
+  action: Action<T>
+): TableState<T> {
   switch (action.type) {
     case "changeColumnVisibility":
       return { ...state, columnVisibility: action.columnVisibility };
@@ -242,6 +266,11 @@ function tableReducer(
         nextNextToken: action.nextNextToken,
         loading: false,
       };
+    case "changeSelected":
+      return {
+        ...state,
+        selected: action.selected,
+      };
     case "filter":
       return { ...state, filters: action.filters };
     case "refresh":
@@ -262,23 +291,29 @@ const defaultErrorMessage = "Something went wrong";
  * widths through columns prop.
  * @component Component
  */
-export function QueryTable({
-  columns,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function QueryTable<T extends Record<string, any>>({
+  columns = [],
   disableMultiSort = false,
   disableMultiFilter = false,
   download = false,
   downloadFileName = "data.csv",
+  enableSelect = false,
+  enableSingleSelect = false,
+  getRowId = (r: T) => r.id,
   headerBackgroundColor = "$primary5",
   initDensity = "standard",
   initFilters = [],
   initPageSize = 10,
+  initSelected = [],
   initSorts = [],
   heading,
   onQuery,
-  ActionMenu,
-  rowIdAccessor = "id",
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onSelect = (s) => {},
+  ActionButton,
   tableProps,
-}: QueryTableProps): ReactElement {
+}: QueryTableProps<T>): ReactElement {
   let spanTableEl: ReactElement | undefined;
   const [
     {
@@ -294,18 +329,27 @@ export function QueryTable({
       pageSizeOptions,
       prevTokens,
       rows,
+      selected,
       sorts,
     },
     dispatch,
-  ] = useReducer(tableReducer, {
-    ...tableState,
+  ] = useReducer<Reducer<TableState<T>, Action<T>>>(tableReducer, {
     columnVisibility: columns.reduce(
       (prev, cur) => ({ ...prev, [cur.name]: true }),
       {}
     ),
     density: initDensity,
+    errorMessage: "",
     filters: initFilters.map((f) => ({ ...f, id: randomId() })),
+    loading: false,
+    nextToken: "",
+    nextNextToken: "",
+    page: 1,
     pageSize: initPageSize,
+    pageSizeOptions: [10, 20, 50],
+    prevTokens: [],
+    rows: [],
+    selected: initSelected,
     sorts: initSorts,
   });
   useEffect(() => {
@@ -394,20 +438,43 @@ export function QueryTable({
     },
     [sorts]
   );
+  const handleSelect = useCallback(
+    (row: T) => {
+      const newSelected = enableSingleSelect ? [row] : [...selected, row];
+      dispatch({ type: "changeSelected", selected: newSelected });
+      onSelect("select", [row], newSelected);
+    },
+    [enableSingleSelect, onSelect, selected]
+  );
+  const handleUnselect = useCallback(
+    (row: T) => {
+      const newSelected = selected.filter((s) => getRowId(s) !== getRowId(row));
+      dispatch({ type: "changeSelected", selected: newSelected });
+      onSelect("unselect", [row], newSelected);
+    },
+    [getRowId, onSelect, selected]
+  );
+  const handleSelectAll = useCallback(() => {
+    dispatch({ type: "changeSelected", selected: rows });
+    onSelect("select", rows, rows);
+  }, [onSelect, rows]);
+  const handleUnselectAll = useCallback(() => {
+    dispatch({ type: "changeSelected", selected: [] });
+    onSelect("unselect", rows, []);
+  }, [onSelect, rows]);
   const visibleColumns = useMemo(
     () => columns.filter((c) => columnVisibility[c.name]),
     [columns, columnVisibility]
   );
   const filterButtonRef = useRef<HTMLButtonElement>(null);
-  const getGridTemplateColumns = useCallback(
-    (columns: Column[]): string => {
-      return visibleColumns.reduce(
-        (prev, cur) => `${prev} minmax(150px, ${cur.width || "1fr"})`,
-        ""
-      );
-    },
-    [visibleColumns]
-  );
+  const gridTemplateColumns = useMemo(() => {
+    let gridTempCols = visibleColumns.reduce(
+      (prev, cur) => `${prev} minmax(150px, ${cur.width || "1fr"})`,
+      ""
+    );
+    if (enableSelect) gridTempCols = "50px " + gridTempCols;
+    return gridTempCols;
+  }, [enableSelect, visibleColumns]);
   const showBody = !errorMessage && !loading;
   const padding = densityToPadding[density];
   return (
@@ -430,14 +497,22 @@ export function QueryTable({
         }
         onFilter={handleFilter}
         rows={rows}
-        ActionMenu={ActionMenu}
+        ActionMenu={ActionButton}
       />
-      <StyledTable
-        {...tableProps}
-        css={{ gridTemplateColumns: getGridTemplateColumns(columns) }}
-      >
+      <StyledTable {...tableProps} css={{ gridTemplateColumns }}>
         <StyledTableHead>
           <StyledTableRow>
+            {enableSelect && (
+              <SelectionHeader
+                backgroundColor={headerBackgroundColor}
+                enableSingleSelect={enableSingleSelect}
+                onSelectAll={handleSelectAll}
+                onUnselectAll={handleUnselectAll}
+                padding={padding}
+                rows={rows}
+                selected={selected}
+              />
+            )}
             {visibleColumns.map((c, i) => (
               <TableHeaderCell
                 key={c.accessor}
@@ -457,7 +532,17 @@ export function QueryTable({
         {showBody && (
           <StyledTableBody>
             {rows.map((r) => (
-              <StyledTableRow key={r[rowIdAccessor]} rowSpan={columns.length}>
+              <StyledTableRow key={getRowId(r)} rowSpan={columns.length}>
+                {enableSelect && (
+                  <SelectionCell
+                    enableSingleSelect={enableSingleSelect}
+                    padding={padding}
+                    onSelect={handleSelect}
+                    onUnselect={handleUnselect}
+                    row={r}
+                    selected={selected.some((s) => getRowId(s) === getRowId(r))}
+                  />
+                )}
                 {visibleColumns.map((c) => (
                   <StyledTableCell key={c.accessor} css={{ padding }}>
                     {c.renderCell
