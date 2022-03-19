@@ -34,11 +34,11 @@ async function handleQuery(params: OnQueryParams): Promise<OnQueryReturnValue> {
   // if (vars.input && filter) vars.input.filter = filter;
 }
 
-const columns: Column[] = [
+const columns: Column<CognitoGroup>[] = [
   { accessor: "name", name: "Name" },
   { accessor: "description", name: "Description" },
   { accessor: "precedence", name: "Precedence" },
-  { accessor: "createAt", name: "Created At" },
+  { accessor: "createdAt", name: "Created At" },
   { accessor: "updatedAt", name: "Updated At" },
 ];
 

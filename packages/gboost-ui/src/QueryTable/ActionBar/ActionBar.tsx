@@ -7,8 +7,8 @@ import { FilterAction, InternalFilter } from "./FilterAction/FilterAction.js";
 import { ColumnVisibilityAction } from "./ColumnVisibilityAction.js";
 import { Density, DensityAction } from "./DensityAction.js";
 
-interface ActionBarProps {
-  columns: Column[];
+interface ActionBarProps<T> {
+  columns: Column<T>[];
   columnVisibility: Record<string, boolean>;
   density: Density;
   disableMultiFilter: boolean;
@@ -27,7 +27,7 @@ interface ActionBarProps {
 /**
  * @internal
  */
-export function ActionBar(props: ActionBarProps): ReactElement {
+export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
   const {
     columns,
     columnVisibility,

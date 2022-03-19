@@ -17,10 +17,10 @@ const StyledArrowUpward = styled(MdArrowUpward);
 const StyledArrowDownward = styled(MdArrowDownward);
 const StyledFilterList = styled(MdFilterList);
 
-interface TableHeaderCellProps {
+interface TableHeaderCellProps<T> {
   activeFilter: boolean;
   backgroundColor: string;
-  column: Column;
+  column: Column<T>;
   filterButtonRef: RefObject<HTMLButtonElement>;
   onCreateSort: (sort: Sort) => void;
   onRemoveSort: (column: string) => void;
@@ -29,7 +29,9 @@ interface TableHeaderCellProps {
   sort?: Sort;
 }
 
-export function TableHeaderCell(props: TableHeaderCellProps): ReactElement {
+export function TableHeaderCell<T>(
+  props: TableHeaderCellProps<T>
+): ReactElement {
   const {
     activeFilter,
     backgroundColor,
