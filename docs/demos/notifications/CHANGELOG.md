@@ -1,5 +1,12 @@
 # gboost-notifications-demo
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`f3bbfbe`](https://github.com/awslabs/green-boost/commit/f3bbfbeeac6343476dfc9a389539928b47f66bd2)]:
+  - gboost-ui@0.9.0
+
 ## 0.0.4
 
 ### Patch Changes

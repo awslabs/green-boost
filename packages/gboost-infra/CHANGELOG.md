@@ -1,5 +1,14 @@
 # gboost-infra
 
+## 0.3.8
+
+### Patch Changes
+
+- [#52](https://github.com/awslabs/green-boost/pull/52) [`f3bbfbe`](https://github.com/awslabs/green-boost/commit/f3bbfbeeac6343476dfc9a389539928b47f66bd2) Thanks [@bestickley](https://github.com/bestickley)! - Fix cdk-nag error on StaticSite and AppSync resolver issue for UserManagement
+
+- Updated dependencies [[`f3bbfbe`](https://github.com/awslabs/green-boost/commit/f3bbfbeeac6343476dfc9a389539928b47f66bd2)]:
+  - gboost-common@0.4.0
+
 ## 0.3.7
 
 ### Patch Changes
