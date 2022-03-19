@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.10.0
+
+### Minor Changes
+
+- [#54](https://github.com/awslabs/green-boost/pull/54) [`3bcbc1c`](https://github.com/awslabs/green-boost/commit/3bcbc1ca05ab183f79387026692bf605d3e4fc4e) Thanks [@bestickley](https://github.com/bestickley)! - Add select to QueryTable. Rename ActionMenu to ActionButton.
+
 ## 0.9.0
 
 ### Minor Changes
