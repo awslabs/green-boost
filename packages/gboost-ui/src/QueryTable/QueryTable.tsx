@@ -124,10 +124,6 @@ interface QueryTableProps<T> {
    */
   getRowId?: (r: T) => string;
   /**
-   * @default "$primary5"
-   */
-  headerBackgroundColor?: string;
-  /**
    * Title of table
    */
   heading?: string;
@@ -292,28 +288,30 @@ const defaultErrorMessage = "Something went wrong";
  * @component Component
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function QueryTable<T extends Record<string, any>>({
-  columns = [],
-  disableMultiSort = false,
-  disableMultiFilter = false,
-  download = false,
-  downloadFileName = "data.csv",
-  enableSelect = false,
-  enableSingleSelect = false,
-  getRowId = (r: T) => r.id,
-  headerBackgroundColor = "$primary5",
-  initDensity = "standard",
-  initFilters = [],
-  initPageSize = 10,
-  initSelected = [],
-  initSorts = [],
-  heading,
-  onQuery,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onSelect = (s) => {},
-  ActionButton,
-  tableProps,
-}: QueryTableProps<T>): ReactElement {
+export function QueryTable<T extends Record<string, any>>(
+  props: QueryTableProps<T>
+): ReactElement {
+  const {
+    columns = [],
+    disableMultiSort = false,
+    disableMultiFilter = false,
+    download = false,
+    downloadFileName = "data.csv",
+    enableSelect = false,
+    enableSingleSelect = false,
+    getRowId = (r: T) => r.id,
+    initDensity = "standard",
+    initFilters = [],
+    initPageSize = 10,
+    initSelected = [],
+    initSorts = [],
+    heading,
+    onQuery,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onSelect = (s) => {},
+    ActionButton,
+    tableProps,
+  } = props;
   let spanTableEl: ReactElement | undefined;
   const [
     {
@@ -504,7 +502,6 @@ export function QueryTable<T extends Record<string, any>>({
           <StyledTableRow>
             {enableSelect && (
               <SelectionHeader
-                backgroundColor={headerBackgroundColor}
                 enableSingleSelect={enableSingleSelect}
                 onSelectAll={handleSelectAll}
                 onUnselectAll={handleUnselectAll}
@@ -517,7 +514,6 @@ export function QueryTable<T extends Record<string, any>>({
               <TableHeaderCell
                 key={c.accessor}
                 activeFilter={filters.some((f) => f.column === c.accessor)}
-                backgroundColor={headerBackgroundColor}
                 column={c}
                 filterButtonRef={filterButtonRef}
                 onCreateSort={handleCreateSort}

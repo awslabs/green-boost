@@ -7,25 +7,21 @@ const StyledFooter = styled("footer", {
   ta: "center",
   fontSize: "$2",
 });
+const thisYear = new Date().getFullYear();
 
 interface FooterProps {
-  companyName?: string;
+  footer?: string;
   Footer?: ReactElement;
 }
 
-const thisYear = new Date().getFullYear();
-
 export function Footer(props: FooterProps): ReactElement {
-  const { companyName = "Your Company", Footer: UserFooter } = props;
+  const {
+    footer = `© ${thisYear}, My Company, All rights reserved.`,
+    Footer: UserFooter,
+  } = props;
   return (
     <Box css={{ gridArea: "footer" }}>
-      {UserFooter ? (
-        UserFooter
-      ) : (
-        <StyledFooter>
-          &copy; {thisYear}, {companyName}, All rights reserved.
-        </StyledFooter>
-      )}
+      {UserFooter ? UserFooter : <StyledFooter>{footer}</StyledFooter>}
     </Box>
   );
 }

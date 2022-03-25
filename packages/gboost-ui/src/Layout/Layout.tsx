@@ -10,18 +10,36 @@ import { Drawer } from "./Drawer.js";
 import { NavList } from "./NavList.js";
 
 export interface LayoutProps {
-  /**
-   * Account Menu Background color
-   * @default "$whiteA7"
-   */
-  accountMenuBc?: string;
   className?: string;
-  companyName?: string;
+  /**
+   * string for footer
+   */
+  footer?: string;
+  /**
+   * Default path visited by React Router when visiting index /
+   */
   defaultPath?: string;
+  /**
+   * Source URL of logo shown to the right of the header title and when loading
+   * lazily loaded routes
+   */
   logoSrc: string;
+  /**
+   * Pages to be display in left nav drawer
+   */
   pages: Page[];
+  /**
+   * string for header title
+   */
   title: string;
+  /**
+   * React component for Footer. When used, `footer` prop is ignored
+   */
   Footer?: ReactElement;
+  /**
+   * React component for Header Title. When used, `title` prop is ignored
+   */
+  HeaderTitle?: ReactElement;
 }
 
 /**
@@ -29,14 +47,14 @@ export interface LayoutProps {
  */
 export function Layout(props: LayoutProps): ReactElement {
   const {
-    accountMenuBc = "$whiteA7",
     className,
-    companyName,
+    footer,
     defaultPath,
     logoSrc,
     pages,
     title,
     Footer: UserFooter,
+    HeaderTitle,
   } = props;
   const bps = useBps();
   // initial state makes sidebar open for laptop but closed for tablet and mobile
@@ -75,14 +93,15 @@ export function Layout(props: LayoutProps): ReactElement {
       }}
     >
       <Header
-        accountMenuBc={accountMenuBc}
-        setOpen={setOpen}
+        logoSrc={logoSrc}
         open={open}
+        setOpen={setOpen}
         title={title}
+        HeaderTitle={HeaderTitle}
       />
       {nav}
       <Content defaultPath={defaultPath} logoSrc={logoSrc} pages={pages} />
-      <Footer companyName={companyName} Footer={UserFooter} />
+      <Footer footer={footer} Footer={UserFooter} />
     </Box>
   );
 }

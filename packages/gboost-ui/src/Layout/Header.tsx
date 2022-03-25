@@ -1,4 +1,10 @@
-import { Heading, Menu, MenuItem, MenuButton } from "@aws-amplify/ui-react";
+import {
+  Heading,
+  Menu,
+  MenuItem,
+  MenuButton,
+  Image,
+} from "@aws-amplify/ui-react";
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { MdAccountCircle, MdLogout, MdMenu, MdMenuOpen } from "react-icons/md";
 import { useBps } from "../context/BreakpointsContext";
@@ -9,19 +15,21 @@ import { List, ListItem } from "../List.js";
 import { useNavigate } from "react-router-dom";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 
+const headerHeight = "$8";
+
 const StyledHeader = styled("header", {
   bc: "$primary9",
   boxSizing: "border-box",
   color: "white",
   gridArea: "header",
   width: "100%",
-  height: "$8",
+  height: headerHeight,
   px: "$4",
   py: "$2",
   minWidth: "320px", // small mobile
 });
-
 const StyledHeading = styled(Heading);
+const StyledImage = styled(Image, { maxWidth: `calc(${headerHeight} - $4)` });
 const StyledMenuIcon = styled(MdMenu, { fontSize: "$7", cursor: "pointer" });
 const StyledMenuOpen = styled(MdMenuOpen, {
   fontSize: "$7",
@@ -35,14 +43,15 @@ const StyledMenuButton = styled(MenuButton, {
 const StyledMenuItem = styled(MenuItem, { gap: "$2" });
 
 interface HeaderProps {
-  accountMenuBc?: string;
+  logoSrc: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   title: string;
+  HeaderTitle?: ReactElement;
 }
 
 export function Header(props: HeaderProps): ReactElement {
-  const { accountMenuBc, setOpen, open, title } = props;
+  const { logoSrc, setOpen, open, title, HeaderTitle } = props;
   const { user, signOut } = useAuthenticator();
   const [leftOpen, setLeftOpen] = useState(false);
   const bps = useBps();
@@ -63,7 +72,7 @@ export function Header(props: HeaderProps): ReactElement {
       <Menu
         trigger={
           <StyledMenuButton
-            css={{ bc: `${accountMenuBc} !important` }}
+            css={{ bc: "$whiteA7 !important" }}
             variation="primary"
           >
             {username}
@@ -87,6 +96,23 @@ export function Header(props: HeaderProps): ReactElement {
       </StyledMenuButton>
     );
   }
+  let headerTitle: ReactElement;
+  if (HeaderTitle) {
+    headerTitle = HeaderTitle;
+  } else {
+    headerTitle = (
+      <>
+        <StyledHeading
+          level={4}
+          css={{ color: "white", cursor: "pointer" }}
+          onClick={() => navigate("/")}
+        >
+          {title}
+        </StyledHeading>
+        <StyledImage alt="logo" src={logoSrc} maxHeight={headerHeight} />
+      </>
+    );
+  }
   return (
     <StyledHeader>
       <Box css={{ alignItems: "center", display: "flex" }}>
@@ -103,13 +129,7 @@ export function Header(props: HeaderProps): ReactElement {
           ) : (
             <StyledMenuIcon onClick={() => setOpen(true)} />
           )}
-          <StyledHeading
-            level={4}
-            css={{ color: "white", cursor: "pointer" }}
-            onClick={() => navigate("/")}
-          >
-            {title}
-          </StyledHeading>
+          {headerTitle}
         </Box>
         <Box css={{ display: "flex" }}>{menu}</Box>
       </Box>
