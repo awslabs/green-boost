@@ -26,7 +26,6 @@ const CheckBoxIndeterminate = styled(MdOutlineIndeterminateCheckBox, {
 });
 
 interface SelectionHeaderProps<T> {
-  backgroundColor: string;
   enableSingleSelect: boolean;
   onSelectAll: (s: T[]) => void;
   onUnselectAll: () => void;
@@ -39,7 +38,6 @@ export function SelectionHeader<T>(
   props: SelectionHeaderProps<T>
 ): ReactElement {
   const {
-    backgroundColor,
     enableSingleSelect,
     onSelectAll: handleSelectAll,
     onUnselectAll: handleUnselectAll,
@@ -78,7 +76,7 @@ export function SelectionHeader<T>(
       // is used for thead, tbody, and tr's
       css={{
         padding,
-        backgroundColor,
+        backgroundColor: "$primary5",
         textOverflow: "clip",
       }}
     >
