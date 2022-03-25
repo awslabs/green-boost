@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.11.0
+
+### Minor Changes
+
+- [#62](https://github.com/awslabs/green-boost/pull/62) [`204658c`](https://github.com/awslabs/green-boost/commit/204658c9db3a9cde8823533fdcbdf030a130fbb6) Thanks [@bestickley](https://github.com/bestickley)! - Remove accountMenuBc and companyName props from Layout and headerBackgroundColor from QueryTable to force users to use radix colors system. Add footer and HeaderTitle prop to Layout
+
 ## 0.10.0
 
 ### Minor Changes
