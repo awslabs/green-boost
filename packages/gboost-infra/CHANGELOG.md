@@ -1,5 +1,12 @@
 # gboost-infra
 
+## 0.3.9
+
+### Patch Changes
+
+- Updated dependencies [[`fe28be5`](https://github.com/awslabs/green-boost/commit/fe28be52ca951aeb3ef6aeea364af32237998f7b)]:
+  - gboost-common@0.5.0
+
 ## 0.3.8
 
 ### Patch Changes
