@@ -1,5 +1,17 @@
 # gboost-ui
 
+## 0.12.0
+
+### Minor Changes
+
+- [#64](https://github.com/awslabs/green-boost/pull/64) [`fe28be5`](https://github.com/awslabs/green-boost/commit/fe28be52ca951aeb3ef6aeea364af32237998f7b) Thanks [@bestickley](https://github.com/bestickley)! - - Optional user prop for Layout
+  - Authenticator updates TOTP issuer with title by default
+
+### Patch Changes
+
+- Updated dependencies [[`fe28be5`](https://github.com/awslabs/green-boost/commit/fe28be52ca951aeb3ef6aeea364af32237998f7b)]:
+  - gboost-common@0.5.0
+
 ## 0.11.0
 
 ### Minor Changes

@@ -23,8 +23,8 @@ to: infra/package.json
     "cdk-nag": "^2.11.1",
     "constructs": "^10.0.89",
     "esbuild": "^0.14.27",
-    "gboost-common": "^0.4.0",
-    "gboost-infra": "^0.3.8"
+    "gboost-common": "^0.5.0",
+    "gboost-infra": "^0.3.9"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.93",
