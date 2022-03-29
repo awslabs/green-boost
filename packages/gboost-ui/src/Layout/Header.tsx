@@ -7,13 +7,14 @@ import {
 } from "@aws-amplify/ui-react";
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { MdAccountCircle, MdLogout, MdMenu, MdMenuOpen } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 import { useBps } from "../context/BreakpointsContext";
 import { styled } from "../stitches.config.js";
 import { Box } from "../Box.js";
 import { Drawer } from "./Drawer.js";
 import { List, ListItem } from "../List.js";
-import { useNavigate } from "react-router-dom";
-import { useAuthenticator } from "@aws-amplify/ui-react";
+import type { CognitoUser } from "./Layout.js";
 
 const headerHeight = "$8";
 
@@ -47,12 +48,14 @@ interface HeaderProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   title: string;
+  user?: CognitoUser;
   HeaderTitle?: ReactElement;
 }
 
 export function Header(props: HeaderProps): ReactElement {
-  const { logoSrc, setOpen, open, title, HeaderTitle } = props;
-  const { user, signOut } = useAuthenticator();
+  const { logoSrc, setOpen, open, title, user: propUser, HeaderTitle } = props;
+  const { user: hookUser, signOut } = useAuthenticator();
+  const user = propUser || hookUser;
   const [leftOpen, setLeftOpen] = useState(false);
   const bps = useBps();
   const navigate = useNavigate();

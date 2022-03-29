@@ -22,15 +22,18 @@ import { theme } from "./theme.js";
 const signUpAttributes = Object.keys(userAttributes).map(
   camelToSnake
 ) as "email"[]; // amplify doesn't export SignUpAttribute type
+const title = import.meta.env.VITE_APP_TITLE as string;
 
 export function App() {
   globalStyles();
-  const title = import.meta.env.VITE_APP_TITLE as string;
   return (
     <AmplifyProvider theme={getAmplifyTheme(theme)}>
       <BreakpointsProvider media={config.media}>
         <NotificationsProvider>
-          <Authenticator signUpAttributes={signUpAttributes} title={title}>
+          <Authenticator
+            signUpAttributes={signUpAttributes}
+            title={title}
+          >
             {() => (
               <Layout
                 className={theme}
