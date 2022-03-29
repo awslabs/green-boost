@@ -8,6 +8,9 @@ import { Footer } from "./Footer.js";
 import { Box } from "../Box.js";
 import { Drawer } from "./Drawer.js";
 import { NavList } from "./NavList.js";
+import { useAuthenticator } from "@aws-amplify/ui-react";
+
+export type CognitoUser = ReturnType<typeof useAuthenticator>["user"];
 
 export interface LayoutProps {
   className?: string;
@@ -33,6 +36,11 @@ export interface LayoutProps {
    */
   title: string;
   /**
+   * Explicitly defined user for Account Menu instead of using `user` returned
+   * from `useAuthenticator`
+   */
+  user?: CognitoUser;
+  /**
    * React component for Footer. When used, `footer` prop is ignored
    */
   Footer?: ReactElement;
@@ -53,6 +61,7 @@ export function Layout(props: LayoutProps): ReactElement {
     logoSrc,
     pages,
     title,
+    user,
     Footer: UserFooter,
     HeaderTitle,
   } = props;
@@ -97,6 +106,7 @@ export function Layout(props: LayoutProps): ReactElement {
         open={open}
         setOpen={setOpen}
         title={title}
+        user={user}
         HeaderTitle={HeaderTitle}
       />
       {nav}

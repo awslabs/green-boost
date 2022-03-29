@@ -13,3 +13,4 @@ export * from "./Dialog.js";
 export type { TransferListProps } from "./TransferList.js";
 export { RefTransferList as TransferList } from "./TransferList.js";
 export * from "./SmartInputs/SmartInputs.js";
+export * from "./Loading.js";

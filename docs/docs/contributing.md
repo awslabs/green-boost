@@ -4,7 +4,7 @@ Instructions below allow you to edit .ts files and test out your changes without
 
 First clone the repository and instal dependencies with `pnpm i`.
 
-To develop `gboost-ui` or `gboost-infra` or `gboost-common`, in your Green Boost application repository (created with `gboost create`), run `pnpm add ../path/to/gboost/packages/gboost-*` replacing the path with the path to wherever the package is locally.
+To develop `gboost-ui` or `gboost-infra` or `gboost-common`, in your Green Boost application repository (created with `gboost create`), run `pnpm add ../path/to/gboost/packages/gboost-*` replacing the path with the path to wherever the package is locally. This will change your package.json.
 
 For `gboost-ui`, you'll need to add this plugin in your vite.config.ts
 ```ts
@@ -32,6 +32,17 @@ function reactJsOrJsx({
     },
   };
 }
+
+export default defineConfig(({ mode }) => {
+  // ...
+  return {
+    plugins: [
+      // ...
+      reactJsOrJsx({ importerRegExpTest: /green-boost/ }),
+    ],
+    //...
+  };
+});
 ```
 
 If you run into issues with duplicate node_modules being resolved, check out [this](https://blog.maximeheckel.com/posts/duplicate-dependencies-npm-link/) article and look at Vite's `dedupe` config but you shouldn't need to.
