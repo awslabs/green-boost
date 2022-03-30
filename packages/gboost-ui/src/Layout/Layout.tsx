@@ -1,14 +1,15 @@
 import { ReactElement, useEffect, useState } from "react";
+import { Auth } from "aws-amplify";
+import type { useAuthenticator } from "@aws-amplify/ui-react";
 import { Page } from "../page.js";
 import { useBps } from "../context/BreakpointsContext.js";
-import { Header } from "./Header.js";
+import { Header } from "./Header/Header.js";
 import { Content } from "./Content.js";
-import { Sidebar } from "./Sidebar.js";
+import { NavSidebar } from "./NavSidebar.js";
 import { Footer } from "./Footer.js";
 import { Box } from "../Box.js";
 import { Drawer } from "./Drawer.js";
 import { NavList } from "./NavList.js";
-import { useAuthenticator } from "@aws-amplify/ui-react";
 
 export type CognitoUser = ReturnType<typeof useAuthenticator>["user"];
 
@@ -32,6 +33,11 @@ export interface LayoutProps {
    */
   pages: Page[];
   /**
+   * Logs off user
+   * @default Auth.signOut
+   */
+  signOut?: () => unknown;
+  /**
    * string for header title
    */
   title: string;
@@ -39,13 +45,24 @@ export interface LayoutProps {
    * Explicitly defined user for Account Menu instead of using `user` returned
    * from `useAuthenticator`
    */
-  user?: CognitoUser;
+  user: CognitoUser;
   /**
-   * React component for Footer. When used, `footer` prop is ignored
+   * Custom account menu shown on right side of header. Should consider desktop
+   * and mobile view. See default account menu for guidance.
+   */
+  AccountMenu?: ReactElement;
+  /**
+   * Custom account sidebar that shows in drawer when mobile screen and user
+   * clicks on account menu button.
+   */
+  AccountSidebar?: ReactElement;
+  /**
+   * Custom footer component. When used, `footer` prop is ignored.
    */
   Footer?: ReactElement;
   /**
-   * React component for Header Title. When used, `title` prop is ignored
+   * Custom header title shown to right of hamburger menu. When used, `title`
+   * prop is ignored.
    */
   HeaderTitle?: ReactElement;
 }
@@ -60,8 +77,11 @@ export function Layout(props: LayoutProps): ReactElement {
     defaultPath,
     logoSrc,
     pages,
+    signOut = Auth.signOut,
     title,
     user,
+    AccountMenu,
+    AccountSidebar,
     Footer: UserFooter,
     HeaderTitle,
   } = props;
@@ -76,7 +96,7 @@ export function Layout(props: LayoutProps): ReactElement {
   }, [bps.bp3]);
   let nav: ReactElement;
   if (bps.bp3) {
-    nav = <Sidebar pages={pages} open={open} />;
+    nav = <NavSidebar pages={pages} open={open} />;
   } else {
     nav = (
       <>
@@ -105,8 +125,11 @@ export function Layout(props: LayoutProps): ReactElement {
         logoSrc={logoSrc}
         open={open}
         setOpen={setOpen}
+        signOut={signOut}
         title={title}
         user={user}
+        AccountMenu={AccountMenu}
+        AccountSidebar={AccountSidebar}
         HeaderTitle={HeaderTitle}
       />
       {nav}
