@@ -1,9 +1,9 @@
 # Green Boost
 ![ci workflow](https://github.com/awslabs/green-boost/actions/workflows/ci.yml/badge.svg)
 
-Build Full Stack Serverless Web Apps on AWS Fast ⏩
+Build Full Stack Serverless Web Apps on AWS Fast
 
-Documentation: https://awslabs.github.io/green-boost/
+Docs: https://awslabs.github.io/green-boost/
 
 ## Security
 

@@ -14,12 +14,12 @@ const StyledAside = styled("aside", {
   },
 });
 
-interface SidebarProps {
+interface NavSidebarProps {
   pages: Page[];
   open: boolean;
 }
 
-export function Sidebar(props: SidebarProps): ReactElement {
+export function NavSidebar(props: NavSidebarProps): ReactElement {
   const { pages, open } = props;
   return (
     <StyledAside css={{ width: open ? 250 : 70 }}>

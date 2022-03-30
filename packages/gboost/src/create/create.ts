@@ -13,7 +13,6 @@ export async function create() {
   } catch (err) {
     console.error(err);
   }
-  console.log(answers);
   const args = getArgs(answers);
   const result = await runner(["repo", "create", ...args], {
     templates: new URL("../../_templates", import.meta.url).pathname,
@@ -57,7 +56,7 @@ export async function create() {
       )}`
     );
   } else {
-    console.log(result);
     console.error("An error occurred");
+    console.error(result);
   }
 }
