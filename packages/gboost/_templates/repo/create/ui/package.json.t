@@ -26,7 +26,7 @@ to: ui/package.json
     "@stitches/react": "^1.2.7",
     "aws-amplify": "^4.3.16",
     "gboost-common": "^0.5.0",
-    "gboost-ui": "^0.12.0",
+    "gboost-ui": "^0.13.0",
     "graphql": "^15.8.0",
     "graphql-tag": "^2.12.6",
     "react": "^17.0.2",
