@@ -1,5 +1,12 @@
 # gboost
 
+## 0.4.1
+
+### Patch Changes
+
+- [#66](https://github.com/awslabs/green-boost/pull/66) [`97e96aa`](https://github.com/awslabs/green-boost/commit/97e96aa5a3b7627bcfb67e8d54458c555a7185dc) Thanks [@bestickley](https://github.com/bestickley)! - - Require passing `user`, `signOut` to Layout component for added flexibility
+  - Add `AccountMenu` and `AccountSidebar` to Layout component for greater customization
+
 ## 0.4.0
 
 ### Minor Changes
