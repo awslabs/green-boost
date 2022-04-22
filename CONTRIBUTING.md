@@ -6,26 +6,6 @@ documentation, we greatly value feedback and contributions from our community.
 Please read through this document before submitting any issues or pull requests to ensure we have all the necessary
 information to effectively respond to your bug report or contribution.
 
-## Testing out GB while packages are not on NPM
-*Note, you may need to prefix commands with `sudo` for global commands*
-1. Install pnpm: https://pnpm.io/installation:
-1. Activate Node.js 16: `pnpm env use --global 16`
-1. Install AWS CDK v2 globally: `pnpm add -g aws-cdk`
-1. Ensure AWS Account you will test GB in has been boostrapped with AWS CDK: `cdk bootstrap aws://123456789012/us-east-1`
-1. Clone GB repo: `git clone https://gitlab.aws.dev/rdt/green-boost.git`
-1. Install dependencies: `cd green-boost && pnpm i`
-1. Build gb-cli: `cd packages/gboost && pnpm build`
-1. Globally link gb-cli: `pnpm link --global`
-1. In the parent directory of green-boost create a gb app: `cd ../../../ && gboost create`
-1. Follow prompts
-1. Install dependencies: `cd my-gb-app && pnpm i`
-1. Deploy dev env: `gboost deploy-dev`
-
-Get the CloudFront URL created and check out the web app!
-
-
-What you just did is meant purely for "personal" development; team development, test, and prod environments will be deployed via `cdk deploy` although I'm still working on it getting cdk pipelines working.
-
 
 ## Reporting Bugs/Feature Requests
 
