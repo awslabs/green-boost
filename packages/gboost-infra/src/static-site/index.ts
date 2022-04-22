@@ -6,6 +6,9 @@ import {
   DistributionProps,
   SecurityPolicyProtocol,
   ResponseHeadersPolicy,
+  FunctionEventType,
+  Function,
+  FunctionCode,
 } from "aws-cdk-lib/aws-cloudfront";
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
@@ -274,6 +277,16 @@ export class StaticSite extends Construct {
     return {
       defaultBehavior: {
         origin: new S3Origin(this.bucket),
+        functionAssociations: [
+          {
+            eventType: FunctionEventType.VIEWER_REQUEST,
+            function: new Function(this, "RewriteUrl", {
+              code: FunctionCode.fromFile({
+                filePath: new URL("./rewrite-url.js", import.meta.url).pathname,
+              }),
+            }),
+          },
+        ],
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         responseHeadersPolicy: new ResponseHeadersPolicy(
           this,
@@ -281,19 +294,6 @@ export class StaticSite extends Construct {
           responseHeadersPolicyProps
         ),
       },
-      defaultRootObject: "index.html",
-      errorResponses: [
-        {
-          httpStatus: 404,
-          responseHttpStatus: 200,
-          responsePagePath: "/index.html",
-        },
-        {
-          httpStatus: 403,
-          responseHttpStatus: 200,
-          responsePagePath: "/index.html",
-        },
-      ],
       enableLogging: true,
       logBucket,
       minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_2_2021,
