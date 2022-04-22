@@ -268,39 +268,4 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       returnType: GraphqlType.string(),
     })
   );
-
-  // When developing with sym links (pnpm add ../../../gboost/packages/gboost-infra)
-  // these api.createResolver calls must be uncommented for this to work
-  if (import.meta.url.split(".").pop() === "ts") {
-    const resolverConfigs = [
-      {
-        fieldName: "getUser",
-        // https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html
-        // Note: When using $utils.toJson() on context.info, the values that
-        // selectionSetGraphQL and selectionSetList return are not serialized by default.
-        reqMapTemp: MappingTemplate.fromFile(
-          new URL("./includeSelectionSetList.vtl", import.meta.url).pathname
-        ),
-        typeName: "Query",
-      },
-      { fieldName: "listGroupsForUser", typeName: "Query" },
-      { fieldName: "listGroups", typeName: "Query" },
-      { fieldName: "listUsersInGroup", typeName: "Query" },
-      { fieldName: "listUsers", typeName: "Query" },
-      { fieldName: "createUser", typeName: "Mutation" },
-      { fieldName: "deleteUsers", typeName: "Mutation" },
-      { fieldName: "disableUsers", typeName: "Mutation" },
-      { fieldName: "enableUsers", typeName: "Mutation" },
-      { fieldName: "resetPasswords", typeName: "Mutation" },
-      { fieldName: "updateUser", typeName: "Mutation" },
-    ];
-    resolverConfigs.forEach(({ fieldName, reqMapTemp, typeName }) =>
-      dataSource.createResolver({
-        fieldName,
-        typeName,
-        requestMappingTemplate: reqMapTemp ?? MappingTemplate.lambdaRequest(),
-        responseMappingTemplate: MappingTemplate.lambdaResult(),
-      })
-    );
-  }
 }

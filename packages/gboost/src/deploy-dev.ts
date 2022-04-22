@@ -1,6 +1,8 @@
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { getCwds } from "./utils/getCwds.js";
+import { getDevPrefix } from "./utils/getDevPrefix.js";
 
 const outputNameToEnvVarNameMap = {
   AwsRegionOutput: "VITE_AWS_REGION",
@@ -9,47 +11,46 @@ const outputNameToEnvVarNameMap = {
   UserPoolClientIdOutput: "VITE_USER_POOL_CLIENT_ID",
 };
 const outputsFilePath = "backEndStackOutputs.json";
-const appOpt = '--app "./node_modules/.bin/ts-node --esm src/app.ts"';
 const approvalOpt = "--require-approval never";
 
-export function deployDev() {
-  const { infraDir, uiDir } = getDirs();
-  const prefix = getDevPrefix(infraDir);
+interface DeployDevArgs {
+  hotswap: boolean;
+}
+
+export function deployDev(args: DeployDevArgs) {
+  const { hotswap = false } = args;
+  const hotswapOpt = hotswap ? "--hotswap" : "";
+  const { infraCwd, uiCwd } = getCwds();
+  const prefix = getDevPrefix(infraCwd);
   const backEndStack = `${prefix}-back-end`;
+  const tsnodePath = resolve(infraCwd, "./node_modules/.bin/ts-node");
+  const appOpt = `--app "${tsnodePath} --esm src/app.ts"`;
   try {
     execSync(
-      `cdk ${appOpt} deploy ${backEndStack} ${approvalOpt} --outputs-file ${outputsFilePath}`,
+      `cdk ${appOpt} deploy ${hotswapOpt} ${backEndStack} ${approvalOpt} --outputs-file ${outputsFilePath}`,
       {
-        cwd: infraDir,
+        cwd: infraCwd,
         stdio: "inherit",
       }
     );
-    writeEnvVars({ infraDir, backEndStack, uiDir });
+    writeEnvVars({ infraDir: infraCwd, backEndStack, uiDir: uiCwd });
     execSync("npm run build", {
-      cwd: uiDir,
+      cwd: uiCwd,
       stdio: "inherit",
     });
-    execSync(`cdk ${appOpt} deploy ${`${prefix}-front-end`} ${approvalOpt}`, {
-      cwd: infraDir,
+    const frontEndStack = `${prefix}-front-end`;
+    execSync(`cdk ${appOpt} deploy ${frontEndStack} ${approvalOpt}`, {
+      cwd: infraCwd,
       stdio: "inherit",
     });
   } catch (err) {
     console.error(err);
   } finally {
-    const absOutputsFilPath = resolve(infraDir, outputsFilePath);
+    const absOutputsFilPath = resolve(infraCwd, outputsFilePath);
     if (existsSync(absOutputsFilPath)) {
       unlinkSync(absOutputsFilPath);
     }
   }
-}
-
-function getDevPrefix(infraDir: string) {
-  const cdkJsonPath = resolve(infraDir, "cdk.json");
-  const cdkJsonString = readFileSync(cdkJsonPath, {
-    encoding: "utf8",
-  });
-  const cdkJson = JSON.parse(cdkJsonString);
-  return cdkJson.context.devPrefix;
 }
 
 function writeEnvVars({
@@ -79,23 +80,4 @@ function writeEnvVars({
     resolve(process.cwd(), `${uiDir}/.env.local`),
     envVarKeyValues.join("\n")
   );
-}
-
-/**
- * Get front end and back end directories allowing user to either be in
- * my-gb-app root directory or a child directory like back-end or front-end
- * when running: gboost deploy-dev
- */
-function getDirs(): { uiDir: string; infraDir: string } {
-  let uiDir = "ui";
-  let infraDir = "infra";
-  if (existsSync("../" + infraDir) && existsSync("../" + uiDir)) {
-    infraDir = "../" + infraDir;
-    uiDir = "../" + uiDir;
-  } else if (!existsSync(uiDir) || !existsSync(infraDir)) {
-    throw new Error(
-      "gboost deploy-dev must be run in root or root child directories"
-    );
-  }
-  return { infraDir, uiDir };
 }
