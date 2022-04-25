@@ -15,6 +15,8 @@ type AuthenticatorProps = ArgumentTypes<typeof AmplifyAuthenticator>[0] & {
 
 const StyledAuthenticator = styled(AmplifyAuthenticator, {
   height: "95vh",
+  display: "flex",
+  justifyContent: "center",
 });
 const StyledView = styled(View, { p: "$3", ta: "center" });
 // TODO remove important after Amplify UI team fixes
