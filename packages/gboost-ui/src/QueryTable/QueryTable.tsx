@@ -91,6 +91,11 @@ type SelectAction = "select" | "unselect";
 interface QueryTableProps<T> {
   columns: Column<T>[];
   /**
+   * Number of placeholder rows that show when loading
+   * @default 10
+   */
+  countLoadingRows?: number;
+  /**
    * @default false
    */
   disableMultiSort?: boolean;
@@ -127,6 +132,14 @@ interface QueryTableProps<T> {
    * Title of table
    */
   heading?: string;
+  /**
+   * @default false
+   */
+  hideActionBar?: boolean;
+  /**
+   * @default false
+   */
+  hidePagination?: boolean;
   /**
    * Default padding in table cells
    * @default "standard"
@@ -293,6 +306,7 @@ export function QueryTable<T extends Record<string, any>>(
 ): ReactElement {
   const {
     columns = [],
+    countLoadingRows = 10,
     disableMultiSort = false,
     disableMultiFilter = false,
     download = false,
@@ -300,12 +314,14 @@ export function QueryTable<T extends Record<string, any>>(
     enableSelect = false,
     enableSingleSelect = false,
     getRowId = (r: T) => r.id,
+    heading,
+    hideActionBar = false,
+    hidePagination = false,
     initDensity = "standard",
     initFilters = [],
     initPageSize = 10,
     initSelected = [],
     initSorts = [],
-    heading,
     onQuery,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onSelect = (s) => {},
@@ -396,7 +412,7 @@ export function QueryTable<T extends Record<string, any>>(
       <Box
         css={{ display: "flex", gap: "$1", flexDirection: "column", my: "$2" }}
       >
-        {[...Array(10)].map((e, i) => (
+        {[...Array(countLoadingRows)].map((e, i) => (
           <StyledPlaceholder key={i} />
         ))}
       </Box>
@@ -477,26 +493,28 @@ export function QueryTable<T extends Record<string, any>>(
   const padding = densityToPadding[density];
   return (
     <>
-      <ActionBar
-        columns={columns}
-        columnVisibility={columnVisibility}
-        density={density}
-        disableMultiFilter={disableMultiFilter}
-        download={download}
-        downloadFileName={downloadFileName}
-        filters={filters}
-        filterButtonRef={filterButtonRef}
-        heading={heading}
-        onChangeColumnVisibility={(columnVisibility: Record<string, boolean>) =>
-          dispatch({ type: "changeColumnVisibility", columnVisibility })
-        }
-        onChangeDensity={(density) =>
-          dispatch({ type: "changeDensity", density })
-        }
-        onFilter={handleFilter}
-        rows={rows}
-        ActionMenu={ActionButton}
-      />
+      {!hideActionBar && (
+        <ActionBar
+          columns={columns}
+          columnVisibility={columnVisibility}
+          density={density}
+          disableMultiFilter={disableMultiFilter}
+          download={download}
+          downloadFileName={downloadFileName}
+          filters={filters}
+          filterButtonRef={filterButtonRef}
+          heading={heading}
+          onChangeColumnVisibility={(
+            columnVisibility: Record<string, boolean>
+          ) => dispatch({ type: "changeColumnVisibility", columnVisibility })}
+          onChangeDensity={(density) =>
+            dispatch({ type: "changeDensity", density })
+          }
+          onFilter={handleFilter}
+          rows={rows}
+          ActionMenu={ActionButton}
+        />
+      )}
       <StyledTable {...tableProps} css={{ gridTemplateColumns }}>
         <StyledTableHead>
           <StyledTableRow>
@@ -552,15 +570,17 @@ export function QueryTable<T extends Record<string, any>>(
         )}
       </StyledTable>
       {spanTableEl}
-      <Pagination
-        disableNext={!nextNextToken}
-        disablePrev={!prevTokens.length}
-        onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
-        page={page}
-        pageSize={pageSize}
-        pageSizeOptions={pageSizeOptions}
-      />
+      {!hidePagination && (
+        <Pagination
+          disableNext={!nextNextToken}
+          disablePrev={!prevTokens.length}
+          onPageChange={handlePageChange}
+          onPageSizeChange={handlePageSizeChange}
+          page={page}
+          pageSize={pageSize}
+          pageSizeOptions={pageSizeOptions}
+        />
+      )}
     </>
   );
 }

@@ -83,7 +83,6 @@ export function Header(props: HeaderProps): ReactElement {
   let accountMenu: ReactElement;
   const handleClick = bps.bp3 ? undefined : () => setLeftOpen(true);
   if (AccountMenu) {
-    console.log("hi");
     accountMenu = <div onClick={handleClick}>{AccountMenu}</div>;
   } else {
     accountMenu = (
