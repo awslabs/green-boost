@@ -1,5 +1,22 @@
 # gboost-infra
 
+## 0.4.0
+
+### Minor Changes
+
+- [#70](https://github.com/awslabs/green-boost/pull/70) [`230f6f2`](https://github.com/awslabs/green-boost/commit/230f6f252679d0d748f627cd66c7a025e7f29aa0) Thanks [@bestickley](https://github.com/bestickley)! - Add GraphQLApi construct with nag suppression
+
+* [#70](https://github.com/awslabs/green-boost/pull/70) [`230f6f2`](https://github.com/awslabs/green-boost/commit/230f6f252679d0d748f627cd66c7a025e7f29aa0) Thanks [@bestickley](https://github.com/bestickley)! - Rename suppressAwsManagedConstructs to SuppressOkNags
+
+- [#70](https://github.com/awslabs/green-boost/pull/70) [`230f6f2`](https://github.com/awslabs/green-boost/commit/230f6f252679d0d748f627cd66c7a025e7f29aa0) Thanks [@bestickley](https://github.com/bestickley)! - Use CloudFront function instead of custom error responses to redirect requests to SPA's index.html
+
+### Patch Changes
+
+- [#70](https://github.com/awslabs/green-boost/pull/70) [`230f6f2`](https://github.com/awslabs/green-boost/commit/230f6f252679d0d748f627cd66c7a025e7f29aa0) Thanks [@bestickley](https://github.com/bestickley)! - Update dependencies
+
+- Updated dependencies [[`230f6f2`](https://github.com/awslabs/green-boost/commit/230f6f252679d0d748f627cd66c7a025e7f29aa0)]:
+  - gboost-common@0.5.1
+
 ## 0.3.9
 
 ### Patch Changes
