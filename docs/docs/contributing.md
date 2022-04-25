@@ -49,7 +49,9 @@ export default defineConfig(({ mode }) => {
 });
 ```
 
-If you run into issues with duplicate node_modules being resolved, check out [this](https://blog.maximeheckel.com/posts/duplicate-dependencies-npm-link/) article and look at Vite's `dedupe` config but you shouldn't need to.
+Also, for any library used in `gboost-ui` and the consuming package (ui folder), you'll want to add that library to Vite's [resolve.dedupe](https://vitejs.dev/config/#resolve-dedupe) configuration parameter. See an explanation [here](https://blog.maximeheckel.com/posts/duplicate-dependencies-npm-link/). Here is an inexhaustive list:
+
+`["aws-amplify", "@aws-amplify/ui-react", "graphql", "graphql-tag", "react", "react-dom", "react-icons", "react-router-dom"]`
 
 ### gboost
 
