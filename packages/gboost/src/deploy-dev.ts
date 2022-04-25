@@ -24,7 +24,8 @@ export function deployDev(args: DeployDevArgs) {
   const prefix = getDevPrefix(infraCwd);
   const backEndStack = `${prefix}-back-end`;
   const tsnodePath = resolve(infraCwd, "./node_modules/.bin/ts-node");
-  const appOpt = `--app "${tsnodePath} --esm src/app.ts"`;
+  const appPath = resolve(infraCwd, "src/app");
+  const appOpt = `--app "${tsnodePath} --esm ${appPath}"`;
   try {
     execSync(
       `cdk ${appOpt} deploy ${hotswapOpt} ${backEndStack} ${approvalOpt} --outputs-file ${outputsFilePath}`,

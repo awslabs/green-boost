@@ -24,20 +24,20 @@ const StyledDashboard = styled(MdDashboard, { fontSize: "$7" });
 
 // Use Code Splitting for non-default pages with React.lazy
 export const pages: Page[] = [
-  <% if (features.includes("Demo Dashboard")) { -%>
+<% if (features.includes("Demo Dashboard")) { -%>
   {
     component: <Dashboard />,
     icon: <StyledDashboard />,
     name: "Dashboard",
     path: "/dashboard",
   },
-  <% } -%>
-  <% if (features.includes("User Management")) { -%>
+<% } -%>
+<% if (features.includes("User Management")) { -%>
   {
     component: <UserManagement groupNames={groupNames} />,
     icon: <StyledManageAccounts />,
     name: "User Management",
     path: "/user-management",
   },
-  <% } -%>
+<% } -%>
 ];

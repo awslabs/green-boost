@@ -4,7 +4,7 @@ to: infra/src/front-end-stack.ts
 
 import { Stack, StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
-import { StaticSite, suppressAwsManagedConstructs } from "gboost-infra";
+import { StaticSite } from "gboost-infra";
 
 export interface FrontEndStackProps extends StackProps {
   gqlUrl: string;
@@ -35,7 +35,5 @@ export class FrontEndStack extends Stack {
         },
       },
     });
-
-    suppressAwsManagedConstructs(this);
   }
 }

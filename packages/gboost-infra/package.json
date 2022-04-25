@@ -32,7 +32,7 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.75.0",
     "aws-cdk-lib": "^2.20.0",
     "cdk-nag": "^2.12.32",
-    "constructs": "^10.0.122",
+    "constructs": "^10.0.125",
     "esbuild": "^0.14.38",
     "gboost-common": "workspace:^0.5.0",
     "joi": "^17.6.0"

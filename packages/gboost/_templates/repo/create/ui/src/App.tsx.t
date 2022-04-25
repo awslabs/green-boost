@@ -14,6 +14,7 @@ import {
   config,
   globalStyles,
   getAmplifyTheme,
+  Loading,
 } from "gboost-ui";
 import { userAttributes } from "common/userAttributes";
 import { pages } from "./pages/pages.jsx";
@@ -34,16 +35,20 @@ export function App() {
             signUpAttributes={signUpAttributes}
             title={title}
           >
-            {({ signOut, user }) => (
-              <Layout
-                className={theme}
-                logoSrc="/favicon-32x32.png"
-                pages={pages}
-                signOut={signOut}
-                title={title}
-                user={user}
-              />
-            )}
+            {({ signOut, user }) =>
+              user ? (
+                <Layout
+                  className={theme}
+                  logoSrc="/favicon-32x32.png"
+                  pages={pages}
+                  signOut={signOut}
+                  title={title}
+                  user={user}
+                />
+              ) : (
+                <Loading logoSrc="/apple-touch-icon.png" />
+              )
+            }
           </Authenticator>
         </NotificationsProvider>
       </BreakpointsProvider>

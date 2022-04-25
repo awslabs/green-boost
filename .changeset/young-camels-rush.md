@@ -1,0 +1,5 @@
+---
+"gboost": patch
+---
+
+Update templates
