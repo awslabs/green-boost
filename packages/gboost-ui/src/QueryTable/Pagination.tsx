@@ -2,6 +2,7 @@ import { Button, SelectField, Text } from "@aws-amplify/ui-react";
 import { ReactElement } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Box } from "../Box.js";
+import type { CSS } from "@stitches/react";
 import { styled } from "../stitches.config.js";
 
 const StyledButton = styled(Button, {
@@ -16,6 +17,7 @@ const StyledSelectField = styled(SelectField, {
 });
 
 interface PaginationProps {
+  css?: CSS;
   disableNext: boolean;
   disablePrev: boolean;
   onPageChange: (newPage: number) => void;
@@ -34,9 +36,11 @@ export function Pagination(props: PaginationProps): ReactElement {
     page,
     pageSize,
     pageSizeOptions,
+    css = {},
   } = props;
+  console.log({ css });
   return (
-    <Box css={{ display: "flex", justifyContent: "end", mt: "$2" }}>
+    <Box css={{ display: "flex", justifyContent: "end", mt: "$2", ...css }}>
       <StyledText>Page Size:</StyledText>
       <StyledSelectField
         label="Page Size"

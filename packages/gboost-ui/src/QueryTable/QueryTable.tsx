@@ -572,6 +572,7 @@ export function QueryTable<T extends Record<string, any>>(
       {spanTableEl}
       {!hidePagination && (
         <Pagination
+          css={{ mt: 55 * countLoadingRows }}
           disableNext={!nextNextToken}
           disablePrev={!prevTokens.length}
           onPageChange={handlePageChange}

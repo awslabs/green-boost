@@ -2,10 +2,7 @@ import { ReactElement } from "react";
 import { Placeholder } from "@aws-amplify/ui-react";
 import { FieldValues, useController } from "react-hook-form";
 import { Box } from "../Box.js";
-import {
-  defaultListHeight,
-  RefTransferList as TransferList,
-} from "../TransferList.js";
+import { defaultListHeight, TransferList } from "../TransferList.js";
 import type { TransferListProps } from "../TransferList.js";
 import { BaseSmartInputProps } from "./baseProps.js";
 

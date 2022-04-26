@@ -96,7 +96,7 @@ const StyledList = styled("ul", {
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function TransferList<T extends Record<string, any>>(
+function _TransferList<T extends Record<string, any>>(
   props: TransferListProps<T>,
   ref: ForwardedRef<HTMLUListElement>
 ): ReactElement {
@@ -288,6 +288,6 @@ function TransferList<T extends Record<string, any>>(
 }
 
 // https://fettblog.eu/typescript-react-generic-forward-refs/#option-1%3A-type-assertion
-export const RefTransferList = forwardRef(TransferList) as <T>(
+export const TransferList = forwardRef(_TransferList) as <T>(
   props: TransferListProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
 ) => ReactElement;
