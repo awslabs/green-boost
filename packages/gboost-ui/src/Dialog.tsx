@@ -44,29 +44,50 @@ const StyledContent = styled(DialogPrimitive.Content, {
 });
 const StyledIcon = styled(Icon, { cursor: "pointer" });
 
-interface DialogProps {
+interface BaseDialogProps {
   children: ReactElement;
+  /**
+   * Optional accessible description
+   */
+  description?: string;
+  /**
+   * Title of dialog
+   */
   title?: string;
-  trigger: ReactElement;
   maxWidth?: string;
 }
+interface UncontrolledDialogProps extends BaseDialogProps {
+  trigger: ReactElement;
+}
+interface ControlledDialogProps extends BaseDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+type DialogProps = UncontrolledDialogProps | ControlledDialogProps;
 
 /**
  * Dialog for showing auxiliary content. Try to limit use of dialogs. Prefer
  * nested pages where possible
  */
-export function Dialog({
-  children,
-  title,
-  trigger,
-  maxWidth,
-}: DialogProps): ReactElement {
+export function Dialog(props: DialogProps): ReactElement {
+  const { children, description, title, maxWidth } = props;
+  let trigger: ReactElement | undefined = undefined;
+  let open: boolean | undefined = undefined;
+  let onOpenChange: ((open: boolean) => void) | undefined = undefined;
+  if ("trigger" in props) {
+    trigger = props.trigger;
+  } else {
+    open = props.open as boolean;
+    onOpenChange = props.onOpenChange as (open: boolean) => void;
+  }
   return (
-    <DialogPrimitive.Root>
-      <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
+    <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
+      {trigger && (
+        <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
+      )}
       <DialogPrimitive.Portal>
         <StyledOverlay />
-        <StyledContent css={{ maxWidth }}>
+        <StyledContent aria-describedby={description} css={{ maxWidth }}>
           <>
             {title && (
               <Box
