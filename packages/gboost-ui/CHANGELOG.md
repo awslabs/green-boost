@@ -1,5 +1,15 @@
 # gboost-ui
 
+## 0.15.0
+
+### Minor Changes
+
+- [#72](https://github.com/awslabs/green-boost/pull/72) [`0738b57`](https://github.com/awslabs/green-boost/commit/0738b57d7139e1b96a922eb4f486d4c79a5e4959) Thanks [@bestickley](https://github.com/bestickley)! - Add ErrorBoundary component
+
+* [#72](https://github.com/awslabs/green-boost/pull/72) [`0738b57`](https://github.com/awslabs/green-boost/commit/0738b57d7139e1b96a922eb4f486d4c79a5e4959) Thanks [@bestickley](https://github.com/bestickley)! - Update QueryTable pagination to stay at bottom of table even if no data
+
+- [#72](https://github.com/awslabs/green-boost/pull/72) [`0738b57`](https://github.com/awslabs/green-boost/commit/0738b57d7139e1b96a922eb4f486d4c79a5e4959) Thanks [@bestickley](https://github.com/bestickley)! - Add props to control Dialog component
+
 ## 0.14.0
 
 ### Minor Changes
