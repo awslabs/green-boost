@@ -10,7 +10,9 @@ Instructions below allow you to edit .ts files and test out your changes without
 
 ### gboost-ui
 
-For `gboost-ui`, you'll need to add this plugin in your vite.config.ts
+After running `pnpm add ../path/to/gboost/packages/gboost-ui` in your GB app, you'll need to restart the Vite dev server.
+
+Vite will pre-bundle any non JS file (i.e. JSX) so you'll need to add this plugin in your vite.config.ts
 ```ts
 import type { Plugin } from "vite";
 
@@ -49,9 +51,7 @@ export default defineConfig(({ mode }) => {
 });
 ```
 
-Also, for any library used in `gboost-ui` and the consuming package (ui folder), you'll want to add that library to Vite's [resolve.dedupe](https://vitejs.dev/config/#resolve-dedupe) configuration parameter. See an explanation [here](https://blog.maximeheckel.com/posts/duplicate-dependencies-npm-link/). Here is an inexhaustive list:
-
-`["aws-amplify", "@aws-amplify/ui-react", "graphql", "graphql-tag", "react", "react-dom", "react-icons", "react-router-dom"]`
+For any library used in `gboost-ui` and the consuming package (ui folder), you'll want to add that library to Vite's [resolve.dedupe](https://vitejs.dev/config/#resolve-dedupe) configuration parameter. See an explanation [here](https://blog.maximeheckel.com/posts/duplicate-dependencies-npm-link/). Here is an inexhaustive list: `["aws-amplify", "@aws-amplify/ui-react", "graphql", "graphql-tag", "react", "react-dom", "react-icons", "react-router-dom"]`
 
 ### gboost
 

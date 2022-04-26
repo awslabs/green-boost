@@ -244,7 +244,7 @@ importers:
       '@mantine/hooks': ^3.6.14
       '@radix-ui/colors': ^0.1.8
       '@radix-ui/react-dialog': ^0.1.7
-      '@stitches/react': ^1.2.7
+      '@stitches/react': ^1.2.8
       '@types/jest': ^27.4.1
       '@types/react': ^17.0.44
       '@types/react-dom': ^17.0.15
@@ -277,7 +277,7 @@ importers:
       '@mantine/hooks': 3.6.14_react@17.0.2
       '@radix-ui/colors': 0.1.8
       '@radix-ui/react-dialog': 0.1.7_b49bddbe4b905ced4713cb857cca91fa
-      '@stitches/react': 1.2.7_react@17.0.2
+      '@stitches/react': 1.2.8_react@17.0.2
       gboost-common: link:../gboost-common
       graphql: 15.8.0
       graphql-tag: 2.12.6_graphql@15.8.0
@@ -8655,8 +8655,8 @@ packages:
       webpack-sources: 1.4.3
     dev: true
 
-  /@stitches/react/1.2.7_react@17.0.2:
-    resolution: {integrity: sha512-6AxpUag7OW55ANzRnuy7R15FEyQeZ66fytVo3BBilFIU0mfo3t49CAMcEAL/A1SbhSj/FCdWkn/XrbjGBTJTzg==}
+  /@stitches/react/1.2.8_react@17.0.2:
+    resolution: {integrity: sha512-9g9dWI4gsSVe8bNLlb+lMkBYsnIKCZTmvqvDG+Avnn69XfmHZKiaMrx7cgTaddq7aTPPmXiTsbFcUy0xgI4+wA==}
     peerDependencies:
       react: '>= 16.3.0'
     dependencies:
