@@ -38,7 +38,6 @@ export function Pagination(props: PaginationProps): ReactElement {
     pageSizeOptions,
     css = {},
   } = props;
-  console.log({ css });
   return (
     <Box css={{ display: "flex", justifyContent: "end", mt: "$2", ...css }}>
       <StyledText>Page Size:</StyledText>
