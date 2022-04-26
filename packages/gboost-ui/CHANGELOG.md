@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.15.1
+
+### Patch Changes
+
+- [#74](https://github.com/awslabs/green-boost/pull/74) [`8d22360`](https://github.com/awslabs/green-boost/commit/8d22360febd85fafa20c94f609dfe7b71dd4d19c) Thanks [@bestickley](https://github.com/bestickley)! - Remove console.log from Pagination component
+
 ## 0.15.0
 
 ### Minor Changes
