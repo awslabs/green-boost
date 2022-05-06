@@ -1,4 +1,5 @@
 import {
+  MutableRefObject,
   ReactElement,
   Reducer,
   useCallback,
@@ -178,6 +179,10 @@ interface QueryTableProps<T> {
    */
   onSelect?: (action: SelectAction, rows: T[], selected: T[]) => void;
   /**
+   * Ref to enable manually refreshing with refreshRef.click()
+   */
+  refreshRef?: MutableRefObject<HTMLButtonElement | null>;
+  /**
    * Action Button Component placed on top right of table, often used for creating a row or
    * displaying an actions menu button for user to perform actions on selected
    * row
@@ -335,6 +340,7 @@ export function QueryTable<T extends Record<string, any>>(
     onQuery,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onSelect = (s) => {},
+    refreshRef,
     ActionButton,
     tableProps,
   } = props;
@@ -526,6 +532,7 @@ export function QueryTable<T extends Record<string, any>>(
           }
           onFilter={handleFilter}
           onRefresh={() => dispatch({ type: "refresh" })}
+          refreshRef={refreshRef}
           rows={rows}
           ActionMenu={ActionButton}
         />

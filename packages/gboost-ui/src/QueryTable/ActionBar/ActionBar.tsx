@@ -1,4 +1,4 @@
-import { ReactElement, RefObject, useMemo } from "react";
+import { MutableRefObject, ReactElement, RefObject, useMemo } from "react";
 import { Button, Heading, Icon } from "@aws-amplify/ui-react";
 import { Box } from "../../Box.js";
 import { Column } from "../QueryTable.js";
@@ -23,6 +23,7 @@ interface ActionBarProps<T> {
   onChangeDensity: (density: Density) => void;
   onFilter: (filters: InternalFilter[]) => void;
   onRefresh: () => void;
+  refreshRef?: MutableRefObject<HTMLButtonElement | null>;
   rows: Record<string, string>[];
   ActionMenu?: ReactElement;
 }
@@ -46,6 +47,7 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
     onChangeDensity: handleChangeDensity,
     onFilter,
     onRefresh,
+    refreshRef,
     rows,
     ActionMenu,
   } = props;
@@ -65,7 +67,7 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
       {heading ? <Heading level={3}>{heading}</Heading> : <Heading />}
       <Box css={{ display: "flex", gap: "$2" }}>
         {!disableRefresh && (
-          <Button size="large" onClick={onRefresh}>
+          <Button ref={refreshRef} size="large" onClick={onRefresh}>
             <Icon ariaLabel="columns" as={MdRefresh} />
           </Button>
         )}
