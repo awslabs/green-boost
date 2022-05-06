@@ -1,4 +1,5 @@
 import {
+  MutableRefObject,
   ReactElement,
   Reducer,
   useCallback,
@@ -76,6 +77,10 @@ export interface OnQueryParams {
   nextToken: string;
   pageSize: number;
   sorts: Sort[];
+  /**
+   * True if query was invoked by refresh
+   */
+  refresh: boolean;
 }
 type OnQuerySuccessReturnValue = {
   rows: Row[];
@@ -91,11 +96,6 @@ type SelectAction = "select" | "unselect";
 interface QueryTableProps<T> {
   columns: Column<T>[];
   /**
-   * Number of placeholder rows that show when loading
-   * @default 10
-   */
-  countLoadingRows?: number;
-  /**
    * @default false
    */
   disableMultiSort?: boolean;
@@ -103,6 +103,11 @@ interface QueryTableProps<T> {
    * @default false
    */
   disableMultiFilter?: boolean;
+  /**
+   * Removes refresh button in QueryTable's Action Bar
+   * @default false
+   */
+  disableRefresh?: boolean;
   /**
    * Enable CSV file download
    * @default false
@@ -174,6 +179,10 @@ interface QueryTableProps<T> {
    */
   onSelect?: (action: SelectAction, rows: T[], selected: T[]) => void;
   /**
+   * Ref to enable manually refreshing with refreshRef.click()
+   */
+  refreshRef?: MutableRefObject<HTMLButtonElement | null>;
+  /**
    * Action Button Component placed on top right of table, often used for creating a row or
    * displaying an actions menu button for user to perform actions on selected
    * row
@@ -203,6 +212,7 @@ interface TableState<T> {
   pageSize: number;
   pageSizeOptions: number[];
   prevTokens: string[];
+  refresh: boolean; // if true, indicates query is from refresh
   rows: T[];
   selected: T[];
   sorts: Sort[];
@@ -235,7 +245,12 @@ function tableReducer<T>(
     case "changeDensity":
       return { ...state, density: action.density };
     case "changeError":
-      return { ...state, loading: false, errorMessage: action.message };
+      return {
+        ...state,
+        loading: false,
+        errorMessage: action.message,
+        refresh: false,
+      };
     case "changeLoading":
       return { ...state, loading: action.loading, errorMessage: "" };
     case "changePage":
@@ -274,6 +289,7 @@ function tableReducer<T>(
         rows: action.rows,
         nextNextToken: action.nextNextToken,
         loading: false,
+        refresh: false,
       };
     case "changeSelected":
       return {
@@ -283,8 +299,7 @@ function tableReducer<T>(
     case "filter":
       return { ...state, filters: action.filters };
     case "refresh":
-      // trigger useEffect to run again
-      return { ...state, filters: [...state.filters] };
+      return { ...state, refresh: true };
     case "sort":
       return { ...state, sorts: action.sorts };
     default:
@@ -306,9 +321,9 @@ export function QueryTable<T extends Record<string, any>>(
 ): ReactElement {
   const {
     columns = [],
-    countLoadingRows = 10,
     disableMultiSort = false,
     disableMultiFilter = false,
+    disableRefresh = false,
     download = false,
     downloadFileName = "data.csv",
     enableSelect = false,
@@ -325,6 +340,7 @@ export function QueryTable<T extends Record<string, any>>(
     onQuery,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onSelect = (s) => {},
+    refreshRef,
     ActionButton,
     tableProps,
   } = props;
@@ -342,6 +358,7 @@ export function QueryTable<T extends Record<string, any>>(
       pageSize,
       pageSizeOptions,
       prevTokens,
+      refresh,
       rows,
       selected,
       sorts,
@@ -362,6 +379,7 @@ export function QueryTable<T extends Record<string, any>>(
     pageSize: initPageSize,
     pageSizeOptions: [10, 20, 50],
     prevTokens: [],
+    refresh: false,
     rows: [],
     selected: initSelected,
     sorts: initSorts,
@@ -379,6 +397,7 @@ export function QueryTable<T extends Record<string, any>>(
           nextToken,
           pageSize,
           sorts,
+          refresh,
         });
         if ("rows" in res) {
           dispatch({
@@ -398,7 +417,7 @@ export function QueryTable<T extends Record<string, any>>(
       }
     }
     fetchData();
-  }, [filters, nextToken, onQuery, pageSize, sorts]);
+  }, [filters, nextToken, onQuery, pageSize, refresh, sorts]);
   const handlePageChange = useCallback(async (newPage: number) => {
     dispatch({ type: "changePage", page: newPage });
   }, []);
@@ -412,7 +431,7 @@ export function QueryTable<T extends Record<string, any>>(
       <Box
         css={{ display: "flex", gap: "$1", flexDirection: "column", my: "$2" }}
       >
-        {[...Array(countLoadingRows)].map((e, i) => (
+        {[...Array(pageSize)].map((e, i) => (
           <StyledPlaceholder key={i} />
         ))}
       </Box>
@@ -499,6 +518,7 @@ export function QueryTable<T extends Record<string, any>>(
           columnVisibility={columnVisibility}
           density={density}
           disableMultiFilter={disableMultiFilter}
+          disableRefresh={disableRefresh}
           download={download}
           downloadFileName={downloadFileName}
           filters={filters}
@@ -511,11 +531,19 @@ export function QueryTable<T extends Record<string, any>>(
             dispatch({ type: "changeDensity", density })
           }
           onFilter={handleFilter}
+          onRefresh={() => dispatch({ type: "refresh" })}
+          refreshRef={refreshRef}
           rows={rows}
           ActionMenu={ActionButton}
         />
       )}
-      <StyledTable {...tableProps} css={{ gridTemplateColumns }}>
+      <StyledTable
+        {...tableProps}
+        css={{
+          gridTemplateColumns,
+          mb: !loading ? 55 * (pageSize - rows.length) : undefined,
+        }}
+      >
         <StyledTableHead>
           <StyledTableRow>
             {enableSelect && (
@@ -572,7 +600,6 @@ export function QueryTable<T extends Record<string, any>>(
       {spanTableEl}
       {!hidePagination && (
         <Pagination
-          css={{ mt: 55 * countLoadingRows }}
           disableNext={!nextNextToken}
           disablePrev={!prevTokens.length}
           onPageChange={handlePageChange}

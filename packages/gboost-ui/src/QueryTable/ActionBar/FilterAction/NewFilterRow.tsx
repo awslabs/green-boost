@@ -1,4 +1,5 @@
 import {
+  ChangeEventHandler,
   ReactElement,
   useCallback,
   useLayoutEffect,
@@ -43,13 +44,31 @@ export function NewFilterRow({
     onCreateFilter({ ...filter, id: randomId() });
     setFilter(initFilter);
   }, [filter, onCreateFilter]);
+  const handleChangeColumn: ChangeEventHandler<HTMLSelectElement> = useCallback(
+    (e) => {
+      setFilter((f) => {
+        const newFilter: InternalFilter = {
+          ...filter,
+          column: e.target.value,
+        };
+        const newComparators =
+          filterColumnsObj[e.target.value]?.filterOptions?.comparators || [];
+        // if there is only 1 comparator for the column, pre-select it for user
+        if (!filter.comparator && newComparators.length === 1) {
+          newFilter.comparator = newComparators[0].value;
+        }
+        return newFilter;
+      });
+    },
+    [filter, filterColumnsObj]
+  );
   return (
     <>
       <SelectField
         ref={columnRef}
         label="Column"
         labelHidden
-        onChange={(e) => setFilter((f) => ({ ...f, column: e.target.value }))}
+        onChange={handleChangeColumn}
         placeholder="Column"
         value={filter.column}
       >
