@@ -76,6 +76,10 @@ export interface OnQueryParams {
   nextToken: string;
   pageSize: number;
   sorts: Sort[];
+  /**
+   * True if query was invoked by refresh
+   */
+  refresh: boolean;
 }
 type OnQuerySuccessReturnValue = {
   rows: Row[];
@@ -203,6 +207,7 @@ interface TableState<T> {
   pageSize: number;
   pageSizeOptions: number[];
   prevTokens: string[];
+  refresh: boolean; // if true, indicates query is from refresh
   rows: T[];
   selected: T[];
   sorts: Sort[];
@@ -235,7 +240,12 @@ function tableReducer<T>(
     case "changeDensity":
       return { ...state, density: action.density };
     case "changeError":
-      return { ...state, loading: false, errorMessage: action.message };
+      return {
+        ...state,
+        loading: false,
+        errorMessage: action.message,
+        refresh: false,
+      };
     case "changeLoading":
       return { ...state, loading: action.loading, errorMessage: "" };
     case "changePage":
@@ -274,6 +284,7 @@ function tableReducer<T>(
         rows: action.rows,
         nextNextToken: action.nextNextToken,
         loading: false,
+        refresh: false,
       };
     case "changeSelected":
       return {
@@ -283,8 +294,7 @@ function tableReducer<T>(
     case "filter":
       return { ...state, filters: action.filters };
     case "refresh":
-      // trigger useEffect to run again
-      return { ...state, filters: [...state.filters] };
+      return { ...state, refresh: true };
     case "sort":
       return { ...state, sorts: action.sorts };
     default:
@@ -342,6 +352,7 @@ export function QueryTable<T extends Record<string, any>>(
       pageSize,
       pageSizeOptions,
       prevTokens,
+      refresh,
       rows,
       selected,
       sorts,
@@ -362,6 +373,7 @@ export function QueryTable<T extends Record<string, any>>(
     pageSize: initPageSize,
     pageSizeOptions: [10, 20, 50],
     prevTokens: [],
+    refresh: false,
     rows: [],
     selected: initSelected,
     sorts: initSorts,
@@ -379,6 +391,7 @@ export function QueryTable<T extends Record<string, any>>(
           nextToken,
           pageSize,
           sorts,
+          refresh,
         });
         if ("rows" in res) {
           dispatch({
@@ -398,7 +411,7 @@ export function QueryTable<T extends Record<string, any>>(
       }
     }
     fetchData();
-  }, [filters, nextToken, onQuery, pageSize, sorts]);
+  }, [filters, nextToken, onQuery, pageSize, refresh, sorts]);
   const handlePageChange = useCallback(async (newPage: number) => {
     dispatch({ type: "changePage", page: newPage });
   }, []);

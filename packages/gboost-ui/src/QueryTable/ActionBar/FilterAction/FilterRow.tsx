@@ -1,4 +1,10 @@
-import { ChangeEventHandler, ReactElement, useCallback, useState } from "react";
+import {
+  ChangeEventHandler,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
 import { MdCheck, MdDelete } from "react-icons/md";
 import { FilterValue as FilterValueComponent } from "./FilterValue.js";
@@ -34,14 +40,21 @@ export function FilterRow({
   const handleChangeColumn: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => {
       setDirty(true);
-      handleUpdateFilter(id, {
+      const newFilter: InternalFilter = {
         ...filter,
         column: e.target.value,
         comparator: "",
         value: "",
-      });
+      };
+      const newComparators =
+        filterColumnsObj[e.target.value]?.filterOptions?.comparators || [];
+      // if there is only 1 comparator for the column, pre-select it for user
+      if (!filter.comparator && newComparators.length === 1) {
+        newFilter.comparator = newComparators[0].value;
+      }
+      handleUpdateFilter(id, newFilter);
     },
-    [filter, handleUpdateFilter, id]
+    [filter, filterColumnsObj, handleUpdateFilter, id]
   );
   const handleChangeComparator: ChangeEventHandler<HTMLSelectElement> =
     useCallback(
@@ -67,6 +80,16 @@ export function FilterRow({
     handleUpdateFilter(id, { ...filter, value });
     setDirty(false);
   }, [filter, handleUpdateFilter, id, value]);
+  useEffect(() => {
+    // if only 1 comparator option, pre-select it
+    if (!filter.comparator && filterOptions?.comparators.length === 1) {
+      handleUpdateFilter(id, {
+        ...filter,
+        comparator: filterOptions?.comparators[0].value,
+        value: "",
+      });
+    }
+  }, [filter, filterOptions?.comparators, handleUpdateFilter, id]);
   return (
     <>
       <SelectField
