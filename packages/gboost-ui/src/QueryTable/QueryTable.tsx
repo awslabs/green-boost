@@ -91,11 +91,6 @@ type SelectAction = "select" | "unselect";
 interface QueryTableProps<T> {
   columns: Column<T>[];
   /**
-   * Number of placeholder rows that show when loading
-   * @default 10
-   */
-  countLoadingRows?: number;
-  /**
    * @default false
    */
   disableMultiSort?: boolean;
@@ -103,6 +98,11 @@ interface QueryTableProps<T> {
    * @default false
    */
   disableMultiFilter?: boolean;
+  /**
+   * Removes refresh button in QueryTable's Action Bar
+   * @default false
+   */
+  disableRefresh?: boolean;
   /**
    * Enable CSV file download
    * @default false
@@ -306,9 +306,9 @@ export function QueryTable<T extends Record<string, any>>(
 ): ReactElement {
   const {
     columns = [],
-    countLoadingRows = 10,
     disableMultiSort = false,
     disableMultiFilter = false,
+    disableRefresh = false,
     download = false,
     downloadFileName = "data.csv",
     enableSelect = false,
@@ -412,7 +412,7 @@ export function QueryTable<T extends Record<string, any>>(
       <Box
         css={{ display: "flex", gap: "$1", flexDirection: "column", my: "$2" }}
       >
-        {[...Array(countLoadingRows)].map((e, i) => (
+        {[...Array(pageSize)].map((e, i) => (
           <StyledPlaceholder key={i} />
         ))}
       </Box>
@@ -499,6 +499,7 @@ export function QueryTable<T extends Record<string, any>>(
           columnVisibility={columnVisibility}
           density={density}
           disableMultiFilter={disableMultiFilter}
+          disableRefresh={disableRefresh}
           download={download}
           downloadFileName={downloadFileName}
           filters={filters}
@@ -511,11 +512,18 @@ export function QueryTable<T extends Record<string, any>>(
             dispatch({ type: "changeDensity", density })
           }
           onFilter={handleFilter}
+          onRefresh={() => dispatch({ type: "refresh" })}
           rows={rows}
           ActionMenu={ActionButton}
         />
       )}
-      <StyledTable {...tableProps} css={{ gridTemplateColumns }}>
+      <StyledTable
+        {...tableProps}
+        css={{
+          gridTemplateColumns,
+          mb: !loading ? 55 * (pageSize - rows.length) : undefined,
+        }}
+      >
         <StyledTableHead>
           <StyledTableRow>
             {enableSelect && (
@@ -572,7 +580,6 @@ export function QueryTable<T extends Record<string, any>>(
       {spanTableEl}
       {!hidePagination && (
         <Pagination
-          css={{ mt: 55 * countLoadingRows }}
           disableNext={!nextNextToken}
           disablePrev={!prevTokens.length}
           onPageChange={handlePageChange}

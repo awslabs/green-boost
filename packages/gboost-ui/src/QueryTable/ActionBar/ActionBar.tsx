@@ -1,17 +1,19 @@
 import { ReactElement, RefObject, useMemo } from "react";
-import { Heading } from "@aws-amplify/ui-react";
+import { Button, Heading, Icon } from "@aws-amplify/ui-react";
 import { Box } from "../../Box.js";
 import { Column } from "../QueryTable.js";
 import { DownloadAction } from "./DownloadAction.js";
 import { FilterAction, InternalFilter } from "./FilterAction/FilterAction.js";
 import { ColumnVisibilityAction } from "./ColumnVisibilityAction.js";
 import { Density, DensityAction } from "./DensityAction.js";
+import { MdRefresh } from "react-icons/md";
 
 interface ActionBarProps<T> {
   columns: Column<T>[];
   columnVisibility: Record<string, boolean>;
   density: Density;
   disableMultiFilter: boolean;
+  disableRefresh: boolean;
   download: boolean;
   downloadFileName: string;
   filters: InternalFilter[];
@@ -20,6 +22,7 @@ interface ActionBarProps<T> {
   onChangeColumnVisibility: (columnVisibility: Record<string, boolean>) => void;
   onChangeDensity: (density: Density) => void;
   onFilter: (filters: InternalFilter[]) => void;
+  onRefresh: () => void;
   rows: Record<string, string>[];
   ActionMenu?: ReactElement;
 }
@@ -33,6 +36,7 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
     columnVisibility,
     density,
     disableMultiFilter,
+    disableRefresh,
     download,
     downloadFileName,
     filters,
@@ -41,6 +45,7 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
     onChangeColumnVisibility: handleChangeColumnVisibility,
     onChangeDensity: handleChangeDensity,
     onFilter,
+    onRefresh,
     rows,
     ActionMenu,
   } = props;
@@ -59,6 +64,11 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
     >
       {heading ? <Heading level={3}>{heading}</Heading> : <Heading />}
       <Box css={{ display: "flex", gap: "$2" }}>
+        {!disableRefresh && (
+          <Button size="large" onClick={onRefresh}>
+            <Icon ariaLabel="columns" as={MdRefresh} />
+          </Button>
+        )}
         {filterColumns.length && (
           <FilterAction
             disableMultiFilter={disableMultiFilter}
