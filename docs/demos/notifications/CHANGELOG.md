@@ -1,5 +1,12 @@
 # gboost-notifications-demo
 
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies [[`dac8635`](https://github.com/awslabs/green-boost/commit/dac8635b359cfcfafd339feaedadf3661e2acfdb), [`dac8635`](https://github.com/awslabs/green-boost/commit/dac8635b359cfcfafd339feaedadf3661e2acfdb), [`dac8635`](https://github.com/awslabs/green-boost/commit/dac8635b359cfcfafd339feaedadf3661e2acfdb), [`dac8635`](https://github.com/awslabs/green-boost/commit/dac8635b359cfcfafd339feaedadf3661e2acfdb)]:
+  - gboost-ui@0.16.0
+
 ## 0.0.11
 
 ### Patch Changes

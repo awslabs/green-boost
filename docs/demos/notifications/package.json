@@ -1,7 +1,7 @@
 {
   "name": "gboost-notifications-demo",
   "private": true,
-  "version": "0.0.11",
+  "version": "0.0.12",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -11,7 +11,7 @@
     "@aws-amplify/ui-react": "^2.15.5",
     "@fontsource/inter": "^4.5.7",
     "aws-amplify": "^4.3.20",
-    "gboost-ui": "^0.15.0",
+    "gboost-ui": "^0.16.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "vite": "^2.9.5"
