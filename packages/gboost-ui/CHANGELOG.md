@@ -1,5 +1,19 @@
 # gboost-ui
 
+## 0.16.0
+
+### Minor Changes
+
+- [#76](https://github.com/awslabs/green-boost/pull/76) [`dac8635`](https://github.com/awslabs/green-boost/commit/dac8635b359cfcfafd339feaedadf3661e2acfdb) Thanks [@bestickley](https://github.com/bestickley)! - Add refreshRef to QueryTable to allow manual refreshing
+
+* [#76](https://github.com/awslabs/green-boost/pull/76) [`dac8635`](https://github.com/awslabs/green-boost/commit/dac8635b359cfcfafd339feaedadf3661e2acfdb) Thanks [@bestickley](https://github.com/bestickley)! - Add refresh button on QueryTable action bar
+
+### Patch Changes
+
+- [#76](https://github.com/awslabs/green-boost/pull/76) [`dac8635`](https://github.com/awslabs/green-boost/commit/dac8635b359cfcfafd339feaedadf3661e2acfdb) Thanks [@bestickley](https://github.com/bestickley)! - Auto select comparator if only one in QueryTable Filter
+
+* [#76](https://github.com/awslabs/green-boost/pull/76) [`dac8635`](https://github.com/awslabs/green-boost/commit/dac8635b359cfcfafd339feaedadf3661e2acfdb) Thanks [@bestickley](https://github.com/bestickley)! - Fix margin between bottom of table and pagination
+
 ## 0.15.1
 
 ### Patch Changes
