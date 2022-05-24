@@ -76,7 +76,9 @@ export function Header(props: HeaderProps): ReactElement {
         >
           {title}
         </StyledHeading>
-        <StyledImage alt="logo" src={logoSrc} maxHeight={headerHeight} />
+        {bps.bp1 && (
+          <StyledImage alt="logo" src={logoSrc} maxHeight={headerHeight} />
+        )}
       </>
     );
   }
