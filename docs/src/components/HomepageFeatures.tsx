@@ -27,19 +27,20 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    title: "Development Workflow Baked In",
+    title: "Built on the AWS Well Architected Framework",
     svg: (
       <svg style={{ width: "48px", height: "48px" }} viewBox="0 0 24 24">
         <path
           fill="var(--ifm-color-primary)"
-          d="M22,14H20V16H14V13H16V11H14V6A2,2 0 0,0 12,4H4V2H2V10H4V8H10V11H8V13H10V18A2,2 0 0,0 12,20H20V22H22"
+          d="M6,5H18A1,1 0 0,1 19,6A1,1 0 0,1 18,7H6A1,1 0 0,1 5,6A1,1 0 0,1 6,5M21,2V4H3V2H21M15,8H17V22H15V8M7,8H9V22H7V8M11,8H13V22H11V8Z"
         />
       </svg>
     ),
     description: (
       <>
-        CI/CD pipelines and pre-push hooks to enforce secure infrastructure and
-        high code quality
+        Built on the six pillars of the AWS Well Architected Framework:
+        operational excellence, security, reliability, performance efficiency,
+        cost optimization, and sustainability
       </>
     ),
   },
