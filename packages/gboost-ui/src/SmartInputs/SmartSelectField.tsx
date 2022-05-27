@@ -10,7 +10,7 @@ import { BaseSmartInputProps } from "./baseProps.js";
 
 export interface SmartSelectFieldProps<T>
   extends BaseSmartInputProps<T>,
-    Omit<SelectFieldProps, "hasError" | "errorMessage" | "name"> {
+    Omit<SelectFieldProps, "name"> {
   children: ReactElement | ReactElement[];
 }
 
@@ -18,7 +18,16 @@ export interface SmartSelectFieldProps<T>
 export function SmartSelectField<T extends FieldValues>(
   props: SmartSelectFieldProps<T>
 ): ReactElement {
-  const { children, control, label, loading, name, ...textFieldProps } = props;
+  const {
+    children,
+    errorMessage,
+    hasError,
+    control,
+    label,
+    loading,
+    name,
+    ...textFieldProps
+  } = props;
   const {
     field: { ref, onChange, value },
     fieldState: { error, invalid },
@@ -32,8 +41,8 @@ export function SmartSelectField<T extends FieldValues>(
     <SelectField
       {...(textFieldProps as Omit<SelectFieldProps, "label" | "name">)}
       ref={ref}
-      errorMessage={error?.message}
-      hasError={invalid}
+      errorMessage={errorMessage || error?.message}
+      hasError={hasError || invalid}
       name={name}
       label={label}
       onChange={onChange}

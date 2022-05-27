@@ -7,12 +7,20 @@ import { BaseSmartInputProps } from "./baseProps.js";
 
 export interface SmartTextFieldProps<T>
   extends BaseSmartInputProps<T>,
-    Omit<TextFieldProps<false>, "hasError" | "errorMessage" | "name"> {}
+    Omit<TextFieldProps<false>, "name"> {}
 
 export function SmartTextField<T extends FieldValues>(
   props: SmartTextFieldProps<T>
 ): ReactElement {
-  const { control, label, loading, name, ...textFieldProps } = props;
+  const {
+    control,
+    errorMessage,
+    hasError,
+    label,
+    loading,
+    name,
+    ...textFieldProps
+  } = props;
   const {
     field: { ref, onChange, value },
     fieldState: { error, invalid },
@@ -26,8 +34,8 @@ export function SmartTextField<T extends FieldValues>(
     <TextField
       {...(textFieldProps as Omit<TextFieldProps<false>, "label" | "name">)}
       ref={ref}
-      errorMessage={error?.message}
-      hasError={invalid}
+      errorMessage={errorMessage || error?.message}
+      hasError={hasError || invalid}
       name={name}
       label={label}
       onChange={onChange}

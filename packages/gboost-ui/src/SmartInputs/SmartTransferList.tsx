@@ -8,10 +8,7 @@ import { BaseSmartInputProps } from "./baseProps.js";
 
 export interface SmartTransferListProps<T, U>
   extends BaseSmartInputProps<T>,
-    Omit<
-      TransferListProps<U>,
-      "hasError" | "errorMessage" | "name" | "value" | "onChange"
-    > {}
+    Omit<TransferListProps<U>, "name" | "value" | "onChange"> {}
 
 /**
  * Smart Transfer List - first generic type is react-hook-form type,
@@ -23,7 +20,15 @@ export interface SmartTransferListProps<T, U>
 export function SmartTransferList<T extends FieldValues, U>(
   props: SmartTransferListProps<T, U>
 ): ReactElement {
-  const { control, label, loading, name, ...transferListProps } = props;
+  const {
+    control,
+    errorMessage,
+    hasError,
+    label,
+    loading,
+    name,
+    ...transferListProps
+  } = props;
   const {
     field: { ref, onChange, value },
     fieldState: { error, invalid },
@@ -42,8 +47,8 @@ export function SmartTransferList<T extends FieldValues, U>(
       {...(transferListProps as Omit<TransferListProps<U>, "label" | "name">)}
       ref={ref}
       label={label}
-      errorMessage={error?.message}
-      hasError={invalid}
+      errorMessage={errorMessage || error?.message}
+      hasError={hasError || invalid}
       onChange={onChange}
       value={value}
     />
