@@ -1,5 +1,5 @@
 import { ReactElement, useState, useEffect, useCallback } from "react";
-import { CognitoUser, CognitoGroup } from "gboost-common";
+import { CognitoUser, CognitoGroup, CreateCognitoUser } from "gboost-common";
 import { Link as RouterLink, useParams, useNavigate } from "react-router-dom";
 import { ButtonGroup, Link } from "@aws-amplify/ui-react";
 import { MdArrowBack } from "react-icons/md";
@@ -45,6 +45,7 @@ export function UpdateUser(props: UpdateUserProps): ReactElement {
   const titleSize = getTitleSize(bps);
   const { control, handleSubmit, reset, setValue } = useForm<Schema>({
     resolver: zodResolver(baseUserSchema),
+    defaultValues: new CreateCognitoUser(),
   });
   const [submitting, setSubmitting] = useState(false);
 
@@ -183,7 +184,9 @@ export function UpdateUser(props: UpdateUserProps): ReactElement {
         />
       </Container>
       <ButtonGroup justifyContent="end" variation="primary">
-        <StyledButton color="error">Cancel</StyledButton>
+        <StyledButton color="error" onClick={() => navigate("../")}>
+          Cancel
+        </StyledButton>
         <StyledButton
           color="success"
           data-test="update"
