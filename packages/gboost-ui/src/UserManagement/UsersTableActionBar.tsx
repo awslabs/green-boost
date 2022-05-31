@@ -32,13 +32,12 @@ type DialogAction = Exclude<UserAction, "update" | "enable">;
 interface UsersTableActionBarProps {
   refreshRef: MutableRefObject<HTMLButtonElement | null>;
   selectedUsers: CognitoUser[];
-  users: CognitoUser[];
 }
 
 export function UsersTableActionBar(
   props: UsersTableActionBarProps
 ): ReactElement {
-  const { refreshRef, selectedUsers, users } = props;
+  const { refreshRef, selectedUsers } = props;
   const { notify } = useNotifications();
   const [menuOpen, setMenuOpen] = useState(false);
   const ref = useClickOutside(() => setMenuOpen(false));
@@ -56,7 +55,6 @@ export function UsersTableActionBar(
     update: false,
   });
   const disable: Record<UserAction, boolean> = useMemo(() => {
-    users.map((u) => u); // dummy fn to re-compute this value upon users change
     return {
       delete: selectedUsers.length === 0,
       disable:
@@ -73,7 +71,7 @@ export function UsersTableActionBar(
         ),
       update: selectedUsers.length !== 1,
     };
-  }, [selectedUsers, users]);
+  }, [selectedUsers]);
   const usernames = useMemo(
     () => selectedUsers.map((u) => u.username),
     [selectedUsers]

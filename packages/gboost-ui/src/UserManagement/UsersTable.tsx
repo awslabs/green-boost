@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
   useRef,
+  useEffect,
 } from "react";
 import { Link } from "@aws-amplify/ui-react";
 import { Link as RouterLink } from "react-router-dom";
@@ -48,6 +49,17 @@ interface UsersTableProps {
 export function UsersTable(props: UsersTableProps): ReactElement {
   const { setUsers, users } = props;
   const [selectedUsers, setSelectedUsers] = useState<CognitoUser[]>([]);
+  useEffect(() => {
+    // when users refresh, need to update selected users' properties
+    setSelectedUsers((oldSelectedUsers) =>
+      oldSelectedUsers.map(
+        (oldSelectedUser) =>
+          users.find(
+            (u) => u.username === oldSelectedUser.username
+          ) as CognitoUser
+      )
+    );
+  }, [users]);
   const handleQuery = useCallback(
     async function handleQuery(
       params: OnQueryParams
@@ -203,7 +215,6 @@ export function UsersTable(props: UsersTableProps): ReactElement {
         <UsersTableActionBar
           refreshRef={refreshRef}
           selectedUsers={selectedUsers}
-          users={users}
         />
       }
     />
