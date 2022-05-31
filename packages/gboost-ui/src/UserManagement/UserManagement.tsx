@@ -7,6 +7,7 @@ import {
   Routes,
   useResolvedPath,
   useMatch,
+  useNavigate,
 } from "react-router-dom";
 import { Box } from "../Box.js";
 import { UpdateUser } from "./UpdateUser.js";
@@ -14,6 +15,7 @@ import { CreateUser } from "./CreateUser.js";
 import { GroupsTable } from "./GroupsTable.js";
 import { UsersTable } from "./UsersTable.js";
 import { UsersInGroupTable } from "./UsersInGroupTable.js";
+import { CognitoUser } from "gboost-common";
 
 export interface UserManagementProps {
   groupNames: string[];
@@ -28,6 +30,7 @@ const groupsPath = "groups";
  */
 export function UserManagement(props: UserManagementProps): ReactElement {
   const { groupNames } = props;
+  const [users, setUsers] = useState<CognitoUser[]>([]);
   const groupNameOptions = useMemo(
     () =>
       groupNames.map((g) => ({
@@ -37,46 +40,52 @@ export function UserManagement(props: UserManagementProps): ReactElement {
     [groupNames]
   );
   const [tab, setTab] = useState(0);
+  const [showTabs, setShowTabs] = useState(true);
   const { pathname: usersPathname } = useResolvedPath(usersPath);
   const usersMatch = useMatch({ path: usersPathname, end: true });
   const { pathname: groupsPathname } = useResolvedPath(groupsPath);
   const groupsMatch = useMatch({ path: groupsPathname, end: true });
+  const navigate = useNavigate();
   useEffect(() => {
     if (usersMatch) {
       setTab(0);
+      setShowTabs(true);
     } else if (groupsMatch) {
       setTab(1);
+      setShowTabs(true);
+    } else {
+      setShowTabs(false);
     }
   }, [usersMatch, groupsMatch]);
   return (
     <Box css={{ m: "$2" }}>
-      <Tabs currentIndex={tab} onChange={(t) => setTab(t as number)}>
-        <TabItem
-          title={
-            <Link as={ReactRouterLink} to={usersPath}>
-              Users
-            </Link>
-          }
-        >
-          <div />
-        </TabItem>
-        <TabItem
-          title={
-            <Link as={ReactRouterLink} to={groupsPath}>
-              Groups
-            </Link>
-          }
-        >
-          <div />
-        </TabItem>
-      </Tabs>
+      {showTabs && (
+        <Tabs currentIndex={tab} onChange={(t) => setTab(t as number)}>
+          <TabItem
+            onClick={() => navigate(usersPath)}
+            title={
+              <Link as={ReactRouterLink} to={usersPath}>
+                Users
+              </Link>
+            }
+          />
+          <TabItem
+            onClick={() => navigate(groupsPath)}
+            title={
+              <Link as={ReactRouterLink} to={groupsPath}>
+                Groups
+              </Link>
+            }
+          />
+        </Tabs>
+      )}
       <Routes>
         <Route index element={<Navigate to={usersPath} />} />
         <Route
           path="create-user"
           element={<CreateUser groupNameOptions={groupNameOptions} />}
         />
-        <Route path={usersPath} element={<UsersTable />} />
+        <Route path={usersPath} element={<UsersTable setUsers={setUsers} />} />
         <Route
           path={`${groupsPath}/:groupName`}
           element={<UsersInGroupTable />}
@@ -84,7 +93,9 @@ export function UserManagement(props: UserManagementProps): ReactElement {
         <Route path={groupsPath} element={<GroupsTable />} />
         <Route
           path=":username"
-          element={<UpdateUser groupNameOptions={groupNameOptions} />}
+          element={
+            <UpdateUser groupNameOptions={groupNameOptions} users={users} />
+          }
         />
       </Routes>
     </Box>

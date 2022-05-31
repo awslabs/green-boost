@@ -50,3 +50,11 @@ export interface CognitoGroup {
   precedence: number;
   updatedAt: string;
 }
+
+export interface ListUsersInGroupArgs {
+  input: {
+    groupName: string;
+    nextToken?: string;
+    limit?: number;
+  };
+}

@@ -1,9 +1,8 @@
 import { ReactElement } from "react";
 import { Placeholder } from "@aws-amplify/ui-react";
 import { FieldValues, useController } from "react-hook-form";
-import { Box } from "../Box.js";
-import { defaultListHeight, TransferList } from "../TransferList.js";
-import type { TransferListProps } from "../TransferList.js";
+import { Box, defaultListHeight, TransferList } from "../index.js";
+import type { TransferListProps } from "../index.js";
 import { BaseSmartInputProps } from "./baseProps.js";
 
 export interface SmartTransferListProps<T, U>

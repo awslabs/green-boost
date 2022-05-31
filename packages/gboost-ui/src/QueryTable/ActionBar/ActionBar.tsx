@@ -60,7 +60,7 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
       css={{
         display: "flex",
         justifyContent: "space-between",
-        my: "$2",
+        my: "$1",
         ml: "$1",
       }}
     >

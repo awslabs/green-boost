@@ -1,13 +1,17 @@
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
+import { listGroups } from "./gql.js";
+import { CognitoGroup } from "gboost-common";
+import { Link } from "@aws-amplify/ui-react";
+import { Link as RouterLink } from "react-router-dom";
 import {
   Column,
+  gQuery,
   QueryTable,
   OnQueryParams,
   OnQueryReturnValue,
-} from "../QueryTable/QueryTable.js";
-import { listGroups } from "./gql.js";
-import { CognitoGroup } from "gboost-common";
-import { gQuery } from "../utils/gQuery.js";
+  useBps,
+} from "../index.js";
+import { renderDate } from "./common.js";
 
 interface ListGroupsResponse {
   listGroups: {
@@ -25,25 +29,44 @@ async function handleQuery(params: OnQueryParams): Promise<OnQueryReturnValue> {
     console.error(err);
     return { errorMessage: err as string };
   }
-  // const filter = getFilter(filters);
-  // if (filter && filter.value === undefined) {
-  //   // return undefined so request isn't sent when user
-  //   // opens filter modal
-  //   return undefined;
-  // }
-  // if (vars.input && filter) vars.input.filter = filter;
 }
 
-const columns: Column<CognitoGroup>[] = [
-  { accessor: "name", name: "Name" },
-  { accessor: "description", name: "Description" },
-  { accessor: "precedence", name: "Precedence" },
-  { accessor: "createdAt", name: "Created At" },
-  { accessor: "updatedAt", name: "Updated At" },
-];
-
 export function GroupsTable(): ReactElement {
+  const bps = useBps();
+  const columns: Column<CognitoGroup>[] = useMemo(
+    () => [
+      {
+        accessor: "name",
+        name: "Name",
+        renderCell: (name) => (
+          <Link as={RouterLink} to={`./${name}`}>
+            {name}
+          </Link>
+        ),
+      },
+      { accessor: "description", name: "Description", width: "3fr" },
+      { accessor: "precedence", name: "Precedence" },
+      {
+        accessor: "createdAt",
+        name: "Created At",
+        renderCell: renderDate,
+        width: !bps.bp3 ? "0" : "2fr",
+      },
+      {
+        accessor: "updatedAt",
+        name: "Updated At",
+        renderCell: renderDate,
+        width: !bps.bp3 ? "0" : "2fr",
+      },
+    ],
+    [bps]
+  );
   return (
-    <QueryTable columns={columns} heading="Groups" onQuery={handleQuery} />
+    <QueryTable
+      columns={columns}
+      getRowId={(r) => r.name}
+      heading="Groups"
+      onQuery={handleQuery}
+    />
   );
 }
