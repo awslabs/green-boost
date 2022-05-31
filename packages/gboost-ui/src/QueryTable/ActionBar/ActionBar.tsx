@@ -71,7 +71,7 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
             <Icon ariaLabel="columns" as={MdRefresh} />
           </Button>
         )}
-        {filterColumns.length && (
+        {filterColumns.length !== 0 && (
           <FilterAction
             disableMultiFilter={disableMultiFilter}
             filterColumns={filterColumns}

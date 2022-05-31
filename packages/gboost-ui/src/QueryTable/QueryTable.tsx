@@ -34,13 +34,22 @@ import { SelectionHeader } from "./SelectionHeader.js";
 import { SelectionCell } from "./SelectionCell.js";
 
 const StyledPlaceholder = styled(Placeholder, { height: 55 });
-const StyledTable = styled(Table, { display: "grid" });
+const StyledTable = styled(Table, {
+  display: "grid",
+  borderCollapse: "collapse",
+  minWidth: "100%",
+  overflow: "auto", // TODO: why won't responsive scrolling work like
+  // this example: https://codepen.io/adam-lynch/pen/XwKWdG
+});
 // https://adamlynch.com/flexible-data-tables-with-css-grid/
 const StyledTableHead = styled(TableHead, {
   display: "contents !important",
 });
 const StyledTableBody = styled(TableBody, { display: "contents !important" });
-const StyledTableRow = styled(TableRow, { display: "contents !important" });
+const StyledTableRow = styled(TableRow, {
+  display: "contents !important",
+  gridRow: "auto !important",
+});
 export const StyledTableCell = styled(TableCell, {
   overflow: "hidden",
   textOverflow: "ellipsis",
@@ -62,9 +71,10 @@ export interface Column<T> {
   /**
    * Defines max argument in grid-template-columns property
    * minmax(150px, insert-width)
+   * @example "0px"
    * @example "20%"
    * @example "400px"
-   * @default "1fr"
+   * @default "minmax(150px, 1fr)"
    */
   width?: string;
 }
@@ -176,8 +186,16 @@ interface QueryTableProps<T> {
   onQuery: (params: OnQueryParams) => Promise<OnQueryReturnValue>;
   /**
    * Function called upon update to selected rows
+   * @param action determines whether user selected or unselected
+   * @param allSelectedRows resulting selection based on user action
+   * @param actionRow row user selected or unselected. `undefined` if selecting
+   * or unselecting all rows
    */
-  onSelect?: (action: SelectAction, rows: T[], selected: T[]) => void;
+  onSelect?: (
+    action: SelectAction,
+    allSelectedRows: T[],
+    actionRow?: T
+  ) => void;
   /**
    * Ref to enable manually refreshing with refreshRef.click()
    */
@@ -475,7 +493,7 @@ export function QueryTable<T extends Record<string, any>>(
     (row: T) => {
       const newSelected = enableSingleSelect ? [row] : [...selected, row];
       dispatch({ type: "changeSelected", selected: newSelected });
-      onSelect("select", [row], newSelected);
+      onSelect("select", newSelected, row);
     },
     [enableSingleSelect, onSelect, selected]
   );
@@ -483,17 +501,17 @@ export function QueryTable<T extends Record<string, any>>(
     (row: T) => {
       const newSelected = selected.filter((s) => getRowId(s) !== getRowId(row));
       dispatch({ type: "changeSelected", selected: newSelected });
-      onSelect("unselect", [row], newSelected);
+      onSelect("unselect", newSelected, row);
     },
     [getRowId, onSelect, selected]
   );
   const handleSelectAll = useCallback(() => {
     dispatch({ type: "changeSelected", selected: rows });
-    onSelect("select", rows, rows);
+    onSelect("select", rows);
   }, [onSelect, rows]);
   const handleUnselectAll = useCallback(() => {
     dispatch({ type: "changeSelected", selected: [] });
-    onSelect("unselect", rows, []);
+    onSelect("unselect", rows);
   }, [onSelect, rows]);
   const visibleColumns = useMemo(
     () => columns.filter((c) => columnVisibility[c.name]),
@@ -502,7 +520,7 @@ export function QueryTable<T extends Record<string, any>>(
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const gridTemplateColumns = useMemo(() => {
     let gridTempCols = visibleColumns.reduce(
-      (prev, cur) => `${prev} minmax(150px, ${cur.width || "1fr"})`,
+      (prev, cur) => `${prev} ${cur.width || "minmax(150px, 1fr)"}`,
       ""
     );
     if (enableSelect) gridTempCols = "50px " + gridTempCols;
