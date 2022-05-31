@@ -44,6 +44,11 @@ export async function createUser(props: CreateUserParams): Promise<unknown> {
     Name: k,
     Value: v,
   }));
+  // https://github.com/amazon-archives/amazon-cognito-identity-js/issues/187#issuecomment-255656804
+  userAttributes.push({
+    Name: "email_verified",
+    Value: "true",
+  });
   const res = await cognitoClient.send(
     new AdminCreateUserCommand({
       UserPoolId: userPoolId,
