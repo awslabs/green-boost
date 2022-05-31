@@ -1,7 +1,7 @@
 import { Fragment, ReactElement } from "react";
 import { Button, Divider, Flex, Placeholder } from "@aws-amplify/ui-react";
-import { styled } from "./stitches.config.js";
 import { MdCheck } from "react-icons/md";
+import { styled } from "../index.js";
 
 const StepContainer = styled(Button, {
   display: "flex",

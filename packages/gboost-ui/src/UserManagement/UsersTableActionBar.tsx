@@ -16,11 +16,13 @@ import {
   enableUsers,
   resetPasswords,
 } from "./gql.js";
-import { gQuery } from "../utils/gQuery.js";
-import { useNotifications } from "../context/NotificationsContext.js";
-import { Dialog } from "../Dialog.js";
-import { StyledButton } from "../components/index.js";
-import { styled } from "../index.js";
+import {
+  Dialog,
+  gQuery,
+  styled,
+  StyledButton,
+  useNotifications,
+} from "../index.js";
 
 const CenteredText = styled(Text, { textAlign: "center", mb: "$4" });
 
@@ -30,12 +32,13 @@ type DialogAction = Exclude<UserAction, "update" | "enable">;
 interface UsersTableActionBarProps {
   refreshRef: MutableRefObject<HTMLButtonElement | null>;
   selectedUsers: CognitoUser[];
+  users: CognitoUser[];
 }
 
 export function UsersTableActionBar(
   props: UsersTableActionBarProps
 ): ReactElement {
-  const { refreshRef, selectedUsers } = props;
+  const { refreshRef, selectedUsers, users } = props;
   const { notify } = useNotifications();
   const [menuOpen, setMenuOpen] = useState(false);
   const ref = useClickOutside(() => setMenuOpen(false));
@@ -53,6 +56,7 @@ export function UsersTableActionBar(
     update: false,
   });
   const disable: Record<UserAction, boolean> = useMemo(() => {
+    users.map((u) => u); // dummy fn to re-compute this value upon users change
     return {
       delete: selectedUsers.length === 0,
       disable:
@@ -69,7 +73,7 @@ export function UsersTableActionBar(
         ),
       update: selectedUsers.length !== 1,
     };
-  }, [selectedUsers]);
+  }, [selectedUsers, users]);
   const usernames = useMemo(
     () => selectedUsers.map((u) => u.username),
     [selectedUsers]
@@ -133,6 +137,7 @@ export function UsersTableActionBar(
         body: `Successfully enabled ${joinedUsernames}`,
         variation: "success",
       });
+      setMenuOpen(false);
     } catch (e) {
       console.error(e);
       notify({

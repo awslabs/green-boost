@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { Placeholder, TextField, TextFieldProps } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { Box } from "../Box.js";
+import { Box } from "../index.js";
 import { BaseSmartInputProps } from "./baseProps.js";
 
 export interface SmartTextFieldProps<T>

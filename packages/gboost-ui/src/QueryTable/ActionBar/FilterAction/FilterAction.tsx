@@ -1,12 +1,10 @@
-import { ReactElement, useCallback, useMemo } from "react";
+import { RefObject, ReactElement, useCallback, useMemo } from "react";
 import { Button, Icon } from "@aws-amplify/ui-react";
 import { MdFilterList } from "react-icons/md";
-import { Box } from "../../../Box.js";
-import { Dialog } from "../../../Dialog.js";
+import { Box, Dialog } from "../../../index.js";
 import { Column } from "../../QueryTable.js";
 import { FilterRow } from "./FilterRow.js";
 import { NewFilterRow } from "./NewFilterRow.js";
-import { RefObject } from "react";
 
 export interface Filter {
   column: string;

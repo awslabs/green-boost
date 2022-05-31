@@ -11,7 +11,7 @@ import {
 } from "react";
 import { Badge, Icon, Menu, MenuItem, Text, View } from "@aws-amplify/ui-react";
 import { useClickOutside, useId } from "@mantine/hooks";
-import { styled } from "./stitches.config.js";
+import { styled } from "../index.js";
 import { MdClose } from "react-icons/md";
 
 const Input = styled("input", {

@@ -5,7 +5,7 @@ import {
   SelectFieldProps,
 } from "@aws-amplify/ui-react";
 import { FieldValues, useController } from "react-hook-form";
-import { Box } from "../Box.js";
+import { Box } from "../index.js";
 import { BaseSmartInputProps } from "./baseProps.js";
 
 export interface SmartSelectFieldProps<T>

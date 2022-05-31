@@ -19,9 +19,8 @@ import {
   TableProps,
 } from "@aws-amplify/ui-react";
 import { randomId } from "@mantine/hooks";
-import { Box } from "../Box.js";
+import { Box, styled } from "../index.js";
 import { Pagination } from "./Pagination.js";
-import { styled } from "../stitches.config.js";
 import { ActionBar } from "./ActionBar/ActionBar.js";
 import {
   Filter,

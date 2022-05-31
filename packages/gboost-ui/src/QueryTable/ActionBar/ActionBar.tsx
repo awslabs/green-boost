@@ -1,6 +1,6 @@
 import { MutableRefObject, ReactElement, RefObject, useMemo } from "react";
 import { Button, Heading, Icon } from "@aws-amplify/ui-react";
-import { Box } from "../../Box.js";
+import { Box } from "../../index.js";
 import { Column } from "../QueryTable.js";
 import { DownloadAction } from "./DownloadAction.js";
 import { FilterAction, InternalFilter } from "./FilterAction/FilterAction.js";

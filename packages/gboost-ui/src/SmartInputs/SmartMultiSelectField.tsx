@@ -2,12 +2,8 @@ import { ReactElement } from "react";
 import { Placeholder } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { Box } from "../Box.js";
 import { BaseSmartInputProps } from "./baseProps.js";
-import {
-  MultiSelectField,
-  MultiSelectFieldProps,
-} from "../MultiSelectField.js";
+import { Box, MultiSelectField, MultiSelectFieldProps } from "../index.js";
 
 export interface SmartMultiSelectFieldProps<T>
   extends BaseSmartInputProps<T>,

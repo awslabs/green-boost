@@ -1,6 +1,5 @@
 import { MouseEventHandler, ReactElement, useMemo } from "react";
-import { CSS } from "./stitches.config.js";
-import { Box } from "./Box.js";
+import { Box, CSS } from "../index.js";
 
 interface OverlayProps {
   onClick: MouseEventHandler;

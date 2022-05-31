@@ -42,10 +42,11 @@ const textFilterOptions: Column<CognitoUser>["filterOptions"] = {
 
 interface UsersTableProps {
   setUsers: Dispatch<SetStateAction<CognitoUser[]>>;
+  users: CognitoUser[];
 }
 
 export function UsersTable(props: UsersTableProps): ReactElement {
-  const { setUsers } = props;
+  const { setUsers, users } = props;
   const [selectedUsers, setSelectedUsers] = useState<CognitoUser[]>([]);
   const handleQuery = useCallback(
     async function handleQuery(
@@ -202,6 +203,7 @@ export function UsersTable(props: UsersTableProps): ReactElement {
         <UsersTableActionBar
           refreshRef={refreshRef}
           selectedUsers={selectedUsers}
+          users={users}
         />
       }
     />

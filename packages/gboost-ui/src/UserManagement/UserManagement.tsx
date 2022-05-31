@@ -9,7 +9,7 @@ import {
   useMatch,
   useNavigate,
 } from "react-router-dom";
-import { Box } from "../Box.js";
+import { Box } from "../index.js";
 import { UpdateUser } from "./UpdateUser.js";
 import { CreateUser } from "./CreateUser.js";
 import { GroupsTable } from "./GroupsTable.js";
@@ -85,7 +85,10 @@ export function UserManagement(props: UserManagementProps): ReactElement {
           path="create-user"
           element={<CreateUser groupNameOptions={groupNameOptions} />}
         />
-        <Route path={usersPath} element={<UsersTable setUsers={setUsers} />} />
+        <Route
+          path={usersPath}
+          element={<UsersTable setUsers={setUsers} users={users} />}
+        />
         <Route
           path={`${groupsPath}/:groupName`}
           element={<UsersInGroupTable />}

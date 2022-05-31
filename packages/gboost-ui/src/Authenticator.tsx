@@ -6,8 +6,7 @@ import {
   View,
 } from "@aws-amplify/ui-react";
 import { mergeDeep } from "gboost-common";
-import { Box } from "./Box.js";
-import { styled } from "./stitches.config.js";
+import { Box, styled } from "./index.js";
 import { ArgumentTypes } from "./utils/ArgumentTypes.js";
 type AuthenticatorProps = ArgumentTypes<typeof AmplifyAuthenticator>[0] & {
   title: string;

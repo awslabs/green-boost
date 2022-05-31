@@ -2,8 +2,7 @@ import { ReactElement, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Page } from "../page.js";
 import { NotFound } from "../NotFound.js";
-import { styled } from "../stitches.config.js";
-import { Loading } from "../Loading.js";
+import { Loading, styled } from "../index.js";
 
 const StyledMain = styled("main", {
   gridArea: "content",

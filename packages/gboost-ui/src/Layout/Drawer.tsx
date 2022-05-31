@@ -6,10 +6,8 @@ import {
   useRef,
 } from "react";
 import { useHotkeys, useFocusTrap } from "@mantine/hooks";
-import { Portal } from "../Portal.js";
-import { Box } from "../Box.js";
-import { Overlay } from "../Overlay.js";
-import { CSS } from "../stitches.config.js";
+import * as Portal from "@radix-ui/react-portal";
+import { Box, CSS, Overlay } from "../index.js";
 
 interface DrawerProps {
   open: boolean;
@@ -88,7 +86,7 @@ export function Drawer(props: DrawerProps): ReactElement | null {
   useHotkeys([["Escape", onClose as (e: KeyboardEvent) => void]]);
 
   return (
-    <Portal>
+    <Portal.Root>
       <Box ref={focusTrapRef} aria-hidden={!open} css={{ bs: "0 0 15px gray" }}>
         <Box
           css={{
@@ -107,6 +105,6 @@ export function Drawer(props: DrawerProps): ReactElement | null {
         </Box>
         <Overlay onClick={onClose as MouseEventHandler} show={open} />
       </Box>
-    </Portal>
+    </Portal.Root>
   );
 }
