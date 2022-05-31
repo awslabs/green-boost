@@ -76,7 +76,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
     definition: {
       createdAt: GraphqlType.awsDateTime({ isRequired: true }),
       email: GraphqlType.awsEmail({ isRequired: true }),
-      email_verified: GraphqlType.string(),
+      email_verified: GraphqlType.boolean({ isRequired: true }),
       enabled: GraphqlType.boolean({ isRequired: true }),
       given_name: GraphqlType.string({ isRequired: true }),
       groups: GraphqlType.string({

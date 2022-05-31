@@ -4,7 +4,8 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { AppSyncResolverEvent } from "aws-lambda";
 import Joi from "joi";
-import { User, transformUser } from "./user.js";
+import { CognitoUser } from "gboost-common";
+import { transformUser } from "./user.js";
 import { groupNames } from "./group.js";
 
 // params
@@ -52,7 +53,7 @@ export async function listUsersInGroup(
       NextToken: input?.nextToken,
     })
   );
-  const users: User[] = [];
+  const users: Omit<CognitoUser, "groups">[] = [];
   if (resp.Users) {
     for (const user of resp.Users) {
       users.push(transformUser(user));

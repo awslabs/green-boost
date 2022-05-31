@@ -15,7 +15,8 @@ export interface ListUsersArgs {
 export interface CognitoUser {
   createdAt: string;
   email: string;
-  email_status: string;
+  email_verified: boolean;
+  enabled: boolean;
   family_name: string;
   given_name: string;
   groups: string[];

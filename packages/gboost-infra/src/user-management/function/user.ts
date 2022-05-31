@@ -3,18 +3,8 @@ import {
   AdminGetUserCommandOutput,
   AttributeType,
 } from "@aws-sdk/client-cognito-identity-provider";
+import { CognitoUser, CognitoUserStatus } from "gboost-common";
 
-export interface User {
-  createdAt: string;
-  email: string;
-  email_verified: string;
-  enabled: boolean;
-  family_name: string;
-  given_name: string;
-  status: string;
-  updatedAt: string;
-  username: string;
-}
 // values in Attributes array returned from Cognito
 // (not directly on user)
 export const userAttrNames = [
@@ -25,15 +15,11 @@ export const userAttrNames = [
 ] as const;
 type UserAttrName = typeof userAttrNames[number];
 
-export interface UserWithGroup extends User {
-  groups: string[];
-}
-
 export function transformUser(
   // UserType is returned by List commands and
   // AdminGetUserCommandOuput is returned by Get command
   user: UserType | AdminGetUserCommandOutput
-): User {
+): Omit<CognitoUser, "groups"> {
   let attributes: AttributeType[] | undefined;
   if ("Attributes" in user) {
     attributes = user.Attributes;
@@ -41,20 +27,27 @@ export function transformUser(
     attributes = user.UserAttributes;
   }
   if (!attributes) throw new Error();
-  const userAttrs: Partial<User> = {};
+  const userAttrs: Partial<CognitoUser> = {};
+  console.log({ attributes });
   for (const { Name, Value } of attributes) {
     const name = Name as UserAttrName;
     if (Name && Value && userAttrNames.includes(name)) {
-      userAttrs[name] = Value;
+      if (name === "email_verified") {
+        userAttrs[name] = Value === "true";
+      } else {
+        userAttrs[name] = Value;
+      }
     }
   }
+  if (!userAttrs.email_verified) userAttrs.email_verified = false;
+  console.log({ userAttrs });
   if (!user.UserCreateDate) throw new Error("!user.UserCreatedData");
   if (!user.UserLastModifiedDate) throw new Error("!user.UserLastModifiedDate");
   return {
-    ...(userAttrs as Pick<User, UserAttrName>),
+    ...(userAttrs as Pick<CognitoUser, UserAttrName>),
     createdAt: user.UserCreateDate.toISOString(),
     enabled: user.Enabled as boolean,
-    status: user.UserStatus as string,
+    status: user.UserStatus as CognitoUserStatus,
     updatedAt: user.UserLastModifiedDate.toISOString(),
     username: user.Username as string,
   };
