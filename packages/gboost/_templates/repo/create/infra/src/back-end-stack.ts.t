@@ -2,11 +2,12 @@
 to: infra/src/back-end-stack.ts
 ---
 
-import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
+import { Aspects, CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
 import {
   GraphqlApi,
   Stage,
+  SuppressOkNags,
   <% if (authn === "Cognito User Pool") { %>UserBase,<% } %>
   <% if (authn === "Cognito User Pool") { %>UserManagement,<% } %>
 } from "gboost-infra";
@@ -68,5 +69,6 @@ export class BackEndStack extends Stack {
       stage,
     });
 <% } -%>
+    Aspects.of(this).add(new SuppressOkNags());
   }
 }
