@@ -1,5 +1,26 @@
 # gboost-ui
 
+## 0.17.0
+
+### Minor Changes
+
+- [#88](https://github.com/awslabs/green-boost/pull/88) [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7) Thanks [@bestickley](https://github.com/bestickley)! - Complete UserManagement component: Users, Groups, UsersInGroups tables, add create, update, enable, disable, reset password actions. Add filtering to users table.
+
+* [#88](https://github.com/awslabs/green-boost/pull/88) [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7) Thanks [@bestickley](https://github.com/bestickley)! - Throw errors from GQL response in gQuery if present before returning data
+
+- [#88](https://github.com/awslabs/green-boost/pull/88) [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7) Thanks [@bestickley](https://github.com/bestickley)! - Provide way to hide QueryTable columns. Improve onSelect API. Remove unintended 0 from being rendered when no filters.
+
+* [#88](https://github.com/awslabs/green-boost/pull/88) [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7) Thanks [@bestickley](https://github.com/bestickley)! - Add ability to set errorMessage externally for SmartInputs
+
+### Patch Changes
+
+- [#88](https://github.com/awslabs/green-boost/pull/88) [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7) Thanks [@bestickley](https://github.com/bestickley)! - Update Layout's Header to be more responsive
+
+* [#88](https://github.com/awslabs/green-boost/pull/88) [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7) Thanks [@bestickley](https://github.com/bestickley)! - Update dependencies
+
+* Updated dependencies [[`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7), [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7)]:
+  - gboost-common@0.6.0
+
 ## 0.16.0
 
 ### Minor Changes

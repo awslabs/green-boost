@@ -1,5 +1,21 @@
 # gboost-infra
 
+## 0.5.0
+
+### Minor Changes
+
+- [#88](https://github.com/awslabs/green-boost/pull/88) [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7) Thanks [@bestickley](https://github.com/bestickley)! - Refactor UserManagement function to use gboost-common interface. Change email_verified to boolean
+  Fix field name which is sent to CognitoListUser API for filtering
+
+### Patch Changes
+
+- [#88](https://github.com/awslabs/green-boost/pull/88) [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7) Thanks [@bestickley](https://github.com/bestickley)! - Set email_verified to true when admin creates user
+
+* [#88](https://github.com/awslabs/green-boost/pull/88) [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7) Thanks [@bestickley](https://github.com/bestickley)! - Update dependencies
+
+* Updated dependencies [[`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7), [`9561726`](https://github.com/awslabs/green-boost/commit/95617262a1e017563676a07a7b4adb1f605275c7)]:
+  - gboost-common@0.6.0
+
 ## 0.4.0
 
 ### Minor Changes
