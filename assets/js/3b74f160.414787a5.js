@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkgboost_docs=self.webpackChunkgboost_docs||[]).push([[4892],{2618:function(o){o.exports=JSON.parse('{"label":"hola","permalink":"/green-boost/blog/tags/hola","allTagsPath":"/green-boost/blog/tags","count":1}')}}]);
