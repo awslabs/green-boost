@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.5.4
+
+### Patch Changes
+
+- [`84b5735`](https://github.com/awslabs/green-boost/commit/84b573582a3758b97764326fbb391105f11c92d8) Thanks [@bestickley](https://github.com/bestickley)! - Suppress cdk-nag on CDKBucketDeployment not using latest Lambda runtime
+
 ## 0.5.3
 
 ### Patch Changes
