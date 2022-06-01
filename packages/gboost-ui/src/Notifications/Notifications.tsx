@@ -1,7 +1,8 @@
 import { cloneElement, ReactElement } from "react";
 import type { QueueNotification } from "../context/NotificationsContext.js";
 import { TransitionGroup } from "react-transition-group";
-import { Portal } from "../Portal.js";
+import { Portal } from "../index.js";
+// import * as Portal from "@radix-ui/react-portal";
 import { NotificationContainer } from "./NotificationContainer.js";
 
 interface NotificationsProps {
@@ -12,6 +13,8 @@ interface NotificationsProps {
 export function Notifications(props: NotificationsProps): ReactElement {
   const { notifications, removeNotification } = props;
   return (
+    // TODO: figure out why Portal.Root doesn't work
+    // <Portal.Root>
     <Portal>
       <TransitionGroup childFactory={(child) => cloneElement(child)}>
         {notifications.map((n, i) => (
@@ -24,5 +27,6 @@ export function Notifications(props: NotificationsProps): ReactElement {
         ))}
       </TransitionGroup>
     </Portal>
+    // </Portal.Root>
   );
 }

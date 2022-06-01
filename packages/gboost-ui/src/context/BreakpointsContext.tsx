@@ -1,14 +1,14 @@
 import { createContext, ReactNode, ReactElement, useContext } from "react";
 import { useMediaQuery } from "@mantine/hooks";
 
-type Breakpoints = "bp1" | "bp2" | "bp3" | "bp4";
-const BreakpointsContext = createContext<
-  Record<Breakpoints, boolean> | undefined
->(undefined);
+type Breakpoint = "bp1" | "bp2" | "bp3" | "bp4";
+export type Breakpoints = Record<Breakpoint, boolean>;
+const BreakpointsContext = createContext<Breakpoints | undefined>(undefined);
+
 /**
  * @internal
  */
-export type Media = Record<Breakpoints, string>;
+export type Media = Record<Breakpoint, string>;
 
 interface BreakpointProviderProps {
   children: ReactNode;
@@ -26,7 +26,7 @@ export function BreakpointsProvider(
   const bp2 = useMediaQuery(media.bp2);
   const bp3 = useMediaQuery(media.bp3);
   const bp4 = useMediaQuery(media.bp4);
-  const bps = { bp1, bp2, bp3, bp4 };
+  const bps: Breakpoints = { bp1, bp2, bp3, bp4 };
 
   return <BreakpointsContext.Provider value={bps} {...props} />;
 }

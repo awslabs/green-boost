@@ -1,4 +1,4 @@
-import { styled } from "./stitches.config.js";
+import { styled } from "../index.js";
 
 /**
  * Unstyled div to utilize Stitches' CSS typings

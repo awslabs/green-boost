@@ -1,19 +1,16 @@
 import { ReactElement } from "react";
-import {
-  Placeholder,
-  TextAreaField,
-  TextAreaFieldProps,
-} from "@aws-amplify/ui-react";
-import { FieldValues, useController } from "react-hook-form";
-import { Box } from "../index.js";
+import { Placeholder } from "@aws-amplify/ui-react";
+import { useController } from "react-hook-form";
+import type { FieldValues } from "react-hook-form";
 import { BaseSmartInputProps } from "./baseProps.js";
+import { Box, MultiSelectField, MultiSelectFieldProps } from "../index.js";
 
-export interface SmartTextAreaFieldProps<T>
+export interface SmartMultiSelectFieldProps<T>
   extends BaseSmartInputProps<T>,
-    Omit<TextAreaFieldProps, "name"> {}
+    Omit<MultiSelectFieldProps, "name"> {}
 
-export function SmartTextAreaField<T extends FieldValues>(
-  props: SmartTextAreaFieldProps<T>
+export function SmartMultiSelectField<T extends FieldValues>(
+  props: SmartMultiSelectFieldProps<T>
 ): ReactElement {
   const {
     control,
@@ -22,20 +19,23 @@ export function SmartTextAreaField<T extends FieldValues>(
     label,
     loading,
     name,
-    ...textFieldProps
+    ...multiSelectFieldProps
   } = props;
   const {
     field: { ref, onChange, value },
     fieldState: { error, invalid },
-  } = useController<T>({ name, control });
+  } = useController({ name, control });
   return loading ? (
     <Box css={{ display: "flex", flexDirection: "column", gap: "$2" }}>
       <label className="amplify-label">{label}</label>
-      <Placeholder height={103} />
+      <Placeholder height={40} />
     </Box>
   ) : (
-    <TextAreaField
-      {...(textFieldProps as Omit<TextAreaFieldProps, "label" | "name">)}
+    <MultiSelectField
+      {...(multiSelectFieldProps as Omit<
+        MultiSelectFieldProps,
+        "label" | "name"
+      >)}
       ref={ref}
       errorMessage={errorMessage || error?.message}
       hasError={hasError || invalid}

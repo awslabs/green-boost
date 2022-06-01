@@ -5,7 +5,8 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { AppSyncResolverEvent } from "aws-lambda";
 import Joi from "joi";
-import { transformUser, User, UserWithGroup } from "./user.js";
+import { transformUser } from "./user.js";
+import { CognitoUser } from "gboost-common";
 
 interface GetUserArgs {
   username: string;
@@ -27,7 +28,7 @@ function validate(args: GetUserArgs) {
 
 export async function getUser(
   params: GetUserParams
-): Promise<User | UserWithGroup> {
+): Promise<CognitoUser | Omit<CognitoUser, "groups">> {
   const { cognitoClient, event, userPoolId } = params;
   validate(event.arguments);
   const { username } = event.arguments;
@@ -51,7 +52,7 @@ export async function getUser(
     if (res2.Groups) {
       groups = res2.Groups.map((g) => g.GroupName as string);
     }
-    const fullUser: UserWithGroup = { ...user, groups };
+    const fullUser: CognitoUser = { ...user, groups };
     return fullUser;
   } else {
     const user = await cognitoClient.send(

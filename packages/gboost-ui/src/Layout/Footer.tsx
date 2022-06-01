@@ -1,6 +1,5 @@
 import { ReactElement } from "react";
-import { Box } from "../Box.js";
-import { styled } from "../stitches.config.js";
+import { Box, styled } from "../index.js";
 
 const StyledFooter = styled("footer", {
   bc: "$primary3",

@@ -16,8 +16,7 @@ import {
   useState,
 } from "react";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
-import { Box } from "./Box.js";
-import { styled } from "./stitches.config.js";
+import { Box, styled } from "../index.js";
 
 type TransferDirection = "left" | "right";
 type TransferListType = "source" | "target";

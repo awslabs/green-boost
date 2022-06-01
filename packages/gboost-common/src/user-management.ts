@@ -15,7 +15,8 @@ export interface ListUsersArgs {
 export interface CognitoUser {
   createdAt: string;
   email: string;
-  email_status: string;
+  email_verified: boolean;
+  enabled: boolean;
   family_name: string;
   given_name: string;
   groups: string[];
@@ -48,4 +49,12 @@ export interface CognitoGroup {
   name: string;
   precedence: number;
   updatedAt: string;
+}
+
+export interface ListUsersInGroupArgs {
+  input: {
+    groupName: string;
+    nextToken?: string;
+    limit?: number;
+  };
 }

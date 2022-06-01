@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { MdLogout } from "react-icons/md";
-import { List, ListItem } from "../../List.js";
-import { styled } from "../../stitches.config.js";
+import { List, ListItem, styled } from "../../index.js";
+
 const StyledLogout = styled(MdLogout, { fontSize: "$7" });
 
 interface AccountSidebarProps {

@@ -1,6 +1,6 @@
 import { MutableRefObject, ReactElement, RefObject, useMemo } from "react";
 import { Button, Heading, Icon } from "@aws-amplify/ui-react";
-import { Box } from "../../Box.js";
+import { Box } from "../../index.js";
 import { Column } from "../QueryTable.js";
 import { DownloadAction } from "./DownloadAction.js";
 import { FilterAction, InternalFilter } from "./FilterAction/FilterAction.js";
@@ -60,7 +60,7 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
       css={{
         display: "flex",
         justifyContent: "space-between",
-        my: "$2",
+        my: "$1",
         ml: "$1",
       }}
     >
@@ -71,7 +71,7 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
             <Icon ariaLabel="columns" as={MdRefresh} />
           </Button>
         )}
-        {filterColumns.length && (
+        {filterColumns.length !== 0 && (
           <FilterAction
             disableMultiFilter={disableMultiFilter}
             filterColumns={filterColumns}

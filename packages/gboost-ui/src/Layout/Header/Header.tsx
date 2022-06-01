@@ -2,9 +2,7 @@ import { Heading, Image } from "@aws-amplify/ui-react";
 import { MdMenu, MdMenuOpen } from "react-icons/md";
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useBps } from "../../context/BreakpointsContext";
-import { styled } from "../../stitches.config.js";
-import { Box } from "../../Box.js";
+import { Box, styled, useBps } from "../../index.js";
 import { Drawer } from "../Drawer.js";
 import { AccountMenu as DefaultAccountMenu } from "./AccountMenu.js";
 import { AccountSidebar as DefaultAccountSidebar } from "./AccountSidebar.js";
@@ -76,7 +74,9 @@ export function Header(props: HeaderProps): ReactElement {
         >
           {title}
         </StyledHeading>
-        <StyledImage alt="logo" src={logoSrc} maxHeight={headerHeight} />
+        {bps.bp1 && (
+          <StyledImage alt="logo" src={logoSrc} maxHeight={headerHeight} />
+        )}
       </>
     );
   }

@@ -7,9 +7,10 @@
   "type": "module",
   "packageManager": "pnpm@6.31.0",
   "scripts": {
-    "build": "pnpm --recursive --filter ./packages --parallel build",
-    "lint": "pnpm --recursive --filter ./packages --parallel lint",
-    "unit-test": "pnpm --recursive --filter ./packages --parallel test",
+    "audit-gb": "ts-node --esm scripts/audit-gb.ts",
+    "build": "pnpm --recursive --filter \"./packages/**\" --parallel build",
+    "lint": "pnpm --recursive --filter \"./packages/**\" --parallel lint",
+    "unit-test": "pnpm --recursive --filter \"./packages/**\" --parallel test",
     "prepare": "husky install",
     "changeset-version": "ts-node --esm scripts/changeset-version.ts",
     "license-check": "ts-node --esm scripts/license-check.ts",
@@ -19,12 +20,12 @@
     "@changesets/changelog-github": "^0.4.4",
     "@changesets/cli": "^2.22.0",
     "@types/license-checker": "^25.0.3",
-    "@types/node": "^16.11.27",
+    "@types/node": "^16.11.38",
     "husky": "^7.0.4",
     "license-checker": "^25.0.1",
-    "lint-staged": "^12.4.0",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.3"
+    "lint-staged": "^12.5.0",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
   },
   "license": "Apache-2.0"
 }

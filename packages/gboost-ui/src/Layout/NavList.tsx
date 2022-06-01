@@ -1,8 +1,7 @@
 import { Page } from "../page.js";
 import { ReactElement } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { List, ListItem } from "../List.js";
-import { Box } from "../Box.js";
+import { Box, List, ListItem } from "../index.js";
 
 interface NavListProps {
   pages: Page[];

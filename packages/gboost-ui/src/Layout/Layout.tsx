@@ -1,13 +1,12 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
 import type { useAuthenticator } from "@aws-amplify/ui-react";
-import { Page } from "../page.js";
-import { useBps } from "../context/BreakpointsContext.js";
 import { Header } from "./Header/Header.js";
 import { Content } from "./Content.js";
 import { NavSidebar } from "./NavSidebar.js";
 import { Footer } from "./Footer.js";
-import { Box } from "../Box.js";
+import { Box, useBps } from "../index.js";
+import type { Page } from "../index.js";
 import { Drawer } from "./Drawer.js";
 import { NavList } from "./NavList.js";
 

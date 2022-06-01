@@ -1,8 +1,7 @@
 import { ReactElement } from "react";
 import { MdViewColumn } from "react-icons/md";
 import { Button, Icon, SwitchField } from "@aws-amplify/ui-react";
-import { Dialog } from "../../Dialog.js";
-import { Box } from "../../Box.js";
+import { Box, Dialog } from "../../index.js";
 
 interface ColumnVisibilityActionProps {
   columnVisibility: Record<string, boolean>;

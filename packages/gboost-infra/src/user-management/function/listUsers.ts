@@ -3,9 +3,9 @@ import {
   ListUsersCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { AppSyncResolverEvent } from "aws-lambda";
-import { User, transformUser } from "./user.js";
-import { ListUsersArgs } from "gboost-common";
+import type { CognitoUser, ListUsersArgs } from "gboost-common";
 import Joi from "joi";
+import { transformUser } from "./user.js";
 
 interface ListUsersParams {
   cognitoClient: CognitoIdentityProviderClient;
@@ -40,7 +40,13 @@ export async function listUsers(params: ListUsersParams): Promise<unknown> {
   const nextToken = input?.nextToken;
   let filterString: string | undefined = undefined;
   if (filter) {
-    // required for Cognito API
+    // https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ListUsers.html#API_ListUsers_RequestSyntax
+    if (filter.field === "status") {
+      filter.field = "cognito:user_status";
+    } else if (filter.field === "enabled") {
+      filter.field = "status";
+    }
+    // escaping is required for Cognito API
     // eslint-disable-next-line no-useless-escape
     filterString = `${filter.field} ${filter.operator} \"${filter.value}\"`;
   }
@@ -52,7 +58,7 @@ export async function listUsers(params: ListUsersParams): Promise<unknown> {
       PaginationToken: nextToken,
     })
   );
-  const users: User[] = [];
+  const users: Omit<CognitoUser, "groups">[] = [];
   if (resp.Users) {
     for (const user of resp.Users) {
       users.push(transformUser(user));

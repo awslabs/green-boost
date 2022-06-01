@@ -45,7 +45,7 @@ export function AccountMenu(props: AccountMenuProps): ReactElement {
   } else {
     return (
       <StyledMenuButton variation="primary">
-        {username}
+        {bps.bp1 && username}
         <StyledAccountCircle />
       </StyledMenuButton>
     );
