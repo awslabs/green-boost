@@ -1,5 +1,11 @@
 # gboost
 
+## 0.5.4
+
+### Patch Changes
+
+- [`92925dc`](https://github.com/awslabs/green-boost/commit/92925dcecd1b02d7a40ad5bb564e49e6772d674b) Thanks [@bestickley](https://github.com/bestickley)! - Add SuppressOkNags to front-end-stack in default template
+
 ## 0.5.3
 
 ### Patch Changes
