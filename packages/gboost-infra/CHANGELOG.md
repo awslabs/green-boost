@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.5.3
+
+### Patch Changes
+
+- [`245721f`](https://github.com/awslabs/green-boost/commit/245721ff05cf1b1ee37e31c5ade6358fa9b1b0e7) Thanks [@bestickley](https://github.com/bestickley)! - Correctly suppress cdk-nag error for iam policy wildcard for appsync to invoke any lambda
+
 ## 0.5.2
 
 ### Patch Changes
