@@ -175,6 +175,9 @@ export function UpdateUser(props: UpdateUserProps): ReactElement {
           name="family_name"
         />
         <SmartMultiSelectField
+          // @ts-expect-error generic T doesn't propogate to baseProps interface
+          // Control<T> type for some reason
+          // commented on issue here: https://github.com/react-hook-form/react-hook-form/issues/4965#issuecomment-1143610379
           control={control}
           data-test="groups"
           label="Groups"

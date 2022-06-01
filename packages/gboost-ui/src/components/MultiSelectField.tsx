@@ -12,7 +12,8 @@ import {
 import { Badge, Icon, Menu, MenuItem, Text, View } from "@aws-amplify/ui-react";
 import { useClickOutside, useId } from "@mantine/hooks";
 import { styled } from "../index.js";
-import { MdClose } from "react-icons/md";
+import { MdArrowDropDown, MdArrowDropUp, MdClose } from "react-icons/md";
+import { Box } from "./Box.js";
 
 const Input = styled("input", {
   cursor: "pointer",
@@ -27,7 +28,7 @@ const MultiSelectInput = styled("div", {
     "var(--amplify-components-fieldcontrol-outline-color) var(--amplify-components-fieldcontrol-outline-style) var(--amplify-components-fieldcontrol-outline-width)",
   outlineOffset: "var(--amplify-components-fieldcontrol-outline-offset)",
   pa: "$1",
-  "&:focus": {
+  "&:focus-within": {
     borderColor: "var(--amplify-components-fieldcontrol-focus-border-color)",
     boxShadow: "var(--amplify-components-fieldcontrol-focus-box-shadow)",
   },
@@ -39,10 +40,44 @@ const StyledClose = styled(Icon, {
   br: "$round",
   "&:hover": { bc: "$gray7" },
 });
+const StyledDropdown = styled(Icon, {
+  alignSelf: "center",
+  fontSize: "$5",
+  mr: "$2",
+});
 
 interface MultiSelectFieldOption {
   value: string;
   label: string;
+}
+
+interface DefaultMenuItemProps {
+  handleClick: () => void;
+  label: string;
+}
+
+function DefaultMenuItem(props: DefaultMenuItemProps): ReactElement {
+  const { label, handleClick } = props;
+  return (
+    <MenuItem key={label} onClick={handleClick}>
+      {label}
+    </MenuItem>
+  );
+}
+
+interface DefaultValueProps {
+  value: string;
+  handleRemove: (e: MouseEvent) => void;
+}
+
+function DefaultValue(props: DefaultValueProps): ReactElement {
+  const { value, handleRemove } = props;
+  return (
+    <StyledBadge key={value}>
+      {value}
+      <StyledClose aria-label="close" as={MdClose} onClick={handleRemove} />
+    </StyledBadge>
+  );
 }
 
 export interface MultiSelectFieldProps {
@@ -55,6 +90,8 @@ export interface MultiSelectFieldProps {
   placeholder?: string;
   value?: string[];
   onChange?: (value: string[]) => void;
+  MenuItemComponent: typeof DefaultMenuItem;
+  ValueComponent: typeof DefaultValue;
 }
 
 export function _MultiSelectField(
@@ -71,6 +108,8 @@ export function _MultiSelectField(
     options,
     placeholder,
     value: controlledValue,
+    MenuItemComponent = DefaultMenuItem,
+    ValueComponent = DefaultValue,
     ...rest
   } = props;
   const id = useId();
@@ -130,6 +169,7 @@ export function _MultiSelectField(
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       if (e.key === "Enter") {
+        e.preventDefault();
         setOpen(true);
       }
     },
@@ -160,8 +200,7 @@ export function _MultiSelectField(
                 name={name}
                 onClick={() => setOpen(true)}
                 placeholder={placeholder}
-                style={{ display: value.length ? "none" : undefined }}
-                type="text"
+                type={value.length ? "hidden" : "text"}
                 readOnly
                 value={value}
                 onKeyDown={handleKeyDown}
@@ -169,18 +208,22 @@ export function _MultiSelectField(
               />
               <MultiSelectInput
                 onClick={handleClickMultiSelectInput}
-                style={{ display: !value.length ? "none" : undefined }}
+                css={{ display: !value.length ? "none" : undefined }}
+                tabIndex={0}
+                onKeyDown={handleKeyDown}
               >
-                {value.map((v) => (
-                  <StyledBadge key={v}>
-                    {v}
-                    <StyledClose
-                      aria-label="close"
-                      as={MdClose}
-                      onClick={(e: MouseEvent) => handleRemoveValue(e, v)}
+                <Box css={{ flexGrow: 1 }}>
+                  {value.map((v) => (
+                    <ValueComponent
+                      value={v}
+                      handleRemove={(e: MouseEvent) => handleRemoveValue(e, v)}
                     />
-                  </StyledBadge>
-                ))}
+                  ))}
+                </Box>
+                <StyledDropdown
+                  as={open ? MdArrowDropUp : MdArrowDropDown}
+                  aria-label="dropdown"
+                />
               </MultiSelectInput>
               {errorMessage && (
                 <Text className="amplify-field__error-message">
@@ -191,9 +234,10 @@ export function _MultiSelectField(
           }
         >
           {unselectedOptions.map((o) => (
-            <MenuItem key={o.label} onClick={() => handleSelectValue(o.value)}>
-              {o.label}
-            </MenuItem>
+            <MenuItemComponent
+              label={o.label}
+              handleClick={() => handleSelectValue(o.value)}
+            />
           ))}
         </Menu>
       </div>
