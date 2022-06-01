@@ -23,8 +23,8 @@ to: infra/package.json
     "cdk-nag": "^2.14.21",
     "constructs": "^10.1.24",
     "esbuild": "^0.14.42",
-    "gboost-common": "^0.5.1",
-    "gboost-infra": "^0.4.0"
+    "gboost-common": "^0.6.0",
+    "gboost-infra": "^0.5.0"
   },
   "devDependencies": {
     "@swc/core": "^1.2.196",
