@@ -17,11 +17,11 @@ to: package.json
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
-    "esbuild": "^0.14.27"
+    "esbuild": "^0.14.42"
   },
   "devDependencies": {
     "husky": "^7.0.4",
-    "lint-staged": "^12.3.5"
+    "lint-staged": "^12.5.0"
   },
   "lint-staged": {
     "*": "true"
