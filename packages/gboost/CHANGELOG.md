@@ -1,5 +1,11 @@
 # gboost
 
+## 0.5.3
+
+### Patch Changes
+
+- [`836772b`](https://github.com/awslabs/green-boost/commit/836772b25366ceafab6d32b61910d93f0c09529b) Thanks [@bestickley](https://github.com/bestickley)! - Add SuppressOkNags to backend stack template
+
 ## 0.5.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.5.2
+
+### Patch Changes
+
+- [`2c3c821`](https://github.com/awslabs/green-boost/commit/2c3c821c08b0e9378fa16cc6e744566e12fa6245) Thanks [@bestickley](https://github.com/bestickley)! - Update Function construct to latest Node.js version. Add cdk-nag suppression for LogRetention policies
+
 ## 0.5.1
 
 ### Patch Changes
