@@ -21,6 +21,11 @@ export class SuppressOkNags implements IAspect {
           reason:
             "Wildcards are used to succinctly define a specific set or permissions to defined resources.",
         },
+        {
+          id: "AwsSolutions-L1",
+          reason:
+            "Ok for CDKBucketDeployment function to not use latest Lambda runtime",
+        },
       ]);
     } else if (path.includes("BucketNotificationsHandler")) {
       NagSuppressions.addResourceSuppressions(node, [
