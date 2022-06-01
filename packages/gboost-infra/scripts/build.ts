@@ -8,7 +8,8 @@ fse.copySync(new URL("../src", import.meta.url).pathname, libDir, {
   filter: (src, dest) => {
     // must return true for directories to recursively get to files
     if (fse.lstatSync(src).isDirectory()) return true;
-    return dest.slice(-3) === "vtl";
+    const fileExt = dest.split(".").pop();
+    return fileExt === "vtl" || fileExt === "js";
   },
   recursive: true,
 });
