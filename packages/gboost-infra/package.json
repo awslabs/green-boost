@@ -1,6 +1,6 @@
 {
   "name": "gboost-infra",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Green Boost Infrastructure Library of CDK Constructs",
   "type": "module",
   "main": "./src/index.ts",

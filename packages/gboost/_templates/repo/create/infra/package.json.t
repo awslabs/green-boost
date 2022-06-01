@@ -24,7 +24,7 @@ to: infra/package.json
     "constructs": "^10.1.24",
     "esbuild": "^0.14.42",
     "gboost-common": "^0.6.0",
-    "gboost-infra": "^0.5.2"
+    "gboost-infra": "^0.5.3"
   },
   "devDependencies": {
     "@swc/core": "^1.2.196",
