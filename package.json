@@ -7,9 +7,10 @@
   "type": "module",
   "packageManager": "pnpm@6.31.0",
   "scripts": {
-    "build": "pnpm --recursive --filter ./packages --parallel build",
-    "lint": "pnpm --recursive --filter ./packages --parallel lint",
-    "unit-test": "pnpm --recursive --filter ./packages --parallel test",
+    "audit-gb": "ts-node --esm scripts/audit-gb.ts",
+    "build": "pnpm --recursive --filter \"./packages/**\" --parallel build",
+    "lint": "pnpm --recursive --filter \"./packages/**\" --parallel lint",
+    "unit-test": "pnpm --recursive --filter \"./packages/**\" --parallel test",
     "prepare": "husky install",
     "changeset-version": "ts-node --esm scripts/changeset-version.ts",
     "license-check": "ts-node --esm scripts/license-check.ts",
