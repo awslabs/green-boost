@@ -1,5 +1,11 @@
 # gboost
 
+## 0.5.2
+
+### Patch Changes
+
+- [`1edd92b`](https://github.com/awslabs/green-boost/commit/1edd92bfdbced74c3c96febefe2d0d435f2efa6b) Thanks [@bestickley](https://github.com/bestickley)! - Add .npmrc so pnpm doesn't fail on peer deps
+
 ## 0.5.1
 
 ### Patch Changes
