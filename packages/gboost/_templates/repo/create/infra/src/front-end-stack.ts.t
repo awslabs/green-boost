@@ -2,9 +2,9 @@
 to: infra/src/front-end-stack.ts
 ---
 
-import { Stack, StackProps } from "aws-cdk-lib";
+import { Aspects, Stack, StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
-import { StaticSite } from "gboost-infra";
+import { StaticSite, SuppressOkNags } from "gboost-infra";
 
 export interface FrontEndStackProps extends StackProps {
   gqlUrl: string;
@@ -35,5 +35,7 @@ export class FrontEndStack extends Stack {
         },
       },
     });
+
+    Aspects.of(this).add(new SuppressOkNags());
   }
 }

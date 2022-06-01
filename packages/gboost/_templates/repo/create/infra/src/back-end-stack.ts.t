@@ -69,6 +69,7 @@ export class BackEndStack extends Stack {
       stage,
     });
 <% } -%>
+
     Aspects.of(this).add(new SuppressOkNags());
   }
 }
