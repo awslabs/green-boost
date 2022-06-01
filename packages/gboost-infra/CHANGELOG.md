@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.5.1
+
+### Patch Changes
+
+- [`0b3c98c`](https://github.com/awslabs/green-boost/commit/0b3c98c9e584ab8d92bcb7ca72a228d470c36608) Thanks [@bestickley](https://github.com/bestickley)! - Include CloudFront function source file
+
 ## 0.5.0
 
 ### Minor Changes
