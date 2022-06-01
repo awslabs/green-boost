@@ -13,10 +13,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Install PNPM
-        uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7
+      - name: Install
+        uses: ./.github/actions/install
       
       - name: Audit Dependencies
         run: pnpm audit-gb
