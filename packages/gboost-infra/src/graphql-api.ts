@@ -62,7 +62,7 @@ export class GraphqlApi extends AwsGraphqlApi {
       options
     );
     NagSuppressions.addResourceSuppressions(
-      lambdaFunction,
+      lambdaDataSource,
       [
         {
           id: "AwsSolutions-IAM5",
