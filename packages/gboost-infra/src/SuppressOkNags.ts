@@ -35,6 +35,23 @@ export class SuppressOkNags implements IAspect {
             "The policy only allows the custom resource Lambda to put notifications on S3 Buckets. The CDK uses this role to avoid circular dependencies.",
         },
       ]);
+    } else if (path.includes("LogRetention")) {
+      NagSuppressions.addResourceSuppressions(
+        node,
+        [
+          {
+            id: "AwsSolutions-IAM4",
+            reason:
+              "The Lambda Basic Execution Role does not grant excessive access",
+          },
+          {
+            id: "AwsSolutions-IAM5",
+            reason:
+              "LogRetention IAM policy requires wildcards to update log group expiration",
+          },
+        ],
+        true
+      );
     }
   }
 }

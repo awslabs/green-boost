@@ -1,4 +1,4 @@
-import { Architecture } from "aws-cdk-lib/aws-lambda";
+import { Architecture, Runtime } from "aws-cdk-lib/aws-lambda";
 import {
   NodejsFunction,
   NodejsFunctionProps,
@@ -38,6 +38,9 @@ export class Function extends NodejsFunction {
     }
     if (newProps.architecture === undefined) {
       newProps.architecture = Architecture.ARM_64;
+    }
+    if (newProps.runtime === undefined) {
+      newProps.runtime = Runtime.NODEJS_16_X;
     }
     super(scope, id, newProps);
     NagSuppressions.addResourceSuppressions(
