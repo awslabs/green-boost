@@ -13,7 +13,12 @@ try {
       create();
       break;
     case "deploy-dev":
-      deployDev({ hotswap: argv.hotswap });
+      console.log(argv);
+      deployDev({
+        hotswap: argv.h || argv.hotswap,
+        backendOnly: argv.b || argv["backend-only"],
+        frontendOnly: argv.f || argv["frontend-only"],
+      });
       break;
     case "destroy-dev":
       destroyDev();
@@ -25,7 +30,9 @@ try {
           "\nCommands:" +
           "\n\tgboost create\tCreate a repository to build a Green Boost app" +
           "\n\tgboost deploy-dev\tDeploy a Green Boost app" +
-          "\n\t\t--hotswap\tAttempts a faster, short-circuit deployment if possible" +
+          "\n\t\t-h, --hotswap\tAttempts a faster, short-circuit deployment if possible" +
+          "\n\t\t-b, --backend-only\tOnly deploys backend" +
+          "\n\t\t-f, --frontend-only\tOnly deploys frontend" +
           "\n\tgboost destroy-dev\tDestroy a Green Boost app" +
           "\n\tgboost help" +
           "\n" +

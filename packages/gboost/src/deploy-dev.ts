@@ -15,10 +15,12 @@ const approvalOpt = "--require-approval never";
 
 interface DeployDevArgs {
   hotswap: boolean;
+  backendOnly: boolean;
+  frontendOnly: boolean;
 }
 
 export function deployDev(args: DeployDevArgs) {
-  const { hotswap = false } = args;
+  const { hotswap = false, backendOnly = false, frontendOnly = false } = args;
   const hotswapOpt = hotswap ? "--hotswap" : "";
   const { infraCwd, uiCwd } = getCwds();
   const prefix = getDevPrefix(infraCwd);
@@ -27,23 +29,27 @@ export function deployDev(args: DeployDevArgs) {
   const appPath = resolve(infraCwd, "src/app");
   const appOpt = `--app "${tsnodePath} --esm ${appPath}"`;
   try {
-    execSync(
-      `cdk ${appOpt} deploy ${hotswapOpt} ${backEndStack} ${approvalOpt} --outputs-file ${outputsFilePath}`,
-      {
+    if (!frontendOnly) {
+      execSync(
+        `cdk ${appOpt} deploy ${hotswapOpt} ${backEndStack} ${approvalOpt} --outputs-file ${outputsFilePath}`,
+        {
+          cwd: infraCwd,
+          stdio: "inherit",
+        }
+      );
+      writeEnvVars({ infraDir: infraCwd, backEndStack, uiDir: uiCwd });
+    }
+    if (!backendOnly) {
+      execSync("npm run build", {
+        cwd: uiCwd,
+        stdio: "inherit",
+      });
+      const frontEndStack = `${prefix}-front-end`;
+      execSync(`cdk ${appOpt} deploy ${frontEndStack} ${approvalOpt}`, {
         cwd: infraCwd,
         stdio: "inherit",
-      }
-    );
-    writeEnvVars({ infraDir: infraCwd, backEndStack, uiDir: uiCwd });
-    execSync("npm run build", {
-      cwd: uiCwd,
-      stdio: "inherit",
-    });
-    const frontEndStack = `${prefix}-front-end`;
-    execSync(`cdk ${appOpt} deploy ${frontEndStack} ${approvalOpt}`, {
-      cwd: infraCwd,
-      stdio: "inherit",
-    });
+      });
+    }
   } catch (err) {
     console.error(err);
   } finally {
