@@ -9,7 +9,7 @@ import { mergeDeep } from "gboost-common";
 import { Box, styled } from "./index.js";
 import { ArgumentTypes } from "./utils/ArgumentTypes.js";
 type AuthenticatorProps = ArgumentTypes<typeof AmplifyAuthenticator>[0] & {
-  title: string;
+  title?: string;
 };
 
 const StyledAuthenticator = styled(AmplifyAuthenticator, {
@@ -31,7 +31,7 @@ export function Authenticator(props: AuthenticatorProps): ReactElement {
     formFields: passedFormFields,
     signUpAttributes,
     components = {},
-    title,
+    title = "My Web App",
     ...rest
   } = props;
   const initFormFields = { setupTOTP: { QR: { totpIssuer: title } } };
