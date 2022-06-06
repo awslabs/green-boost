@@ -36,7 +36,7 @@ export function UsersInGroupTable(): ReactElement {
   const handleQuery = useCallback(
     async function handleQuery(
       params: OnQueryParams
-    ): Promise<OnQueryReturnValue> {
+    ): Promise<OnQueryReturnValue<CognitoUser>> {
       const { pageSize: limit, nextToken } = params;
       if (!groupName) return { errorMessage: "Group Name is missing" };
       const vars: ListUsersInGroupArgs = {

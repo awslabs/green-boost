@@ -63,7 +63,7 @@ export function UsersTable(props: UsersTableProps): ReactElement {
   const handleQuery = useCallback(
     async function handleQuery(
       params: OnQueryParams
-    ): Promise<OnQueryReturnValue> {
+    ): Promise<OnQueryReturnValue<CognitoUser>> {
       const { filters, pageSize: limit, nextToken } = params;
       const vars: ListUsersArgs = {
         input: {

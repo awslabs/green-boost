@@ -55,8 +55,6 @@ export const StyledTableCell = styled(TableCell, {
   whiteSpace: "nowrap",
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Row = any;
 export interface Column<T> {
   accessor: Extract<keyof T, string>;
   filterOptions?: FilterOptions;
@@ -91,15 +89,15 @@ export interface OnQueryParams {
    */
   refresh: boolean;
 }
-type OnQuerySuccessReturnValue = {
-  rows: Row[];
+type OnQuerySuccessReturnValue<T> = {
+  rows: T[];
   nextToken: string;
 };
 type OnQueryErrorReturnValue = {
   errorMessage: string;
 };
-export type OnQueryReturnValue =
-  | OnQuerySuccessReturnValue
+export type OnQueryReturnValue<T> =
+  | OnQuerySuccessReturnValue<T>
   | OnQueryErrorReturnValue;
 type SelectAction = "select" | "unselect";
 interface QueryTableProps<T> {
@@ -182,7 +180,7 @@ interface QueryTableProps<T> {
    * with rows and nextToken or errorMessage.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onQuery: (params: OnQueryParams) => Promise<OnQueryReturnValue>;
+  onQuery: (params: OnQueryParams) => Promise<OnQueryReturnValue<T>>;
   /**
    * Function called upon update to selected rows
    * @param action determines whether user selected or unselected
