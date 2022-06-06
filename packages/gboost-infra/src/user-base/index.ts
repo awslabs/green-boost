@@ -3,10 +3,9 @@ import {
   CfnUserPoolGroup,
   CfnUserPoolGroupProps,
   Mfa,
-  PasswordPolicy,
-  StandardAttributes,
   UserPool,
   UserPoolClient,
+  UserPoolProps,
 } from "aws-cdk-lib/aws-cognito";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { NagSuppressions } from "cdk-nag";
@@ -19,12 +18,10 @@ export interface UserPoolGroupProps
   groupName: string;
 }
 
-export interface UserBaseProps {
-  email?: string;
+export interface UserBaseProps extends UserPoolProps {
+  sesEmail?: string;
   groups: UserPoolGroupProps[];
   defaultGroupName: string;
-  passwordPolicy?: PasswordPolicy;
-  standardAttributes: StandardAttributes;
   stage: string;
 }
 
@@ -42,8 +39,8 @@ export class UserBase extends Construct {
       defaultGroupName,
       groups,
       passwordPolicy,
-      standardAttributes,
       stage,
+      ...userPoolProps
     } = props;
     const isProd = stage === Stage.Prod;
 
@@ -84,7 +81,6 @@ export class UserBase extends Construct {
     this.userPool = new UserPool(this, "UserPool", {
       removalPolicy: isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
-      standardAttributes,
       autoVerify: {
         // require user to enter email confirmation code
         email: true,
@@ -99,6 +95,7 @@ export class UserBase extends Construct {
         deviceOnlyRememberedOnUserPrompt: true,
       },
       passwordPolicy: _passwordPolicy,
+      ...userPoolProps,
     });
     NagSuppressions.addResourceSuppressions(this.userPool, [
       {
