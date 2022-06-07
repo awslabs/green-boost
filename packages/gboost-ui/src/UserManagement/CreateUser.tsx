@@ -148,8 +148,6 @@ export function CreateUser(props: CreateUserProps): ReactElement {
           name="family_name"
         />
         <SmartMultiSelectField
-          // @ts-expect-error generic T doesn't propogate to baseProps interface
-          // see UpdateUser
           control={control}
           data-test="groups"
           label="Groups"
