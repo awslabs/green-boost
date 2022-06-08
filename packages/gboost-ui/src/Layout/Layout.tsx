@@ -39,7 +39,7 @@ export interface LayoutProps {
   /**
    * string for header title
    */
-  title: string;
+  title?: string;
   /**
    * Explicitly defined user for Account Menu instead of using `user` returned
    * from `useAuthenticator`
@@ -61,7 +61,7 @@ export interface LayoutProps {
   Footer?: ReactElement;
   /**
    * Custom header title shown to right of hamburger menu. When used, `title`
-   * prop is ignored.
+   * and `logoSrc` prop aren't used in header.
    */
   HeaderTitle?: ReactElement;
 }

@@ -21,6 +21,7 @@ const StyledHeader = styled("header", {
   py: "$2",
   minWidth: "320px", // small mobile
 });
+const HeadingContainer = styled("div", { display: "flex", gap: "$2", cursor: "pointer" });
 const StyledHeading = styled(Heading);
 const StyledImage = styled(Image, { maxWidth: `calc(${headerHeight} - $4)` });
 const StyledMenu = styled(MdMenu, { fontSize: "$7", cursor: "pointer" });
@@ -34,7 +35,7 @@ interface HeaderProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   signOut: () => unknown;
-  title: string;
+  title?: string;
   user: CognitoUser;
   AccountMenu?: ReactElement;
   AccountSidebar?: ReactElement;
@@ -66,18 +67,17 @@ export function Header(props: HeaderProps): ReactElement {
     headerTitle = HeaderTitle;
   } else {
     headerTitle = (
-      <>
+      <HeadingContainer onClick={() => navigate("/")}>
         <StyledHeading
           level={4}
           css={{ color: "white", cursor: "pointer" }}
-          onClick={() => navigate("/")}
         >
           {title}
         </StyledHeading>
         {bps.bp1 && (
           <StyledImage alt="logo" src={logoSrc} maxHeight={headerHeight} />
         )}
-      </>
+      </HeadingContainer>
     );
   }
   let accountMenu: ReactElement;
