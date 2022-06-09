@@ -1,9 +1,10 @@
 import { ReactElement } from "react";
-import { Placeholder, SliderField, SliderFieldProps } from "@aws-amplify/ui-react";
+import { Flex, Placeholder, SliderField, SliderFieldProps } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { Box } from "../index.js";
+import { Tooltip } from "../index.js";
 import { BaseSmartInputProps } from "./baseProps.js";
+import { LabelContainer, TooltipIcon } from "./common.js";
 
 export interface SmartSliderFieldProps<T>
   extends BaseSmartInputProps<T>,
@@ -22,39 +23,59 @@ export function SmartSliderField<T extends FieldValues>(
     loading,
     name,
     renderValue,
+    tooltip,
+    tooltipAlign,
+    tooltipMaxWidth,
+    tooltipSide = "right",
     ...sliderFieldProps
   } = props;
   const {
     field: { ref, onChange, value },
     fieldState: { error, invalid },
   } = useController({ name, control });
+
   let Label: undefined | ReactElement;
-  if (renderValue) {
-    Label = <label data-testid="slider-label" className="amplify-label amplify-sliderfield__label">
-      <span>{label}</span>
-      <span>{renderValue(value)}</span>
-    </label>
+  if (loading || renderValue || tooltip) {
+    Label = (
+        <label data-testid="slider-label" className="amplify-label amplify-sliderfield__label">
+          <LabelContainer>
+            <span>{label}</span>
+            {tooltip && 
+              <Tooltip content={tooltip} align={tooltipAlign} maxWidth={tooltipMaxWidth} side={tooltipSide}>
+                <span>
+                  <TooltipIcon />
+                </span>
+              </Tooltip>
+            }
+          </LabelContainer>
+          <span>{renderValue ? renderValue(value) : value}</span>
+        </label>
+    )
   }
-  return loading ? (
-    <Box css={{ display: "flex", flexDirection: "column", gap: "$2" }}>
-      <label className="amplify-label">{label}</label>
-      <Placeholder height={40} />
-    </Box>
-  ) : (
-    <div>
-      {Label}
+
+  let Value: ReactElement | undefined;
+  if (loading) {
+    Value = <Placeholder height={40} />
+  } else {
+    Value = (
       <SliderField
-        labelHidden={Boolean(Label)}
-        isValueHidden={Boolean(Label)}
         {...(sliderFieldProps as Omit<SliderFieldProps, "label" | "name">)}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
+        isValueHidden={Boolean(Label)}
         name={name}
         label={label}
+        labelHidden={Boolean(Label)}
         onChange={onChange}
         value={value}
       />
-    </div>
+    )
+  }
+  return (
+    <Flex className="amplify-field amplify-sliderfield">
+      {Label}
+      {Value}
+    </Flex>
   );
 }

@@ -1,9 +1,11 @@
 import { ReactElement } from "react";
-import { Placeholder } from "@aws-amplify/ui-react";
+import { Flex, Placeholder } from "@aws-amplify/ui-react";
 import { FieldValues, useController } from "react-hook-form";
-import { Box, defaultListHeight, TransferList } from "../index.js";
+import { Tooltip, defaultListHeight, TransferList } from "../index.js";
 import type { TransferListProps } from "../index.js";
 import { BaseSmartInputProps } from "./baseProps.js";
+import { LabelContainer, TooltipIcon } from "./common.js";
+
 
 export interface SmartTransferListProps<T, U>
   extends BaseSmartInputProps<T>,
@@ -26,30 +28,59 @@ export function SmartTransferList<T extends FieldValues, U>(
     label,
     loading,
     name,
+    tooltip,
+    tooltipAlign,
+    tooltipMaxWidth,
+    tooltipSide = "right",
     ...transferListProps
   } = props;
   const {
     field: { ref, onChange, value },
     fieldState: { error, invalid },
   } = useController({ name, control });
-  return loading ? (
-    <Box css={{ display: "flex", flexDirection: "column", gap: "$2" }}>
-      <label className="amplify-label">{label}</label>
+
+  let Label: ReactElement | undefined;
+  if (loading || tooltip) {
+    Label = (
+      <LabelContainer>
+        <label className="amplify-label">{label}</label>
+        {tooltip && <Tooltip content={tooltip} align={tooltipAlign} maxWidth={tooltipMaxWidth} side={tooltipSide}>
+          <span>
+            <TooltipIcon />
+          </span>
+        </Tooltip>}
+      </LabelContainer>
+    )
+  }
+
+  let Value: ReactElement | undefined;
+  if (loading) {
+    Value = (
       <Placeholder
         height={`calc(${
           transferListProps.listHeight ?? defaultListHeight
         } + 42px)`}
       />
-    </Box>
-  ) : (
-    <TransferList
-      {...(transferListProps as Omit<TransferListProps<U>, "label" | "name">)}
-      ref={ref}
-      label={label}
-      errorMessage={errorMessage || error?.message}
-      hasError={hasError || invalid}
-      onChange={onChange}
-      value={value}
-    />
+    )
+  } else {
+    Value = (
+      <TransferList
+        {...(transferListProps as Omit<TransferListProps<U>, "label" | "name">)}
+        ref={ref}
+        errorMessage={errorMessage || error?.message}
+        hasError={hasError || invalid}
+        onChange={onChange}
+        label={label}
+        labelHidden={Boolean(tooltip)}
+        value={value}
+      />
+    )
+  }
+
+  return (
+    <Flex className="amplify-field amplify-textfield">
+      {Label}
+      {Value}
+    </Flex>
   );
 }

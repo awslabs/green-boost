@@ -86,6 +86,7 @@ export interface MultiSelectFieldProps {
   hasError?: boolean;
   isDisabled?: boolean;
   label: ReactNode;
+  labelHidden?: boolean;
   name?: string;
   options: MultiSelectFieldOption[];
   placeholder?: string;
@@ -104,6 +105,7 @@ export function _MultiSelectField(
     hasError,
     isDisabled,
     label,
+    labelHidden,
     name,
     onChange,
     options,
@@ -188,7 +190,7 @@ export function _MultiSelectField(
       className="amplify-flex amplify-field amplify-textfield"
       isDisabled={isDisabled}
     >
-      <label className="amplify-label" htmlFor={id}>
+      <label className={`amplify-label ${labelHidden ? "amplify-visually-hidden" : ""}`} htmlFor={id}>
         {label}
       </label>
       <div

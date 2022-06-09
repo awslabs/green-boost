@@ -31,6 +31,7 @@ export interface TransferListProps<T> {
   listHeight?: string;
   isDisabled?: boolean;
   label: ReactNode;
+  labelHidden?: boolean;
   onChange: (nextTargetKeys: string[]) => void;
   /**
    * If defined, will enable filter search box within lists
@@ -105,6 +106,7 @@ function _TransferList<T extends Record<string, any>>(
     listHeight = defaultListHeight,
     getKey = (option) => option.key as string,
     label,
+    labelHidden,
     onChange,
     onFilter: handleFilter,
     options,
@@ -197,7 +199,7 @@ function _TransferList<T extends Record<string, any>>(
   );
   return (
     <StyledFieldContainer>
-      <label className="amplify-label">{label}</label>
+      <label className={`amplify-label ${labelHidden ? "amplify-visually-hidden" : ""}`}>{label}</label>
       <StyledContainer>
         <StyledListContainer>
           <StyledHeadingContainer>
