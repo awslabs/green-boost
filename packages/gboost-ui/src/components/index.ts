@@ -7,4 +7,5 @@ export * from "./MultiSelectField.js";
 export * from "./Overlay.js";
 export * from "./Portal.js";
 export * from "./StyledButton.js";
+export * from "./Tooltip.js";
 export * from "./TransferList.js";
