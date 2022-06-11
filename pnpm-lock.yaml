@@ -195,7 +195,7 @@ importers:
       '@types/node': ^16.11.38
       '@typescript-eslint/eslint-plugin': ^5.27.0
       '@typescript-eslint/parser': ^5.27.0
-      aws-cdk-lib: ^2.26.0
+      aws-cdk-lib: ^2.27.0
       cdk-nag: ^2.14.21
       constructs: ^10.1.24
       esbuild: ^0.14.42
@@ -213,10 +213,10 @@ importers:
       ts-node: ^10.8.0
       typescript: ^4.7.2
     dependencies:
-      '@aws-cdk/aws-appsync-alpha': 2.5.0-alpha.0_wblnndccday3tblrs4fhdupk7m
+      '@aws-cdk/aws-appsync-alpha': 2.5.0-alpha.0_e3sbefmhmq4fo36lw23rn6arbe
       '@aws-sdk/client-cognito-identity-provider': 3.102.0
-      aws-cdk-lib: 2.26.0_constructs@10.1.24
-      cdk-nag: 2.14.21_wblnndccday3tblrs4fhdupk7m
+      aws-cdk-lib: 2.27.0_constructs@10.1.24
+      cdk-nag: 2.14.21_e3sbefmhmq4fo36lw23rn6arbe
       constructs: 10.1.24
       esbuild: 0.14.42
       gboost-common: link:../gboost-common
@@ -236,7 +236,7 @@ importers:
       fs-extra: 10.1.0
       jest: 27.5.1_ts-node@10.8.0
       prettier: 2.6.2
-      ts-jest: 27.1.5_opmhlfjmb5ytbleybut5mzgr7q
+      ts-jest: 27.1.5_7uwululatibb2uubavriya4p4i
       ts-node: 10.8.0_bduezlpfhhu2salo6sf734d7nq
       typescript: 4.7.2
 
@@ -951,14 +951,14 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@aws-cdk/aws-appsync-alpha/2.5.0-alpha.0_wblnndccday3tblrs4fhdupk7m:
+  /@aws-cdk/aws-appsync-alpha/2.5.0-alpha.0_e3sbefmhmq4fo36lw23rn6arbe:
     resolution: {integrity: sha512-aHpuD3Qj1QaRO2jz1fLmFUQFoF9cPFO7eZfYSmdGby8uZ3gC5YQMUn/BZyK0wAxgCVc3/5Y2NltvHChCXsqv2Q==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       aws-cdk-lib: ^2.5.0
       constructs: ^10.0.0
     dependencies:
-      aws-cdk-lib: 2.26.0_constructs@10.1.24
+      aws-cdk-lib: 2.27.0_constructs@10.1.24
       constructs: 10.1.24
     dev: false
 
@@ -8684,8 +8684,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /aws-cdk-lib/2.26.0_constructs@10.1.24:
-    resolution: {integrity: sha512-FkTD79U7WRroI3J0fOuIv5DE2uhgIw2F1Z4Fz5XgrMDYB+F4F02/ud6YT+E4vIkUJkb+Jwlh814dDhZ53uYgUw==}
+  /aws-cdk-lib/2.27.0_constructs@10.1.24:
+    resolution: {integrity: sha512-CsTy/+RIBMvP9LlZjkQakkKPpwU50+HAMCMaGOcyIHADDQdXobGcZXTO+Tq00sH2DoQjPV1ZhhBim5z3k/2KXw==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       constructs: ^10.0.0
@@ -9274,13 +9274,13 @@ packages:
   /ccount/1.1.0:
     resolution: {integrity: sha512-vlNK021QdI7PNeiUh/lKkC/mNHHfV0m/Ad5JoI0TYtlBnJAslM/JIkm/tGC88bkLIwO6OQ5uV6ztS6kVAtCDlg==}
 
-  /cdk-nag/2.14.21_wblnndccday3tblrs4fhdupk7m:
+  /cdk-nag/2.14.21_e3sbefmhmq4fo36lw23rn6arbe:
     resolution: {integrity: sha512-5Wfs9SzmXV0QHYD0byZ+kqY13HQrFZmwfTeFXz4IF82P6EKJ2OCaDiypTEJbMOZ+Y9KCMz23TGSPI1Fc/Yo6SQ==}
     peerDependencies:
       aws-cdk-lib: ^2.11.0
       constructs: ^10.0.5
     dependencies:
-      aws-cdk-lib: 2.26.0_constructs@10.1.24
+      aws-cdk-lib: 2.27.0_constructs@10.1.24
       constructs: 10.1.24
     dev: false
 
@@ -11054,7 +11054,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 5.27.0_dszb5tb7atwkjjijmmov4qhi7i
       '@typescript-eslint/experimental-utils': 5.27.0_xztl6dhthcahlo6akmb2bmjmle
       eslint: 8.16.0
-      jest: 27.5.1
+      jest: 27.5.1_ts-node@10.8.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -17921,6 +17921,42 @@ packages:
   /trough/1.0.5:
     resolution: {integrity: sha512-rvuRbTarPXmMb79SmzEp8aqXNKcK+y0XaB298IXueQ8I2PsrATcPBCSPyK/dDNa2iWOhKlfNnOjdAOTBU/nkFA==}
 
+  /ts-jest/27.1.5_7uwululatibb2uubavriya4p4i:
+    resolution: {integrity: sha512-Xv6jBQPoBEvBq/5i2TeSG9tt/nqkbpcurrEG1b+2yfBrcJelOZF9Ml6dmyMh7bcW9JyFbRYpR5rxROSlBLTZHA==}
+    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
+    hasBin: true
+    peerDependencies:
+      '@babel/core': '>=7.0.0-beta.0 <8'
+      '@types/jest': ^27.0.0
+      babel-jest: '>=27.0.0 <28'
+      esbuild: '*'
+      jest: ^27.0.0
+      typescript: '>=3.8 <5.0'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@types/jest':
+        optional: true
+      babel-jest:
+        optional: true
+      esbuild:
+        optional: true
+    dependencies:
+      '@babel/core': 7.18.2
+      '@types/jest': 27.5.1
+      bs-logger: 0.2.6
+      esbuild: 0.14.42
+      fast-json-stable-stringify: 2.1.0
+      jest: 27.5.1_ts-node@10.8.0
+      jest-util: 27.5.1
+      json5: 2.2.1
+      lodash.memoize: 4.1.2
+      make-error: 1.3.6
+      semver: 7.3.7
+      typescript: 4.7.2
+      yargs-parser: 20.2.9
+    dev: true
+
   /ts-jest/27.1.5_ka57xbdzac5io3ooy4yi4ht3qe:
     resolution: {integrity: sha512-Xv6jBQPoBEvBq/5i2TeSG9tt/nqkbpcurrEG1b+2yfBrcJelOZF9Ml6dmyMh7bcW9JyFbRYpR5rxROSlBLTZHA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
@@ -17944,41 +17980,6 @@ packages:
     dependencies:
       '@types/jest': 27.5.1
       bs-logger: 0.2.6
-      fast-json-stable-stringify: 2.1.0
-      jest: 27.5.1_ts-node@10.8.0
-      jest-util: 27.5.1
-      json5: 2.2.1
-      lodash.memoize: 4.1.2
-      make-error: 1.3.6
-      semver: 7.3.7
-      typescript: 4.7.2
-      yargs-parser: 20.2.9
-    dev: true
-
-  /ts-jest/27.1.5_opmhlfjmb5ytbleybut5mzgr7q:
-    resolution: {integrity: sha512-Xv6jBQPoBEvBq/5i2TeSG9tt/nqkbpcurrEG1b+2yfBrcJelOZF9Ml6dmyMh7bcW9JyFbRYpR5rxROSlBLTZHA==}
-    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
-    hasBin: true
-    peerDependencies:
-      '@babel/core': '>=7.0.0-beta.0 <8'
-      '@types/jest': ^27.0.0
-      babel-jest: '>=27.0.0 <28'
-      esbuild: '*'
-      jest: ^27.0.0
-      typescript: '>=3.8 <5.0'
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      '@types/jest':
-        optional: true
-      babel-jest:
-        optional: true
-      esbuild:
-        optional: true
-    dependencies:
-      '@types/jest': 27.5.1
-      bs-logger: 0.2.6
-      esbuild: 0.14.42
       fast-json-stable-stringify: 2.1.0
       jest: 27.5.1_ts-node@10.8.0
       jest-util: 27.5.1
