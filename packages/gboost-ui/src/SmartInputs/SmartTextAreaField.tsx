@@ -34,24 +34,31 @@ export function SmartTextAreaField<T extends FieldValues>(
     field: { ref, onChange, value },
     fieldState: { error, invalid },
   } = useController<T>({ name, control });
-  
+
   let Label: ReactElement | undefined;
   if (loading || tooltip) {
     Label = (
       <LabelContainer>
         <label className="amplify-label">{label}</label>
-        {tooltip && <Tooltip content={tooltip} align={tooltipAlign} maxWidth={tooltipMaxWidth} side={tooltipSide}>
-          <span>
-            <TooltipIcon />
-          </span>
-        </Tooltip>}
+        {tooltip && (
+          <Tooltip
+            content={tooltip}
+            align={tooltipAlign}
+            maxWidth={tooltipMaxWidth}
+            side={tooltipSide}
+          >
+            <span>
+              <TooltipIcon />
+            </span>
+          </Tooltip>
+        )}
       </LabelContainer>
-    )
+    );
   }
 
   let Value: ReactElement | undefined;
   if (loading) {
-    Value = <Placeholder height={106} />
+    Value = <Placeholder height={106} />;
   } else {
     Value = (
       <TextAreaField
@@ -65,7 +72,7 @@ export function SmartTextAreaField<T extends FieldValues>(
         onChange={onChange}
         value={value}
       />
-    )
+    );
   }
 
   return (

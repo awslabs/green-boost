@@ -1,5 +1,11 @@
 import { ReactElement } from "react";
-import { Placeholder, Flex, Radio, RadioGroupField, RadioGroupFieldProps } from "@aws-amplify/ui-react";
+import {
+  Placeholder,
+  Flex,
+  Radio,
+  RadioGroupField,
+  RadioGroupFieldProps,
+} from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { Tooltip } from "../index.js";
@@ -14,8 +20,8 @@ interface Option {
 export interface SmartRadioGroupFieldProps<T>
   extends BaseSmartInputProps<T>,
     Omit<RadioGroupFieldProps, "name" | "children"> {
-      options: Option[];
-    }
+  options: Option[];
+}
 
 export function SmartRadioGroupField<T extends FieldValues>(
   props: SmartRadioGroupFieldProps<T>
@@ -38,28 +44,38 @@ export function SmartRadioGroupField<T extends FieldValues>(
     field: { ref, onChange, value },
     fieldState: { error, invalid },
   } = useController({ name, control });
-  
+
   let Label: ReactElement | undefined;
   if (loading || tooltip) {
     Label = (
       <LabelContainer>
         <label className="amplify-label">{label}</label>
-        {tooltip && <Tooltip content={tooltip} align={tooltipAlign} maxWidth={tooltipMaxWidth} side={tooltipSide}>
-          <span>
-            <TooltipIcon />
-          </span>
-        </Tooltip>}
+        {tooltip && (
+          <Tooltip
+            content={tooltip}
+            align={tooltipAlign}
+            maxWidth={tooltipMaxWidth}
+            side={tooltipSide}
+          >
+            <span>
+              <TooltipIcon />
+            </span>
+          </Tooltip>
+        )}
       </LabelContainer>
-    )
+    );
   }
 
   let Value: ReactElement | undefined;
   if (loading) {
-    Value = <Placeholder height={32 * options.length} />
+    Value = <Placeholder height={32 * options.length} />;
   } else {
     Value = (
       <RadioGroupField
-        {...(radioGroupFieldProps as Omit<RadioGroupFieldProps, "label" | "name">)}
+        {...(radioGroupFieldProps as Omit<
+          RadioGroupFieldProps,
+          "label" | "name"
+        >)}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
@@ -69,9 +85,13 @@ export function SmartRadioGroupField<T extends FieldValues>(
         onChange={onChange}
         value={value}
       >
-        {options.map((o) => <Radio key={o.value} value={o.value} >{o.label}</Radio>)}
+        {options.map((o) => (
+          <Radio key={o.value} value={o.value}>
+            {o.label}
+          </Radio>
+        ))}
       </RadioGroupField>
-    )
+    );
   }
 
   return (

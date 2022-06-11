@@ -44,34 +44,41 @@ export function SmartSelectField<T extends FieldValues>(
     Label = (
       <LabelContainer>
         <label className="amplify-label">{label}</label>
-        {tooltip && <Tooltip content={tooltip} align={tooltipAlign} maxWidth={tooltipMaxWidth} side={tooltipSide}>
-          <span>
-            <TooltipIcon />
-          </span>
-        </Tooltip>}
+        {tooltip && (
+          <Tooltip
+            content={tooltip}
+            align={tooltipAlign}
+            maxWidth={tooltipMaxWidth}
+            side={tooltipSide}
+          >
+            <span>
+              <TooltipIcon />
+            </span>
+          </Tooltip>
+        )}
       </LabelContainer>
-    )
+    );
   }
 
   let Value: ReactElement | undefined;
   if (loading) {
-    Value = <Placeholder height={50} />
+    Value = <Placeholder height={50} />;
   } else {
     Value = (
       <SelectField
-      {...(textFieldProps as Omit<SelectFieldProps, "label" | "name">)}
-      ref={ref}
-      errorMessage={errorMessage || error?.message}
-      hasError={hasError || invalid}
-      name={name}
-      label={label}
-      labelHidden={Boolean(tooltip)}
-      onChange={onChange}
-      value={value}
-    >
-      {children}
-    </SelectField>
-    )
+        {...(textFieldProps as Omit<SelectFieldProps, "label" | "name">)}
+        ref={ref}
+        errorMessage={errorMessage || error?.message}
+        hasError={hasError || invalid}
+        name={name}
+        label={label}
+        labelHidden={Boolean(tooltip)}
+        onChange={onChange}
+        value={value}
+      >
+        {children}
+      </SelectField>
+    );
   }
 
   return (

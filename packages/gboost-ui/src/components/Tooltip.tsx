@@ -1,35 +1,36 @@
-import type { ReactElement } from 'react';
-import { styled, keyframes } from '../index.js';
-import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import type { ReactElement } from "react";
+import { styled, keyframes } from "../index.js";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 const slideUpAndFade = keyframes({
-  '0%': { opacity: 0, transform: 'translateY(2px)' },
-  '100%': { opacity: 1, transform: 'translateY(0)' },
+  "0%": { opacity: 0, transform: "translateY(2px)" },
+  "100%": { opacity: 1, transform: "translateY(0)" },
 });
 
 const slideRightAndFade = keyframes({
-  '0%': { opacity: 0, transform: 'translateX(-2px)' },
-  '100%': { opacity: 1, transform: 'translateX(0)' },
+  "0%": { opacity: 0, transform: "translateX(-2px)" },
+  "100%": { opacity: 1, transform: "translateX(0)" },
 });
 
 const slideDownAndFade = keyframes({
-  '0%': { opacity: 0, transform: 'translateY(-2px)' },
-  '100%': { opacity: 1, transform: 'translateY(0)' },
+  "0%": { opacity: 0, transform: "translateY(-2px)" },
+  "100%": { opacity: 1, transform: "translateY(0)" },
 });
 
 const slideLeftAndFade = keyframes({
-  '0%': { opacity: 0, transform: 'translateX(2px)' },
-  '100%': { opacity: 1, transform: 'translateX(0)' },
+  "0%": { opacity: 0, transform: "translateX(2px)" },
+  "100%": { opacity: 1, transform: "translateX(0)" },
 });
 
 const StyledContent = styled(TooltipPrimitive.Content, {
   borderRadius: 4,
-  padding: '10px 15px',
+  padding: "10px 15px",
   fontSize: 15,
   lineHeight: 1,
   color: "black", // TODO: why doesn"t $primary11 show correct color? always shows green
   backgroundColor: "white",
-  boxShadow: "hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px",
+  boxShadow:
+    "hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px",
   "@media (prefers-reduced-motion: no-preference)": {
     animationDuration: "400ms",
     animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -45,7 +46,7 @@ const StyledContent = styled(TooltipPrimitive.Content, {
 });
 
 const StyledArrow = styled(TooltipPrimitive.Arrow, {
-  fill: 'white',
+  fill: "white",
 });
 
 export type TooltipAlign = "start" | "center" | "end";
@@ -81,7 +82,7 @@ export function Tooltip(props: TooltipProps): ReactElement {
     open,
     onOpenChange,
     side,
-    sideOffset
+    sideOffset,
   } = props;
   return (
     <TooltipPrimitive.Root
@@ -90,9 +91,7 @@ export function Tooltip(props: TooltipProps): ReactElement {
       open={open}
       onOpenChange={onOpenChange}
     >
-      <TooltipPrimitive.Trigger asChild>
-        {children}
-      </TooltipPrimitive.Trigger>
+      <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       <StyledContent
         align={align}
         alignOffset={alignOffset}
@@ -104,5 +103,5 @@ export function Tooltip(props: TooltipProps): ReactElement {
         <StyledArrow />
       </StyledContent>
     </TooltipPrimitive.Root>
-  )
+  );
 }

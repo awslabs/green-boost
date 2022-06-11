@@ -199,7 +199,13 @@ function _TransferList<T extends Record<string, any>>(
   );
   return (
     <StyledFieldContainer>
-      <label className={`amplify-label ${labelHidden ? "amplify-visually-hidden" : ""}`}>{label}</label>
+      <label
+        className={`amplify-label ${
+          labelHidden ? "amplify-visually-hidden" : ""
+        }`}
+      >
+        {label}
+      </label>
       <StyledContainer>
         <StyledListContainer>
           <StyledHeadingContainer>

@@ -21,7 +21,11 @@ const StyledHeader = styled("header", {
   py: "$2",
   minWidth: "320px", // small mobile
 });
-const HeadingContainer = styled("div", { display: "flex", gap: "$2", cursor: "pointer" });
+const HeadingContainer = styled("div", {
+  display: "flex",
+  gap: "$2",
+  cursor: "pointer",
+});
 const StyledHeading = styled(Heading);
 const StyledImage = styled(Image, { maxWidth: `calc(${headerHeight} - $4)` });
 const StyledMenu = styled(MdMenu, { fontSize: "$7", cursor: "pointer" });
@@ -68,10 +72,7 @@ export function Header(props: HeaderProps): ReactElement {
   } else {
     headerTitle = (
       <HeadingContainer onClick={() => navigate("/")}>
-        <StyledHeading
-          level={4}
-          css={{ color: "white", cursor: "pointer" }}
-        >
+        <StyledHeading level={4} css={{ color: "white", cursor: "pointer" }}>
           {title}
         </StyledHeading>
         {bps.bp1 && (

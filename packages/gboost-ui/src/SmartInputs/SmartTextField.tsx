@@ -1,5 +1,10 @@
 import { ReactElement } from "react";
-import { Flex, Placeholder, TextField, TextFieldProps } from "@aws-amplify/ui-react";
+import {
+  Flex,
+  Placeholder,
+  TextField,
+  TextFieldProps,
+} from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { Tooltip } from "../index.js";
@@ -36,18 +41,25 @@ export function SmartTextField<T extends FieldValues>(
     Label = (
       <LabelContainer>
         <label className="amplify-label">{label}</label>
-        {tooltip && <Tooltip content={tooltip} align={tooltipAlign} maxWidth={tooltipMaxWidth} side={tooltipSide}>
-          <span>
-            <TooltipIcon />
-          </span>
-        </Tooltip>}
+        {tooltip && (
+          <Tooltip
+            content={tooltip}
+            align={tooltipAlign}
+            maxWidth={tooltipMaxWidth}
+            side={tooltipSide}
+          >
+            <span>
+              <TooltipIcon />
+            </span>
+          </Tooltip>
+        )}
       </LabelContainer>
-    )
+    );
   }
 
   let Value: ReactElement | undefined;
   if (loading) {
-    Value = <Placeholder height={40} />
+    Value = <Placeholder height={40} />;
   } else {
     Value = (
       <TextField
@@ -61,7 +73,7 @@ export function SmartTextField<T extends FieldValues>(
         onChange={onChange}
         value={value}
       />
-    )
+    );
   }
 
   return (

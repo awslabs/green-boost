@@ -9,14 +9,22 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Badge, FieldGroupIcon, Icon, Menu, MenuItem, Text, View } from "@aws-amplify/ui-react";
+import {
+  Badge,
+  FieldGroupIcon,
+  Icon,
+  Menu,
+  MenuItem,
+  Text,
+  View,
+} from "@aws-amplify/ui-react";
 import { useClickOutside, useId } from "@mantine/hooks";
 import { styled } from "../index.js";
 import { MdArrowDropDown, MdArrowDropUp, MdClose } from "react-icons/md";
 import { Box } from "./Box.js";
 
 const StyledInput = styled("input", {
-  cursor: "pointer"
+  cursor: "pointer",
 });
 const MultiSelectInput = styled("div", {
   border:
@@ -190,7 +198,12 @@ export function _MultiSelectField(
       className="amplify-flex amplify-field amplify-textfield"
       isDisabled={isDisabled}
     >
-      <label className={`amplify-label ${labelHidden ? "amplify-visually-hidden" : ""}`} htmlFor={id}>
+      <label
+        className={`amplify-label ${
+          labelHidden ? "amplify-visually-hidden" : ""
+        }`}
+        htmlFor={id}
+      >
         {label}
       </label>
       <div
@@ -215,35 +228,40 @@ export function _MultiSelectField(
                 onKeyDown={handleKeyDown}
                 {...rest}
               />
-              {value.length !== 0 && <>
-                <MultiSelectInput
-                  onClick={handleClickMultiSelectInput}
-                  tabIndex={0}
-                  onKeyDown={handleKeyDown}
-                >
-                  <Box css={{ flexGrow: 1 }}>
-                    {value.map((v) => (
-                      <ValueComponent
-                        key={v}
-                        value={v}
-                        handleRemove={(e: MouseEvent) => handleRemoveValue(e, v)}
-                      />
-                    ))}
-                  </Box>
-                </MultiSelectInput>
-                {errorMessage && (
-                  <Text className="amplify-field__error-message">
-                    {errorMessage}
-                  </Text>
-                )}</>}
-                <div className="amplify-field-group__inner-end">
-                  <FieldGroupIcon>
-                    <StyledDropdown
-                          as={open ? MdArrowDropUp : MdArrowDropDown}
-                          aria-label="dropdown"
+              {value.length !== 0 && (
+                <>
+                  <MultiSelectInput
+                    onClick={handleClickMultiSelectInput}
+                    tabIndex={0}
+                    onKeyDown={handleKeyDown}
+                  >
+                    <Box css={{ flexGrow: 1 }}>
+                      {value.map((v) => (
+                        <ValueComponent
+                          key={v}
+                          value={v}
+                          handleRemove={(e: MouseEvent) =>
+                            handleRemoveValue(e, v)
+                          }
                         />
-                  </FieldGroupIcon>
-                </div>
+                      ))}
+                    </Box>
+                  </MultiSelectInput>
+                  {errorMessage && (
+                    <Text className="amplify-field__error-message">
+                      {errorMessage}
+                    </Text>
+                  )}
+                </>
+              )}
+              <div className="amplify-field-group__inner-end">
+                <FieldGroupIcon>
+                  <StyledDropdown
+                    as={open ? MdArrowDropUp : MdArrowDropDown}
+                    aria-label="dropdown"
+                  />
+                </FieldGroupIcon>
+              </div>
             </div>
           }
         >

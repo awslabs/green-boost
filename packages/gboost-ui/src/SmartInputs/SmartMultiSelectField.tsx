@@ -36,18 +36,25 @@ export function SmartMultiSelectField<T extends FieldValues>(
     Label = (
       <LabelContainer>
         <label className="amplify-label">{label}</label>
-        {tooltip && <Tooltip content={tooltip} align={tooltipAlign} maxWidth={tooltipMaxWidth} side={tooltipSide}>
-          <span>
-            <TooltipIcon />
-          </span>
-        </Tooltip>}
+        {tooltip && (
+          <Tooltip
+            content={tooltip}
+            align={tooltipAlign}
+            maxWidth={tooltipMaxWidth}
+            side={tooltipSide}
+          >
+            <span>
+              <TooltipIcon />
+            </span>
+          </Tooltip>
+        )}
       </LabelContainer>
-    )
+    );
   }
 
   let Value: ReactElement | undefined;
   if (loading) {
-    Value = <Placeholder height={40} />
+    Value = <Placeholder height={40} />;
   } else {
     Value = (
       <MultiSelectField
@@ -64,7 +71,7 @@ export function SmartMultiSelectField<T extends FieldValues>(
         onChange={onChange}
         value={value}
       />
-    )
+    );
   }
 
   return (

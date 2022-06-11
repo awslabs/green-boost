@@ -1,5 +1,10 @@
 import { ReactElement } from "react";
-import { Flex, Placeholder, SliderField, SliderFieldProps } from "@aws-amplify/ui-react";
+import {
+  Flex,
+  Placeholder,
+  SliderField,
+  SliderFieldProps,
+} from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { Tooltip } from "../index.js";
@@ -8,7 +13,7 @@ import { LabelContainer, TooltipIcon } from "./common.js";
 
 export interface SmartSliderFieldProps<T>
   extends BaseSmartInputProps<T>,
-  Omit<SliderFieldProps, "name"> {
+    Omit<SliderFieldProps, "name"> {
   renderValue?: (v: number) => string;
 }
 
@@ -37,25 +42,33 @@ export function SmartSliderField<T extends FieldValues>(
   let Label: undefined | ReactElement;
   if (loading || renderValue || tooltip) {
     Label = (
-        <label data-testid="slider-label" className="amplify-label amplify-sliderfield__label">
-          <LabelContainer>
-            <span>{label}</span>
-            {tooltip && 
-              <Tooltip content={tooltip} align={tooltipAlign} maxWidth={tooltipMaxWidth} side={tooltipSide}>
-                <span>
-                  <TooltipIcon />
-                </span>
-              </Tooltip>
-            }
-          </LabelContainer>
-          <span>{renderValue ? renderValue(value) : value}</span>
-        </label>
-    )
+      <label
+        data-testid="slider-label"
+        className="amplify-label amplify-sliderfield__label"
+      >
+        <LabelContainer>
+          <span>{label}</span>
+          {tooltip && (
+            <Tooltip
+              content={tooltip}
+              align={tooltipAlign}
+              maxWidth={tooltipMaxWidth}
+              side={tooltipSide}
+            >
+              <span>
+                <TooltipIcon />
+              </span>
+            </Tooltip>
+          )}
+        </LabelContainer>
+        <span>{renderValue ? renderValue(value) : value}</span>
+      </label>
+    );
   }
 
   let Value: ReactElement | undefined;
   if (loading) {
-    Value = <Placeholder height={40} />
+    Value = <Placeholder height={40} />;
   } else {
     Value = (
       <SliderField
@@ -70,7 +83,7 @@ export function SmartSliderField<T extends FieldValues>(
         onChange={onChange}
         value={value}
       />
-    )
+    );
   }
   return (
     <Flex className="amplify-field amplify-sliderfield">

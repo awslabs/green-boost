@@ -6,7 +6,6 @@ import type { TransferListProps } from "../index.js";
 import { BaseSmartInputProps } from "./baseProps.js";
 import { LabelContainer, TooltipIcon } from "./common.js";
 
-
 export interface SmartTransferListProps<T, U>
   extends BaseSmartInputProps<T>,
     Omit<TransferListProps<U>, "name" | "value" | "onChange"> {}
@@ -44,13 +43,20 @@ export function SmartTransferList<T extends FieldValues, U>(
     Label = (
       <LabelContainer>
         <label className="amplify-label">{label}</label>
-        {tooltip && <Tooltip content={tooltip} align={tooltipAlign} maxWidth={tooltipMaxWidth} side={tooltipSide}>
-          <span>
-            <TooltipIcon />
-          </span>
-        </Tooltip>}
+        {tooltip && (
+          <Tooltip
+            content={tooltip}
+            align={tooltipAlign}
+            maxWidth={tooltipMaxWidth}
+            side={tooltipSide}
+          >
+            <span>
+              <TooltipIcon />
+            </span>
+          </Tooltip>
+        )}
       </LabelContainer>
-    )
+    );
   }
 
   let Value: ReactElement | undefined;
@@ -61,7 +67,7 @@ export function SmartTransferList<T extends FieldValues, U>(
           transferListProps.listHeight ?? defaultListHeight
         } + 42px)`}
       />
-    )
+    );
   } else {
     Value = (
       <TransferList
@@ -74,7 +80,7 @@ export function SmartTransferList<T extends FieldValues, U>(
         labelHidden={Boolean(tooltip)}
         value={value}
       />
-    )
+    );
   }
 
   return (
