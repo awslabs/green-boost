@@ -10,8 +10,9 @@ import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
 import { IUserPool } from "aws-cdk-lib/aws-cognito";
 import { IFunction } from "aws-cdk-lib/aws-lambda";
+import { CommonProps } from "./common-props.js";
 
-interface GraphqlApiProps extends AwsGraphqlApiProps {
+interface GraphqlApiProps extends CommonProps, AwsGraphqlApiProps {
   userPool?: IUserPool;
 }
 

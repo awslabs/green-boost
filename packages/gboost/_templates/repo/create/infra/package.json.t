@@ -19,7 +19,7 @@ to: infra/package.json
     "@aws-cdk/aws-appsync-alpha": "^2.5.0-alpha.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.102.0",
     "aws-cdk": "^2.26.0",
-    "aws-cdk-lib": "^2.26.0",
+    "aws-cdk-lib": "^2.27.0",
     "cdk-nag": "^2.14.21",
     "constructs": "^10.1.24",
     "esbuild": "^0.14.42",

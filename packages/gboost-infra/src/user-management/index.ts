@@ -4,19 +4,16 @@ import { Construct } from "constructs";
 import { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
 import { Function } from "../function.js";
 import { createSchema } from "./createSchema.js";
-import { Stage } from "../stages.js";
+import { CommonProps, Stage } from "../common-props.js";
 
-export interface UserManagementProps {
+export interface UserManagementProps extends CommonProps {
   api: GraphqlApi;
   userPoolId: string;
   groupNames: string[];
   /**
-   * Admin Group Names
-   *
    * Admin group names allocate elevated privileges to users in these groups
    */
   adminGroupNames: string[];
-  stage: Stage;
 }
 
 /**
@@ -25,7 +22,13 @@ export interface UserManagementProps {
 export class UserManagement extends Construct {
   constructor(scope: Construct, id: string, props: UserManagementProps) {
     super(scope, id);
-    const { api, groupNames, adminGroupNames, userPoolId, stage } = props;
+    const {
+      api,
+      groupNames,
+      adminGroupNames,
+      userPoolId,
+      stage = Stage.Dev,
+    } = props;
 
     const fileExt = import.meta.url.slice(-2);
     const userFn = new Function(this, "UserFunction", {

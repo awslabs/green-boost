@@ -20,7 +20,9 @@ interface ListGroupsResponse {
   };
 }
 
-async function handleQuery(params: OnQueryParams): Promise<OnQueryReturnValue> {
+async function handleQuery(
+  params: OnQueryParams
+): Promise<OnQueryReturnValue<CognitoGroup>> {
   try {
     const res = await gQuery({ query: listGroups });
     const { nextToken, groups: rows } = (res as ListGroupsResponse).listGroups;

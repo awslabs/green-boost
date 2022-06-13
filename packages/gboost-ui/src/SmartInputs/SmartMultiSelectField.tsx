@@ -1,9 +1,10 @@
 import { ReactElement } from "react";
-import { Placeholder } from "@aws-amplify/ui-react";
+import { Flex, Placeholder } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { BaseSmartInputProps } from "./baseProps.js";
-import { Box, MultiSelectField, MultiSelectFieldProps } from "../index.js";
+import { MultiSelectField, MultiSelectFieldProps, Tooltip } from "../index.js";
+import { LabelContainer, TooltipIcon } from "./common.js";
 
 export interface SmartMultiSelectFieldProps<T>
   extends BaseSmartInputProps<T>,
@@ -19,30 +20,64 @@ export function SmartMultiSelectField<T extends FieldValues>(
     label,
     loading,
     name,
+    tooltip,
+    tooltipAlign,
+    tooltipMaxWidth,
+    tooltipSide = "right",
     ...multiSelectFieldProps
   } = props;
   const {
     field: { ref, onChange, value },
     fieldState: { error, invalid },
   } = useController({ name, control });
-  return loading ? (
-    <Box css={{ display: "flex", flexDirection: "column", gap: "$2" }}>
-      <label className="amplify-label">{label}</label>
-      <Placeholder height={40} />
-    </Box>
-  ) : (
-    <MultiSelectField
-      {...(multiSelectFieldProps as Omit<
-        MultiSelectFieldProps,
-        "label" | "name"
-      >)}
-      ref={ref}
-      errorMessage={errorMessage || error?.message}
-      hasError={hasError || invalid}
-      name={name}
-      label={label}
-      onChange={onChange}
-      value={value}
-    />
+
+  let Label: ReactElement | undefined;
+  if (loading || tooltip) {
+    Label = (
+      <LabelContainer>
+        <label className="amplify-label">{label}</label>
+        {tooltip && (
+          <Tooltip
+            content={tooltip}
+            align={tooltipAlign}
+            maxWidth={tooltipMaxWidth}
+            side={tooltipSide}
+          >
+            <span>
+              <TooltipIcon />
+            </span>
+          </Tooltip>
+        )}
+      </LabelContainer>
+    );
+  }
+
+  let Value: ReactElement | undefined;
+  if (loading) {
+    Value = <Placeholder height={40} />;
+  } else {
+    Value = (
+      <MultiSelectField
+        {...(multiSelectFieldProps as Omit<
+          MultiSelectFieldProps,
+          "label" | "name"
+        >)}
+        ref={ref}
+        errorMessage={errorMessage || error?.message}
+        hasError={hasError || invalid}
+        name={name}
+        label={label}
+        labelHidden={Boolean(Label)}
+        onChange={onChange}
+        value={value}
+      />
+    );
+  }
+
+  return (
+    <Flex className="amplify-field amplify-selectfield">
+      {Label}
+      {Value}
+    </Flex>
   );
 }

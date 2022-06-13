@@ -1,18 +1,34 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
 import type { useAuthenticator } from "@aws-amplify/ui-react";
+import { styled, useBps } from "../index.js";
+import type { Page } from "../index.js";
 import { Header } from "./Header/Header.js";
 import { Content } from "./Content.js";
-import { NavSidebar } from "./NavSidebar.js";
 import { Footer } from "./Footer.js";
-import { Box, useBps } from "../index.js";
-import type { Page } from "../index.js";
-import { Drawer } from "./Drawer.js";
-import { NavList } from "./NavList.js";
+import { Navigation } from "./Navigation/Navigation.js";
+import { NavList } from "./Navigation/NavList.js";
+import type { NavLink } from "./Navigation/NavLink.js";
+
+const LayoutContainer = styled("div", {
+  display: "grid",
+  height: "100vh",
+  gridTemplateAreas: `"header" "content" "footer"`,
+  gridTemplateRows: "auto 1fr auto",
+  "@bp3": {
+    gridTemplateAreas: `"header header" "sidebar content" "sidebar footer"`,
+    gridTemplateColumns: "auto 1fr",
+    gridTemplateRows: "auto 1fr auto",
+  },
+});
 
 export type CognitoUser = ReturnType<typeof useAuthenticator>["user"];
 
 export interface LayoutProps {
+  /**
+   * Pages to be displayed in bottom-left navigation drawer
+   */
+  bottomPages?: (NavLink | Page)[];
   className?: string;
   /**
    * string for footer
@@ -28,7 +44,7 @@ export interface LayoutProps {
    */
   logoSrc: string;
   /**
-   * Pages to be display in left nav drawer
+   * Pages to be displayed in top-left navigation drawer
    */
   pages: Page[];
   /**
@@ -39,7 +55,7 @@ export interface LayoutProps {
   /**
    * string for header title
    */
-  title: string;
+  title?: string;
   /**
    * Explicitly defined user for Account Menu instead of using `user` returned
    * from `useAuthenticator`
@@ -61,9 +77,13 @@ export interface LayoutProps {
   Footer?: ReactElement;
   /**
    * Custom header title shown to right of hamburger menu. When used, `title`
-   * prop is ignored.
+   * and `logoSrc` prop aren't used in header.
    */
   HeaderTitle?: ReactElement;
+  /**
+   * Custom navigation list
+   */
+  NavigationList?: typeof NavList;
 }
 
 /**
@@ -71,6 +91,7 @@ export interface LayoutProps {
  */
 export function Layout(props: LayoutProps): ReactElement {
   const {
+    bottomPages,
     className,
     footer,
     defaultPath,
@@ -83,43 +104,18 @@ export function Layout(props: LayoutProps): ReactElement {
     AccountSidebar,
     Footer: UserFooter,
     HeaderTitle,
+    NavigationList,
   } = props;
   const bps = useBps();
   // initial state makes sidebar open for laptop but closed for tablet and mobile
   const [open, setOpen] = useState(bps.bp3);
   useEffect(() => {
     // if changing from laptop to tablet, close sidebar
-    if (!bps.bp3) {
-      setOpen(false);
-    }
+    // if changing from tablet to laptop, open sidebar
+    setOpen(bps.bp3);
   }, [bps.bp3]);
-  let nav: ReactElement;
-  if (bps.bp3) {
-    nav = <NavSidebar pages={pages} open={open} />;
-  } else {
-    nav = (
-      <>
-        <Drawer open={open} onClose={() => setOpen(false)}>
-          <NavList pages={pages} onClick={() => setOpen(false)} />
-        </Drawer>
-      </>
-    );
-  }
   return (
-    <Box
-      className={className}
-      css={{
-        display: "grid",
-        height: "100vh",
-        gridTemplateAreas: `"header" "content" "footer"`,
-        gridTemplateRows: "auto 1fr auto",
-        "@bp3": {
-          gridTemplateAreas: `"header header" "sidebar content" "sidebar footer"`,
-          gridTemplateColumns: "auto 1fr",
-          gridTemplateRows: "auto 1fr auto",
-        },
-      }}
-    >
+    <LayoutContainer className={className}>
       <Header
         logoSrc={logoSrc}
         open={open}
@@ -131,9 +127,15 @@ export function Layout(props: LayoutProps): ReactElement {
         AccountSidebar={AccountSidebar}
         HeaderTitle={HeaderTitle}
       />
-      {nav}
+      <Navigation
+        bottomPages={bottomPages}
+        NavigationList={NavigationList}
+        open={open}
+        pages={pages}
+        setOpen={setOpen}
+      />
       <Content defaultPath={defaultPath} logoSrc={logoSrc} pages={pages} />
       <Footer footer={footer} Footer={UserFooter} />
-    </Box>
+    </LayoutContainer>
   );
 }

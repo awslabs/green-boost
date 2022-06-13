@@ -262,6 +262,7 @@ export const {
       7: "45px",
       8: "65px",
       9: "80px",
+      header: "$8",
     },
     space: {
       1: "5px",

@@ -37,7 +37,7 @@ export class BackEndStack extends Stack {
 <% if (authn === "Cognito User Pool") { -%>
     const userBase = new UserBase(this, "UserBase", {
       defaultGroupName: "User",
-      email,
+      sesEmail: email,
       groups,
       stage,
       standardAttributes: userAttributes,

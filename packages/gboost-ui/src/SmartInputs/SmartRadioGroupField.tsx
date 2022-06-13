@@ -1,9 +1,10 @@
 import { ReactElement } from "react";
 import {
-  Flex,
   Placeholder,
-  TextField,
-  TextFieldProps,
+  Flex,
+  Radio,
+  RadioGroupField,
+  RadioGroupFieldProps,
 } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
@@ -11,12 +12,19 @@ import { Tooltip } from "../index.js";
 import { BaseSmartInputProps } from "./baseProps.js";
 import { LabelContainer, TooltipIcon } from "./common.js";
 
-export interface SmartTextFieldProps<T>
-  extends BaseSmartInputProps<T>,
-    Omit<TextFieldProps<false>, "name"> {}
+interface Option {
+  label: string;
+  value: string;
+}
 
-export function SmartTextField<T extends FieldValues>(
-  props: SmartTextFieldProps<T>
+export interface SmartRadioGroupFieldProps<T>
+  extends BaseSmartInputProps<T>,
+    Omit<RadioGroupFieldProps, "name" | "children"> {
+  options: Option[];
+}
+
+export function SmartRadioGroupField<T extends FieldValues>(
+  props: SmartRadioGroupFieldProps<T>
 ): ReactElement {
   const {
     control,
@@ -24,12 +32,13 @@ export function SmartTextField<T extends FieldValues>(
     hasError,
     label,
     loading,
+    options,
     name,
     tooltip,
     tooltipAlign,
     tooltipMaxWidth,
     tooltipSide = "right",
-    ...textFieldProps
+    ...radioGroupFieldProps
   } = props;
   const {
     field: { ref, onChange, value },
@@ -59,11 +68,14 @@ export function SmartTextField<T extends FieldValues>(
 
   let Value: ReactElement | undefined;
   if (loading) {
-    Value = <Placeholder height={40} />;
+    Value = <Placeholder height={32 * options.length} />;
   } else {
     Value = (
-      <TextField
-        {...(textFieldProps as Omit<TextFieldProps<false>, "label" | "name">)}
+      <RadioGroupField
+        {...(radioGroupFieldProps as Omit<
+          RadioGroupFieldProps,
+          "label" | "name"
+        >)}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
@@ -72,12 +84,18 @@ export function SmartTextField<T extends FieldValues>(
         labelHidden={Boolean(tooltip)}
         onChange={onChange}
         value={value}
-      />
+      >
+        {options.map((o) => (
+          <Radio key={o.value} value={o.value}>
+            {o.label}
+          </Radio>
+        ))}
+      </RadioGroupField>
     );
   }
 
   return (
-    <Flex className="amplify-field amplify-textfield">
+    <Flex className="amplify-field amplify-radiogroupfield">
       {Label}
       {Value}
     </Flex>
