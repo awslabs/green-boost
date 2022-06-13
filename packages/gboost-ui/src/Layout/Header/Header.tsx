@@ -8,15 +8,13 @@ import { AccountMenu as DefaultAccountMenu } from "./AccountMenu.js";
 import { AccountSidebar as DefaultAccountSidebar } from "./AccountSidebar.js";
 import type { CognitoUser } from "../Layout.js";
 
-const headerHeight = "$8";
-
 const StyledHeader = styled("header", {
   bc: "$primary9",
   boxSizing: "border-box",
   color: "white",
   gridArea: "header",
   width: "100%",
-  height: headerHeight,
+  height: "$header",
   px: "$4",
   py: "$2",
   minWidth: "320px", // small mobile
@@ -27,7 +25,7 @@ const HeadingContainer = styled("div", {
   cursor: "pointer",
 });
 const StyledHeading = styled(Heading);
-const StyledImage = styled(Image, { maxWidth: `calc(${headerHeight} - $4)` });
+const StyledImage = styled(Image, { maxWidth: `calc($header - $4)` });
 const StyledMenu = styled(MdMenu, { fontSize: "$7", cursor: "pointer" });
 const StyledMenuOpen = styled(MdMenuOpen, {
   fontSize: "$7",
@@ -76,7 +74,11 @@ export function Header(props: HeaderProps): ReactElement {
           {title}
         </StyledHeading>
         {bps.bp1 && (
-          <StyledImage alt="logo" src={logoSrc} maxHeight={headerHeight} />
+          <StyledImage
+            alt="logo"
+            src={logoSrc}
+            css={{ maxHeight: "$header" }}
+          />
         )}
       </HeadingContainer>
     );
