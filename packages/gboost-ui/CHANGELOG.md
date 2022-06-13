@@ -1,5 +1,25 @@
 # gboost-ui
 
+## 0.18.0
+
+### Minor Changes
+
+- [#95](https://github.com/awslabs/green-boost/pull/95) [`4491774`](https://github.com/awslabs/green-boost/commit/4491774ad7dd8aee96d707cba21f543226facd5e) Thanks [@bestickley](https://github.com/bestickley)! - Add HeaderTitle prop to Layout to specify component for title
+
+* [#95](https://github.com/awslabs/green-boost/pull/95) [`4491774`](https://github.com/awslabs/green-boost/commit/4491774ad7dd8aee96d707cba21f543226facd5e) Thanks [@bestickley](https://github.com/bestickley)! - Add Tooltip component
+
+- [#95](https://github.com/awslabs/green-boost/pull/95) [`4491774`](https://github.com/awslabs/green-boost/commit/4491774ad7dd8aee96d707cba21f543226facd5e) Thanks [@bestickley](https://github.com/bestickley)! - Add SmartRadioGroupField and SmartSliderField
+
+* [#95](https://github.com/awslabs/green-boost/pull/95) [`4491774`](https://github.com/awslabs/green-boost/commit/4491774ad7dd8aee96d707cba21f543226facd5e) Thanks [@bestickley](https://github.com/bestickley)! - Add tooltip props to smart components
+
+- [#95](https://github.com/awslabs/green-boost/pull/95) [`4491774`](https://github.com/awslabs/green-boost/commit/4491774ad7dd8aee96d707cba21f543226facd5e) Thanks [@bestickley](https://github.com/bestickley)! - Add ability to anchor nav pages/links to bottom of nav drawer and provide component for nav drawer
+
+### Patch Changes
+
+- [#95](https://github.com/awslabs/green-boost/pull/95) [`4491774`](https://github.com/awslabs/green-boost/commit/4491774ad7dd8aee96d707cba21f543226facd5e) Thanks [@bestickley](https://github.com/bestickley)! - Add dropdown icon to MultiSelectField init state
+
+* [#95](https://github.com/awslabs/green-boost/pull/95) [`4491774`](https://github.com/awslabs/green-boost/commit/4491774ad7dd8aee96d707cba21f543226facd5e) Thanks [@bestickley](https://github.com/bestickley)! - OnQueryReturnValue requires generic for better typing
+
 ## 0.17.0
 
 ### Minor Changes
