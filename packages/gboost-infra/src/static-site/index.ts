@@ -31,8 +31,9 @@ import { getResponseHeadersPolicyProps } from "./responseHeaders.js";
 import { createWafRules } from "./createWafRules.js";
 import { CfnOutput } from "aws-cdk-lib";
 import { NagSuppressions } from "cdk-nag";
+import { CommonProps, Stage } from "../common-props.js";
 
-export interface StaticSiteProps {
+export interface StaticSiteProps extends CommonProps {
   /**
    * IPs that are allowed to view docs - uses WAF (CIDR notation)
    * @default undefined
@@ -84,10 +85,6 @@ export interface StaticSiteProps {
    */
   responseHeaders?: ResponseHeaders;
   /**
-   * Stage or type of environment to deploy to
-   */
-  stage: string;
-  /**
    * Path for web assets that will be deployed to S3
    */
   webAssetsPath: string;
@@ -116,7 +113,7 @@ export class StaticSite extends Construct {
       enableWaf = true,
       enableWafMetrics,
       responseHeaders,
-      stage,
+      stage = Stage.Dev,
       webAssetsPath,
     } = props;
 
@@ -259,7 +256,7 @@ export class StaticSite extends Construct {
     stage,
   }: {
     responseHeaders?: ResponseHeaders;
-    stage: string;
+    stage: Stage;
   }): DistributionProps {
     const responseHeadersPolicyProps =
       getResponseHeadersPolicyProps(responseHeaders);

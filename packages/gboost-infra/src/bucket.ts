@@ -8,9 +8,9 @@ import {
 } from "aws-cdk-lib/aws-s3";
 import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
+import { CommonProps } from "./common-props.js";
 
-interface BucketProps extends CdkBucketProps {
-  stage: string;
+interface BucketProps extends CommonProps, CdkBucketProps {
   disableServerAccessLogsBucket?: boolean;
 }
 

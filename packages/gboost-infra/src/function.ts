@@ -6,11 +6,9 @@ import {
 import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
-import { Stage } from "./stages.js";
+import { CommonProps, Stage } from "./common-props.js";
 
-interface FunctionProps extends NodejsFunctionProps {
-  stage: string;
-}
+interface FunctionProps extends CommonProps, NodejsFunctionProps {}
 
 /**
  * Node.js Lambda Function with default log retention set based on stage,
@@ -18,7 +16,7 @@ interface FunctionProps extends NodejsFunctionProps {
  */
 export class Function extends NodejsFunction {
   constructor(scope: Construct, id: string, props: FunctionProps) {
-    const { stage, ...newProps } = props;
+    const { stage = Stage.Dev, ...newProps } = props;
     if (newProps.logRetention === undefined) {
       if (stage === Stage.Prod) {
         newProps.logRetention = RetentionDays.SIX_MONTHS;
