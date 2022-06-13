@@ -1,5 +1,11 @@
 # gboost
 
+## 0.6.0
+
+### Minor Changes
+
+- [#95](https://github.com/awslabs/green-boost/pull/95) [`4491774`](https://github.com/awslabs/green-boost/commit/4491774ad7dd8aee96d707cba21f543226facd5e) Thanks [@bestickley](https://github.com/bestickley)! - Add --frontend-only and --backend-only CLI flags for deploy-dev command
+
 ## 0.5.4
 
 ### Patch Changes

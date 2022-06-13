@@ -70,7 +70,7 @@ importers:
       '@types/react': 17.0.45
       eslint: 8.16.0
       eslint-config-prettier: 8.5.0_eslint@8.16.0
-      eslint-config-react-app: 7.0.1_xztl6dhthcahlo6akmb2bmjmle
+      eslint-config-react-app: 7.0.1_matrodxuncqdnigtekpo2aaei4
       eslint-define-config: 1.5.0
       eslint-plugin-jest: 25.7.0_xztl6dhthcahlo6akmb2bmjmle
       eslint-plugin-prettier: 4.0.0_j7rsahgqtkecno6yauhsgsglf4
@@ -85,7 +85,7 @@ importers:
       '@types/react-dom': ^17.0.17
       '@vitejs/plugin-react': ^1.3.2
       aws-amplify: ^4.3.24
-      gboost-ui: ^0.17.0
+      gboost-ui: ^0.18.0
       react: ^17.0.2
       react-dom: ^17.0.2
       typescript: ^4.7.2
@@ -93,7 +93,7 @@ importers:
     dependencies:
       '@aws-amplify/ui-react': 2.18.3_g3b7wnx3gjx4rjia7bicde5p6e
       '@fontsource/inter': 4.5.10
-      aws-amplify: 4.3.24_react@17.0.2
+      aws-amplify: 4.3.24
       gboost-ui: link:../../../packages/gboost-ui
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -147,7 +147,7 @@ importers:
       jest: 27.5.1_ts-node@10.8.0
       prettier: 2.6.2
       rimraf: 3.0.2
-      ts-jest: 27.1.5_ka57xbdzac5io3ooy4yi4ht3qe
+      ts-jest: 27.1.5_vvqqvlwyzzht5cszqqpdreaa6m
       ts-node: 10.8.0_bduezlpfhhu2salo6sf734d7nq
       typescript: 4.7.2
 
@@ -236,7 +236,7 @@ importers:
       fs-extra: 10.1.0
       jest: 27.5.1_ts-node@10.8.0
       prettier: 2.6.2
-      ts-jest: 27.1.5_7uwululatibb2uubavriya4p4i
+      ts-jest: 27.1.5_opmhlfjmb5ytbleybut5mzgr7q
       ts-node: 10.8.0_bduezlpfhhu2salo6sf734d7nq
       typescript: 4.7.2
 
@@ -308,7 +308,7 @@ importers:
       aws-amplify: 4.3.24_react-native@0.68.2
       eslint: 8.16.0
       eslint-config-prettier: 8.5.0_eslint@8.16.0
-      eslint-config-react-app: 7.0.1_mhktmdugvkgyt3ze5pixxtskei
+      eslint-config-react-app: 7.0.1_5ffp6ujkxmx3sxsp3hcq6ohzza
       eslint-define-config: 1.5.0
       eslint-plugin-jest: 25.7.0_lyby7smqb5phk4in2uxoghwssi
       eslint-plugin-prettier: 4.0.0_j7rsahgqtkecno6yauhsgsglf4
@@ -432,6 +432,22 @@ packages:
       '@jridgewell/gen-mapping': 0.1.1
       '@jridgewell/trace-mapping': 0.3.13
 
+  /@aws-amplify/analytics/5.2.9:
+    resolution: {integrity: sha512-JpV9X70pfsxUuEtbSLnv4KrLALSuATfCr1LtOlNdb022fWHj4ciy1sUzu77TLuK+36y+8+weRzNJ9/NSWBPh1A==}
+    dependencies:
+      '@aws-amplify/cache': 4.0.44
+      '@aws-amplify/core': 4.5.6
+      '@aws-sdk/client-firehose': 3.6.1
+      '@aws-sdk/client-kinesis': 3.6.1
+      '@aws-sdk/client-personalize-events': 3.6.1
+      '@aws-sdk/client-pinpoint': 3.6.1
+      '@aws-sdk/util-utf8-browser': 3.6.1
+      lodash: 4.17.21
+      uuid: 3.4.0
+    transitivePeerDependencies:
+      - react-native
+    dev: false
+
   /@aws-amplify/analytics/5.2.9_react-native@0.68.2:
     resolution: {integrity: sha512-JpV9X70pfsxUuEtbSLnv4KrLALSuATfCr1LtOlNdb022fWHj4ciy1sUzu77TLuK+36y+8+weRzNJ9/NSWBPh1A==}
     dependencies:
@@ -447,24 +463,21 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-amplify/analytics/5.2.9_react@17.0.2:
-    resolution: {integrity: sha512-JpV9X70pfsxUuEtbSLnv4KrLALSuATfCr1LtOlNdb022fWHj4ciy1sUzu77TLuK+36y+8+weRzNJ9/NSWBPh1A==}
+  /@aws-amplify/api-graphql/2.3.6:
+    resolution: {integrity: sha512-bAFApP7Yw2uLythEG4og0nDm8xVqqEMLKiT5AUpElKmlzU5t106gYissRLet+oHeiE2DMnIWCL9g/rOn93Z1NQ==}
     dependencies:
-      '@aws-amplify/cache': 4.0.44_react@17.0.2
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-      '@aws-sdk/client-firehose': 3.6.1_react@17.0.2
-      '@aws-sdk/client-kinesis': 3.6.1_react@17.0.2
-      '@aws-sdk/client-personalize-events': 3.6.1_react@17.0.2
-      '@aws-sdk/client-pinpoint': 3.6.1_react@17.0.2
-      '@aws-sdk/util-utf8-browser': 3.6.1
-      lodash: 4.17.21
+      '@aws-amplify/api-rest': 2.0.42
+      '@aws-amplify/auth': 4.5.6
+      '@aws-amplify/cache': 4.0.44
+      '@aws-amplify/core': 4.5.6
+      '@aws-amplify/pubsub': 4.4.3
+      graphql: 15.8.0
       uuid: 3.4.0
+      zen-observable-ts: 0.8.19
     transitivePeerDependencies:
-      - bufferutil
+      - debug
       - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-amplify/api-graphql/2.3.6_react-native@0.68.2:
@@ -483,24 +496,14 @@ packages:
       - encoding
       - react-native
 
-  /@aws-amplify/api-graphql/2.3.6_react@17.0.2:
-    resolution: {integrity: sha512-bAFApP7Yw2uLythEG4og0nDm8xVqqEMLKiT5AUpElKmlzU5t106gYissRLet+oHeiE2DMnIWCL9g/rOn93Z1NQ==}
+  /@aws-amplify/api-rest/2.0.42:
+    resolution: {integrity: sha512-37BUCnI1PM273jUwWceEZVi0frO0mHY8dY/9EZ2zUmA6Rbscbm5ZpyB8E+txtO+odbbBxnU5JHdc7JnWr7Fwpw==}
     dependencies:
-      '@aws-amplify/api-rest': 2.0.42_react@17.0.2
-      '@aws-amplify/auth': 4.5.6_react@17.0.2
-      '@aws-amplify/cache': 4.0.44_react@17.0.2
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-      '@aws-amplify/pubsub': 4.4.3_react@17.0.2
-      graphql: 15.8.0
-      uuid: 3.4.0
-      zen-observable-ts: 0.8.19
+      '@aws-amplify/core': 4.5.6
+      axios: 0.21.4
     transitivePeerDependencies:
-      - bufferutil
       - debug
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-amplify/api-rest/2.0.42_react-native@0.68.2:
@@ -512,18 +515,15 @@ packages:
       - debug
       - react-native
 
-  /@aws-amplify/api-rest/2.0.42_react@17.0.2:
-    resolution: {integrity: sha512-37BUCnI1PM273jUwWceEZVi0frO0mHY8dY/9EZ2zUmA6Rbscbm5ZpyB8E+txtO+odbbBxnU5JHdc7JnWr7Fwpw==}
+  /@aws-amplify/api/4.0.42:
+    resolution: {integrity: sha512-h+nm6Frbu4G2Ftc7s0SVdQEoLOE9tVlfRM6q0JrQ48Ilu1myQdQ3wormWUxdhlpkuTq+UOYcDTcIUeiD3CC2mA==}
     dependencies:
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-      axios: 0.21.4
+      '@aws-amplify/api-graphql': 2.3.6
+      '@aws-amplify/api-rest': 2.0.42
     transitivePeerDependencies:
-      - bufferutil
       - debug
       - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-amplify/api/4.0.42_react-native@0.68.2:
@@ -536,18 +536,16 @@ packages:
       - encoding
       - react-native
 
-  /@aws-amplify/api/4.0.42_react@17.0.2:
-    resolution: {integrity: sha512-h+nm6Frbu4G2Ftc7s0SVdQEoLOE9tVlfRM6q0JrQ48Ilu1myQdQ3wormWUxdhlpkuTq+UOYcDTcIUeiD3CC2mA==}
+  /@aws-amplify/auth/4.5.6:
+    resolution: {integrity: sha512-G0pxqKaVouuhVK6qH0EBHG5ziNVRT7AzKSj8jN2I7klHtFJHnY/F6NEEjr/e99IgbyzspjWX5xFRBAQecgF44A==}
     dependencies:
-      '@aws-amplify/api-graphql': 2.3.6_react@17.0.2
-      '@aws-amplify/api-rest': 2.0.42_react@17.0.2
+      '@aws-amplify/cache': 4.0.44
+      '@aws-amplify/core': 4.5.6
+      amazon-cognito-identity-js: 5.2.9
+      crypto-js: 4.1.1
     transitivePeerDependencies:
-      - bufferutil
-      - debug
       - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-amplify/auth/4.5.6_react-native@0.68.2:
@@ -561,19 +559,12 @@ packages:
       - encoding
       - react-native
 
-  /@aws-amplify/auth/4.5.6_react@17.0.2:
-    resolution: {integrity: sha512-G0pxqKaVouuhVK6qH0EBHG5ziNVRT7AzKSj8jN2I7klHtFJHnY/F6NEEjr/e99IgbyzspjWX5xFRBAQecgF44A==}
+  /@aws-amplify/cache/4.0.44:
+    resolution: {integrity: sha512-lfybDAXaJWzHPprPJILPcSNCfow9xkgskP5tkNdG2/dlkgTwN2aUJVkQdguO5q5zUxgM0xoS7bbVY3kvoQ2b6Q==}
     dependencies:
-      '@aws-amplify/cache': 4.0.44_react@17.0.2
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-      amazon-cognito-identity-js: 5.2.9
-      crypto-js: 4.1.1
+      '@aws-amplify/core': 4.5.6
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-amplify/cache/4.0.44_react-native@0.68.2:
@@ -583,16 +574,19 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-amplify/cache/4.0.44_react@17.0.2:
-    resolution: {integrity: sha512-lfybDAXaJWzHPprPJILPcSNCfow9xkgskP5tkNdG2/dlkgTwN2aUJVkQdguO5q5zUxgM0xoS7bbVY3kvoQ2b6Q==}
+  /@aws-amplify/core/4.5.6:
+    resolution: {integrity: sha512-TmtKtxMno7TubMqiXQpqdFIfIBm2bCqK6sW1BUk8N8WoHnuA3hBPf1qmZeDHTaSjTFBV1AOxfVgVZ9RGErZQzw==}
     dependencies:
-      '@aws-amplify/core': 4.5.6_react@17.0.2
+      '@aws-crypto/sha256-js': 1.0.0-alpha.0
+      '@aws-sdk/client-cloudwatch-logs': 3.6.1
+      '@aws-sdk/client-cognito-identity': 3.6.1
+      '@aws-sdk/credential-provider-cognito-identity': 3.6.1
+      '@aws-sdk/types': 3.6.1
+      '@aws-sdk/util-hex-encoding': 3.6.1
+      universal-cookie: 4.0.4
+      zen-observable-ts: 0.8.19
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-amplify/core/4.5.6_react-native@0.68.2:
@@ -628,6 +622,26 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@aws-amplify/datastore/3.11.3:
+    resolution: {integrity: sha512-/L0141hZ6o8y8FkZTa0+AmXclmvP4h2naE+prh8w7OX52pK+l0hTL615OzAK8YPZA9gs7yvekeGaj63984xWWg==}
+    dependencies:
+      '@aws-amplify/api': 4.0.42
+      '@aws-amplify/auth': 4.5.6
+      '@aws-amplify/core': 4.5.6
+      '@aws-amplify/pubsub': 4.4.3
+      amazon-cognito-identity-js: 5.2.9
+      idb: 5.0.6
+      immer: 9.0.6
+      ulid: 2.3.0
+      uuid: 3.3.2
+      zen-observable-ts: 0.8.19
+      zen-push: 0.2.1
+    transitivePeerDependencies:
+      - debug
+      - encoding
+      - react-native
+    dev: false
+
   /@aws-amplify/datastore/3.11.3_react-native@0.68.2:
     resolution: {integrity: sha512-/L0141hZ6o8y8FkZTa0+AmXclmvP4h2naE+prh8w7OX52pK+l0hTL615OzAK8YPZA9gs7yvekeGaj63984xWWg==}
     dependencies:
@@ -647,27 +661,15 @@ packages:
       - encoding
       - react-native
 
-  /@aws-amplify/datastore/3.11.3_react@17.0.2:
-    resolution: {integrity: sha512-/L0141hZ6o8y8FkZTa0+AmXclmvP4h2naE+prh8w7OX52pK+l0hTL615OzAK8YPZA9gs7yvekeGaj63984xWWg==}
+  /@aws-amplify/geo/1.3.5:
+    resolution: {integrity: sha512-ufAndGUti7JlCyyzOaQwfduWmdVFSHzJd00AMWVF26EBi5JnKn6e3ZUnzRwZ9OZSKnqP6T0Q94nR7iFqAtAsPA==}
     dependencies:
-      '@aws-amplify/api': 4.0.42_react@17.0.2
-      '@aws-amplify/auth': 4.5.6_react@17.0.2
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-      '@aws-amplify/pubsub': 4.4.3_react@17.0.2
-      amazon-cognito-identity-js: 5.2.9
-      idb: 5.0.6
-      immer: 9.0.6
-      ulid: 2.3.0
-      uuid: 3.3.2
-      zen-observable-ts: 0.8.19
-      zen-push: 0.2.1
+      '@aws-amplify/core': 4.5.6
+      '@aws-sdk/client-location': 3.48.0
+      '@turf/boolean-clockwise': 6.5.0
+      camelcase-keys: 6.2.2
     transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-amplify/geo/1.3.5_react-native@0.68.2:
@@ -695,6 +697,15 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@aws-amplify/interactions/4.0.42:
+    resolution: {integrity: sha512-SilnJQdRl23MAKBsAClQl4HcnoHMj3a0vstiDaZHOHqSuT+Zil5rqSgBUxDlYGttZSVGD6tybz69usx2fHTiuA==}
+    dependencies:
+      '@aws-amplify/core': 4.5.6
+      '@aws-sdk/client-lex-runtime-service': 3.6.1
+    transitivePeerDependencies:
+      - react-native
+    dev: false
+
   /@aws-amplify/interactions/4.0.42_react-native@0.68.2:
     resolution: {integrity: sha512-SilnJQdRl23MAKBsAClQl4HcnoHMj3a0vstiDaZHOHqSuT+Zil5rqSgBUxDlYGttZSVGD6tybz69usx2fHTiuA==}
     dependencies:
@@ -703,17 +714,22 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-amplify/interactions/4.0.42_react@17.0.2:
-    resolution: {integrity: sha512-SilnJQdRl23MAKBsAClQl4HcnoHMj3a0vstiDaZHOHqSuT+Zil5rqSgBUxDlYGttZSVGD6tybz69usx2fHTiuA==}
+  /@aws-amplify/predictions/4.0.42:
+    resolution: {integrity: sha512-BcWMucIQCIwJogU6pNwRLnNVY6Bo+2UUvyVAisaeo3eYLwpETsdytt6vRWXqTDeQhtJDqpq/D3eQEdVNR4cgAQ==}
     dependencies:
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-      '@aws-sdk/client-lex-runtime-service': 3.6.1_react@17.0.2
+      '@aws-amplify/core': 4.5.6
+      '@aws-amplify/storage': 4.4.25
+      '@aws-sdk/client-comprehend': 3.6.1
+      '@aws-sdk/client-polly': 3.6.1
+      '@aws-sdk/client-rekognition': 3.6.1
+      '@aws-sdk/client-textract': 3.6.1
+      '@aws-sdk/client-translate': 3.6.1
+      '@aws-sdk/eventstream-marshaller': 3.6.1
+      '@aws-sdk/util-utf8-node': 3.6.1
+      uuid: 3.4.0
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - debug
+      - react-native
     dev: false
 
   /@aws-amplify/predictions/4.0.42_react-native@0.68.2:
@@ -733,26 +749,19 @@ packages:
       - debug
       - react-native
 
-  /@aws-amplify/predictions/4.0.42_react@17.0.2:
-    resolution: {integrity: sha512-BcWMucIQCIwJogU6pNwRLnNVY6Bo+2UUvyVAisaeo3eYLwpETsdytt6vRWXqTDeQhtJDqpq/D3eQEdVNR4cgAQ==}
+  /@aws-amplify/pubsub/4.4.3:
+    resolution: {integrity: sha512-bpjucdYHpnrz0fq+0PZ/UfaUR67z7RUm13iDL3GnX8TMCRTTaquOF7S2Sfn9zlWzwDOFzrne6JAl8lnwBmjuEw==}
     dependencies:
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-      '@aws-amplify/storage': 4.4.25_react@17.0.2
-      '@aws-sdk/client-comprehend': 3.6.1_react@17.0.2
-      '@aws-sdk/client-polly': 3.6.1_react@17.0.2
-      '@aws-sdk/client-rekognition': 3.6.1_react@17.0.2
-      '@aws-sdk/client-textract': 3.6.1_react@17.0.2
-      '@aws-sdk/client-translate': 3.6.1_react@17.0.2
-      '@aws-sdk/eventstream-marshaller': 3.6.1
-      '@aws-sdk/util-utf8-node': 3.6.1
+      '@aws-amplify/auth': 4.5.6
+      '@aws-amplify/cache': 4.0.44
+      '@aws-amplify/core': 4.5.6
+      graphql: 15.8.0
+      paho-mqtt: 1.1.0
       uuid: 3.4.0
+      zen-observable-ts: 0.8.19
     transitivePeerDependencies:
-      - bufferutil
-      - debug
       - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-amplify/pubsub/4.4.3_react-native@0.68.2:
@@ -769,22 +778,19 @@ packages:
       - encoding
       - react-native
 
-  /@aws-amplify/pubsub/4.4.3_react@17.0.2:
-    resolution: {integrity: sha512-bpjucdYHpnrz0fq+0PZ/UfaUR67z7RUm13iDL3GnX8TMCRTTaquOF7S2Sfn9zlWzwDOFzrne6JAl8lnwBmjuEw==}
+  /@aws-amplify/storage/4.4.25:
+    resolution: {integrity: sha512-0me1i3moPI3RyHIjk+jRLex+UbtzGeRhZ9inIzeS7nS1mcYdTHo6UtDSjBT5AWmRxbSxXrDtjWJFf73cI7nmLg==}
     dependencies:
-      '@aws-amplify/auth': 4.5.6_react@17.0.2
-      '@aws-amplify/cache': 4.0.44_react@17.0.2
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-      graphql: 15.8.0
-      paho-mqtt: 1.1.0
-      uuid: 3.4.0
-      zen-observable-ts: 0.8.19
+      '@aws-amplify/core': 4.5.6
+      '@aws-sdk/client-s3': 3.6.1
+      '@aws-sdk/s3-request-presigner': 3.6.1
+      '@aws-sdk/util-create-request': 3.6.1
+      '@aws-sdk/util-format-url': 3.6.1
+      axios: 0.21.4
+      events: 3.3.0
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - debug
+      - react-native
     dev: false
 
   /@aws-amplify/storage/4.4.25_react-native@0.68.2:
@@ -800,25 +806,6 @@ packages:
     transitivePeerDependencies:
       - debug
       - react-native
-
-  /@aws-amplify/storage/4.4.25_react@17.0.2:
-    resolution: {integrity: sha512-0me1i3moPI3RyHIjk+jRLex+UbtzGeRhZ9inIzeS7nS1mcYdTHo6UtDSjBT5AWmRxbSxXrDtjWJFf73cI7nmLg==}
-    dependencies:
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-      '@aws-sdk/client-s3': 3.6.1_react@17.0.2
-      '@aws-sdk/s3-request-presigner': 3.6.1
-      '@aws-sdk/util-create-request': 3.6.1
-      '@aws-sdk/util-format-url': 3.6.1
-      axios: 0.21.4
-      events: 3.3.0
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
-    dev: false
 
   /@aws-amplify/ui-components/1.7.2_aws-amplify@4.3.24:
     resolution: {integrity: sha512-PrDG5o/svbZm87XModXvzBQ+HflHSmxse4S0yKcFRPuUmLkspzdBcwFmjb1SCqmXKtTVKVkCHJ38rZiO/WFNfw==}
@@ -860,25 +847,23 @@ packages:
       '@radix-ui/react-slider': 0.1.4_react@17.0.2
       '@radix-ui/react-tabs': 0.1.5_react@17.0.2
       '@xstate/react': 3.0.0_hx2b44akkvgcgvvtmk7ds2qk6q
-      aws-amplify: 4.3.24_react@17.0.2
+      aws-amplify: 4.3.24
       classnames: 2.3.1
       deepmerge: 4.2.2
       lodash: 4.17.21
-      mapbox-gl: 2.8.2
-      maplibre-gl: 1.15.3_mapbox-gl@2.8.2
-      maplibre-gl-js-amplify: 1.5.0_6q7y4sua4ntmuj3b4o5auj7pye
+      mapbox-gl: /empty-npm-package/1.0.0
+      maplibre-gl: 1.15.3_empty-npm-package@1.0.0
+      maplibre-gl-js-amplify: 1.5.0_maplibre-gl@1.15.3
       qrcode: 1.5.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-generate-context: 1.0.1_react@17.0.2
-      react-map-gl: 7.0.15_nziqc4bpo6ecs43sxc4vb75rri
+      react-map-gl: 7.0.15_73wyjda6qbz7zllqiwoyhld2ne
     transitivePeerDependencies:
+      - '@aws-amplify/core'
+      - '@aws-amplify/geo'
       - '@types/react'
       - '@xstate/fsm'
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
       - xstate
     dev: false
 
@@ -932,24 +917,20 @@ packages:
       style-dictionary: 3.7.0
       xstate: 4.32.1
 
+  /@aws-amplify/xr/3.0.42:
+    resolution: {integrity: sha512-ri0rKamqQ5YtZjBSYiyuKxgFOvrfMQrr/4IYyfuTf3qJ87UN/GtocEFgtRAPYzCLO0EfBEDXNg1051ojncEX+g==}
+    dependencies:
+      '@aws-amplify/core': 4.5.6
+    transitivePeerDependencies:
+      - react-native
+    dev: false
+
   /@aws-amplify/xr/3.0.42_react-native@0.68.2:
     resolution: {integrity: sha512-ri0rKamqQ5YtZjBSYiyuKxgFOvrfMQrr/4IYyfuTf3qJ87UN/GtocEFgtRAPYzCLO0EfBEDXNg1051ojncEX+g==}
     dependencies:
       '@aws-amplify/core': 4.5.6_react-native@0.68.2
     transitivePeerDependencies:
       - react-native
-
-  /@aws-amplify/xr/3.0.42_react@17.0.2:
-    resolution: {integrity: sha512-ri0rKamqQ5YtZjBSYiyuKxgFOvrfMQrr/4IYyfuTf3qJ87UN/GtocEFgtRAPYzCLO0EfBEDXNg1051ojncEX+g==}
-    dependencies:
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
-    dev: false
 
   /@aws-cdk/aws-appsync-alpha/2.5.0-alpha.0_e3sbefmhmq4fo36lw23rn6arbe:
     resolution: {integrity: sha512-aHpuD3Qj1QaRO2jz1fLmFUQFoF9cPFO7eZfYSmdGby8uZ3gC5YQMUn/BZyK0wAxgCVc3/5Y2NltvHChCXsqv2Q==}
@@ -1080,6 +1061,45 @@ packages:
     dependencies:
       tslib: 1.14.1
 
+  /@aws-sdk/client-cloudwatch-logs/3.6.1:
+    resolution: {integrity: sha512-QOxIDnlVTpnwJ26Gap6RGz61cDLH6TKrIp30VqwdMeT1pCGy8mn9rWln6XA+ymkofHy/08RfpGp+VN4axwd4Lw==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      '@aws-crypto/sha256-browser': 1.2.2
+      '@aws-crypto/sha256-js': 1.2.2
+      '@aws-sdk/config-resolver': 3.6.1
+      '@aws-sdk/credential-provider-node': 3.6.1
+      '@aws-sdk/fetch-http-handler': 3.6.1
+      '@aws-sdk/hash-node': 3.6.1
+      '@aws-sdk/invalid-dependency': 3.6.1
+      '@aws-sdk/middleware-content-length': 3.6.1
+      '@aws-sdk/middleware-host-header': 3.6.1
+      '@aws-sdk/middleware-logger': 3.6.1
+      '@aws-sdk/middleware-retry': 3.6.1
+      '@aws-sdk/middleware-serde': 3.6.1
+      '@aws-sdk/middleware-signing': 3.6.1
+      '@aws-sdk/middleware-stack': 3.6.1
+      '@aws-sdk/middleware-user-agent': 3.6.1
+      '@aws-sdk/node-config-provider': 3.6.1
+      '@aws-sdk/node-http-handler': 3.6.1
+      '@aws-sdk/protocol-http': 3.6.1
+      '@aws-sdk/smithy-client': 3.6.1
+      '@aws-sdk/types': 3.6.1
+      '@aws-sdk/url-parser': 3.6.1
+      '@aws-sdk/url-parser-native': 3.6.1
+      '@aws-sdk/util-base64-browser': 3.6.1
+      '@aws-sdk/util-base64-node': 3.6.1
+      '@aws-sdk/util-body-length-browser': 3.6.1
+      '@aws-sdk/util-body-length-node': 3.6.1
+      '@aws-sdk/util-user-agent-browser': 3.6.1
+      '@aws-sdk/util-user-agent-node': 3.6.1
+      '@aws-sdk/util-utf8-browser': 3.6.1
+      '@aws-sdk/util-utf8-node': 3.6.1
+      tslib: 2.4.0
+    transitivePeerDependencies:
+      - react-native
+    dev: false
+
   /@aws-sdk/client-cloudwatch-logs/3.6.1_react-native@0.68.2:
     resolution: {integrity: sha512-QOxIDnlVTpnwJ26Gap6RGz61cDLH6TKrIp30VqwdMeT1pCGy8mn9rWln6XA+ymkofHy/08RfpGp+VN4axwd4Lw==}
     engines: {node: '>=10.0.0'}
@@ -1200,6 +1220,45 @@ packages:
       tslib: 2.4.0
     dev: false
 
+  /@aws-sdk/client-cognito-identity/3.6.1:
+    resolution: {integrity: sha512-FMj2GR9R5oCKb3/NI16GIvWeHcE4uX42fBAaQKPbjg2gALFDx9CcJYsdOtDP37V89GtPyZilLv6GJxrwJKzYGg==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      '@aws-crypto/sha256-browser': 1.2.2
+      '@aws-crypto/sha256-js': 1.2.2
+      '@aws-sdk/config-resolver': 3.6.1
+      '@aws-sdk/credential-provider-node': 3.6.1
+      '@aws-sdk/fetch-http-handler': 3.6.1
+      '@aws-sdk/hash-node': 3.6.1
+      '@aws-sdk/invalid-dependency': 3.6.1
+      '@aws-sdk/middleware-content-length': 3.6.1
+      '@aws-sdk/middleware-host-header': 3.6.1
+      '@aws-sdk/middleware-logger': 3.6.1
+      '@aws-sdk/middleware-retry': 3.6.1
+      '@aws-sdk/middleware-serde': 3.6.1
+      '@aws-sdk/middleware-signing': 3.6.1
+      '@aws-sdk/middleware-stack': 3.6.1
+      '@aws-sdk/middleware-user-agent': 3.6.1
+      '@aws-sdk/node-config-provider': 3.6.1
+      '@aws-sdk/node-http-handler': 3.6.1
+      '@aws-sdk/protocol-http': 3.6.1
+      '@aws-sdk/smithy-client': 3.6.1
+      '@aws-sdk/types': 3.6.1
+      '@aws-sdk/url-parser': 3.6.1
+      '@aws-sdk/url-parser-native': 3.6.1
+      '@aws-sdk/util-base64-browser': 3.6.1
+      '@aws-sdk/util-base64-node': 3.6.1
+      '@aws-sdk/util-body-length-browser': 3.6.1
+      '@aws-sdk/util-body-length-node': 3.6.1
+      '@aws-sdk/util-user-agent-browser': 3.6.1
+      '@aws-sdk/util-user-agent-node': 3.6.1
+      '@aws-sdk/util-utf8-browser': 3.6.1
+      '@aws-sdk/util-utf8-node': 3.6.1
+      tslib: 2.4.0
+    transitivePeerDependencies:
+      - react-native
+    dev: false
+
   /@aws-sdk/client-cognito-identity/3.6.1_react-native@0.68.2:
     resolution: {integrity: sha512-FMj2GR9R5oCKb3/NI16GIvWeHcE4uX42fBAaQKPbjg2gALFDx9CcJYsdOtDP37V89GtPyZilLv6GJxrwJKzYGg==}
     engines: {node: '>=10.0.0'}
@@ -1281,6 +1340,46 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@aws-sdk/client-comprehend/3.6.1:
+    resolution: {integrity: sha512-Y2ixlSTjjAp2HJhkUArtYqC/X+zG5Qqu3Bl+Ez22u4u4YnG8HsNFD6FE1axuWSdSa5AFtWTEt+Cz2Ghj/tDySA==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      '@aws-crypto/sha256-browser': 1.2.2
+      '@aws-crypto/sha256-js': 1.2.2
+      '@aws-sdk/config-resolver': 3.6.1
+      '@aws-sdk/credential-provider-node': 3.6.1
+      '@aws-sdk/fetch-http-handler': 3.6.1
+      '@aws-sdk/hash-node': 3.6.1
+      '@aws-sdk/invalid-dependency': 3.6.1
+      '@aws-sdk/middleware-content-length': 3.6.1
+      '@aws-sdk/middleware-host-header': 3.6.1
+      '@aws-sdk/middleware-logger': 3.6.1
+      '@aws-sdk/middleware-retry': 3.6.1
+      '@aws-sdk/middleware-serde': 3.6.1
+      '@aws-sdk/middleware-signing': 3.6.1
+      '@aws-sdk/middleware-stack': 3.6.1
+      '@aws-sdk/middleware-user-agent': 3.6.1
+      '@aws-sdk/node-config-provider': 3.6.1
+      '@aws-sdk/node-http-handler': 3.6.1
+      '@aws-sdk/protocol-http': 3.6.1
+      '@aws-sdk/smithy-client': 3.6.1
+      '@aws-sdk/types': 3.6.1
+      '@aws-sdk/url-parser': 3.6.1
+      '@aws-sdk/url-parser-native': 3.6.1
+      '@aws-sdk/util-base64-browser': 3.6.1
+      '@aws-sdk/util-base64-node': 3.6.1
+      '@aws-sdk/util-body-length-browser': 3.6.1
+      '@aws-sdk/util-body-length-node': 3.6.1
+      '@aws-sdk/util-user-agent-browser': 3.6.1
+      '@aws-sdk/util-user-agent-node': 3.6.1
+      '@aws-sdk/util-utf8-browser': 3.6.1
+      '@aws-sdk/util-utf8-node': 3.6.1
+      tslib: 2.4.0
+      uuid: 3.4.0
+    transitivePeerDependencies:
+      - react-native
+    dev: false
+
   /@aws-sdk/client-comprehend/3.6.1_react-native@0.68.2:
     resolution: {integrity: sha512-Y2ixlSTjjAp2HJhkUArtYqC/X+zG5Qqu3Bl+Ez22u4u4YnG8HsNFD6FE1axuWSdSa5AFtWTEt+Cz2Ghj/tDySA==}
     engines: {node: '>=10.0.0'}
@@ -1320,8 +1419,8 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-sdk/client-comprehend/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-Y2ixlSTjjAp2HJhkUArtYqC/X+zG5Qqu3Bl+Ez22u4u4YnG8HsNFD6FE1axuWSdSa5AFtWTEt+Cz2Ghj/tDySA==}
+  /@aws-sdk/client-firehose/3.6.1:
+    resolution: {integrity: sha512-KhiKCm+cJmnRFuAEyO3DBpFVDNix1XcVikdxk2lvYbFWkM1oUZoBpudxaJ+fPf2W3stF3CXIAOP+TnGqSZCy9g==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@aws-crypto/sha256-browser': 1.2.2
@@ -1334,7 +1433,7 @@ packages:
       '@aws-sdk/middleware-content-length': 3.6.1
       '@aws-sdk/middleware-host-header': 3.6.1
       '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
+      '@aws-sdk/middleware-retry': 3.6.1
       '@aws-sdk/middleware-serde': 3.6.1
       '@aws-sdk/middleware-signing': 3.6.1
       '@aws-sdk/middleware-stack': 3.6.1
@@ -1355,13 +1454,8 @@ packages:
       '@aws-sdk/util-utf8-browser': 3.6.1
       '@aws-sdk/util-utf8-node': 3.6.1
       tslib: 2.4.0
-      uuid: 3.4.0
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-sdk/client-firehose/3.6.1_react-native@0.68.2:
@@ -1402,21 +1496,24 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-sdk/client-firehose/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-KhiKCm+cJmnRFuAEyO3DBpFVDNix1XcVikdxk2lvYbFWkM1oUZoBpudxaJ+fPf2W3stF3CXIAOP+TnGqSZCy9g==}
+  /@aws-sdk/client-kinesis/3.6.1:
+    resolution: {integrity: sha512-Ygo+92LxHeUZmiyhiHT+k7hIOhJd6S7ckCEVUsQs2rfwe9bAygUY/3cCoZSqgWy7exFRRKsjhzStcyV6i6jrVQ==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@aws-crypto/sha256-browser': 1.2.2
       '@aws-crypto/sha256-js': 1.2.2
       '@aws-sdk/config-resolver': 3.6.1
       '@aws-sdk/credential-provider-node': 3.6.1
+      '@aws-sdk/eventstream-serde-browser': 3.6.1
+      '@aws-sdk/eventstream-serde-config-resolver': 3.6.1
+      '@aws-sdk/eventstream-serde-node': 3.6.1
       '@aws-sdk/fetch-http-handler': 3.6.1
       '@aws-sdk/hash-node': 3.6.1
       '@aws-sdk/invalid-dependency': 3.6.1
       '@aws-sdk/middleware-content-length': 3.6.1
       '@aws-sdk/middleware-host-header': 3.6.1
       '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
+      '@aws-sdk/middleware-retry': 3.6.1
       '@aws-sdk/middleware-serde': 3.6.1
       '@aws-sdk/middleware-signing': 3.6.1
       '@aws-sdk/middleware-stack': 3.6.1
@@ -1436,13 +1533,10 @@ packages:
       '@aws-sdk/util-user-agent-node': 3.6.1
       '@aws-sdk/util-utf8-browser': 3.6.1
       '@aws-sdk/util-utf8-node': 3.6.1
+      '@aws-sdk/util-waiter': 3.6.1
       tslib: 2.4.0
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-sdk/client-kinesis/3.6.1_react-native@0.68.2:
@@ -1487,24 +1581,21 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-sdk/client-kinesis/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-Ygo+92LxHeUZmiyhiHT+k7hIOhJd6S7ckCEVUsQs2rfwe9bAygUY/3cCoZSqgWy7exFRRKsjhzStcyV6i6jrVQ==}
+  /@aws-sdk/client-lex-runtime-service/3.6.1:
+    resolution: {integrity: sha512-xi3m3f3G9KEKdziOFyynkfvN7OzdT9T8V3wkM4x+Zhid9v1K4Rg7OvbBb5oG9UicLz54tcZGkt0VN4ldEB/XLQ==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@aws-crypto/sha256-browser': 1.2.2
       '@aws-crypto/sha256-js': 1.2.2
       '@aws-sdk/config-resolver': 3.6.1
       '@aws-sdk/credential-provider-node': 3.6.1
-      '@aws-sdk/eventstream-serde-browser': 3.6.1
-      '@aws-sdk/eventstream-serde-config-resolver': 3.6.1
-      '@aws-sdk/eventstream-serde-node': 3.6.1
       '@aws-sdk/fetch-http-handler': 3.6.1
       '@aws-sdk/hash-node': 3.6.1
       '@aws-sdk/invalid-dependency': 3.6.1
       '@aws-sdk/middleware-content-length': 3.6.1
       '@aws-sdk/middleware-host-header': 3.6.1
       '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
+      '@aws-sdk/middleware-retry': 3.6.1
       '@aws-sdk/middleware-serde': 3.6.1
       '@aws-sdk/middleware-signing': 3.6.1
       '@aws-sdk/middleware-stack': 3.6.1
@@ -1524,14 +1615,9 @@ packages:
       '@aws-sdk/util-user-agent-node': 3.6.1
       '@aws-sdk/util-utf8-browser': 3.6.1
       '@aws-sdk/util-utf8-node': 3.6.1
-      '@aws-sdk/util-waiter': 3.6.1
       tslib: 2.4.0
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-sdk/client-lex-runtime-service/3.6.1_react-native@0.68.2:
@@ -1572,49 +1658,6 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-sdk/client-lex-runtime-service/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-xi3m3f3G9KEKdziOFyynkfvN7OzdT9T8V3wkM4x+Zhid9v1K4Rg7OvbBb5oG9UicLz54tcZGkt0VN4ldEB/XLQ==}
-    engines: {node: '>=10.0.0'}
-    dependencies:
-      '@aws-crypto/sha256-browser': 1.2.2
-      '@aws-crypto/sha256-js': 1.2.2
-      '@aws-sdk/config-resolver': 3.6.1
-      '@aws-sdk/credential-provider-node': 3.6.1
-      '@aws-sdk/fetch-http-handler': 3.6.1
-      '@aws-sdk/hash-node': 3.6.1
-      '@aws-sdk/invalid-dependency': 3.6.1
-      '@aws-sdk/middleware-content-length': 3.6.1
-      '@aws-sdk/middleware-host-header': 3.6.1
-      '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
-      '@aws-sdk/middleware-serde': 3.6.1
-      '@aws-sdk/middleware-signing': 3.6.1
-      '@aws-sdk/middleware-stack': 3.6.1
-      '@aws-sdk/middleware-user-agent': 3.6.1
-      '@aws-sdk/node-config-provider': 3.6.1
-      '@aws-sdk/node-http-handler': 3.6.1
-      '@aws-sdk/protocol-http': 3.6.1
-      '@aws-sdk/smithy-client': 3.6.1
-      '@aws-sdk/types': 3.6.1
-      '@aws-sdk/url-parser': 3.6.1
-      '@aws-sdk/url-parser-native': 3.6.1
-      '@aws-sdk/util-base64-browser': 3.6.1
-      '@aws-sdk/util-base64-node': 3.6.1
-      '@aws-sdk/util-body-length-browser': 3.6.1
-      '@aws-sdk/util-body-length-node': 3.6.1
-      '@aws-sdk/util-user-agent-browser': 3.6.1
-      '@aws-sdk/util-user-agent-node': 3.6.1
-      '@aws-sdk/util-utf8-browser': 3.6.1
-      '@aws-sdk/util-utf8-node': 3.6.1
-      tslib: 2.4.0
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
-    dev: false
-
   /@aws-sdk/client-location/3.48.0:
     resolution: {integrity: sha512-oQtViqE1cxLkkV6UCOkq/eTNtw9pXPQ42jPjaIyhNRrNJaDa03qeoJv4I1hNhaA1fEdcXQ0TxayWHwbkrax6oA==}
     engines: {node: '>=12.0.0'}
@@ -1652,6 +1695,45 @@ packages:
       '@aws-sdk/util-utf8-browser': 3.47.1
       '@aws-sdk/util-utf8-node': 3.47.2
       tslib: 2.4.0
+
+  /@aws-sdk/client-personalize-events/3.6.1:
+    resolution: {integrity: sha512-x9Jl/7emSQsB6GwBvjyw5BiSO26CnH4uvjNit6n54yNMtJ26q0+oIxkplnUDyjLTfLRe373c/z5/4dQQtDffkw==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      '@aws-crypto/sha256-browser': 1.2.2
+      '@aws-crypto/sha256-js': 1.2.2
+      '@aws-sdk/config-resolver': 3.6.1
+      '@aws-sdk/credential-provider-node': 3.6.1
+      '@aws-sdk/fetch-http-handler': 3.6.1
+      '@aws-sdk/hash-node': 3.6.1
+      '@aws-sdk/invalid-dependency': 3.6.1
+      '@aws-sdk/middleware-content-length': 3.6.1
+      '@aws-sdk/middleware-host-header': 3.6.1
+      '@aws-sdk/middleware-logger': 3.6.1
+      '@aws-sdk/middleware-retry': 3.6.1
+      '@aws-sdk/middleware-serde': 3.6.1
+      '@aws-sdk/middleware-signing': 3.6.1
+      '@aws-sdk/middleware-stack': 3.6.1
+      '@aws-sdk/middleware-user-agent': 3.6.1
+      '@aws-sdk/node-config-provider': 3.6.1
+      '@aws-sdk/node-http-handler': 3.6.1
+      '@aws-sdk/protocol-http': 3.6.1
+      '@aws-sdk/smithy-client': 3.6.1
+      '@aws-sdk/types': 3.6.1
+      '@aws-sdk/url-parser': 3.6.1
+      '@aws-sdk/url-parser-native': 3.6.1
+      '@aws-sdk/util-base64-browser': 3.6.1
+      '@aws-sdk/util-base64-node': 3.6.1
+      '@aws-sdk/util-body-length-browser': 3.6.1
+      '@aws-sdk/util-body-length-node': 3.6.1
+      '@aws-sdk/util-user-agent-browser': 3.6.1
+      '@aws-sdk/util-user-agent-node': 3.6.1
+      '@aws-sdk/util-utf8-browser': 3.6.1
+      '@aws-sdk/util-utf8-node': 3.6.1
+      tslib: 2.4.0
+    transitivePeerDependencies:
+      - react-native
+    dev: false
 
   /@aws-sdk/client-personalize-events/3.6.1_react-native@0.68.2:
     resolution: {integrity: sha512-x9Jl/7emSQsB6GwBvjyw5BiSO26CnH4uvjNit6n54yNMtJ26q0+oIxkplnUDyjLTfLRe373c/z5/4dQQtDffkw==}
@@ -1691,8 +1773,8 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-sdk/client-personalize-events/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-x9Jl/7emSQsB6GwBvjyw5BiSO26CnH4uvjNit6n54yNMtJ26q0+oIxkplnUDyjLTfLRe373c/z5/4dQQtDffkw==}
+  /@aws-sdk/client-pinpoint/3.6.1:
+    resolution: {integrity: sha512-dueBedp91EKAHxcWLR3aNx/eUEdxdF9niEQTzOO2O4iJL2yvO2Hh7ZYiO7B3g7FuuICTpWSHd//Y9mGmSVLMCg==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@aws-crypto/sha256-browser': 1.2.2
@@ -1705,7 +1787,7 @@ packages:
       '@aws-sdk/middleware-content-length': 3.6.1
       '@aws-sdk/middleware-host-header': 3.6.1
       '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
+      '@aws-sdk/middleware-retry': 3.6.1
       '@aws-sdk/middleware-serde': 3.6.1
       '@aws-sdk/middleware-signing': 3.6.1
       '@aws-sdk/middleware-stack': 3.6.1
@@ -1727,11 +1809,7 @@ packages:
       '@aws-sdk/util-utf8-node': 3.6.1
       tslib: 2.4.0
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-sdk/client-pinpoint/3.6.1_react-native@0.68.2:
@@ -1772,8 +1850,8 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-sdk/client-pinpoint/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-dueBedp91EKAHxcWLR3aNx/eUEdxdF9niEQTzOO2O4iJL2yvO2Hh7ZYiO7B3g7FuuICTpWSHd//Y9mGmSVLMCg==}
+  /@aws-sdk/client-polly/3.6.1:
+    resolution: {integrity: sha512-y6fxVYndGS7z2KqHViPCqagBEOsZlxBUYUJZuD6WWTiQrI0Pwe5qG02oKJVaa5OmxE20QLf6bRBWj2rQpeF4IQ==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@aws-crypto/sha256-browser': 1.2.2
@@ -1786,7 +1864,7 @@ packages:
       '@aws-sdk/middleware-content-length': 3.6.1
       '@aws-sdk/middleware-host-header': 3.6.1
       '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
+      '@aws-sdk/middleware-retry': 3.6.1
       '@aws-sdk/middleware-serde': 3.6.1
       '@aws-sdk/middleware-signing': 3.6.1
       '@aws-sdk/middleware-stack': 3.6.1
@@ -1808,11 +1886,7 @@ packages:
       '@aws-sdk/util-utf8-node': 3.6.1
       tslib: 2.4.0
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-sdk/client-polly/3.6.1_react-native@0.68.2:
@@ -1853,8 +1927,8 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-sdk/client-polly/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-y6fxVYndGS7z2KqHViPCqagBEOsZlxBUYUJZuD6WWTiQrI0Pwe5qG02oKJVaa5OmxE20QLf6bRBWj2rQpeF4IQ==}
+  /@aws-sdk/client-rekognition/3.6.1:
+    resolution: {integrity: sha512-Ia4FEog9RrI0IoDRbOJO6djwhVAAaEZutxEKrWbjrVz4bgib28L+V+yAio2SUneeirj8pNYXwBKPfoYOUqGHhA==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@aws-crypto/sha256-browser': 1.2.2
@@ -1867,7 +1941,7 @@ packages:
       '@aws-sdk/middleware-content-length': 3.6.1
       '@aws-sdk/middleware-host-header': 3.6.1
       '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
+      '@aws-sdk/middleware-retry': 3.6.1
       '@aws-sdk/middleware-serde': 3.6.1
       '@aws-sdk/middleware-signing': 3.6.1
       '@aws-sdk/middleware-stack': 3.6.1
@@ -1887,13 +1961,10 @@ packages:
       '@aws-sdk/util-user-agent-node': 3.6.1
       '@aws-sdk/util-utf8-browser': 3.6.1
       '@aws-sdk/util-utf8-node': 3.6.1
+      '@aws-sdk/util-waiter': 3.6.1
       tslib: 2.4.0
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-sdk/client-rekognition/3.6.1_react-native@0.68.2:
@@ -1935,23 +2006,35 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-sdk/client-rekognition/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-Ia4FEog9RrI0IoDRbOJO6djwhVAAaEZutxEKrWbjrVz4bgib28L+V+yAio2SUneeirj8pNYXwBKPfoYOUqGHhA==}
+  /@aws-sdk/client-s3/3.6.1:
+    resolution: {integrity: sha512-59cTmZj92iwgNoAeJirK5sZNQNXLc/oI3luqrEHRNLuOh70bjdgad70T0a5k2Ysd/v/QNamqJxnCJMPuX1bhgw==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@aws-crypto/sha256-browser': 1.2.2
       '@aws-crypto/sha256-js': 1.2.2
       '@aws-sdk/config-resolver': 3.6.1
       '@aws-sdk/credential-provider-node': 3.6.1
+      '@aws-sdk/eventstream-serde-browser': 3.6.1
+      '@aws-sdk/eventstream-serde-config-resolver': 3.6.1
+      '@aws-sdk/eventstream-serde-node': 3.6.1
       '@aws-sdk/fetch-http-handler': 3.6.1
+      '@aws-sdk/hash-blob-browser': 3.6.1
       '@aws-sdk/hash-node': 3.6.1
+      '@aws-sdk/hash-stream-node': 3.6.1
       '@aws-sdk/invalid-dependency': 3.6.1
+      '@aws-sdk/md5-js': 3.6.1
+      '@aws-sdk/middleware-apply-body-checksum': 3.6.1
+      '@aws-sdk/middleware-bucket-endpoint': 3.6.1
       '@aws-sdk/middleware-content-length': 3.6.1
+      '@aws-sdk/middleware-expect-continue': 3.6.1
       '@aws-sdk/middleware-host-header': 3.6.1
+      '@aws-sdk/middleware-location-constraint': 3.6.1
       '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
+      '@aws-sdk/middleware-retry': 3.6.1
+      '@aws-sdk/middleware-sdk-s3': 3.6.1
       '@aws-sdk/middleware-serde': 3.6.1
       '@aws-sdk/middleware-signing': 3.6.1
+      '@aws-sdk/middleware-ssec': 3.6.1
       '@aws-sdk/middleware-stack': 3.6.1
       '@aws-sdk/middleware-user-agent': 3.6.1
       '@aws-sdk/node-config-provider': 3.6.1
@@ -1970,13 +2053,11 @@ packages:
       '@aws-sdk/util-utf8-browser': 3.6.1
       '@aws-sdk/util-utf8-node': 3.6.1
       '@aws-sdk/util-waiter': 3.6.1
+      '@aws-sdk/xml-builder': 3.6.1
+      fast-xml-parser: 3.21.1
       tslib: 2.4.0
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-sdk/client-s3/3.6.1_react-native@0.68.2:
@@ -2031,64 +2112,6 @@ packages:
       tslib: 2.4.0
     transitivePeerDependencies:
       - react-native
-
-  /@aws-sdk/client-s3/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-59cTmZj92iwgNoAeJirK5sZNQNXLc/oI3luqrEHRNLuOh70bjdgad70T0a5k2Ysd/v/QNamqJxnCJMPuX1bhgw==}
-    engines: {node: '>=10.0.0'}
-    dependencies:
-      '@aws-crypto/sha256-browser': 1.2.2
-      '@aws-crypto/sha256-js': 1.2.2
-      '@aws-sdk/config-resolver': 3.6.1
-      '@aws-sdk/credential-provider-node': 3.6.1
-      '@aws-sdk/eventstream-serde-browser': 3.6.1
-      '@aws-sdk/eventstream-serde-config-resolver': 3.6.1
-      '@aws-sdk/eventstream-serde-node': 3.6.1
-      '@aws-sdk/fetch-http-handler': 3.6.1
-      '@aws-sdk/hash-blob-browser': 3.6.1
-      '@aws-sdk/hash-node': 3.6.1
-      '@aws-sdk/hash-stream-node': 3.6.1
-      '@aws-sdk/invalid-dependency': 3.6.1
-      '@aws-sdk/md5-js': 3.6.1
-      '@aws-sdk/middleware-apply-body-checksum': 3.6.1
-      '@aws-sdk/middleware-bucket-endpoint': 3.6.1
-      '@aws-sdk/middleware-content-length': 3.6.1
-      '@aws-sdk/middleware-expect-continue': 3.6.1
-      '@aws-sdk/middleware-host-header': 3.6.1
-      '@aws-sdk/middleware-location-constraint': 3.6.1
-      '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
-      '@aws-sdk/middleware-sdk-s3': 3.6.1
-      '@aws-sdk/middleware-serde': 3.6.1
-      '@aws-sdk/middleware-signing': 3.6.1
-      '@aws-sdk/middleware-ssec': 3.6.1
-      '@aws-sdk/middleware-stack': 3.6.1
-      '@aws-sdk/middleware-user-agent': 3.6.1
-      '@aws-sdk/node-config-provider': 3.6.1
-      '@aws-sdk/node-http-handler': 3.6.1
-      '@aws-sdk/protocol-http': 3.6.1
-      '@aws-sdk/smithy-client': 3.6.1
-      '@aws-sdk/types': 3.6.1
-      '@aws-sdk/url-parser': 3.6.1
-      '@aws-sdk/url-parser-native': 3.6.1
-      '@aws-sdk/util-base64-browser': 3.6.1
-      '@aws-sdk/util-base64-node': 3.6.1
-      '@aws-sdk/util-body-length-browser': 3.6.1
-      '@aws-sdk/util-body-length-node': 3.6.1
-      '@aws-sdk/util-user-agent-browser': 3.6.1
-      '@aws-sdk/util-user-agent-node': 3.6.1
-      '@aws-sdk/util-utf8-browser': 3.6.1
-      '@aws-sdk/util-utf8-node': 3.6.1
-      '@aws-sdk/util-waiter': 3.6.1
-      '@aws-sdk/xml-builder': 3.6.1
-      fast-xml-parser: 3.21.1
-      tslib: 2.4.0
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
-    dev: false
 
   /@aws-sdk/client-sso/3.100.0:
     resolution: {integrity: sha512-nmBRUO5QfQ2IO8fHb37p8HT3n1ZooPb3sfTQejrpFH9Eq82VEOatIGt6yH3yTQ8+mhbabEhV5aY2wt/0D7wGVA==}
@@ -2242,6 +2265,45 @@ packages:
       fast-xml-parser: 3.19.0
       tslib: 2.4.0
 
+  /@aws-sdk/client-textract/3.6.1:
+    resolution: {integrity: sha512-nLrBzWDt3ToiGVFF4lW7a/eZpI2zjdvu7lwmOWyXX8iiPzhBVVEfd5oOorRyJYBsGMslp4sqV8TBkU5Ld/a97Q==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      '@aws-crypto/sha256-browser': 1.2.2
+      '@aws-crypto/sha256-js': 1.2.2
+      '@aws-sdk/config-resolver': 3.6.1
+      '@aws-sdk/credential-provider-node': 3.6.1
+      '@aws-sdk/fetch-http-handler': 3.6.1
+      '@aws-sdk/hash-node': 3.6.1
+      '@aws-sdk/invalid-dependency': 3.6.1
+      '@aws-sdk/middleware-content-length': 3.6.1
+      '@aws-sdk/middleware-host-header': 3.6.1
+      '@aws-sdk/middleware-logger': 3.6.1
+      '@aws-sdk/middleware-retry': 3.6.1
+      '@aws-sdk/middleware-serde': 3.6.1
+      '@aws-sdk/middleware-signing': 3.6.1
+      '@aws-sdk/middleware-stack': 3.6.1
+      '@aws-sdk/middleware-user-agent': 3.6.1
+      '@aws-sdk/node-config-provider': 3.6.1
+      '@aws-sdk/node-http-handler': 3.6.1
+      '@aws-sdk/protocol-http': 3.6.1
+      '@aws-sdk/smithy-client': 3.6.1
+      '@aws-sdk/types': 3.6.1
+      '@aws-sdk/url-parser': 3.6.1
+      '@aws-sdk/url-parser-native': 3.6.1
+      '@aws-sdk/util-base64-browser': 3.6.1
+      '@aws-sdk/util-base64-node': 3.6.1
+      '@aws-sdk/util-body-length-browser': 3.6.1
+      '@aws-sdk/util-body-length-node': 3.6.1
+      '@aws-sdk/util-user-agent-browser': 3.6.1
+      '@aws-sdk/util-user-agent-node': 3.6.1
+      '@aws-sdk/util-utf8-browser': 3.6.1
+      '@aws-sdk/util-utf8-node': 3.6.1
+      tslib: 2.4.0
+    transitivePeerDependencies:
+      - react-native
+    dev: false
+
   /@aws-sdk/client-textract/3.6.1_react-native@0.68.2:
     resolution: {integrity: sha512-nLrBzWDt3ToiGVFF4lW7a/eZpI2zjdvu7lwmOWyXX8iiPzhBVVEfd5oOorRyJYBsGMslp4sqV8TBkU5Ld/a97Q==}
     engines: {node: '>=10.0.0'}
@@ -2280,8 +2342,8 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-sdk/client-textract/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-nLrBzWDt3ToiGVFF4lW7a/eZpI2zjdvu7lwmOWyXX8iiPzhBVVEfd5oOorRyJYBsGMslp4sqV8TBkU5Ld/a97Q==}
+  /@aws-sdk/client-translate/3.6.1:
+    resolution: {integrity: sha512-RIHY+Og1i43B5aWlfUUk0ZFnNfM7j2vzlYUwOqhndawV49GFf96M3pmskR5sKEZI+5TXY77qR9TgZ/r3UxVCRQ==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@aws-crypto/sha256-browser': 1.2.2
@@ -2294,7 +2356,7 @@ packages:
       '@aws-sdk/middleware-content-length': 3.6.1
       '@aws-sdk/middleware-host-header': 3.6.1
       '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
+      '@aws-sdk/middleware-retry': 3.6.1
       '@aws-sdk/middleware-serde': 3.6.1
       '@aws-sdk/middleware-signing': 3.6.1
       '@aws-sdk/middleware-stack': 3.6.1
@@ -2315,12 +2377,9 @@ packages:
       '@aws-sdk/util-utf8-browser': 3.6.1
       '@aws-sdk/util-utf8-node': 3.6.1
       tslib: 2.4.0
+      uuid: 3.4.0
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
+      - react-native
     dev: false
 
   /@aws-sdk/client-translate/3.6.1_react-native@0.68.2:
@@ -2362,50 +2421,6 @@ packages:
     transitivePeerDependencies:
       - react-native
 
-  /@aws-sdk/client-translate/3.6.1_react@17.0.2:
-    resolution: {integrity: sha512-RIHY+Og1i43B5aWlfUUk0ZFnNfM7j2vzlYUwOqhndawV49GFf96M3pmskR5sKEZI+5TXY77qR9TgZ/r3UxVCRQ==}
-    engines: {node: '>=10.0.0'}
-    dependencies:
-      '@aws-crypto/sha256-browser': 1.2.2
-      '@aws-crypto/sha256-js': 1.2.2
-      '@aws-sdk/config-resolver': 3.6.1
-      '@aws-sdk/credential-provider-node': 3.6.1
-      '@aws-sdk/fetch-http-handler': 3.6.1
-      '@aws-sdk/hash-node': 3.6.1
-      '@aws-sdk/invalid-dependency': 3.6.1
-      '@aws-sdk/middleware-content-length': 3.6.1
-      '@aws-sdk/middleware-host-header': 3.6.1
-      '@aws-sdk/middleware-logger': 3.6.1
-      '@aws-sdk/middleware-retry': 3.6.1_react@17.0.2
-      '@aws-sdk/middleware-serde': 3.6.1
-      '@aws-sdk/middleware-signing': 3.6.1
-      '@aws-sdk/middleware-stack': 3.6.1
-      '@aws-sdk/middleware-user-agent': 3.6.1
-      '@aws-sdk/node-config-provider': 3.6.1
-      '@aws-sdk/node-http-handler': 3.6.1
-      '@aws-sdk/protocol-http': 3.6.1
-      '@aws-sdk/smithy-client': 3.6.1
-      '@aws-sdk/types': 3.6.1
-      '@aws-sdk/url-parser': 3.6.1
-      '@aws-sdk/url-parser-native': 3.6.1
-      '@aws-sdk/util-base64-browser': 3.6.1
-      '@aws-sdk/util-base64-node': 3.6.1
-      '@aws-sdk/util-body-length-browser': 3.6.1
-      '@aws-sdk/util-body-length-node': 3.6.1
-      '@aws-sdk/util-user-agent-browser': 3.6.1
-      '@aws-sdk/util-user-agent-node': 3.6.1
-      '@aws-sdk/util-utf8-browser': 3.6.1
-      '@aws-sdk/util-utf8-node': 3.6.1
-      tslib: 2.4.0
-      uuid: 3.4.0
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
-    dev: false
-
   /@aws-sdk/config-resolver/3.47.2:
     resolution: {integrity: sha512-uv9U/qDOSqyCPQ71qiwMslqRMxYyt0y0h6X0aQ67GCPq4rbbU/dn8PqnYT0VfX/9Ss+DcbTm7vOTxVKv+8XADA==}
     engines: {node: '>= 12.0.0'}
@@ -2432,6 +2447,18 @@ packages:
       '@aws-sdk/util-config-provider': 3.55.0
       '@aws-sdk/util-middleware': 3.78.0
       tslib: 2.4.0
+    dev: false
+
+  /@aws-sdk/credential-provider-cognito-identity/3.6.1:
+    resolution: {integrity: sha512-uJ9q+yq+Dhdo32gcv0p/AT7sKSAUH0y4ts9XRK/vx0dW9Q3XJy99mOJlq/6fkh4LfWeavJJlaCo9lSHNMWXx4w==}
+    engines: {node: '>= 10.0.0'}
+    dependencies:
+      '@aws-sdk/client-cognito-identity': 3.6.1
+      '@aws-sdk/property-provider': 3.6.1
+      '@aws-sdk/types': 3.6.1
+      tslib: 1.14.1
+    transitivePeerDependencies:
+      - react-native
     dev: false
 
   /@aws-sdk/credential-provider-cognito-identity/3.6.1_react-native@0.68.2:
@@ -2943,6 +2970,20 @@ packages:
       '@aws-sdk/types': 3.47.1
       tslib: 2.4.0
       uuid: 8.3.2
+
+  /@aws-sdk/middleware-retry/3.6.1:
+    resolution: {integrity: sha512-WHeo4d2jsXxBP+cec2SeLb0btYXwYXuE56WLmNt0RvJYmiBzytUeGJeRa9HuwV574kgigAuHGCeHlPO36G4Y0Q==}
+    engines: {node: '>= 10.0.0'}
+    dependencies:
+      '@aws-sdk/protocol-http': 3.6.1
+      '@aws-sdk/service-error-classification': 3.6.1
+      '@aws-sdk/types': 3.6.1
+      react-native-get-random-values: 1.8.0
+      tslib: 1.14.1
+      uuid: 3.4.0
+    transitivePeerDependencies:
+      - react-native
+    dev: false
 
   /@aws-sdk/middleware-retry/3.6.1_react-native@0.68.2:
     resolution: {integrity: sha512-WHeo4d2jsXxBP+cec2SeLb0btYXwYXuE56WLmNt0RvJYmiBzytUeGJeRa9HuwV574kgigAuHGCeHlPO36G4Y0Q==}
@@ -4385,14 +4426,6 @@ packages:
       '@babel/core': 7.12.9
       '@babel/helper-plugin-utils': 7.17.12
 
-  /@babel/plugin-syntax-jsx/7.12.1_@babel+core@7.18.2:
-    resolution: {integrity: sha512-1yRi7yAtB0ETgxdY9ti/p2TivUxJkTdhu/ZbF9MshVGqOx1TdB3b7xCXs49Fupgg50N45KcAsRP/ZqWjs9SRjg==}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.18.2
-      '@babel/helper-plugin-utils': 7.17.12
-
   /@babel/plugin-syntax-jsx/7.17.12_@babel+core@7.18.2:
     resolution: {integrity: sha512-spyY3E3AURfxh/RHtjx5j6hs8am5NbUBGfcZ2vB3uShSpZdQyXSf5rR5Mk76vbtlAZOelyVQ71Fg0x9SG4fsog==}
     engines: {node: '>=6.9.0'}
@@ -5133,6 +5166,10 @@ packages:
       '@babel/helper-validator-identifier': 7.16.7
       to-fast-properties: 2.0.0
 
+  /@balena/dockerignore/1.0.2:
+    resolution: {integrity: sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q==}
+    dev: false
+
   /@bcoe/v8-coverage/0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
@@ -5431,10 +5468,10 @@ packages:
       react-dev-utils: 12.0.1_3bh75qun4rll3rqcnxlwbxkklq
       react-dom: 17.0.2_react@17.0.2
       react-helmet-async: 1.3.0_sfoxds7t5ydpegc3knd667wn6m
-      react-loadable: 5.5.0_react@17.0.2
-      react-loadable-ssr-addon-v5-slorber: 1.0.1_plcrnvjksbv2x54wm6e56wmnmq
-      react-router: 6.3.0_react@17.0.2
-      react-router-config: 5.1.1_o7qiis4onue4rjn3pwakp6j7ci
+      react-loadable: /@docusaurus/react-loadable/5.5.2_react@17.0.2
+      react-loadable-ssr-addon-v5-slorber: 1.0.1_vozs4ks5473aha5pvbrq6fz4gu
+      react-router: 5.3.3_react@17.0.2
+      react-router-config: 5.1.1_oyuskl3t7voyrff2xstzuy4hqu
       react-router-dom: 5.3.3_react@17.0.2
       remark-admonitions: 1.2.1
       rtl-detect: 1.0.4
@@ -5528,10 +5565,10 @@ packages:
       react-dev-utils: 12.0.1_3bh75qun4rll3rqcnxlwbxkklq
       react-dom: 17.0.2_react@17.0.2
       react-helmet-async: 1.3.0_sfoxds7t5ydpegc3knd667wn6m
-      react-loadable: 5.5.0_react@17.0.2
-      react-loadable-ssr-addon-v5-slorber: 1.0.1_plcrnvjksbv2x54wm6e56wmnmq
-      react-router: 6.3.0_react@17.0.2
-      react-router-config: 5.1.1_o7qiis4onue4rjn3pwakp6j7ci
+      react-loadable: /@docusaurus/react-loadable/5.5.2_react@17.0.2
+      react-loadable-ssr-addon-v5-slorber: 1.0.1_vozs4ks5473aha5pvbrq6fz4gu
+      react-router: 5.3.3_react@17.0.2
+      react-router-config: 5.1.1_oyuskl3t7voyrff2xstzuy4hqu
       react-router-dom: 5.3.3_react@17.0.2
       remark-admonitions: 1.2.1
       rtl-detect: 1.0.4
@@ -6680,27 +6717,11 @@ packages:
     dependencies:
       mapbox-gl: /empty-npm-package/1.0.0
 
-  /@mapbox/mapbox-gl-supported/1.5.0_mapbox-gl@2.8.2:
-    resolution: {integrity: sha512-/PT1P6DNf7vjEEiPkVIRJkvibbqWtqnyGaBz3nfRdcxclNSnSdaLU5tfAgcD7I8Yt5i+L19s406YLl1koLnLbg==}
-    peerDependencies:
-      mapbox-gl: '>=0.32.1 <2.0.0'
-    dependencies:
-      mapbox-gl: 2.8.2
-    dev: false
-
-  /@mapbox/mapbox-gl-supported/2.0.1:
-    resolution: {integrity: sha512-HP6XvfNIzfoMVfyGjBckjiAOQK9WfX0ywdLubuPMPv+Vqf5fj0uCbgBQYpiqcWZT6cbyyRnTSXDheT1ugvF6UQ==}
-    dev: false
-
   /@mapbox/point-geometry/0.1.0:
     resolution: {integrity: sha512-6j56HdLTwWGO0fJPlrZtdU/B13q8Uwmo18Ck2GnGgN9PCFyKTZ3UbXeEdRFh18i9XQ92eH2VdtpJHpBD3aripQ==}
 
   /@mapbox/tiny-sdf/1.2.5:
     resolution: {integrity: sha512-cD8A/zJlm6fdJOk6DqPUV8mcpyJkRz2x2R+/fYcWDYG3oWbG7/L7Yl/WqQ1VZCjnL9OTIMAn6c+BC5Eru4sQEw==}
-
-  /@mapbox/tiny-sdf/2.0.5:
-    resolution: {integrity: sha512-OhXt2lS//WpLdkqrzo/KwB7SRD8AiNTFFzuo9n14IBupzIMa67yGItcK7I2W9D8Ghpa4T04Sw9FWsKCJG50Bxw==}
-    dev: false
 
   /@mapbox/unitbezier/0.0.0:
     resolution: {integrity: sha512-HPnRdYO0WjFjRTSwO3frz1wKaU649OBFPX3Zo/2WZvuRi6zMiRGui8SnPQiQABgqCf8YikDe5t3HViTVw1WUzA==}
@@ -6729,11 +6750,11 @@ packages:
   /@mdx-js/mdx/1.6.22:
     resolution: {integrity: sha512-AMxuLxPz2j5/6TpF/XSdKpQP1NlG0z11dFOlq+2IP/lSgl11GY8ji6S/rgsViN/L0BDvHvUMruRb7ub+24LUYA==}
     dependencies:
-      '@babel/core': 7.18.2
-      '@babel/plugin-syntax-jsx': 7.12.1_@babel+core@7.18.2
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3_@babel+core@7.18.2
+      '@babel/core': 7.12.9
+      '@babel/plugin-syntax-jsx': 7.12.1_@babel+core@7.12.9
+      '@babel/plugin-syntax-object-rest-spread': 7.8.3_@babel+core@7.12.9
       '@mdx-js/util': 1.6.22
-      babel-plugin-apply-mdx-type-prop: 1.6.22_@babel+core@7.18.2
+      babel-plugin-apply-mdx-type-prop: 1.6.22_@babel+core@7.12.9
       babel-plugin-extract-import-names: 1.6.22
       camelcase-css: 2.0.1
       detab: 2.0.4
@@ -8638,6 +8659,28 @@ packages:
       postcss: 8.4.14
       postcss-value-parser: 4.2.0
 
+  /aws-amplify/4.3.24:
+    resolution: {integrity: sha512-56Hc2x31v3KS0G2Ct5ClNAgSnN0h+YqoG17IXN6FB9vX2o8wufNpXoflC1at0NrohPC7CzIbnIOJU2y4GEyfhQ==}
+    dependencies:
+      '@aws-amplify/analytics': 5.2.9
+      '@aws-amplify/api': 4.0.42
+      '@aws-amplify/auth': 4.5.6
+      '@aws-amplify/cache': 4.0.44
+      '@aws-amplify/core': 4.5.6
+      '@aws-amplify/datastore': 3.11.3
+      '@aws-amplify/geo': 1.3.5
+      '@aws-amplify/interactions': 4.0.42
+      '@aws-amplify/predictions': 4.0.42
+      '@aws-amplify/pubsub': 4.4.3
+      '@aws-amplify/storage': 4.4.25
+      '@aws-amplify/ui': 2.0.5
+      '@aws-amplify/xr': 3.0.42
+    transitivePeerDependencies:
+      - debug
+      - encoding
+      - react-native
+    dev: false
+
   /aws-amplify/4.3.24_react-native@0.68.2:
     resolution: {integrity: sha512-56Hc2x31v3KS0G2Ct5ClNAgSnN0h+YqoG17IXN6FB9vX2o8wufNpXoflC1at0NrohPC7CzIbnIOJU2y4GEyfhQ==}
     dependencies:
@@ -8659,38 +8702,22 @@ packages:
       - encoding
       - react-native
 
-  /aws-amplify/4.3.24_react@17.0.2:
-    resolution: {integrity: sha512-56Hc2x31v3KS0G2Ct5ClNAgSnN0h+YqoG17IXN6FB9vX2o8wufNpXoflC1at0NrohPC7CzIbnIOJU2y4GEyfhQ==}
-    dependencies:
-      '@aws-amplify/analytics': 5.2.9_react@17.0.2
-      '@aws-amplify/api': 4.0.42_react@17.0.2
-      '@aws-amplify/auth': 4.5.6_react@17.0.2
-      '@aws-amplify/cache': 4.0.44_react@17.0.2
-      '@aws-amplify/core': 4.5.6_react@17.0.2
-      '@aws-amplify/datastore': 3.11.3_react@17.0.2
-      '@aws-amplify/geo': 1.3.5_react@17.0.2
-      '@aws-amplify/interactions': 4.0.42_react@17.0.2
-      '@aws-amplify/predictions': 4.0.42_react@17.0.2
-      '@aws-amplify/pubsub': 4.4.3_react@17.0.2
-      '@aws-amplify/storage': 4.4.25_react@17.0.2
-      '@aws-amplify/ui': 2.0.5
-      '@aws-amplify/xr': 3.0.42_react@17.0.2
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - encoding
-      - react
-      - supports-color
-      - utf-8-validate
-    dev: false
-
   /aws-cdk-lib/2.27.0_constructs@10.1.24:
     resolution: {integrity: sha512-CsTy/+RIBMvP9LlZjkQakkKPpwU50+HAMCMaGOcyIHADDQdXobGcZXTO+Tq00sH2DoQjPV1ZhhBim5z3k/2KXw==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       constructs: ^10.0.0
     dependencies:
+      '@balena/dockerignore': 1.0.2
+      case: 1.6.3
       constructs: 10.1.24
+      fs-extra: 9.1.0
+      ignore: 5.2.0
+      jsonschema: 1.4.1
+      minimatch: 3.1.2
+      punycode: 2.1.1
+      semver: 7.3.7
+      yaml: 1.10.2
     dev: false
     bundledDependencies:
       - '@balena/dockerignore'
@@ -8766,12 +8793,12 @@ packages:
       schema-utils: 2.7.1
       webpack: 5.72.1
 
-  /babel-plugin-apply-mdx-type-prop/1.6.22_@babel+core@7.18.2:
+  /babel-plugin-apply-mdx-type-prop/1.6.22_@babel+core@7.12.9:
     resolution: {integrity: sha512-VefL+8o+F/DfK24lPZMtJctrCVOfgbqLAGZSkxwhazQv4VxPg3Za/i40fu22KR2m8eEda+IfSOlPLUSIiLcnCQ==}
     peerDependencies:
       '@babel/core': ^7.11.6
     dependencies:
-      '@babel/core': 7.18.2
+      '@babel/core': 7.12.9
       '@babel/helper-plugin-utils': 7.10.4
       '@mdx-js/util': 1.6.22
 
@@ -9271,6 +9298,11 @@ packages:
       tslib: 2.4.0
       upper-case-first: 2.0.2
 
+  /case/1.6.3:
+    resolution: {integrity: sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==}
+    engines: {node: '>= 0.8.0'}
+    dev: false
+
   /ccount/1.1.0:
     resolution: {integrity: sha512-vlNK021QdI7PNeiUh/lKkC/mNHHfV0m/Ad5JoI0TYtlBnJAslM/JIkm/tGC88bkLIwO6OQ5uV6ztS6kVAtCDlg==}
 
@@ -9643,7 +9675,7 @@ packages:
       - supports-color
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   /configstore/5.0.1:
     resolution: {integrity: sha512-aMKprgk5YhBNyH25hj8wGt2+D52Sw1DRRIzqBwLp2Ya9mFmY8KPvvtvmna8SxVR9JMZ4kzMD68N22vlaRpkeFA==}
@@ -10861,7 +10893,7 @@ packages:
     dependencies:
       eslint: 8.16.0
 
-  /eslint-config-react-app/7.0.1_mhktmdugvkgyt3ze5pixxtskei:
+  /eslint-config-react-app/7.0.1_5ffp6ujkxmx3sxsp3hcq6ohzza:
     resolution: {integrity: sha512-K6rNzvkIeHaTd8m/QEh1Zko0KI7BACWkkneSs6s9cKZC/J27X3eZR6Upt1jkmZ/4FK+XUOPPxMEN7+lbUXfSlA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -10879,7 +10911,7 @@ packages:
       babel-preset-react-app: 10.0.1
       confusing-browser-globals: 1.0.11
       eslint: 8.16.0
-      eslint-plugin-flowtype: 8.0.3_nqt7qlfyaowr4srl6t3lwtnjdq
+      eslint-plugin-flowtype: 8.0.3_eslint@8.16.0
       eslint-plugin-import: 2.26.0_xsmuhwqsfrjm7m3kqio7zoeziq
       eslint-plugin-jest: 25.7.0_lyby7smqb5phk4in2uxoghwssi
       eslint-plugin-jsx-a11y: 6.5.1_eslint@8.16.0
@@ -10896,7 +10928,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-config-react-app/7.0.1_xztl6dhthcahlo6akmb2bmjmle:
+  /eslint-config-react-app/7.0.1_matrodxuncqdnigtekpo2aaei4:
     resolution: {integrity: sha512-K6rNzvkIeHaTd8m/QEh1Zko0KI7BACWkkneSs6s9cKZC/J27X3eZR6Upt1jkmZ/4FK+XUOPPxMEN7+lbUXfSlA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -10908,8 +10940,6 @@ packages:
     dependencies:
       '@babel/core': 7.18.2
       '@babel/eslint-parser': 7.18.2_j4uj5cgi2mksbox6kqvi7jrs6u
-      '@babel/plugin-syntax-flow': 7.17.12_@babel+core@7.18.2
-      '@babel/plugin-transform-react-jsx': 7.17.12_@babel+core@7.18.2
       '@rushstack/eslint-patch': 1.1.3
       '@typescript-eslint/eslint-plugin': 5.27.0_dszb5tb7atwkjjijmmov4qhi7i
       '@typescript-eslint/parser': 5.27.0_xztl6dhthcahlo6akmb2bmjmle
@@ -10925,6 +10955,8 @@ packages:
       eslint-plugin-testing-library: 5.5.1_xztl6dhthcahlo6akmb2bmjmle
       typescript: 4.7.2
     transitivePeerDependencies:
+      - '@babel/plugin-syntax-flow'
+      - '@babel/plugin-transform-react-jsx'
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - jest
@@ -10969,6 +11001,19 @@ packages:
       find-up: 2.1.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /eslint-plugin-flowtype/8.0.3_eslint@8.16.0:
+    resolution: {integrity: sha512-dX8l6qUL6O+fYPtpNRideCFSpmWOUVx5QcaGLVqe/vlDiBSe4vYljDWDETwnyFzpl7By/WVIu6rcrniCgH9BqQ==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@babel/plugin-syntax-flow': ^7.14.5
+      '@babel/plugin-transform-react-jsx': ^7.14.9
+      eslint: ^8.1.0
+    dependencies:
+      eslint: 8.16.0
+      lodash: 4.17.21
+      string-natural-compare: 3.0.1
     dev: true
 
   /eslint-plugin-flowtype/8.0.3_nqt7qlfyaowr4srl6t3lwtnjdq:
@@ -12254,6 +12299,7 @@ packages:
     resolution: {integrity: sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==}
     dependencies:
       '@babel/runtime': 7.18.3
+    dev: false
 
   /hoist-non-react-statics/3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
@@ -13764,6 +13810,10 @@ packages:
   /jsonify/0.0.0:
     resolution: {integrity: sha512-trvBk1ki43VZptdBI5rIlG4YOzyeH/WefQt5rj1grasPn4iiZWKet8nkgc4GlsAylaztn0qZfUYOiTsASJFdNA==}
 
+  /jsonschema/1.4.1:
+    resolution: {integrity: sha512-S6cATIPVv1z0IlxdN+zUk5EPjkGCdnhN4wVSBlvoUO1tOLJootbo9CquNJmbIh4yikWHiUedhRYrNPn1arpEmQ==}
+    dev: false
+
   /jsx-ast-utils/3.3.0:
     resolution: {integrity: sha512-XzO9luP6L0xkxwhIJMTJQpZo/eeN60K08jHdexfD569AGxeNug6UketeHXEhROoM8aR7EcUoOQmIhcJQjcuq8Q==}
     engines: {node: '>=4.0'}
@@ -14126,34 +14176,6 @@ packages:
     dependencies:
       object-visit: 1.0.1
 
-  /mapbox-gl/2.8.2:
-    resolution: {integrity: sha512-73TgEQlh15TF1UeYhej9Tz1iU4ZhuxIwM6t+e6MxaA7Mu9vqUCZc1kZtZRAXrVeMcDHBSO6gUUjeDBOnsUZVmQ==}
-    dependencies:
-      '@mapbox/geojson-rewind': 0.5.2
-      '@mapbox/geojson-types': 1.0.2
-      '@mapbox/jsonlint-lines-primitives': 2.0.2
-      '@mapbox/mapbox-gl-supported': 2.0.1
-      '@mapbox/point-geometry': 0.1.0
-      '@mapbox/tiny-sdf': 2.0.5
-      '@mapbox/unitbezier': 0.0.0
-      '@mapbox/vector-tile': 1.3.1
-      '@mapbox/whoots-js': 3.1.0
-      csscolorparser: 1.0.3
-      earcut: 2.2.3
-      geojson-vt: 3.2.1
-      gl-matrix: 3.4.3
-      grid-index: 1.1.0
-      minimist: 1.2.6
-      murmurhash-js: 1.0.0
-      pbf: 3.2.1
-      potpack: 1.0.2
-      quickselect: 2.0.0
-      rw: 1.3.3
-      supercluster: 7.1.5
-      tinyqueue: 2.0.3
-      vt-pbf: 3.1.3
-    dev: false
-
   /maplibre-gl-js-amplify/1.5.0_6q7y4sua4ntmuj3b4o5auj7pye:
     resolution: {integrity: sha512-4Um06lfGJ45Rw9jlZr3hXxHSUdQQ5sRJJKTgpk14kEZRBuVV3uqvv5odTNn/Wf8wFJpZbZ6aDT3/eSltckpHlA==}
     peerDependencies:
@@ -14165,6 +14187,18 @@ packages:
       '@aws-amplify/geo': 1.3.5_react-native@0.68.2
       '@maplibre/maplibre-gl-geocoder': 1.3.1_maplibre-gl@1.15.3
       maplibre-gl: 1.15.3_empty-npm-package@1.0.0
+    dev: true
+
+  /maplibre-gl-js-amplify/1.5.0_maplibre-gl@1.15.3:
+    resolution: {integrity: sha512-4Um06lfGJ45Rw9jlZr3hXxHSUdQQ5sRJJKTgpk14kEZRBuVV3uqvv5odTNn/Wf8wFJpZbZ6aDT3/eSltckpHlA==}
+    peerDependencies:
+      '@aws-amplify/core': ^4.3.14
+      '@aws-amplify/geo': ^1.2.0
+      maplibre-gl: ^1.14.0
+    dependencies:
+      '@maplibre/maplibre-gl-geocoder': 1.3.1_maplibre-gl@1.15.3
+      maplibre-gl: 1.15.3_empty-npm-package@1.0.0
+    dev: false
 
   /maplibre-gl/1.15.3_empty-npm-package@1.0.0:
     resolution: {integrity: sha512-ZuOhLCNgp7Yl1L9uyKgZeuo7kKdewP0iWtmEXsZ/snp0JiVkR1Kl+m1rsfKT/wpm/O4zZ7mUGxF16cYbMIFDRA==}
@@ -14195,37 +14229,6 @@ packages:
       vt-pbf: 3.1.3
     transitivePeerDependencies:
       - mapbox-gl
-
-  /maplibre-gl/1.15.3_mapbox-gl@2.8.2:
-    resolution: {integrity: sha512-ZuOhLCNgp7Yl1L9uyKgZeuo7kKdewP0iWtmEXsZ/snp0JiVkR1Kl+m1rsfKT/wpm/O4zZ7mUGxF16cYbMIFDRA==}
-    engines: {node: '>=6.4.0'}
-    dependencies:
-      '@mapbox/geojson-rewind': 0.5.2
-      '@mapbox/geojson-types': 1.0.2
-      '@mapbox/jsonlint-lines-primitives': 2.0.2
-      '@mapbox/mapbox-gl-supported': 1.5.0_mapbox-gl@2.8.2
-      '@mapbox/point-geometry': 0.1.0
-      '@mapbox/tiny-sdf': 1.2.5
-      '@mapbox/unitbezier': 0.0.0
-      '@mapbox/vector-tile': 1.3.1
-      '@mapbox/whoots-js': 3.1.0
-      csscolorparser: 1.0.3
-      earcut: 2.2.3
-      geojson-vt: 3.2.1
-      gl-matrix: 3.4.3
-      grid-index: 1.1.0
-      minimist: 1.2.6
-      murmurhash-js: 1.0.0
-      pbf: 3.2.1
-      potpack: 1.0.2
-      quickselect: 2.0.0
-      rw: 1.3.3
-      supercluster: 7.1.5
-      tinyqueue: 2.0.3
-      vt-pbf: 3.1.3
-    transitivePeerDependencies:
-      - mapbox-gl
-    dev: false
 
   /mark.js/8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
@@ -16122,7 +16125,7 @@ packages:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
     dev: false
 
-  /react-loadable-ssr-addon-v5-slorber/1.0.1_plcrnvjksbv2x54wm6e56wmnmq:
+  /react-loadable-ssr-addon-v5-slorber/1.0.1_vozs4ks5473aha5pvbrq6fz4gu:
     resolution: {integrity: sha512-lq3Lyw1lGku8zUEJPDxsNm1AfYHBrO9Y1+olAYwpUJ2IGFBskM0DMKok97A6LWUpHm+o7IvQBOWu9MLenp9Z+A==}
     engines: {node: '>=10.13.0'}
     peerDependencies:
@@ -16130,16 +16133,8 @@ packages:
       webpack: '>=4.41.1 || 5.x'
     dependencies:
       '@babel/runtime': 7.18.3
-      react-loadable: 5.5.0_react@17.0.2
+      react-loadable: /@docusaurus/react-loadable/5.5.2_react@17.0.2
       webpack: 5.72.1
-
-  /react-loadable/5.5.0_react@17.0.2:
-    resolution: {integrity: sha512-C8Aui0ZpMd4KokxRdVAm2bQtI03k2RMRNzOB+IipV3yxFTSVICv7WoUr5L9ALB5BmKO1iHgZtWM8EvYG83otdg==}
-    peerDependencies:
-      react: '*'
-    dependencies:
-      prop-types: 15.8.1
-      react: 17.0.2
 
   /react-map-gl/7.0.15_73wyjda6qbz7zllqiwoyhld2ne:
     resolution: {integrity: sha512-l7x8lBhIEcHTreSgrc7hsKv5HsMY1wQg2PVXuKAPmQtgRZc9C3NGwurVJFe24gOlAwzta5UavAHWDiZdU1ZNCw==}
@@ -16150,18 +16145,6 @@ packages:
       '@types/mapbox-gl': 2.7.2
       mapbox-gl: /empty-npm-package/1.0.0
       react: 17.0.2
-    dev: true
-
-  /react-map-gl/7.0.15_nziqc4bpo6ecs43sxc4vb75rri:
-    resolution: {integrity: sha512-l7x8lBhIEcHTreSgrc7hsKv5HsMY1wQg2PVXuKAPmQtgRZc9C3NGwurVJFe24gOlAwzta5UavAHWDiZdU1ZNCw==}
-    peerDependencies:
-      mapbox-gl: '*'
-      react: '>=16.3.0'
-    dependencies:
-      '@types/mapbox-gl': 2.7.2
-      mapbox-gl: 2.8.2
-      react: 17.0.2
-    dev: false
 
   /react-native-codegen/0.0.17_@babel+core@7.18.2:
     resolution: {integrity: sha512-7GIEUmAemH9uWwB6iYXNNsPoPgH06pxzGRmdBzK98TgFBdYJZ7CBuZFPMe4jmHQTPOkQazKZ/w5O6/71JBixmw==}
@@ -16186,6 +16169,14 @@ packages:
     transitivePeerDependencies:
       - '@babel/preset-env'
       - supports-color
+
+  /react-native-get-random-values/1.8.0:
+    resolution: {integrity: sha512-H/zghhun0T+UIJLmig3+ZuBCvF66rdbiWUfRSNS6kv5oDSpa1ZiVyvRWtuPesQpT8dXj+Bv7WJRQOUP+5TB1sA==}
+    peerDependencies:
+      react-native: '>=0.56'
+    dependencies:
+      fast-base64-decode: 1.0.0
+    dev: false
 
   /react-native-get-random-values/1.8.0_react-native@0.68.2:
     resolution: {integrity: sha512-H/zghhun0T+UIJLmig3+ZuBCvF66rdbiWUfRSNS6kv5oDSpa1ZiVyvRWtuPesQpT8dXj+Bv7WJRQOUP+5TB1sA==}
@@ -16335,7 +16326,7 @@ packages:
       use-callback-ref: 1.3.0_hx2b44akkvgcgvvtmk7ds2qk6q
       use-sidecar: 1.1.2_hx2b44akkvgcgvvtmk7ds2qk6q
 
-  /react-router-config/5.1.1_o7qiis4onue4rjn3pwakp6j7ci:
+  /react-router-config/5.1.1_oyuskl3t7voyrff2xstzuy4hqu:
     resolution: {integrity: sha512-DuanZjaD8mQp1ppHjgnnUnyOlqYXZVjnov/JzFhjLEwd3Z4dYjMSnqrEzzGThH47vpCOqPPwJM2FtthLeJ8Pbg==}
     peerDependencies:
       react: '>=15'
@@ -16343,7 +16334,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.18.3
       react: 17.0.2
-      react-router: 6.3.0_react@17.0.2
+      react-router: 5.3.3_react@17.0.2
 
   /react-router-dom/5.3.3_react@17.0.2:
     resolution: {integrity: sha512-Ov0tGPMBgqmbu5CDmN++tv2HQ9HlWDuWIIqn4b88gjlAN5IHI+4ZUZRcpz9Hl0azFIwihbLDYw1OiHGRo7ZIng==}
@@ -16395,6 +16386,7 @@ packages:
     dependencies:
       history: 5.3.0
       react: 17.0.2
+    dev: false
 
   /react-shallow-renderer/16.14.1_react@17.0.2:
     resolution: {integrity: sha512-rkIMcQi01/+kxiTE9D3fdS959U1g7gs+/rborw++42m1O9FAQiNI/UNRZExVUoAOprn4umcXf+pFRou8i4zuBg==}
@@ -17318,7 +17310,7 @@ packages:
     deprecated: See https://github.com/lydell/source-map-url#deprecated
 
   /source-map/0.5.7:
-    resolution: {integrity: sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=}
+    resolution: {integrity: sha512-LbrmJOMUSdEVxIKvdcJzQC+nQhe8FUZQTXQy6+I75skNgn3OoQ0DZA8YnFa7gp8tqtL3KPf1kmo0R5DoApeSGQ==}
     engines: {node: '>=0.10.0'}
 
   /source-map/0.6.1:
@@ -17437,7 +17429,7 @@ packages:
     resolution: {integrity: sha512-d/5Z4/2iiCnHw6Xzghyhb+GcmF89bxwgXG60wjIiZaxnymbyOmI8Hk4VqHXiVVp6u2ysaskFfXg3ekCj4WNftQ==}
 
   /static-extend/0.1.2:
-    resolution: {integrity: sha1-YICcOcv/VTNyJv1eC1IPNB8ftcY=}
+    resolution: {integrity: sha512-72E9+uLc27Mt718pMHt9VMNiAL4LMsmDbBva8mxWUCkT07fSzEGMYUCk0XWY6lp0j6RBAG4cJ3mWuZv2OE3s0g==}
     engines: {node: '>=0.10.0'}
     dependencies:
       define-property: 0.2.5
@@ -17455,7 +17447,7 @@ packages:
     resolution: {integrity: sha512-/c645XdExBypL01TpFKiG/3RAa/Qmu+zRi0MwAmrdEkwHNuN0ebo8ccAXBBDa5Z0QOJgBskUIbuCK91x0sCVEw==}
 
   /stream-buffers/2.2.0:
-    resolution: {integrity: sha1-kdX1Ew0c75bc+n9yaUUYh0HQnuQ=}
+    resolution: {integrity: sha512-uyQK/mx5QjHun80FLJTfaWE7JtwfRMKBLkMne6udYOmvH0CawotVa7TfgYHzAnpphn4+TweIx1QKMnRIbipmUg==}
     engines: {node: '>= 0.10.0'}
 
   /stream-transform/2.1.3:
@@ -17577,7 +17569,7 @@ packages:
     dev: true
 
   /strip-eof/1.0.0:
-    resolution: {integrity: sha1-u0P/VZim6wXYm1n80SnJgzE2Br8=}
+    resolution: {integrity: sha512-7FCwGGmx8mD5xQd3RPUvnSpUXHM3BWuzjtpD4TXsfcZ9EL4azvVVUscFYwD9nx8Kh+uCBC00XBtAykoMHwTh8Q==}
     engines: {node: '>=0.10.0'}
 
   /strip-final-newline/2.0.0:
@@ -17720,7 +17712,7 @@ packages:
     engines: {node: '>=6'}
 
   /temp/0.8.3:
-    resolution: {integrity: sha1-4Ma8TSa5AxJEEOT+2BEDAU38H1k=}
+    resolution: {integrity: sha512-jtnWJs6B1cZlHs9wPG7BrowKxZw/rf6+UpGAkr8AaYmiTyTO7zQlLoST8zx/8TcUPnZmeBoB+H8ARuHZaSijVw==}
     engines: {'0': node >=0.8.0}
     dependencies:
       os-tmpdir: 1.0.2
@@ -17844,7 +17836,7 @@ packages:
     engines: {node: '>=4'}
 
   /to-object-path/0.3.0:
-    resolution: {integrity: sha1-KXWIt7Dn4KwI4E5nL4XB9JmeF68=}
+    resolution: {integrity: sha512-9mWHdnGRuh3onocaHzukyvCZhzvr6tiflAy/JRFXcJX0TjgfWA9pk9t8CMbzmBE4Jfw58pXbkngtBtqYxzNEyg==}
     engines: {node: '>=0.10.0'}
     dependencies:
       kind-of: 3.2.2
@@ -17854,7 +17846,7 @@ packages:
     engines: {node: '>=6'}
 
   /to-regex-range/2.1.1:
-    resolution: {integrity: sha1-fIDBe53+vlmeJzZ+DU3VWQFB2zg=}
+    resolution: {integrity: sha512-ZZWNfCjUokXXDGXFpZehJIkZqq91BcULFq/Pi7M5i4JnxXdhMKAK682z8bCW3o8Hj1wuuzoKcW3DfVzaP6VuNg==}
     engines: {node: '>=0.10.0'}
     dependencies:
       is-number: 3.0.0
@@ -17921,42 +17913,6 @@ packages:
   /trough/1.0.5:
     resolution: {integrity: sha512-rvuRbTarPXmMb79SmzEp8aqXNKcK+y0XaB298IXueQ8I2PsrATcPBCSPyK/dDNa2iWOhKlfNnOjdAOTBU/nkFA==}
 
-  /ts-jest/27.1.5_7uwululatibb2uubavriya4p4i:
-    resolution: {integrity: sha512-Xv6jBQPoBEvBq/5i2TeSG9tt/nqkbpcurrEG1b+2yfBrcJelOZF9Ml6dmyMh7bcW9JyFbRYpR5rxROSlBLTZHA==}
-    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
-    hasBin: true
-    peerDependencies:
-      '@babel/core': '>=7.0.0-beta.0 <8'
-      '@types/jest': ^27.0.0
-      babel-jest: '>=27.0.0 <28'
-      esbuild: '*'
-      jest: ^27.0.0
-      typescript: '>=3.8 <5.0'
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      '@types/jest':
-        optional: true
-      babel-jest:
-        optional: true
-      esbuild:
-        optional: true
-    dependencies:
-      '@babel/core': 7.18.2
-      '@types/jest': 27.5.1
-      bs-logger: 0.2.6
-      esbuild: 0.14.42
-      fast-json-stable-stringify: 2.1.0
-      jest: 27.5.1_ts-node@10.8.0
-      jest-util: 27.5.1
-      json5: 2.2.1
-      lodash.memoize: 4.1.2
-      make-error: 1.3.6
-      semver: 7.3.7
-      typescript: 4.7.2
-      yargs-parser: 20.2.9
-    dev: true
-
   /ts-jest/27.1.5_ka57xbdzac5io3ooy4yi4ht3qe:
     resolution: {integrity: sha512-Xv6jBQPoBEvBq/5i2TeSG9tt/nqkbpcurrEG1b+2yfBrcJelOZF9Ml6dmyMh7bcW9JyFbRYpR5rxROSlBLTZHA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
@@ -17980,6 +17936,41 @@ packages:
     dependencies:
       '@types/jest': 27.5.1
       bs-logger: 0.2.6
+      fast-json-stable-stringify: 2.1.0
+      jest: 27.5.1_ts-node@10.8.0
+      jest-util: 27.5.1
+      json5: 2.2.1
+      lodash.memoize: 4.1.2
+      make-error: 1.3.6
+      semver: 7.3.7
+      typescript: 4.7.2
+      yargs-parser: 20.2.9
+    dev: true
+
+  /ts-jest/27.1.5_opmhlfjmb5ytbleybut5mzgr7q:
+    resolution: {integrity: sha512-Xv6jBQPoBEvBq/5i2TeSG9tt/nqkbpcurrEG1b+2yfBrcJelOZF9Ml6dmyMh7bcW9JyFbRYpR5rxROSlBLTZHA==}
+    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
+    hasBin: true
+    peerDependencies:
+      '@babel/core': '>=7.0.0-beta.0 <8'
+      '@types/jest': ^27.0.0
+      babel-jest: '>=27.0.0 <28'
+      esbuild: '*'
+      jest: ^27.0.0
+      typescript: '>=3.8 <5.0'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@types/jest':
+        optional: true
+      babel-jest:
+        optional: true
+      esbuild:
+        optional: true
+    dependencies:
+      '@types/jest': 27.5.1
+      bs-logger: 0.2.6
+      esbuild: 0.14.42
       fast-json-stable-stringify: 2.1.0
       jest: 27.5.1_ts-node@10.8.0
       jest-util: 27.5.1
@@ -18016,7 +18007,7 @@ packages:
       '@types/jest': 27.5.1
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 27.5.1
+      jest: 27.5.1_ts-node@10.8.0
       jest-util: 27.5.1
       json5: 2.2.1
       lodash.memoize: 4.1.2
@@ -18341,7 +18332,7 @@ packages:
     engines: {node: '>= 0.8'}
 
   /unset-value/1.0.0:
-    resolution: {integrity: sha1-g3aHP30jNRef+x5vw6jtDfyKtVk=}
+    resolution: {integrity: sha512-PcA2tsuGSF9cnySLHTLSh2qrQiJ70mn+r+Glzxv2TWZblxsxCC52BDlZoPCsz7STd9pN7EZetkWZBAvk4cgZdQ==}
     engines: {node: '>=0.10.0'}
     dependencies:
       has-value: 0.3.1
@@ -18392,7 +18383,7 @@ packages:
       punycode: 2.1.1
 
   /urix/0.1.0:
-    resolution: {integrity: sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=}
+    resolution: {integrity: sha512-Am1ousAhSLBeB9cG/7k7r2R0zj50uDRlZHPGbazid5s9rlF1F/QKYObEKSIunSjIOkJZqwRRLpvewjEkM7pSqg==}
     deprecated: Please see https://github.com/lydell/urix#deprecated
 
   /url-loader/4.1.1_4spiask3fd7dtsm35bmnngyscq:
@@ -19030,7 +19021,7 @@ packages:
     dev: true
 
   /xmlbuilder/9.0.7:
-    resolution: {integrity: sha1-Ey7mPS7FVlxVfiD0wi35rKaGsQ0=}
+    resolution: {integrity: sha512-7YXTQc3P2l9+0rjaUbLwMKRhtmwg1M1eDf6nag7urC7pIPYLD9W/jmzQ4ptRSUbodw5S0jfoGTflLemQibSpeQ==}
     engines: {node: '>=4.0'}
 
   /xmlchars/2.2.0:
