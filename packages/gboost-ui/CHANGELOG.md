@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.19.0
+
+### Minor Changes
+
+- [#97](https://github.com/awslabs/green-boost/pull/97) [`7f9c88a`](https://github.com/awslabs/green-boost/commit/7f9c88a7aff51025dde2a827cb300858528ab485) Thanks [@bestickley](https://github.com/bestickley)! - Add SmartCheckboxField component
+
 ## 0.18.0
 
 ### Minor Changes
