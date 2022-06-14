@@ -3,7 +3,7 @@ import {
   CfnUserPoolGroupProps,
   UserPoolClientProps,
   UserPoolProps,
-} from "aws-cdk-lib/aws-cognito/index.js";
+} from "aws-cdk-lib/aws-cognito";
 import { Construct } from "constructs";
 
 export interface CommonUserBaseProps {

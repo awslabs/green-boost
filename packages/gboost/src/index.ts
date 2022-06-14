@@ -13,7 +13,6 @@ try {
       create();
       break;
     case "deploy-dev":
-      console.log(argv);
       deployDev({
         hotswap: argv.h || argv.hotswap,
         backendOnly: argv.b || argv["backend-only"],
