@@ -18,7 +18,6 @@ export async function create() {
     templates: new URL("../../_templates", import.meta.url).pathname,
     cwd: resolve(process.cwd(), answers.repoName as string),
     logger: new Logger((m: string) => {
-      // console.log(m);
       m;
     }),
     createPrompter: () =>
