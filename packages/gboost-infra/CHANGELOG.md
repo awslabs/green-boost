@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.6.1
+
+### Patch Changes
+
+- [#97](https://github.com/awslabs/green-boost/pull/97) [`7f9c88a`](https://github.com/awslabs/green-boost/commit/7f9c88a7aff51025dde2a827cb300858528ab485) Thanks [@bestickley](https://github.com/bestickley)! - Fix package path reference in UserBase
+
 ## 0.6.0
 
 ### Minor Changes
