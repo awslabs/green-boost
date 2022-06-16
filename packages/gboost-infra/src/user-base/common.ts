@@ -8,8 +8,8 @@ import { Construct } from "constructs";
 
 export interface CommonUserBaseProps {
   groups: UserPoolGroupProps[];
-  userPoolProps?: UserPoolProps;
-  userPoolClientProps?: UserPoolClientProps;
+  userPoolProps?: Partial<UserPoolProps>;
+  userPoolClientProps?: Partial<UserPoolClientProps>;
 }
 
 export interface UserPoolGroupProps
