@@ -3,8 +3,8 @@ import { Flex, Placeholder } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { BaseSmartInputProps } from "./baseProps.js";
-import { MultiSelectField, MultiSelectFieldProps, Tooltip } from "../index.js";
-import { LabelContainer, TooltipIcon } from "./common.js";
+import { MultiSelectField, MultiSelectFieldProps } from "../index.js";
+import { LabelWithTooltip } from "./LabelWithTooltip.js";
 
 export interface SmartMultiSelectFieldProps<T>
   extends BaseSmartInputProps<T>,
@@ -34,21 +34,13 @@ export function SmartMultiSelectField<T extends FieldValues>(
   let Label: ReactElement | undefined;
   if (loading || tooltip) {
     Label = (
-      <LabelContainer>
-        <label className="amplify-label">{label}</label>
-        {tooltip && (
-          <Tooltip
-            content={tooltip}
-            align={tooltipAlign}
-            maxWidth={tooltipMaxWidth}
-            side={tooltipSide}
-          >
-            <span>
-              <TooltipIcon />
-            </span>
-          </Tooltip>
-        )}
-      </LabelContainer>
+      <LabelWithTooltip
+        label={label}
+        tooltip={tooltip}
+        tooltipAlign={tooltipAlign}
+        tooltipMaxWidth={tooltipMaxWidth}
+        tooltipSide={tooltipSide}
+      />
     );
   }
 

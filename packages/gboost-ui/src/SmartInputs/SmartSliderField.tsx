@@ -9,7 +9,7 @@ import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { Tooltip } from "../index.js";
 import { BaseSmartInputProps } from "./baseProps.js";
-import { LabelContainer, TooltipIcon } from "./common.js";
+import { LabelContainer, TooltipIcon } from "./LabelWithTooltip.js";
 
 export interface SmartSliderFieldProps<T>
   extends BaseSmartInputProps<T>,

@@ -1,5 +1,6 @@
 export * from "./SmartCheckboxField.js";
 export * from "./SmartMultiSelectField.js";
+export * from "./SmartPhoneNumberField.js";
 export * from "./SmartRadioGroupField.js";
 export * from "./SmartSelectField.js";
 export * from "./SmartSliderField.js";

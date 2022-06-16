@@ -1,27 +1,27 @@
 import { ReactElement } from "react";
-import { Flex, Placeholder } from "@aws-amplify/ui-react";
-import { FieldValues, useController } from "react-hook-form";
-import { defaultListHeight, TransferList } from "../index.js";
-import type { TransferListProps } from "../index.js";
+import {
+  Flex,
+  Placeholder,
+  PhoneNumberField,
+  PhoneNumberFieldProps,
+} from "@aws-amplify/ui-react";
+import { useController } from "react-hook-form";
+import type { FieldValues } from "react-hook-form";
 import { BaseSmartInputProps } from "./baseProps.js";
 import { LabelWithTooltip } from "./LabelWithTooltip.js";
 
-export interface SmartTransferListProps<T, U>
+export interface SmartPhoneFieldProps<T>
   extends BaseSmartInputProps<T>,
-    Omit<TransferListProps<U>, "name" | "value" | "onChange"> {}
+    Omit<PhoneNumberFieldProps, "name" | "defaultCountryCode"> {
+  defaultCountryCode?: string;
+}
 
-/**
- * Smart Transfer List - first generic type is react-hook-form type,
- * and second type is item of the transfer list. For example, the first type
- * generic is the type of your form input which could be input for a user and include
- * roleIds and the second type parameter could be the Role interface which user
- * will be selecting but only roleIds are returned for user form input
- */
-export function SmartTransferList<T extends FieldValues, U>(
-  props: SmartTransferListProps<T, U>
+export function SmartPhoneNumberField<T extends FieldValues>(
+  props: SmartPhoneFieldProps<T>
 ): ReactElement {
   const {
     control,
+    defaultCountryCode = "+1",
     errorMessage,
     hasError,
     label,
@@ -31,7 +31,7 @@ export function SmartTransferList<T extends FieldValues, U>(
     tooltipAlign,
     tooltipMaxWidth,
     tooltipSide = "right",
-    ...transferListProps
+    ...textFieldProps
   } = props;
   const {
     field: { ref, onChange, value },
@@ -53,23 +53,19 @@ export function SmartTransferList<T extends FieldValues, U>(
 
   let Value: ReactElement | undefined;
   if (loading) {
-    Value = (
-      <Placeholder
-        height={`calc(${
-          transferListProps.listHeight ?? defaultListHeight
-        } + 42px)`}
-      />
-    );
+    Value = <Placeholder height={40} />;
   } else {
     Value = (
-      <TransferList
-        {...(transferListProps as Omit<TransferListProps<U>, "label" | "name">)}
+      <PhoneNumberField
+        {...(textFieldProps as Omit<PhoneNumberFieldProps, "label" | "name">)}
         ref={ref}
+        defaultCountryCode={defaultCountryCode}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
-        onChange={onChange}
+        name={name}
         label={label}
         labelHidden={Boolean(tooltip)}
+        onChange={onChange}
         value={value}
       />
     );
