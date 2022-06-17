@@ -11,4 +11,4 @@ export type { Filter } from "./QueryTable/ActionBar/FilterAction/FilterAction.js
 export * from "./SmartFields/index.js";
 export * from "./ErrorBoundary.js";
 export * from "./components/index.js";
-export * from "./utils/gQuery.js";
+export * from "./utils/index.js";
