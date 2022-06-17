@@ -44,6 +44,26 @@ export const StyledButton = styled(Button, {
           bc: "$warn10 !important",
         },
       },
+      primary: {
+        bc: "$primary9",
+        color: "$primary12 !important",
+        "&:hover": {
+          bc: "$primary10 !important",
+        },
+        "&:focus": {
+          bc: "$primary10 !important",
+        },
+      },
+      secondary: {
+        bc: "$secondary9",
+        color: "$secondary12 !important",
+        "&:hover": {
+          bc: "$secondary10 !important",
+        },
+        "&:focus": {
+          bc: "$secondary10 !important",
+        },
+      },
     },
   },
 });
