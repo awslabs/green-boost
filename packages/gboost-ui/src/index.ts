@@ -8,7 +8,7 @@ export type { Page } from "./page.js";
 export * from "./stitches.config.js";
 export * from "./QueryTable/QueryTable.js";
 export type { Filter } from "./QueryTable/ActionBar/FilterAction/FilterAction.js";
-export * from "./SmartInputs/SmartInputs.js";
+export * from "./SmartFields/index.js";
 export * from "./ErrorBoundary.js";
 export * from "./components/index.js";
 export * from "./utils/gQuery.js";

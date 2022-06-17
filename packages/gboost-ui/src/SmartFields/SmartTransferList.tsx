@@ -1,13 +1,18 @@
 import { ReactElement } from "react";
-import { Flex, Placeholder } from "@aws-amplify/ui-react";
 import { FieldValues, useController } from "react-hook-form";
 import { defaultListHeight, TransferList } from "../index.js";
 import type { TransferListProps } from "../index.js";
-import { BaseSmartInputProps } from "./baseProps.js";
-import { LabelWithTooltip } from "./LabelWithTooltip.js";
+import { ControlProps } from "./common.js";
+import {
+  BaseSmartField,
+  ExternalBaseSmartFieldProps,
+  getBaseSmartFieldProps,
+} from "./BaseSmartField.js";
+import { useId } from "@mantine/hooks";
 
 export interface SmartTransferListProps<T, U>
-  extends BaseSmartInputProps<T>,
+  extends ExternalBaseSmartFieldProps,
+    ControlProps<T>,
     Omit<TransferListProps<U>, "name" | "value" | "onChange"> {}
 
 /**
@@ -20,65 +25,34 @@ export interface SmartTransferListProps<T, U>
 export function SmartTransferList<T extends FieldValues, U>(
   props: SmartTransferListProps<T, U>
 ): ReactElement {
-  const {
-    control,
-    errorMessage,
-    hasError,
-    label,
-    loading,
-    name,
-    tooltip,
-    tooltipAlign,
-    tooltipMaxWidth,
-    tooltipSide = "right",
-    ...transferListProps
-  } = props;
+  const { control, errorMessage, hasError, label, name, ...transferListProps } =
+    props;
+  const id = useId();
   const {
     field: { ref, onChange, value },
     fieldState: { error, invalid },
   } = useController({ name, control });
 
-  let Label: ReactElement | undefined;
-  if (loading || tooltip) {
-    Label = (
-      <LabelWithTooltip
-        label={label}
-        tooltip={tooltip}
-        tooltipAlign={tooltipAlign}
-        tooltipMaxWidth={tooltipMaxWidth}
-        tooltipSide={tooltipSide}
-      />
-    );
-  }
-
-  let Value: ReactElement | undefined;
-  if (loading) {
-    Value = (
-      <Placeholder
-        height={`calc(${
-          transferListProps.listHeight ?? defaultListHeight
-        } + 42px)`}
-      />
-    );
-  } else {
-    Value = (
+  return (
+    <BaseSmartField
+      {...getBaseSmartFieldProps(props)}
+      id={id}
+      className="amplify-textfield"
+      loadingHeight={`calc(${
+        transferListProps.listHeight ?? defaultListHeight
+      } + 42px)`}
+    >
       <TransferList
         {...(transferListProps as Omit<TransferListProps<U>, "label" | "name">)}
+        id={id}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
         onChange={onChange}
         label={label}
-        labelHidden={Boolean(tooltip)}
+        labelHidden
         value={value}
       />
-    );
-  }
-
-  return (
-    <Flex className="amplify-field amplify-textfield">
-      {Label}
-      {Value}
-    </Flex>
+    </BaseSmartField>
   );
 }

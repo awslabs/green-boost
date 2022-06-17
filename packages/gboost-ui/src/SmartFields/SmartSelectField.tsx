@@ -1,16 +1,17 @@
 import { ReactElement } from "react";
-import {
-  Flex,
-  Placeholder,
-  SelectField,
-  SelectFieldProps,
-} from "@aws-amplify/ui-react";
+import { SelectField, SelectFieldProps } from "@aws-amplify/ui-react";
 import { FieldValues, useController } from "react-hook-form";
-import { BaseSmartInputProps } from "./baseProps.js";
-import { LabelWithTooltip } from "./LabelWithTooltip.js";
+import { ControlProps } from "./common.js";
+import {
+  BaseSmartField,
+  ExternalBaseSmartFieldProps,
+  getBaseSmartFieldProps,
+} from "./BaseSmartField.js";
+import { useId } from "@mantine/hooks";
 
 export interface SmartSelectFieldProps<T>
-  extends BaseSmartInputProps<T>,
+  extends ExternalBaseSmartFieldProps,
+    ControlProps<T>,
     Omit<SelectFieldProps, "name"> {
   children: ReactElement | ReactElement[];
 }
@@ -25,57 +26,36 @@ export function SmartSelectField<T extends FieldValues>(
     hasError,
     control,
     label,
-    loading,
     name,
-    tooltip,
-    tooltipAlign,
-    tooltipMaxWidth,
-    tooltipSide = "right",
     ...textFieldProps
   } = props;
+  const id = useId();
   const {
     field: { ref, onChange, value },
     fieldState: { error, invalid },
   } = useController<T>({ name, control });
 
-  let Label: ReactElement | undefined;
-  if (loading || tooltip) {
-    Label = (
-      <LabelWithTooltip
-        label={label}
-        tooltip={tooltip}
-        tooltipAlign={tooltipAlign}
-        tooltipMaxWidth={tooltipMaxWidth}
-        tooltipSide={tooltipSide}
-      />
-    );
-  }
-
-  let Value: ReactElement | undefined;
-  if (loading) {
-    Value = <Placeholder height={50} />;
-  } else {
-    Value = (
+  return (
+    <BaseSmartField
+      id={id}
+      {...getBaseSmartFieldProps(props)}
+      className="amplify-selectfield"
+      loadingHeight={50}
+    >
       <SelectField
         {...(textFieldProps as Omit<SelectFieldProps, "label" | "name">)}
+        id={id}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
         name={name}
         label={label}
-        labelHidden={Boolean(tooltip)}
+        labelHidden
         onChange={onChange}
         value={value}
       >
         {children}
       </SelectField>
-    );
-  }
-
-  return (
-    <Flex className="amplify-field amplify-textfield">
-      {Label}
-      {Value}
-    </Flex>
+    </BaseSmartField>
   );
 }

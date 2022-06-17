@@ -25,6 +25,7 @@ export interface TransferListProps<T> {
   errorMessage?: string;
   getKey?: (option: T) => string;
   hasError?: boolean;
+  id?: string;
   /**
    * @default "300px"
    */
@@ -103,6 +104,7 @@ function _TransferList<T extends Record<string, any>>(
   const {
     errorMessage,
     hasError,
+    id,
     listHeight = defaultListHeight,
     getKey = (option) => option.key as string,
     label,
@@ -203,10 +205,11 @@ function _TransferList<T extends Record<string, any>>(
         className={`amplify-label ${
           labelHidden ? "amplify-visually-hidden" : ""
         }`}
+        htmlFor={id}
       >
         {label}
       </label>
-      <StyledContainer>
+      <StyledContainer id={id}>
         <StyledListContainer>
           <StyledHeadingContainer>
             <Heading>{titles[0]}</Heading>
