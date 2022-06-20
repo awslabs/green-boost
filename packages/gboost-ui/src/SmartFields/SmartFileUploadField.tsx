@@ -44,7 +44,6 @@ export function SmartFileUploadField<T>(
           value: e.target.files,
         },
       };
-      console.log(e);
       _onChange(newEvent);
     },
     [_onChange]
