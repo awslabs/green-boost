@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
-import { TextField, TextFieldProps } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { ControlProps } from "./common.js";
+import { DateTimeField, DateTimeFieldProps } from "../index.js";
 import {
   BaseSmartField,
   ExternalBaseSmartFieldProps,
@@ -13,7 +13,7 @@ import { useId } from "@mantine/hooks";
 export interface SmartDateTimeFieldProps<T>
   extends ExternalBaseSmartFieldProps,
     ControlProps<T>,
-    Omit<TextFieldProps, "name"> {}
+    Omit<DateTimeFieldProps, "name"> {}
 
 export function SmartDateTimeField<T extends FieldValues>(
   props: SmartDateTimeFieldProps<T>
@@ -31,19 +31,19 @@ export function SmartDateTimeField<T extends FieldValues>(
     field: { ref, onChange, value },
     fieldState: { error, invalid },
   } = useController({ name, control });
-
+  let pickerType: string = props.type || "datetime-local";
+  pickerType = pickerType.replace("-local", "");
   return (
     <BaseSmartField
       {...getBaseSmartFieldProps(props)}
-      descriptiveText="Click calendar icon for date/time picker"
+      descriptiveText={`Click calendar icon for ${pickerType} picker`}
       className="amplify-textfield"
       id={id}
       loadingHeight={40}
     >
-      <TextField
-        {...(dateTimeFieldProps as Omit<TextFieldProps, "label" | "name">)}
+      <DateTimeField
+        {...(dateTimeFieldProps as Omit<DateTimeFieldProps, "label" | "name">)}
         id={id}
-        type="datetime-local"
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
