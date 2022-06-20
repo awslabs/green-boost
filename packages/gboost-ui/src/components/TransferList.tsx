@@ -3,7 +3,6 @@ import {
   CheckboxField,
   Heading,
   SearchField,
-  Text,
 } from "@aws-amplify/ui-react";
 import {
   ForwardedRef,
@@ -16,7 +15,7 @@ import {
   useState,
 } from "react";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
-import { Box, styled } from "../index.js";
+import { Box, ErrorMessage, styled } from "../index.js";
 
 type TransferDirection = "left" | "right";
 type TransferListType = "source" | "target";
@@ -290,9 +289,7 @@ function _TransferList<T extends Record<string, any>>(
           </StyledList>
         </StyledListContainer>
       </StyledContainer>
-      {hasError && (
-        <Text className="amplify-field__error-message">{errorMessage}</Text>
-      )}
+      {hasError && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </StyledFieldContainer>
   );
 }
