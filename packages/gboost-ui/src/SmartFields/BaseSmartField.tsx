@@ -17,12 +17,14 @@ export function TooltipIcon() {
 export interface ExternalBaseSmartFieldProps extends TooltipProps {
   descriptiveText?: ReactNode;
   label: ReactNode;
+  labelHidden?: boolean;
   loading?: boolean;
 }
 
 const externalBaseSmartFieldKeys: (keyof ExternalBaseSmartFieldProps)[] = [
   "descriptiveText",
   "label",
+  "labelHidden",
   "loading",
   "tooltip",
   "tooltipAlign",
@@ -61,6 +63,7 @@ export function BaseSmartField(props: BaseSmartFieldProps): ReactElement {
     id,
     loadingHeight = 40,
     label,
+    labelHidden,
     loading,
     tooltip,
     tooltipAlign,
@@ -68,15 +71,9 @@ export function BaseSmartField(props: BaseSmartFieldProps): ReactElement {
     tooltipSide = "right",
   } = props;
 
-  let Value: ReactElement | undefined;
-  if (loading) {
-    Value = <Placeholder height={loadingHeight} />;
-  } else {
-    Value = children;
-  }
-
-  return (
-    <Flex className={`amplify-field ${className}`}>
+  let Label: ReactElement | undefined;
+  if (!labelHidden) {
+    Label = (
       <LabelContainer>
         <label className="amplify-label" htmlFor={id}>
           {label}
@@ -94,6 +91,19 @@ export function BaseSmartField(props: BaseSmartFieldProps): ReactElement {
           </Tooltip>
         )}
       </LabelContainer>
+    );
+  }
+
+  let Value: ReactElement | undefined;
+  if (loading) {
+    Value = <Placeholder height={loadingHeight} />;
+  } else {
+    Value = children;
+  }
+
+  return (
+    <Flex className={`amplify-field ${className}`}>
+      {Label}
       {descriptiveText && (
         <Text className="amplify-field__description">{descriptiveText}</Text>
       )}
