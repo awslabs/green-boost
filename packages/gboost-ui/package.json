@@ -47,7 +47,7 @@
     "zod": "^3.17.3"
   },
   "devDependencies": {
-    "@aws-amplify/ui-react": "^2.18.3",
+    "@aws-amplify/ui-react": "^3.0.1",
     "@types/jest": "^27.5.1",
     "@types/react": "^17.0.45",
     "@types/react-dom": "^17.0.17",

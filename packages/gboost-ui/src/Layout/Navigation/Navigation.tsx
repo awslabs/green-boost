@@ -1,7 +1,6 @@
 import { Dispatch, ReactElement, SetStateAction } from "react";
-import { Page, useBps } from "../../index.js";
+import { Drawer, Page, useBps } from "../../index.js";
 import { NavAside } from "./NavAside.js";
-import { Drawer } from "../Drawer.js";
 import { NavList as DefaultNavigationList } from "./NavList.js";
 import type { NavLink } from "./NavLink.js";
 

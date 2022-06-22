@@ -14,7 +14,7 @@ const IndicatorContainer = styled("div", {
   right: 0,
   bottom: 0,
   left: 0,
-  zIndex: 2,
+  zIndex: "$2",
   display: "flex",
   justifyContent: "center",
   padding: 0,
@@ -62,7 +62,7 @@ const Item = styled("div", {
   variants: {
     active: {
       true: {
-        zIndex: 1,
+        zIndex: "$1",
         opacity: 1,
         display: "block",
       },
@@ -73,7 +73,7 @@ const Control = styled("button", {
   position: "absolute",
   top: 0,
   bottom: 0,
-  zIndex: 1,
+  zIndex: "$2",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
