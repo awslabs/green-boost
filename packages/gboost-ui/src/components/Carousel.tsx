@@ -24,21 +24,26 @@ const IndicatorButton = styled("button", {
   boxSizing: "content-box",
   cursor: "pointer",
   flex: "0 1 auto",
-  width: 30,
-  height: 3,
-  mx: 3,
-  textIndent: -999,
   bc: "$primary1",
-  backgroundClip: "padding-box",
-  border: 0,
-  borderTop: "10px solid transparent",
-  borderBottom: "10px solid transparent",
   opacity: 0.5,
   transition: "opacity .5s ease",
+  border: 0,
+  mx: "$1",
   variants: {
     active: {
       true: {
         opacity: 1,
+      },
+    },
+    shape: {
+      rectangle: {
+        width: "$6",
+        height: "$1",
+      },
+      circle: {
+        br: "$round",
+        height: "$3",
+        width: "$1",
       },
     },
   },
@@ -119,6 +124,10 @@ interface CarouselProps {
    */
   hideIndicators?: boolean;
   /**
+   * @default "rectangle"
+   */
+  indicatorShape?: "rectangle" | "circle";
+  /**
    * @default 5000
    */
   interval?: number;
@@ -137,6 +146,7 @@ export function Carousel(props: CarouselProps): ReactElement {
     height,
     hideControls,
     hideIndicators,
+    indicatorShape = "rectangle",
     interval: int = 5000,
   } = props;
   const [active, setActive] = useState(0);
@@ -175,6 +185,7 @@ export function Carousel(props: CarouselProps): ReactElement {
             key={i}
             active={active === i}
             onClick={() => setActive(i)}
+            shape={indicatorShape}
           />
         ))}
       </IndicatorContainer>
