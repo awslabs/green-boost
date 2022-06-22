@@ -1,4 +1,5 @@
 export * from "./Box.js";
+export * from "./Carousel.js";
 export * from "./DateTimeField.js";
 export * from "./Dialog.js";
 export * from "./ErrorMessage.js";
