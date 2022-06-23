@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.6.2
+
+### Patch Changes
+
+- [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - UserBase's L2 construct props should be Partial
+
 ## 0.6.1
 
 ### Patch Changes
