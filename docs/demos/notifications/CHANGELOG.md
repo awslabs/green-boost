@@ -1,5 +1,12 @@
 # gboost-notifications-demo
 
+## 0.0.16
+
+### Patch Changes
+
+- Updated dependencies [[`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4), [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4)]:
+  - gboost-ui@0.20.0
+
 ## 0.0.15
 
 ### Patch Changes
