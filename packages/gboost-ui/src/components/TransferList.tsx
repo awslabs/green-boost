@@ -3,7 +3,6 @@ import {
   CheckboxField,
   Heading,
   SearchField,
-  Text,
 } from "@aws-amplify/ui-react";
 import {
   ForwardedRef,
@@ -16,7 +15,7 @@ import {
   useState,
 } from "react";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
-import { Box, styled } from "../index.js";
+import { Box, ErrorMessage, styled } from "../index.js";
 
 type TransferDirection = "left" | "right";
 type TransferListType = "source" | "target";
@@ -25,6 +24,7 @@ export interface TransferListProps<T> {
   errorMessage?: string;
   getKey?: (option: T) => string;
   hasError?: boolean;
+  id?: string;
   /**
    * @default "300px"
    */
@@ -103,6 +103,7 @@ function _TransferList<T extends Record<string, any>>(
   const {
     errorMessage,
     hasError,
+    id,
     listHeight = defaultListHeight,
     getKey = (option) => option.key as string,
     label,
@@ -203,10 +204,11 @@ function _TransferList<T extends Record<string, any>>(
         className={`amplify-label ${
           labelHidden ? "amplify-visually-hidden" : ""
         }`}
+        htmlFor={id}
       >
         {label}
       </label>
-      <StyledContainer>
+      <StyledContainer id={id}>
         <StyledListContainer>
           <StyledHeadingContainer>
             <Heading>{titles[0]}</Heading>
@@ -287,9 +289,7 @@ function _TransferList<T extends Record<string, any>>(
           </StyledList>
         </StyledListContainer>
       </StyledContainer>
-      {hasError && (
-        <Text className="amplify-field__error-message">{errorMessage}</Text>
-      )}
+      {hasError && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </StyledFieldContainer>
   );
 }

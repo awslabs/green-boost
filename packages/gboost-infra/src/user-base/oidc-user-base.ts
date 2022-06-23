@@ -26,8 +26,8 @@ interface OidcUserBaseProps extends CommonProps, CommonUserBaseProps {
    * The OAuth 2.0 scopes that you will request from OpenID Connect. Scopes are groups of OpenID Connect user attributes to exchange with your app.
    */
   scopes: string[];
-  userPoolDomainProps?: UserPoolDomainProps;
-  userPoolIdentityProviderOidcProps?: UserPoolIdentityProviderOidcProps;
+  userPoolDomainProps?: Partial<UserPoolDomainProps>;
+  userPoolIdentityProviderOidcProps?: Partial<UserPoolIdentityProviderOidcProps>;
 }
 
 /**

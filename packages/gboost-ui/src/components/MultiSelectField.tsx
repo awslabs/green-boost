@@ -90,9 +90,11 @@ function DefaultValue(props: DefaultValueProps): ReactElement {
 }
 
 export interface MultiSelectFieldProps {
+  descriptiveText?: ReactNode;
   errorMessage?: string;
   hasError?: boolean;
   isDisabled?: boolean;
+  id?: string;
   label: ReactNode;
   labelHidden?: boolean;
   name?: string;
@@ -109,8 +111,10 @@ export function _MultiSelectField(
   ref: ForwardedRef<HTMLInputElement>
 ): ReactElement {
   const {
+    descriptiveText,
     errorMessage,
     hasError,
+    id: _id,
     isDisabled,
     label,
     labelHidden,
@@ -123,7 +127,7 @@ export function _MultiSelectField(
     ValueComponent = DefaultValue,
     ...rest
   } = props;
-  const id = useId();
+  const id = useId(_id);
   const [value, setValue] = useState<string[]>([]);
   const unselectedOptions = options.filter((o) => !value.includes(o.value));
   const [open, setOpen] = useState(false);
@@ -206,6 +210,9 @@ export function _MultiSelectField(
       >
         {label}
       </label>
+      {descriptiveText && (
+        <Text className="amplify-field__description">{descriptiveText}</Text>
+      )}
       <div
         className="amplify-flex amplify-field-group amplify-field-group--has-inner-end amplify-field-group--horizontal"
         data-orientation="horizontal"

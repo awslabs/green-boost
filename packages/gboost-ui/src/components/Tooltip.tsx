@@ -55,7 +55,7 @@ export type TooltipSide = "bottom" | "left" | "right" | "top";
 interface TooltipProps {
   align?: TooltipAlign;
   alignOffset?: number;
-  content: string;
+  content: string | ReactElement;
   children: ReactElement;
   defaultOpen?: boolean;
   delayDuration?: number;
