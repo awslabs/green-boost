@@ -4,16 +4,7 @@ type AllowedAdvisories = Record<
   string,
   { package?: string; justification: string }
 >;
-const allowedAdvisories: AllowedAdvisories = {
-  "1075647": {
-    package: "got",
-    justification: "Used on docs static site. Minimal risk",
-  },
-  "1070259": {
-    package: "trim",
-    justification: "Used on docs static site. Minimal risk",
-  },
-};
+const allowedAdvisories: AllowedAdvisories = {};
 interface Advisory {
   module_name: string;
   // more fields but N/A for this script
@@ -24,6 +15,7 @@ interface AuditOuput {
 
 try {
   execSync("pnpm audit --audit-level moderate --json");
+  console.log("No known vulnerabilities found");
 } catch (err) {
   const error = err as { stdout: Buffer };
   const stringOutput = error.stdout.toString("utf8");

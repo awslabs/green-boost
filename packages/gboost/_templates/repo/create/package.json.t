@@ -25,5 +25,16 @@ to: package.json
   },
   "lint-staged": {
     "*": "true"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@aws-amplify/core",
+        "@aws-amplify/geo",
+        "@babel/plugin-syntax-flow",
+        "@babel/plugin-transform-react-jsx",
+        "react-native"
+      ]
+    }
   }
 }

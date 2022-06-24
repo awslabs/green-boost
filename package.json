@@ -27,5 +27,20 @@
     "ts-node": "^10.8.0",
     "typescript": "^4.7.4"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "pnpm": {
+    "overrides": {
+      "trim@<0.0.3": ">=0.0.3",
+      "got@<11.8.5": ">=11.8.5"
+    },
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@aws-amplify/core",
+        "@aws-amplify/geo",
+        "react-native",
+        "@babel/plugin-syntax-flow",
+        "@babel/plugin-transform-react-jsx"
+      ]
+    }
+  }
 }
