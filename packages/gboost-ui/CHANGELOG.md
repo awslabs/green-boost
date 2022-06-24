@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.20.1
+
+### Patch Changes
+
+- [#101](https://github.com/awslabs/green-boost/pull/101) [`0fb886e`](https://github.com/awslabs/green-boost/commit/0fb886e0a3ecaef120210f5b7b61e3c38aea4b26) Thanks [@bestickley](https://github.com/bestickley)! - Add @aws-amplify/ui-react as dependency since aws-amplify is now optional
+
 ## 0.20.0
 
 ### Minor Changes
