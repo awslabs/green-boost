@@ -2,10 +2,12 @@ import {
   Link as AmplifyLink,
   LinkProps as AmplifyLinkProps,
 } from "@aws-amplify/ui-react";
-import { ReactElement } from "react";
+import { ReactElement, AnchorHTMLAttributes } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-interface LinkProps extends AmplifyLinkProps {
+interface LinkProps
+  extends AmplifyLinkProps,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "color" | "children"> {
   href?: string;
 }
 
