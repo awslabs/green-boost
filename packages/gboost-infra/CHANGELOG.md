@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.7.0
+
+### Minor Changes
+
+- [#103](https://github.com/awslabs/green-boost/pull/103) [`8992eae`](https://github.com/awslabs/green-boost/commit/8992eae77fe590b0a00ae0723d3b30d5baac180a) Thanks [@bestickley](https://github.com/bestickley)! - Add GovCloudCompat aspect
+
 ## 0.6.2
 
 ### Patch Changes
