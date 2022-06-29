@@ -1,8 +1,28 @@
 import { Dispatch, ReactElement, SetStateAction } from "react";
-import { Drawer, Page, useBps } from "../../index.js";
-import { NavAside } from "./NavAside.js";
+import { Drawer, Page, styled, useBps } from "../../index.js";
 import { NavList as DefaultNavigationList } from "./NavList.js";
 import type { NavLink } from "./NavLink.js";
+
+const Nav = styled("nav", {
+  display: "none",
+  backgroundColor: "$gray1",
+  borderRight: "1px solid $gray6",
+  gridArea: "nav",
+  transition: "$sidebar",
+  "@bp3": {
+    display: "block",
+  },
+  variants: {
+    open: {
+      true: {
+        width: 250,
+      },
+      false: {
+        width: 70,
+      },
+    },
+  },
+});
 
 interface BaseNavigationProps {
   bottomPages?: (NavLink | Page)[];
@@ -38,7 +58,7 @@ export function Navigation(props: NavigationProps): ReactElement {
   }
 
   return bps.bp3 ? (
-    <NavAside css={{ width: open ? 250 : 70 }}>{navList}</NavAside>
+    <Nav open={open}>{navList}</Nav>
   ) : (
     <Drawer open={open} onClose={() => setOpen(false)}>
       {navList}

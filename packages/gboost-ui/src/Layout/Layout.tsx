@@ -4,32 +4,53 @@ import type { useAuthenticator } from "@aws-amplify/ui-react";
 import { styled, useBps } from "../index.js";
 import type { Page } from "../index.js";
 import { Header } from "./Header/Header.js";
-import { Content } from "./Content.js";
-import { Footer } from "./Footer.js";
 import { Navigation } from "./Navigation/Navigation.js";
 import { NavList } from "./Navigation/NavList.js";
 import type { NavLink } from "./Navigation/NavLink.js";
+import { RightAside as RightAsideContainer } from "./RightAside.js";
+import { Content } from "./Content.js";
+import { Footer } from "./Footer.js";
 
 const LayoutContainer = styled("div", {
   display: "grid",
   height: "100vh",
   gridTemplateAreas: `"header" "content" "footer"`,
   gridTemplateRows: "auto 1fr auto",
-  "@bp3": {
-    gridTemplateAreas: `"header header" "sidebar content" "sidebar footer"`,
+  "@bp2": {
+    gridTemplateAreas: `"header header" "nav content" "footer footer"`,
     gridTemplateColumns: "auto 1fr",
-    gridTemplateRows: "auto 1fr auto",
+  },
+  variants: {
+    rightAside: {
+      true: {
+        "@bp3": {
+          gridTemplateAreas: `"header header header" "nav content rightDrawer" "footer footer footer"`,
+          gridTemplateColumns: "auto 1fr auto",
+        },
+      },
+    },
   },
 });
 
 export type CognitoUser = ReturnType<typeof useAuthenticator>["user"];
 
 interface BaseLayoutProps {
-  className?: string;
   /**
-   * string for footer
+   * Custom account menu shown on right side of header. Should consider desktop
+   * and mobile view. See default account menu for guidance.
    */
-  footer?: string;
+  AccountMenu?: ReactElement;
+  /**
+   * Custom account sidebar that shows in drawer when mobile screen and user
+   * clicks on account menu button.
+   */
+  AccountSidebar?: ReactElement;
+  /**
+   * Custom header title shown to right of hamburger menu. When used, `title`
+   * and `logoSrc` prop aren't used in header.
+   */
+  HeaderTitle?: ReactElement;
+  className?: string;
   /**
    * Default path visited by React Router when visiting index /
    */
@@ -39,6 +60,10 @@ interface BaseLayoutProps {
    * lazily loaded routes
    */
   logoSrc: string;
+  /**
+   * Aside that pops out from right.
+   */
+  RightAside?: ReactElement;
   /**
    * Logs off user
    * @default Auth.signOut
@@ -53,28 +78,9 @@ interface BaseLayoutProps {
    * from `useAuthenticator`
    */
   user: CognitoUser;
-  /**
-   * Custom account menu shown on right side of header. Should consider desktop
-   * and mobile view. See default account menu for guidance.
-   */
-  AccountMenu?: ReactElement;
-  /**
-   * Custom account sidebar that shows in drawer when mobile screen and user
-   * clicks on account menu button.
-   */
-  AccountSidebar?: ReactElement;
-  /**
-   * Custom footer component. When used, `footer` prop is ignored.
-   */
-  Footer?: ReactElement;
-  /**
-   * Custom header title shown to right of hamburger menu. When used, `title`
-   * and `logoSrc` prop aren't used in header.
-   */
-  HeaderTitle?: ReactElement;
 }
 
-interface PagesLayoutProps extends BaseLayoutProps {
+interface PagesLayoutProps {
   /**
    * Pages to be displayed in bottom-left navigation drawer
    */
@@ -85,8 +91,7 @@ interface PagesLayoutProps extends BaseLayoutProps {
    */
   pages: Page[];
 }
-
-interface ChildrenLayoutProps extends BaseLayoutProps {
+interface ChildrenLayoutProps {
   children: ReactElement;
   /**
    * Custom navigation list
@@ -94,24 +99,38 @@ interface ChildrenLayoutProps extends BaseLayoutProps {
   NavigationList: typeof NavList;
 }
 
-export type LayoutProps = PagesLayoutProps | ChildrenLayoutProps;
+interface FooterComponentLayoutProps {
+  /**
+   * Custom footer component. When used, `footer` prop is ignored.
+   */
+  Footer: ReactElement;
+}
+interface FooterTextLayoutProps {
+  /**
+   * string for footer
+   */
+  footer: string;
+}
+
+export type LayoutProps = BaseLayoutProps &
+  (PagesLayoutProps | ChildrenLayoutProps) &
+  (FooterComponentLayoutProps | FooterTextLayoutProps);
 
 /**
  * App Layout including header, aside, main and footer
  */
 export function Layout(props: LayoutProps): ReactElement {
   const {
+    AccountMenu,
+    AccountSidebar,
+    HeaderTitle,
     className,
-    footer,
     defaultPath,
     logoSrc,
+    RightAside,
     signOut = Auth.signOut,
     title,
     user,
-    AccountMenu,
-    AccountSidebar,
-    Footer: UserFooter,
-    HeaderTitle,
   } = props;
   const bps = useBps();
   // initial state makes sidebar open for laptop but closed for tablet and mobile
@@ -137,7 +156,7 @@ export function Layout(props: LayoutProps): ReactElement {
         defaultPath={defaultPath}
         logoSrc={logoSrc}
         pages={props.pages}
-      ></Content>
+      />
     );
   } else {
     navigation = (
@@ -153,8 +172,14 @@ export function Layout(props: LayoutProps): ReactElement {
       </Content>
     );
   }
+  let footer: ReactElement;
+  if ("footer" in props) {
+    footer = <Footer footer={props.footer} />;
+  } else {
+    footer = <Footer Footer={props.Footer} />;
+  }
   return (
-    <LayoutContainer className={className}>
+    <LayoutContainer className={className} rightAside={Boolean(RightAside)}>
       <Header
         logoSrc={logoSrc}
         open={open}
@@ -168,7 +193,8 @@ export function Layout(props: LayoutProps): ReactElement {
       />
       {navigation}
       {content}
-      <Footer footer={footer} Footer={UserFooter} />
+      {RightAside && <RightAsideContainer>{RightAside}</RightAsideContainer>}
+      {footer}
     </LayoutContainer>
   );
 }
