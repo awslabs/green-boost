@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { ControlProps } from "./common.js";
+import { ControlProps, normalizeProps } from "./common.js";
 import { DateTimeField, DateTimeFieldProps } from "../index.js";
 import {
   BaseSmartField,
@@ -18,14 +18,8 @@ export interface SmartDateTimeFieldProps<T>
 export function SmartDateTimeField<T extends FieldValues>(
   props: SmartDateTimeFieldProps<T>
 ): ReactElement {
-  const {
-    control,
-    errorMessage,
-    hasError,
-    label,
-    name,
-    ...dateTimeFieldProps
-  } = props;
+  const { control, errorMessage, hasError, name, ...dateTimeFieldProps } =
+    props;
   const id = useId();
   const {
     field: { ref, onChange, value },
@@ -42,13 +36,12 @@ export function SmartDateTimeField<T extends FieldValues>(
       loadingHeight={40}
     >
       <DateTimeField
-        {...(dateTimeFieldProps as Omit<DateTimeFieldProps, "label" | "name">)}
+        {...normalizeProps(dateTimeFieldProps)}
         id={id}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
         name={name}
-        label={label}
         labelHidden
         onChange={onChange}
         value={value}

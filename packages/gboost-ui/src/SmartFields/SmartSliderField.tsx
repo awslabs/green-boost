@@ -9,7 +9,7 @@ import {
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { Tooltip } from "../index.js";
-import { ControlProps } from "./common.js";
+import { ControlProps, normalizeProps } from "./common.js";
 import {
   ExternalBaseSmartFieldProps,
   LabelContainer,
@@ -54,7 +54,7 @@ export function SmartSliderField<T extends FieldValues>(
   } else {
     Value = (
       <SliderField
-        {...(sliderFieldProps as Omit<SliderFieldProps, "label" | "name">)}
+        {...normalizeProps(sliderFieldProps)}
         id={id}
         ref={ref}
         errorMessage={errorMessage || error?.message}

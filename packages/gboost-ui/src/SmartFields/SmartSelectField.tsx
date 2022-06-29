@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { SelectField, SelectFieldProps } from "@aws-amplify/ui-react";
 import { FieldValues, useController } from "react-hook-form";
-import { ControlProps } from "./common.js";
+import { ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
   ExternalBaseSmartFieldProps,
@@ -20,15 +20,8 @@ export interface SmartSelectFieldProps<T>
 export function SmartSelectField<T extends FieldValues>(
   props: SmartSelectFieldProps<T>
 ): ReactElement {
-  const {
-    children,
-    errorMessage,
-    hasError,
-    control,
-    label,
-    name,
-    ...textFieldProps
-  } = props;
+  const { children, errorMessage, hasError, control, name, ...textFieldProps } =
+    props;
   const id = useId();
   const {
     field: { ref, onChange, value },
@@ -43,13 +36,12 @@ export function SmartSelectField<T extends FieldValues>(
       loadingHeight={50}
     >
       <SelectField
-        {...(textFieldProps as Omit<SelectFieldProps, "label" | "name">)}
+        {...normalizeProps(textFieldProps)}
         id={id}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
         name={name}
-        label={label}
         labelHidden
         onChange={onChange}
         value={value}

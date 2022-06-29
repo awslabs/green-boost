@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { MultiSelectField, MultiSelectFieldProps } from "../index.js";
-import { ControlProps } from "./common.js";
+import { ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
   ExternalBaseSmartFieldProps,
@@ -22,8 +22,8 @@ export function SmartMultiSelectField<T extends FieldValues>(
     control,
     errorMessage,
     hasError,
-    label,
     name,
+    options,
     ...multiSelectFieldProps
   } = props;
   const id = useId();
@@ -40,16 +40,13 @@ export function SmartMultiSelectField<T extends FieldValues>(
       loadingHeight={40}
     >
       <MultiSelectField
-        {...(multiSelectFieldProps as Omit<
-          MultiSelectFieldProps,
-          "label" | "name"
-        >)}
+        {...normalizeProps(multiSelectFieldProps)}
         id={id}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
         name={name}
-        label={label}
+        options={options}
         labelHidden
         onChange={onChange}
         value={value}
