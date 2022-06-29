@@ -10,28 +10,41 @@ const StyledMain = styled("main", {
   height: "100%",
 });
 
-interface ContentProps {
+interface BaseContentProps {
   defaultPath?: string;
   logoSrc: string;
+}
+
+interface ChildrenContentProps extends BaseContentProps {
+  children: ReactElement;
+}
+
+interface PagesContentProps extends BaseContentProps {
   pages: Page[];
 }
 
+type ContentProps = ChildrenContentProps | PagesContentProps;
+
 export function Content(props: ContentProps): ReactElement {
-  const { defaultPath, logoSrc, pages } = props;
-  return (
-    <StyledMain>
+  const { defaultPath, logoSrc } = props;
+  let content: ReactElement;
+  if ("children" in props) {
+    content = props.children;
+  } else {
+    content = (
       <Suspense fallback={<Loading logoSrc={logoSrc} />}>
         <Routes>
           <Route
             index
-            element={<Navigate to={defaultPath || pages[0].path} />}
+            element={<Navigate to={defaultPath || props.pages[0].path} />}
           />
-          {pages.map((p) => (
+          {props.pages.map((p) => (
             <Route key={p.path} path={`${p.path}/*`} element={p.component} />
           ))}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-    </StyledMain>
-  );
+    );
+  }
+  return <StyledMain>{content}</StyledMain>;
 }

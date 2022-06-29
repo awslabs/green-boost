@@ -24,11 +24,7 @@ const LayoutContainer = styled("div", {
 
 export type CognitoUser = ReturnType<typeof useAuthenticator>["user"];
 
-export interface LayoutProps {
-  /**
-   * Pages to be displayed in bottom-left navigation drawer
-   */
-  bottomPages?: (NavLink | Page)[];
+interface BaseLayoutProps {
   className?: string;
   /**
    * string for footer
@@ -43,10 +39,6 @@ export interface LayoutProps {
    * lazily loaded routes
    */
   logoSrc: string;
-  /**
-   * Pages to be displayed in top-left navigation drawer
-   */
-  pages: Page[];
   /**
    * Logs off user
    * @default Auth.signOut
@@ -80,23 +72,39 @@ export interface LayoutProps {
    * and `logoSrc` prop aren't used in header.
    */
   HeaderTitle?: ReactElement;
+}
+
+interface PagesLayoutProps extends BaseLayoutProps {
+  /**
+   * Pages to be displayed in bottom-left navigation drawer
+   */
+  bottomPages?: (NavLink | Page)[];
+  /**
+   * Pages to be displayed in left navigation drawer and routes created for
+   * content
+   */
+  pages: Page[];
+}
+
+interface ChildrenLayoutProps extends BaseLayoutProps {
+  children: ReactElement;
   /**
    * Custom navigation list
    */
-  NavigationList?: typeof NavList;
+  NavigationList: typeof NavList;
 }
+
+export type LayoutProps = PagesLayoutProps | ChildrenLayoutProps;
 
 /**
  * App Layout including header, aside, main and footer
  */
 export function Layout(props: LayoutProps): ReactElement {
   const {
-    bottomPages,
     className,
     footer,
     defaultPath,
     logoSrc,
-    pages,
     signOut = Auth.signOut,
     title,
     user,
@@ -104,7 +112,6 @@ export function Layout(props: LayoutProps): ReactElement {
     AccountSidebar,
     Footer: UserFooter,
     HeaderTitle,
-    NavigationList,
   } = props;
   const bps = useBps();
   // initial state makes sidebar open for laptop but closed for tablet and mobile
@@ -114,6 +121,38 @@ export function Layout(props: LayoutProps): ReactElement {
     // if changing from tablet to laptop, open sidebar
     setOpen(bps.bp3);
   }, [bps.bp3]);
+  let navigation: ReactElement | undefined;
+  let content: ReactElement | undefined;
+  if ("pages" in props) {
+    navigation = (
+      <Navigation
+        bottomPages={props.bottomPages}
+        open={open}
+        pages={props.pages}
+        setOpen={setOpen}
+      />
+    );
+    content = (
+      <Content
+        defaultPath={defaultPath}
+        logoSrc={logoSrc}
+        pages={props.pages}
+      ></Content>
+    );
+  } else {
+    navigation = (
+      <Navigation
+        NavigationList={props.NavigationList}
+        open={open}
+        setOpen={setOpen}
+      />
+    );
+    content = (
+      <Content defaultPath={defaultPath} logoSrc={logoSrc}>
+        {props.children}
+      </Content>
+    );
+  }
   return (
     <LayoutContainer className={className}>
       <Header
@@ -127,14 +166,8 @@ export function Layout(props: LayoutProps): ReactElement {
         AccountSidebar={AccountSidebar}
         HeaderTitle={HeaderTitle}
       />
-      <Navigation
-        bottomPages={bottomPages}
-        NavigationList={NavigationList}
-        open={open}
-        pages={pages}
-        setOpen={setOpen}
-      />
-      <Content defaultPath={defaultPath} logoSrc={logoSrc} pages={pages} />
+      {navigation}
+      {content}
       <Footer footer={footer} Footer={UserFooter} />
     </LayoutContainer>
   );
