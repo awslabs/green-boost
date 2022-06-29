@@ -19,12 +19,11 @@ interface Option {
   value: string;
 }
 
-export interface SmartRadioGroupFieldProps<T>
-  extends ExternalBaseSmartFieldProps,
-    ControlProps<T>,
-    Omit<RadioGroupFieldProps, "name" | "children"> {
-  options: Option[];
-}
+export type SmartRadioGroupFieldProps<T> = ExternalBaseSmartFieldProps &
+  ControlProps<T> &
+  Omit<RadioGroupFieldProps, "name" | "children"> & {
+    options: Option[];
+  };
 
 export function SmartRadioGroupField<T extends FieldValues>(
   props: SmartRadioGroupFieldProps<T>

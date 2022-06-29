@@ -10,10 +10,9 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export interface SmartTransferListProps<T, U>
-  extends ExternalBaseSmartFieldProps,
-    ControlProps<T>,
-    Omit<TransferListProps<U>, "name" | "value" | "onChange"> {}
+export type SmartTransferListProps<T, U> = ExternalBaseSmartFieldProps &
+  ControlProps<T> &
+  Omit<TransferListProps<U>, "name" | "value" | "onChange">;
 
 /**
  * Smart Transfer List - first generic type is react-hook-form type,

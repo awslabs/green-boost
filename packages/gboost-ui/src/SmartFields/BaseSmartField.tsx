@@ -1,27 +1,34 @@
 import { ReactElement } from "react";
-import { Flex, Placeholder, Icon, Text } from "@aws-amplify/ui-react";
+import { Flex, Placeholder, Text } from "@aws-amplify/ui-react";
 import type { ReactNode } from "react";
-import { styled, Tooltip } from "../index.js";
-import { MdInfoOutline } from "react-icons/md";
-import { TooltipProps } from "./common.js";
+import { styled, Tooltip, TooltipIcon } from "../index.js";
+import type { TooltipAlign, TooltipSide } from "../components/index.js";
+
+interface SimpleTooltipProps {
+  tooltip?: string | ReactElement;
+  tooltipAlign?: TooltipAlign;
+  tooltipMaxWidth?: number;
+  tooltipSide?: TooltipSide;
+}
+interface CustomTooltipProps {
+  Tooltip?: ReactElement;
+}
 
 export const LabelContainer = styled("div", {
   display: "flex",
   gap: "$2",
 });
 
-export function TooltipIcon() {
-  return <Icon ariaLabel="info" fontSize={20} as={MdInfoOutline} />;
-}
-
-export interface ExternalBaseSmartFieldProps extends TooltipProps {
+export interface _ExternalBaseSmartFieldProps {
   descriptiveText?: ReactNode;
   label: ReactNode;
   labelHidden?: boolean;
   loading?: boolean;
 }
+export type ExternalBaseSmartFieldProps = _ExternalBaseSmartFieldProps &
+  (SimpleTooltipProps | CustomTooltipProps);
 
-const externalBaseSmartFieldKeys: (keyof ExternalBaseSmartFieldProps)[] = [
+const externalBaseSmartFieldKeys = [
   "descriptiveText",
   "label",
   "labelHidden",
@@ -30,14 +37,17 @@ const externalBaseSmartFieldKeys: (keyof ExternalBaseSmartFieldProps)[] = [
   "tooltipAlign",
   "tooltipMaxWidth",
   "tooltipSide",
-];
+  "Tooltip",
+] as const;
 
-export interface BaseSmartFieldProps extends ExternalBaseSmartFieldProps {
+export interface _BaseSmartFieldProps {
   children: ReactElement;
   className?: string;
   id: string;
   loadingHeight?: number | string;
 }
+
+type BaseSmartFieldProps = _BaseSmartFieldProps & ExternalBaseSmartFieldProps;
 
 export function getBaseSmartFieldProps(
   props: Record<string, any>
@@ -65,31 +75,39 @@ export function BaseSmartField(props: BaseSmartFieldProps): ReactElement {
     label,
     labelHidden,
     loading,
-    tooltip,
-    tooltipAlign,
-    tooltipMaxWidth,
-    tooltipSide = "right",
   } = props;
 
   let Label: ReactElement | undefined;
   if (!labelHidden) {
+    let tooltip: ReactElement | undefined = undefined;
+    if ("Tooltip" in props && props.Tooltip) {
+      tooltip = props.Tooltip;
+    } else if ("tooltip" in props && props.tooltip) {
+      const {
+        tooltip: tooltipContent,
+        tooltipAlign,
+        tooltipMaxWidth,
+        tooltipSide = "right",
+      } = props;
+      tooltip = (
+        <Tooltip
+          content={tooltipContent}
+          align={tooltipAlign}
+          maxWidth={tooltipMaxWidth}
+          side={tooltipSide}
+        >
+          <span>
+            <TooltipIcon />
+          </span>
+        </Tooltip>
+      );
+    }
     Label = (
       <LabelContainer>
         <label className="amplify-label" htmlFor={id}>
           {label}
         </label>
-        {tooltip && (
-          <Tooltip
-            content={tooltip}
-            align={tooltipAlign}
-            maxWidth={tooltipMaxWidth}
-            side={tooltipSide}
-          >
-            <span>
-              <TooltipIcon />
-            </span>
-          </Tooltip>
-        )}
+        {tooltip}
       </LabelContainer>
     );
   }

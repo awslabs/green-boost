@@ -8,11 +8,15 @@ const Container = styled("div", {
   flexDirection: "column",
   gap: "var(--amplify-components-field-gap)",
 });
-const CheckboxContainer = styled("div");
+const CheckboxContainer = styled("div", {
+  display: "flex",
+  gap: "$1",
+});
 
 interface CheckboxOption {
   label: string;
   value: string;
+  labelEnd?: ReactElement;
 }
 
 export interface MultiCheckboxFieldProps
@@ -64,6 +68,7 @@ export function MultiCheckboxField(
               checked={value.includes(o.value)}
               onChange={(e) => setValue([...value, e.target.value])}
             />
+            {o.labelEnd}
           </CheckboxContainer>
         ))}
       </div>

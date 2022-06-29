@@ -9,14 +9,13 @@ import {
 import { useId } from "@mantine/hooks";
 import { useController } from "react-hook-form";
 
-export interface SmartFileUploadFieldProps<T>
-  extends ExternalBaseSmartFieldProps,
-    ControlProps<T>,
-    Omit<FileUploadFieldProps, "name"> {
-  accept?: string;
-  capture?: "user" | "environment";
-  multiple?: boolean;
-}
+export type SmartFileUploadFieldProps<T> = ExternalBaseSmartFieldProps &
+  ControlProps<T> &
+  Omit<FileUploadFieldProps, "name"> & {
+    accept?: string;
+    capture?: "user" | "environment";
+    multiple?: boolean;
+  };
 
 export function SmartFileUploadField<T>(
   props: SmartFileUploadFieldProps<T>
