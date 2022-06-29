@@ -30,7 +30,6 @@ export function SmartTransferList<T extends FieldValues, U>(
     errorMessage,
     hasError,
     name,
-    options,
     render,
     ...transferListProps
   } = props;
@@ -58,7 +57,6 @@ export function SmartTransferList<T extends FieldValues, U>(
         onChange={onChange}
         labelHidden
         value={value}
-        options={options}
         render={render}
       />
     </BaseSmartField>

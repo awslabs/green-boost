@@ -18,7 +18,7 @@ import {
   useState,
 } from "react";
 import { MdUpload } from "react-icons/md";
-import { styled } from "../index.js";
+import { styled } from "../../index.js";
 
 const Container = styled("div", {
   cursor: "pointer",

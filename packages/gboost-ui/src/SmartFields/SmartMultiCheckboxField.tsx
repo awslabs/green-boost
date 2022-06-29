@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
+import { MultiCheckboxField, MultiCheckboxFieldProps } from "../index.js";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { MultiSelectField, MultiSelectFieldProps } from "../index.js";
 import { ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
@@ -10,19 +10,19 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export interface SmartMultiSelectFieldProps<T>
+export interface SmartMultiCheckboxFieldProps<T>
   extends ExternalBaseSmartFieldProps,
     ControlProps<T>,
-    Omit<MultiSelectFieldProps, "name"> {}
+    Omit<MultiCheckboxFieldProps, "name" | "children"> {}
 
-export function SmartMultiSelectField<T extends FieldValues>(
-  props: SmartMultiSelectFieldProps<T>
+export function SmartMultiCheckboxField<T extends FieldValues>(
+  props: SmartMultiCheckboxFieldProps<T>
 ): ReactElement {
-  const { control, errorMessage, hasError, name, ...multiSelectFieldProps } =
-    props;
   const id = useId();
+  const { control, errorMessage, hasError, name, ...checkboxFieldProps } =
+    props;
   const {
-    field: { ref, onChange, value },
+    field: { onChange, value },
     fieldState: { error, invalid },
   } = useController({ name, control });
 
@@ -30,17 +30,16 @@ export function SmartMultiSelectField<T extends FieldValues>(
     <BaseSmartField
       {...getBaseSmartFieldProps(props)}
       id={id}
-      className="amplify-selectfield"
-      loadingHeight={40}
+      className="amplify-checkboxfield"
+      loadingHeight={32}
     >
-      <MultiSelectField
-        {...normalizeProps(multiSelectFieldProps)}
+      <MultiCheckboxField
+        {...normalizeProps(checkboxFieldProps)}
         id={id}
-        ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
-        name={name}
         labelHidden
+        name={name}
         onChange={onChange}
         value={value}
       />

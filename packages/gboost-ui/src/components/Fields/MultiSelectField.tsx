@@ -19,9 +19,9 @@ import {
   View,
 } from "@aws-amplify/ui-react";
 import { useClickOutside, useId } from "@mantine/hooks";
-import { styled } from "../index.js";
+import { styled } from "../../index.js";
 import { MdArrowDropDown, MdArrowDropUp, MdClose } from "react-icons/md";
-import { Box } from "./Box.js";
+import { Box } from "../Box.js";
 
 const StyledInput = styled("input", {
   cursor: "pointer",
