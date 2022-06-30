@@ -1,6 +1,7 @@
 import { Construct } from "constructs";
 import {
   AttributeMapping,
+  ClientAttributes,
   OAuthSettings,
   StringAttribute,
   UserPool,
@@ -11,11 +12,17 @@ import {
   UserPoolIdentityProviderOidc,
   UserPoolIdentityProviderOidcProps,
 } from "aws-cdk-lib/aws-cognito";
-import { Function } from "../index.js";
-import { CommonUserBaseProps, createUserPoolGroups } from "./common.js";
-import { CommonProps, Stage } from "../common-props.js";
+import {
+  CommonUserBaseProps,
+  createUserPoolGroups,
+  defaultPasswordPolicy,
+  standardWriteAttributes,
+} from "./common.js";
+import { CommonProps, Stage } from "../index.js";
+import { NagSuppressions } from "cdk-nag";
+import { RemovalPolicy } from "aws-cdk-lib";
 
-interface OidcUserBaseProps extends CommonProps, CommonUserBaseProps {
+interface OidcUserBaseProps extends CommonProps, Partial<CommonUserBaseProps> {
   attributeMapping: AttributeMapping;
   clientId: string;
   clientSecret: string;
@@ -23,9 +30,11 @@ interface OidcUserBaseProps extends CommonProps, CommonUserBaseProps {
   issuerUrl: string;
   oAuth: OAuthSettings;
   /**
-   * The OAuth 2.0 scopes that you will request from OpenID Connect. Scopes are groups of OpenID Connect user attributes to exchange with your app.
+   * The OAuth 2.0 scopes that you will request from OpenID Connect. Scopes are
+   * groups of OpenID Connect user attributes to exchange with your app.
+   * @default ["openid"]
    */
-  scopes: string[];
+  idpScopes: string[];
   userPoolDomainProps?: Partial<UserPoolDomainProps>;
   userPoolIdentityProviderOidcProps?: Partial<UserPoolIdentityProviderOidcProps>;
 }
@@ -51,55 +60,36 @@ export class OidcUserBase extends Construct {
       groups,
       issuerUrl,
       oAuth,
-      scopes,
+      idpScopes = ["openid"],
       stage = Stage.Dev,
       userPoolProps,
       userPoolClientProps,
       userPoolDomainProps,
       userPoolIdentityProviderOidcProps,
     } = props;
-
-    const fileExt = import.meta.url.slice(-2);
-    const preTokenGeneration = new Function(
-      this,
-      "PreTokenGenerationFunction",
-      {
-        entry: new URL(`./pre-token-generation.${fileExt}`, import.meta.url)
-          .pathname,
-        stage,
-      }
-    );
+    const isProd = stage === Stage.Prod;
 
     this.userPool = new UserPool(this, "UserPool", {
+      removalPolicy: isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
       // Cognito shouldn't send verification email - already handled by idP
       autoVerify: { email: false },
       signInAliases: { username: true, email: true },
-      lambdaTriggers: {
-        preTokenGeneration,
-      },
       customAttributes: {
         // Groups/roles from IdP are stored in custom:groups and then Pre-Token
         // Generation Lambda adds custom:groups to cognito:groups attribute.
         // This provides same functionality as if user were actually in the
         // Cognito User Group while limiting out of sync group info in Cognito
         // since on each login custom:groups is updated from IdP
-        "custom:groups": new StringAttribute({ mutable: true }),
+        groups: new StringAttribute({ mutable: true }),
       },
+      // must explictly define password policy for cdk-nag
+      passwordPolicy: defaultPasswordPolicy,
       ...userPoolProps,
     });
 
-    createUserPoolGroups(this, groups, this.userPool.userPoolId);
-
-    this.userPoolClient = new UserPoolClient(this, "UserPoolClient", {
-      oAuth: {
-        flows: { authorizationCodeGrant: true },
-        ...oAuth,
-      },
-      supportedIdentityProviders: [UserPoolClientIdentityProvider.COGNITO],
-      // TODO: maybe need readAttributes and writeAttributes?
-      userPool: this.userPool,
-      ...userPoolClientProps,
-    });
+    if (groups) {
+      createUserPoolGroups(this, groups, this.userPool.userPoolId);
+    }
 
     this.userPoolIdentityProviderOidc = new UserPoolIdentityProviderOidc(
       this,
@@ -109,11 +99,28 @@ export class OidcUserBase extends Construct {
         clientId,
         clientSecret,
         issuerUrl,
-        scopes,
+        scopes: idpScopes,
         userPool: this.userPool,
         ...userPoolIdentityProviderOidcProps,
       }
     );
+
+    this.userPoolClient = new UserPoolClient(this, "UserPoolClient", {
+      oAuth: {
+        flows: { authorizationCodeGrant: true },
+        ...oAuth,
+      },
+      supportedIdentityProviders: [
+        UserPoolClientIdentityProvider.COGNITO,
+        { name: this.userPoolIdentityProviderOidc.providerName },
+      ],
+      // TODO: maybe need readAttributes and writeAttributes?
+      writeAttributes: new ClientAttributes().withStandardAttributes(
+        standardWriteAttributes
+      ),
+      userPool: this.userPool,
+      ...userPoolClientProps,
+    });
 
     this.userPoolDomain = new UserPoolDomain(this, "UserPoolDomain", {
       userPool: this.userPool,
@@ -122,5 +129,16 @@ export class OidcUserBase extends Construct {
       },
       ...userPoolDomainProps,
     });
+
+    NagSuppressions.addResourceSuppressions(this.userPool, [
+      {
+        id: "AwsSolutions-COG3",
+        reason: "Let user opt in if desired - too expensive for default",
+      },
+      {
+        id: "AwsSolutions-COG2",
+        reason: "User authentication is federated. No need for MFA",
+      },
+    ]);
   }
 }

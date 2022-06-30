@@ -4,7 +4,11 @@ import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { NagSuppressions } from "cdk-nag";
 import { Construct } from "constructs";
 import { CommonProps, Stage, Function } from "../index.js";
-import { CommonUserBaseProps, createUserPoolGroups } from "./common.js";
+import {
+  CommonUserBaseProps,
+  createUserPoolGroups,
+  defaultPasswordPolicy,
+} from "./common.js";
 
 export interface UserBaseProps extends CommonProps, CommonUserBaseProps {
   sesEmail?: string;
@@ -54,16 +58,6 @@ export class UserBase extends Construct {
       stage,
     });
 
-    // user define password policy or default CFN policy
-    // must explicitly define defaul CFN policy for cdk nag
-    const defaultPasswordPolicy = {
-      minLength: 8,
-      requireDigits: true,
-      requireLowercase: true,
-      requireSymbols: true,
-      requireUppercase: true,
-      tempPasswordValidity: Duration.days(7),
-    };
     this.userPool = new UserPool(this, "UserPool", {
       removalPolicy: isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
@@ -86,7 +80,7 @@ export class UserBase extends Construct {
     NagSuppressions.addResourceSuppressions(this.userPool, [
       {
         id: "AwsSolutions-COG3",
-        reason: "Let user opt in if desired - to expensive for default",
+        reason: "Let user opt in if desired - too expensive for default",
       },
     ]);
 
