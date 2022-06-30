@@ -17,15 +17,15 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.4.4",
-    "@changesets/cli": "^2.22.0",
+    "@changesets/changelog-github": "^0.4.5",
+    "@changesets/cli": "^2.23.0",
     "@types/license-checker": "^25.0.3",
-    "@types/node": "^16.11.38",
+    "@types/node": "^16.11.41",
     "husky": "^7.0.4",
     "license-checker": "^25.0.1",
     "lint-staged": "^12.5.0",
-    "ts-node": "^10.8.0",
-    "typescript": "^4.7.2"
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
   },
   "license": "Apache-2.0"
 }

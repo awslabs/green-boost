@@ -12,3 +12,4 @@ export * from "./SmartInputs/SmartInputs.js";
 export * from "./ErrorBoundary.js";
 export * from "./components/index.js";
 export * from "./utils/gQuery.js";
+export * from "./FileUpload/FileUpload.js";
