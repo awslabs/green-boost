@@ -6,7 +6,7 @@ import {
 } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { ControlProps } from "./common.js";
+import { ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
   ExternalBaseSmartFieldProps,
@@ -19,12 +19,11 @@ interface Option {
   value: string;
 }
 
-export interface SmartRadioGroupFieldProps<T>
-  extends ExternalBaseSmartFieldProps,
-    ControlProps<T>,
-    Omit<RadioGroupFieldProps, "name" | "children"> {
-  options: Option[];
-}
+export type SmartRadioGroupFieldProps<T> = ExternalBaseSmartFieldProps &
+  ControlProps<T> &
+  Omit<RadioGroupFieldProps, "name" | "children"> & {
+    options: Option[];
+  };
 
 export function SmartRadioGroupField<T extends FieldValues>(
   props: SmartRadioGroupFieldProps<T>
@@ -33,7 +32,6 @@ export function SmartRadioGroupField<T extends FieldValues>(
     control,
     errorMessage,
     hasError,
-    label,
     options,
     name,
     ...radioGroupFieldProps
@@ -52,16 +50,12 @@ export function SmartRadioGroupField<T extends FieldValues>(
       loadingHeight={32 * options.length}
     >
       <RadioGroupField
-        {...(radioGroupFieldProps as Omit<
-          RadioGroupFieldProps,
-          "label" | "name"
-        >)}
+        {...normalizeProps(radioGroupFieldProps)}
         id={id}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
         name={name}
-        label={label}
         labelHidden
         onChange={onChange}
         value={value}

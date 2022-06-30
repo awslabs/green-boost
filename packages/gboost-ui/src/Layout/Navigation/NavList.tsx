@@ -14,11 +14,11 @@ const ListContainer = styled("div", {
 interface NavListProps {
   bottomPages?: (NavLink | Page)[];
   open: boolean;
-  pages: Page[];
+  pages?: Page[];
 }
 
 export function NavList(props: NavListProps): ReactElement {
-  const { bottomPages = [], pages, open } = props;
+  const { bottomPages = [], pages = [], open } = props;
   return (
     <ListContainer>
       <List css={{ flex: "1 1", px: 0 }}>

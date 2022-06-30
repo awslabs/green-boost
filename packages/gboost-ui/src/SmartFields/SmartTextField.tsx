@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { TextField, TextFieldProps } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { ControlProps } from "./common.js";
+import { ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
   ExternalBaseSmartFieldProps,
@@ -10,23 +10,14 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export interface SmartTextFieldProps<T>
-  extends ExternalBaseSmartFieldProps,
-    ControlProps<T>,
-    Omit<TextFieldProps, "name"> {}
+export type SmartTextFieldProps<T> = ExternalBaseSmartFieldProps &
+  ControlProps<T> &
+  Omit<TextFieldProps, "name">;
 
 export function SmartTextField<T extends FieldValues>(
   props: SmartTextFieldProps<T>
 ): ReactElement {
-  const {
-    control,
-    errorMessage,
-    hasError,
-    label,
-    loading,
-    name,
-    ...textFieldProps
-  } = props;
+  const { control, errorMessage, hasError, name, ...textFieldProps } = props;
   const id = useId();
   const {
     field: { ref, onChange, value },
@@ -40,13 +31,12 @@ export function SmartTextField<T extends FieldValues>(
       className="amplify-textfield"
     >
       <TextField
-        {...(textFieldProps as Omit<TextFieldProps, "label" | "name">)}
+        {...normalizeProps(textFieldProps)}
         id={id}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
         name={name}
-        label={label}
         labelHidden
         onChange={onChange}
         value={value}

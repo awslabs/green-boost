@@ -9,20 +9,18 @@ import {
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { Tooltip } from "../index.js";
-import { ControlProps } from "./common.js";
+import { ControlProps, normalizeProps } from "./common.js";
 import {
   ExternalBaseSmartFieldProps,
   LabelContainer,
-  TooltipIcon,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export interface SmartSliderFieldProps<T>
-  extends ExternalBaseSmartFieldProps,
-    ControlProps<T>,
-    Omit<SliderFieldProps, "name"> {
-  renderValue?: (v: number) => string;
-}
+export type SmartSliderFieldProps<T> = ExternalBaseSmartFieldProps &
+  ControlProps<T> &
+  Omit<SliderFieldProps, "name"> & {
+    renderValue?: (v: number) => string;
+  };
 
 export function SmartSliderField<T extends FieldValues>(
   props: SmartSliderFieldProps<T>
@@ -36,10 +34,6 @@ export function SmartSliderField<T extends FieldValues>(
     loading,
     name,
     renderValue,
-    tooltip,
-    tooltipAlign,
-    tooltipMaxWidth,
-    tooltipSide = "right",
     ...sliderFieldProps
   } = props;
   const id = useId();
@@ -54,7 +48,7 @@ export function SmartSliderField<T extends FieldValues>(
   } else {
     Value = (
       <SliderField
-        {...(sliderFieldProps as Omit<SliderFieldProps, "label" | "name">)}
+        {...normalizeProps(sliderFieldProps)}
         id={id}
         ref={ref}
         errorMessage={errorMessage || error?.message}
@@ -68,6 +62,19 @@ export function SmartSliderField<T extends FieldValues>(
       />
     );
   }
+  let tooltip: ReactElement | undefined = undefined;
+  if ("Tooltip" in props && props.Tooltip) {
+    tooltip = props.Tooltip;
+  } else if ("tooltip" in props && props.tooltip) {
+    tooltip = (
+      <Tooltip
+        content={props.tooltip}
+        align={props.tooltipAlign}
+        maxWidth={props.tooltipMaxWidth}
+        side={props.tooltipSide || "right"}
+      />
+    );
+  }
   return (
     <Flex className="amplify-field amplify-sliderfield">
       <label
@@ -77,18 +84,7 @@ export function SmartSliderField<T extends FieldValues>(
       >
         <LabelContainer>
           <span>{label}</span>
-          {tooltip && (
-            <Tooltip
-              content={tooltip}
-              align={tooltipAlign}
-              maxWidth={tooltipMaxWidth}
-              side={tooltipSide}
-            >
-              <span>
-                <TooltipIcon />
-              </span>
-            </Tooltip>
-          )}
+          {tooltip}
         </LabelContainer>
         <span>{renderValue ? renderValue(value) : value}</span>
       </label>

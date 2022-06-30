@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { FieldValues, useController } from "react-hook-form";
 import { defaultListHeight, TransferList } from "../index.js";
 import type { TransferListProps } from "../index.js";
-import { ControlProps } from "./common.js";
+import { ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
   ExternalBaseSmartFieldProps,
@@ -10,10 +10,9 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export interface SmartTransferListProps<T, U>
-  extends ExternalBaseSmartFieldProps,
-    ControlProps<T>,
-    Omit<TransferListProps<U>, "name" | "value" | "onChange"> {}
+export type SmartTransferListProps<T, U> = ExternalBaseSmartFieldProps &
+  ControlProps<T> &
+  Omit<TransferListProps<U>, "name" | "value" | "onChange">;
 
 /**
  * Smart Transfer List - first generic type is react-hook-form type,
@@ -25,8 +24,14 @@ export interface SmartTransferListProps<T, U>
 export function SmartTransferList<T extends FieldValues, U>(
   props: SmartTransferListProps<T, U>
 ): ReactElement {
-  const { control, errorMessage, hasError, label, name, ...transferListProps } =
-    props;
+  const {
+    control,
+    errorMessage,
+    hasError,
+    name,
+    render,
+    ...transferListProps
+  } = props;
   const id = useId();
   const {
     field: { ref, onChange, value },
@@ -43,15 +48,15 @@ export function SmartTransferList<T extends FieldValues, U>(
       } + 42px)`}
     >
       <TransferList
-        {...(transferListProps as Omit<TransferListProps<U>, "label" | "name">)}
+        {...normalizeProps(transferListProps)}
         id={id}
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
         onChange={onChange}
-        label={label}
         labelHidden
         value={value}
+        render={render}
       />
     </BaseSmartField>
   );

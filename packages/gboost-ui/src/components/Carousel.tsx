@@ -151,12 +151,19 @@ export function Carousel(props: CarouselProps): ReactElement {
   } = props;
   const [active, setActive] = useState(0);
   const cycleActive = useCallback(
-    (delta: number) => {
-      setActive((a) => (a + delta) % children.length);
+    (direction: "next" | "previous") => {
+      setActive((a) => {
+        const newActive = direction === "next" ? a + 1 : a - 1;
+        if (newActive < 0) {
+          return children.length - 1;
+        } else {
+          return newActive % children.length;
+        }
+      });
     },
     [children.length]
   );
-  const interval = useInterval(() => cycleActive(1), int);
+  const interval = useInterval(() => cycleActive("next"), int);
   useEffect(() => {
     interval.start();
     return interval.stop;
@@ -195,10 +202,10 @@ export function Carousel(props: CarouselProps): ReactElement {
   if (!hideControls) {
     controls = (
       <>
-        <Control direction="previous" onClick={() => cycleActive(-1)}>
+        <Control direction="previous" onClick={() => cycleActive("previous")}>
           <ControlIcon as={MdNavigateBefore} />
         </Control>
-        <Control direction="next" onClick={() => cycleActive(1)}>
+        <Control direction="next" onClick={() => cycleActive("next")}>
           <ControlIcon as={MdNavigateNext} />
         </Control>
       </>

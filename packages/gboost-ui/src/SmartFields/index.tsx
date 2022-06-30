@@ -2,6 +2,7 @@ export * from "./SmartCheckboxField.js";
 export * from "./SmartDateTimeField.js";
 export * from "./SmartFileUploadField.js";
 export * from "./SmartMultiSelectField.js";
+export * from "./SmartMultiCheckboxField.js";
 export * from "./SmartPhoneNumberField.js";
 export * from "./SmartRadioGroupField.js";
 export * from "./SmartSelectField.js";

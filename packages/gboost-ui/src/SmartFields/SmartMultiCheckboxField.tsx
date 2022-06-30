@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
+import { MultiCheckboxField, MultiCheckboxFieldProps } from "../index.js";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { ControlProps, normalizeProps } from "./common.js";
-import { DateTimeField, DateTimeFieldProps } from "../index.js";
 import {
   BaseSmartField,
   ExternalBaseSmartFieldProps,
@@ -10,38 +10,35 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export type SmartDateTimeFieldProps<T> = ExternalBaseSmartFieldProps &
+export type SmartMultiCheckboxFieldProps<T> = ExternalBaseSmartFieldProps &
   ControlProps<T> &
-  Omit<DateTimeFieldProps, "name">;
+  Omit<MultiCheckboxFieldProps, "name" | "children">;
 
-export function SmartDateTimeField<T extends FieldValues>(
-  props: SmartDateTimeFieldProps<T>
+export function SmartMultiCheckboxField<T extends FieldValues>(
+  props: SmartMultiCheckboxFieldProps<T>
 ): ReactElement {
-  const { control, errorMessage, hasError, name, ...dateTimeFieldProps } =
-    props;
   const id = useId();
+  const { control, errorMessage, hasError, name, ...checkboxFieldProps } =
+    props;
   const {
-    field: { ref, onChange, value },
+    field: { onChange, value },
     fieldState: { error, invalid },
   } = useController({ name, control });
-  let pickerType: string = props.type || "datetime-local";
-  pickerType = pickerType.replace("-local", "");
+
   return (
     <BaseSmartField
       {...getBaseSmartFieldProps(props)}
-      descriptiveText={`Click calendar icon for ${pickerType} picker`}
-      className="amplify-textfield"
       id={id}
-      loadingHeight={40}
+      className="amplify-checkboxfield"
+      loadingHeight={32}
     >
-      <DateTimeField
-        {...normalizeProps(dateTimeFieldProps)}
+      <MultiCheckboxField
+        {...normalizeProps(checkboxFieldProps)}
         id={id}
-        ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
-        name={name}
         labelHidden
+        name={name}
         onChange={onChange}
         value={value}
       />
