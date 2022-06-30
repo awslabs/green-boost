@@ -339,7 +339,6 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       onDragEnter={handleDragIn}
       onDragExit={handleDragOut}
       onClick={handleClick}
-      draggable
     >
       <VisuallyHidden>
         <input
