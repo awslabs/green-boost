@@ -1,5 +1,23 @@
 # gboost-ui
 
+## 0.21.0
+
+### Minor Changes
+
+- [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - Enable providing children to Layout to replace content
+
+* [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - Add MultiCheckboxField and SmartMultiCheckboxField
+
+- [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - add optional RightAside prop on Layout
+
+### Patch Changes
+
+- [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - Normalize smart field props to prevent react console errors
+
+* [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - Add intrinsic props to Link
+
+- [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - Fix Carousel to show last slide when clicking on previous button at first slide
+
 ## 0.20.1
 
 ### Patch Changes
