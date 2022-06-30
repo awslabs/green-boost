@@ -81,33 +81,6 @@ importers:
       prettier: 2.7.1
       typescript: 4.7.4
 
-  docs/demos/notifications:
-    specifiers:
-      '@aws-amplify/ui-react': ^2.18.3
-      '@fontsource/inter': ^4.5.10
-      '@types/react': ^17.0.47
-      '@types/react-dom': ^17.0.17
-      '@vitejs/plugin-react': ^1.3.2
-      aws-amplify: ^4.3.26
-      gboost-ui: ^0.20.0
-      react: ^17.0.2
-      react-dom: ^17.0.2
-      typescript: ^4.7.4
-      vite: ^2.9.12
-    dependencies:
-      '@aws-amplify/ui-react': 2.20.0_fmy2eivwwb3jk2lwovghppors4
-      '@fontsource/inter': 4.5.11
-      aws-amplify: 4.3.26
-      gboost-ui: link:../../../packages/gboost-ui
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      vite: 2.9.12
-    devDependencies:
-      '@types/react': 17.0.47
-      '@types/react-dom': 17.0.17
-      '@vitejs/plugin-react': 1.3.2
-      typescript: 4.7.4
-
   packages/gboost:
     specifiers:
       '@types/jest': ^27.5.2
@@ -623,43 +596,6 @@ packages:
       - aws-amplify
     dev: false
 
-  /@aws-amplify/ui-react/2.20.0_fmy2eivwwb3jk2lwovghppors4:
-    resolution: {integrity: sha512-AkGM/ltpx37Jcc2UjAKYvWpImZI3jG+ZNuULoZ7zdCGPBl6ouF655h131QYgsNqHkZsxKj9tK7wMhMShH7XsmQ==}
-    peerDependencies:
-      aws-amplify: 3.x.x || 4.x.x
-      react: '>= 16.8.0'
-      react-dom: '>= 16.8.0'
-    peerDependenciesMeta:
-      aws-amplify:
-        optional: true
-    dependencies:
-      '@aws-amplify/ui': 3.10.1_aws-amplify@4.3.26
-      '@aws-amplify/ui-react-v1': /@aws-amplify/ui-react/1.2.9_3yrpd5vsy5qsj3fxmgkbn5jqte
-      '@radix-ui/react-accordion': 0.1.6_react@17.0.2
-      '@radix-ui/react-dropdown-menu': 0.1.6_nn45z5sr7igu7sfun6tiae5hx4
-      '@radix-ui/react-slider': 0.1.4_react@17.0.2
-      '@radix-ui/react-tabs': 0.1.5_react@17.0.2
-      '@xstate/react': 3.0.0_sudpmbbyhqtxq6t4xf6jlicdem
-      aws-amplify: 4.3.26
-      classnames: 2.3.1
-      deepmerge: 4.2.2
-      lodash: 4.17.21
-      mapbox-gl: /empty-npm-package/1.0.0
-      maplibre-gl: 1.15.3_empty-npm-package@1.0.0
-      maplibre-gl-js-amplify: 1.5.0_maplibre-gl@1.15.3
-      qrcode: 1.5.0
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-generate-context: 1.0.1_react@17.0.2
-      react-map-gl: 7.0.15_73wyjda6qbz7zllqiwoyhld2ne
-    transitivePeerDependencies:
-      - '@aws-amplify/core'
-      - '@aws-amplify/geo'
-      - '@types/react'
-      - '@xstate/fsm'
-      - xstate
-    dev: false
-
   /@aws-amplify/ui-react/3.0.2_fmy2eivwwb3jk2lwovghppors4:
     resolution: {integrity: sha512-KeX8LnGtZsqIDSPEsydK6dNQNC6X0mGtirR5pzX6NJf2YrbdFw+3hfdfm1CzNmikHLW07lY3Z9b8vn4oHOlwgw==}
     peerDependencies:
@@ -699,17 +635,6 @@ packages:
 
   /@aws-amplify/ui/2.0.5:
     resolution: {integrity: sha512-atoc/zIJRhgpoSDDKgRxbTSD7D9S4wbOzHUHMqRlcEPRKqRrQPGvd6zCUVSBS0jqdrrw6+UTJbWj7ttWCfE4pQ==}
-
-  /@aws-amplify/ui/3.10.1_aws-amplify@4.3.26:
-    resolution: {integrity: sha512-AxwGnTP9oHJj1sIf8+smp3wyKwisbb9PCt8CBsr5rAeO/gkGKXjR4PJKGqtxBi502fQoz2Tn1FlvooMRSuafzA==}
-    peerDependencies:
-      aws-amplify: 3.x.x || 4.x.x
-    dependencies:
-      aws-amplify: 4.3.26
-      lodash: 4.17.21
-      style-dictionary: 3.7.0
-      xstate: 4.32.1
-    dev: false
 
   /@aws-amplify/ui/3.12.0_aws-amplify@4.3.26:
     resolution: {integrity: sha512-a1/uPZOIbCyR0M6BP14j7m2zg+JIt/iWbfwTAIq4SGCH0bfZMiFcQEucJrRRJCC/KH1TiS3RtSj7nwCR7J3gxA==}
@@ -3926,26 +3851,6 @@ packages:
       '@babel/core': 7.18.5
       '@babel/plugin-transform-react-jsx': 7.17.12_@babel+core@7.18.5
 
-  /@babel/plugin-transform-react-jsx-self/7.17.12_@babel+core@7.18.5:
-    resolution: {integrity: sha512-7S9G2B44EnYOx74mue02t1uD8ckWZ/ee6Uz/qfdzc35uWHX5NgRy9i+iJSb2LFRgMd+QV9zNcStQaazzzZ3n3Q==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.18.5
-      '@babel/helper-plugin-utils': 7.17.12
-    dev: true
-
-  /@babel/plugin-transform-react-jsx-source/7.16.7_@babel+core@7.18.5:
-    resolution: {integrity: sha512-rONFiQz9vgbsnaMtQlZCjIRwhJvlrPET8TabIUK2hzlXw9B9s2Ieaxte1SCOOXMbWRHodbKixNf3BLcWVOQ8Bw==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.18.5
-      '@babel/helper-plugin-utils': 7.17.12
-    dev: true
-
   /@babel/plugin-transform-react-jsx/7.17.12_@babel+core@7.18.5:
     resolution: {integrity: sha512-Lcaw8bxd1DKht3thfD4A12dqo1X16he1Lm8rIv8sTwjAYNInRS1qHa9aJoqvzpscItXvftKDCfaEQzwoVyXpEQ==}
     engines: {node: '>=6.9.0'}
@@ -5406,10 +5311,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@fontsource/inter/4.5.11:
-    resolution: {integrity: sha512-toizzQkfXL8YJcG/f8j3EYXYGQe4OxiDEItThSigvHU+cYNDw8HPp3wLYQX745hddsnHqOGCM4exitFSBOU8+w==}
-    dev: false
-
   /@hapi/hoek/9.3.0:
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
 
@@ -5782,14 +5683,6 @@ packages:
   /@mapbox/jsonlint-lines-primitives/2.0.2:
     resolution: {integrity: sha512-rY0o9A5ECsTQRVhv7tL/OyDpGAoUB4tTvLiW1DSzQGq4bvTPhNw1VpSNjDJc5GFZ2XuyOtSWSVN05qOtcD71qQ==}
     engines: {node: '>= 0.6'}
-    dev: false
-
-  /@mapbox/mapbox-gl-supported/1.5.0_empty-npm-package@1.0.0:
-    resolution: {integrity: sha512-/PT1P6DNf7vjEEiPkVIRJkvibbqWtqnyGaBz3nfRdcxclNSnSdaLU5tfAgcD7I8Yt5i+L19s406YLl1koLnLbg==}
-    peerDependencies:
-      mapbox-gl: '>=0.32.1 <2.0.0'
-    dependencies:
-      mapbox-gl: /empty-npm-package/1.0.0
     dev: false
 
   /@mapbox/mapbox-gl-supported/1.5.0_mapbox-gl@1.13.1:
@@ -6351,14 +6244,6 @@ packages:
     dependencies:
       '@babel/runtime': 7.18.3
     dev: false
-
-  /@rollup/pluginutils/4.2.1:
-    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
-    engines: {node: '>= 8.0.0'}
-    dependencies:
-      estree-walker: 2.0.2
-      picomatch: 2.3.1
-    dev: true
 
   /@rushstack/eslint-patch/1.1.3:
     resolution: {integrity: sha512-WiBSI6JBIhC6LRIsB2Kwh8DsGTlbBU+mLRxJmAe3LjHTdkDpwIbEOZgoXBbZilk/vlfjK8i6nKRAvIRn1XaIMw==}
@@ -7066,22 +6951,6 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.29.0
       eslint-visitor-keys: 3.3.0
-    dev: true
-
-  /@vitejs/plugin-react/1.3.2:
-    resolution: {integrity: sha512-aurBNmMo0kz1O4qRoY+FM4epSA39y3ShWGuqfLRA/3z0oEJAdtoSfgA3aO98/PCCHAqMaduLxIxErWrVKIFzXA==}
-    engines: {node: '>=12.0.0'}
-    dependencies:
-      '@babel/core': 7.18.5
-      '@babel/plugin-transform-react-jsx': 7.17.12_@babel+core@7.18.5
-      '@babel/plugin-transform-react-jsx-development': 7.16.7_@babel+core@7.18.5
-      '@babel/plugin-transform-react-jsx-self': 7.17.12_@babel+core@7.18.5
-      '@babel/plugin-transform-react-jsx-source': 7.16.7_@babel+core@7.18.5
-      '@rollup/pluginutils': 4.2.1
-      react-refresh: 0.13.0
-      resolve: 1.22.1
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /@webassemblyjs/ast/1.11.1:
@@ -9180,10 +9049,6 @@ packages:
   /emoticon/3.2.0:
     resolution: {integrity: sha512-SNujglcLTTg+lDAcApPNgEdudaqQFiAbJCqzjNxJkvN9vAwCGi0uu8IUVvx+f16h+V44KCY6Y2yboroc9pilHg==}
 
-  /empty-npm-package/1.0.0:
-    resolution: {integrity: sha512-q4Mq/+XO7UNDdMiPpR/LIBIW1Zl4V0Z6UT9aKGqIAnBCtCb3lvZJM1KbDbdzdC8fKflwflModfjR29Nt0EpcwA==}
-    dev: false
-
   /encode-utf8/1.0.3:
     resolution: {integrity: sha512-ucAnuBEhUK4boH2HjVYG5Q2mQyPorvv0u/ocS+zhdw0S8AlHYY+GOFhP1Gio5z4icpP2ivFSvhtFjQi8+T9ppw==}
     dev: false
@@ -9915,10 +9780,6 @@ packages:
   /estraverse/5.3.0:
     resolution: {integrity: sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==}
     engines: {node: '>=4.0'}
-
-  /estree-walker/2.0.2:
-    resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
-    dev: true
 
   /esutils/2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
@@ -12510,37 +12371,6 @@ packages:
       maplibre-gl: 1.15.3_mapbox-gl@1.13.1
     dev: false
 
-  /maplibre-gl/1.15.3_empty-npm-package@1.0.0:
-    resolution: {integrity: sha512-ZuOhLCNgp7Yl1L9uyKgZeuo7kKdewP0iWtmEXsZ/snp0JiVkR1Kl+m1rsfKT/wpm/O4zZ7mUGxF16cYbMIFDRA==}
-    engines: {node: '>=6.4.0'}
-    dependencies:
-      '@mapbox/geojson-rewind': 0.5.2
-      '@mapbox/geojson-types': 1.0.2
-      '@mapbox/jsonlint-lines-primitives': 2.0.2
-      '@mapbox/mapbox-gl-supported': 1.5.0_empty-npm-package@1.0.0
-      '@mapbox/point-geometry': 0.1.0
-      '@mapbox/tiny-sdf': 1.2.5
-      '@mapbox/unitbezier': 0.0.0
-      '@mapbox/vector-tile': 1.3.1
-      '@mapbox/whoots-js': 3.1.0
-      csscolorparser: 1.0.3
-      earcut: 2.2.3
-      geojson-vt: 3.2.1
-      gl-matrix: 3.4.3
-      grid-index: 1.1.0
-      minimist: 1.2.6
-      murmurhash-js: 1.0.0
-      pbf: 3.2.1
-      potpack: 1.0.2
-      quickselect: 2.0.0
-      rw: 1.3.3
-      supercluster: 7.1.5
-      tinyqueue: 2.0.3
-      vt-pbf: 3.1.3
-    transitivePeerDependencies:
-      - mapbox-gl
-    dev: false
-
   /maplibre-gl/1.15.3_mapbox-gl@1.13.1:
     resolution: {integrity: sha512-ZuOhLCNgp7Yl1L9uyKgZeuo7kKdewP0iWtmEXsZ/snp0JiVkR1Kl+m1rsfKT/wpm/O4zZ7mUGxF16cYbMIFDRA==}
     engines: {node: '>=6.4.0'}
@@ -14075,17 +13905,6 @@ packages:
       react-loadable: /@docusaurus/react-loadable/5.5.2_react@17.0.2
       webpack: 5.73.0
 
-  /react-map-gl/7.0.15_73wyjda6qbz7zllqiwoyhld2ne:
-    resolution: {integrity: sha512-l7x8lBhIEcHTreSgrc7hsKv5HsMY1wQg2PVXuKAPmQtgRZc9C3NGwurVJFe24gOlAwzta5UavAHWDiZdU1ZNCw==}
-    peerDependencies:
-      mapbox-gl: '*'
-      react: '>=16.3.0'
-    dependencies:
-      '@types/mapbox-gl': 2.7.3
-      mapbox-gl: /empty-npm-package/1.0.0
-      react: 17.0.2
-    dev: false
-
   /react-map-gl/7.0.15_ouops5l35ideoofxvnr7xruyh4:
     resolution: {integrity: sha512-l7x8lBhIEcHTreSgrc7hsKv5HsMY1wQg2PVXuKAPmQtgRZc9C3NGwurVJFe24gOlAwzta5UavAHWDiZdU1ZNCw==}
     peerDependencies:
@@ -14106,11 +13925,6 @@ packages:
         optional: true
     dependencies:
       fast-base64-decode: 1.0.0
-
-  /react-refresh/0.13.0:
-    resolution: {integrity: sha512-XP8A9BT0CpRBD+NYLLeIhld/RqG9+gktUjW1FkE+Vm7OCinbG1SshcK5tb9ls4kzvjZr9mOQc7HYgBngEyPAXg==}
-    engines: {node: '>=0.10.0'}
-    dev: true
 
   /react-remove-scroll-bar/2.3.3_sudpmbbyhqtxq6t4xf6jlicdem:
     resolution: {integrity: sha512-i9GMNWwpz8XpUpQ6QlevUtFjHGqnPG4Hxs+wlIJntu/xcsZVEpJcIV71K3ZkqNy2q3GfgvkD7y6t/Sv8ofYSbw==}
@@ -14614,6 +14428,7 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /rtl-detect/1.0.4:
     resolution: {integrity: sha512-EBR4I2VDSSYr7PkBmFy04uhycIpDKp+21p/jARYXlCSjQksTBQcJ0HFUPOO79EPPH5JS6VAhiIQbycf0O3JAxQ==}
@@ -16140,6 +15955,7 @@ packages:
       rollup: 2.75.7
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /vscode-oniguruma/1.6.2:
     resolution: {integrity: sha512-KH8+KKov5eS/9WhofZR8M8dMHWN2gTxjMsG4jd04YhpbPR91fUj7rYQ2/XjeHCJWbg7X++ApRIU9NUwM2vTvLA==}
