@@ -1,8 +1,8 @@
-import { gQuery, styled, useNotifications } from "../index.js";
+import { Box, gQuery, styled, useNotifications } from "../index.js";
 import { ReactElement, useRef, useState } from "react";
 import { theme } from "../stitches.config.js";
 import React from "react";
-import { VisuallyHidden } from "@aws-amplify/ui-react";
+import { Grid, VisuallyHidden } from "@aws-amplify/ui-react";
 import {
   abortUpload,
   completeUpload,
@@ -12,18 +12,19 @@ import {
 } from "./gql.js";
 import { GraphQLError } from "graphql";
 import { CompletedPart } from "@aws-sdk/client-s3";
+import { ProgressBar } from "../components/index.js";
 
 const DropOutline = styled("div", {
-  padding: "25%",
+  /* padding: "$9", */
   width: "100%",
   height: "100%",
   borderRadius: "25px",
   borderStyle: "dashed",
   borderWidth: "3px",
-  textAlign: "center",
-  justifyContent: "center",
+  alignItems: "center",
+  display: "flex",
   borderColor: theme.colors.gray8,
-  color: theme.colors.gray7,
+  color: theme.colors.gray8,
 });
 
 interface FileUploadProps {
@@ -83,10 +84,14 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   } = props;
   const inputFile = useRef<HTMLInputElement>(null);
   const { notify } = useNotifications();
+  let multipartUploads = 0; // Number of multipart uploads occuring at once to update cursor
+  let partsUploaded = 0;
+  let totalParts = 0;
   const [cursor, updateCursor] = useState(
     deactivated ? `not-allowed` : `pointer`
   );
-  let multipartUploads = 0; // Number of multipart uploads occuring at once to update cursor
+  const [percent, updatePercent] = useState(0);
+  const [visible, updateProgressBarVisibility] = useState(`hidden`);
 
   async function getURL(
     fileProps: FileProps
@@ -156,7 +161,10 @@ export function FileUpload(props: FileUploadProps): ReactElement {
 
     let multipartUpload: CompletedPart[] = [];
     let numberOfPartsUnknown = true;
-    let numberOfParts = 2;
+    let numberOfParts =
+      Math.ceil(file.size / 5242880) > 1000
+        ? 1000
+        : Math.ceil(file.size / 5242880);
     while (numberOfPartsUnknown) {
       if (
         Math.ceil(file.size / numberOfParts) <= 100000000 ||
@@ -167,12 +175,12 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         numberOfParts++;
       }
     }
+    totalParts += numberOfParts;
+    updatePercent((partsUploaded / totalParts) * 100);
+    updateProgressBarVisibility(`visible`);
     const filePartSize = Math.ceil(file.size / numberOfParts);
     for (let i = 0; i < numberOfParts; i++) {
-      notify({
-        body: `Uploading part ${i + 1}/${numberOfParts}`,
-        variation: `info`,
-      });
+      console.log(i);
       const {
         getUploadPartURL: { url },
       } = await gQuery<GetUploadPartURLResponse>({
@@ -222,7 +230,17 @@ export function FileUpload(props: FileUploadProps): ReactElement {
           body: `Error uploading ${file.name}`,
           variation: `error`,
         });
+        totalParts -= numberOfParts;
+        partsUploaded -= numberOfParts;
+        updatePercent((partsUploaded / totalParts) * 100);
+        if (totalParts === 0) {
+          updateProgressBarVisibility(`hidden`);
+          updatePercent(0);
+        }
         return;
+      } else {
+        partsUploaded += 1;
+        updatePercent((partsUploaded / totalParts) * 100);
       }
     }
 
@@ -245,12 +263,18 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         body: `File ${file.name} successfully uploaded`,
         variation: `success`,
       });
+      totalParts -= numberOfParts;
+      partsUploaded -= numberOfParts;
+      updatePercent((partsUploaded / totalParts) * 100);
+      if (totalParts === 0) {
+        updateProgressBarVisibility(`hidden`);
+        updatePercent(0);
+      }
     }
   }
 
   function handleUpload(files: FileList) {
     if (cursor === `pointer`) {
-      console.log(multipartUploads);
       // maxFiles<=0 is treated as no file limit
       if (maxFiles <= 0 || files.length <= maxFiles) {
         Array.from(files).forEach((file) => {
@@ -350,23 +374,39 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   }
 
   return (
-    <DropOutline
-      onDrop={handleDrop}
-      onDragOver={handleDrag}
-      onDragEnter={handleDragIn}
-      onDragExit={handleDragOut}
-      onClick={handleClick}
-      style={{ cursor: cursor }}
-    >
-      <VisuallyHidden>
-        <input
-          multiple
-          ref={inputFile}
-          onChange={handleClickUpload}
-          type="file"
-        />
-      </VisuallyHidden>
-      {text}
-    </DropOutline>
+    <Box css={{ height: "100%", flex: 2 }}>
+      <DropOutline
+        onDrop={handleDrop}
+        onDragOver={handleDrag}
+        onDragEnter={handleDragIn}
+        onDragExit={handleDragOut}
+        onClick={handleClick}
+        style={{
+          cursor: cursor,
+          justifyContent: "center",
+        }}
+      >
+        <VisuallyHidden>
+          <input
+            multiple
+            ref={inputFile}
+            onChange={handleClickUpload}
+            type="file"
+          />
+        </VisuallyHidden>
+        <Grid style={{ width: "50%", textAlign: "center" }}>
+          {text}
+          <Box
+            css={{
+              visibility: visible,
+              height: "20px",
+              width: "100%",
+            }}
+          >
+            <ProgressBar progress={percent} />
+          </Box>
+        </Grid>
+      </DropOutline>
+    </Box>
   );
 }
