@@ -1,5 +1,5 @@
 import { gQuery, styled, useNotifications } from "../index.js";
-import { ReactElement, useRef } from "react";
+import { ReactElement, useRef, useState } from "react";
 import { theme } from "../stitches.config.js";
 import React from "react";
 import { VisuallyHidden } from "@aws-amplify/ui-react";
@@ -24,7 +24,6 @@ const DropOutline = styled("div", {
   justifyContent: "center",
   borderColor: theme.colors.gray8,
   color: theme.colors.gray7,
-  cursor: "pointer",
 });
 
 interface FileUploadProps {
@@ -84,6 +83,10 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   } = props;
   const inputFile = useRef<HTMLInputElement>(null);
   const { notify } = useNotifications();
+  const [cursor, updateCursor] = useState(
+    deactivated ? `not-allowed` : `pointer`
+  );
+  let multipartUploads = 0; // Number of multipart uploads occuring at once to update cursor
 
   async function getURL(
     fileProps: FileProps
@@ -246,13 +249,14 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   }
 
   function handleUpload(files: FileList) {
-    if (!deactivated) {
+    if (cursor === `pointer`) {
+      console.log(multipartUploads);
       // maxFiles<=0 is treated as no file limit
       if (maxFiles <= 0 || files.length <= maxFiles) {
-        for (var i = 0; i < files.length; i++) {
-          if (files[i].size <= maxFileSize) {
+        Array.from(files).forEach((file) => {
+          if (file.size <= maxFileSize) {
             let isSupported = false;
-            const parts = files[i].name.split(".");
+            const parts = file.name.split(".");
             const extension = parts[parts.length - 1].toLowerCase();
             if (Array.isArray(fileType)) {
               if (fileType.includes(extension)) {
@@ -263,10 +267,18 @@ export function FileUpload(props: FileUploadProps): ReactElement {
             }
 
             if (isSupported) {
-              if (files[i].size < 100000000) {
-                uploadFile(files[i]);
+              if (file.size < 100000000) {
+                uploadFile(file);
               } else {
-                handleMultipartUpload(files[i]);
+                multipartUploads++;
+                updateCursor(`wait`);
+
+                handleMultipartUpload(file).then(() => {
+                  multipartUploads--;
+                  if (multipartUploads === 0) {
+                    updateCursor(`pointer`);
+                  }
+                });
               }
             } else {
               notify({
@@ -276,11 +288,11 @@ export function FileUpload(props: FileUploadProps): ReactElement {
             }
           } else {
             notify({
-              body: `File ${files[i].name} is over the maximum ${maxFileSize} bytes.`,
+              body: `File ${file.name} is over the maximum ${maxFileSize} bytes.`,
               variation: "error",
             });
           }
-        }
+        });
       } else {
         notify({
           body: `Too many files. Max is ${maxFiles}.`,
@@ -289,7 +301,10 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       }
     } else {
       notify({
-        body: "File drop target is currently deactivated.",
+        body:
+          cursor === `not-allowed`
+            ? "File drop target is currently deactivated."
+            : "Previous files are still being uploaded.",
         variation: "error",
       });
     }
@@ -303,8 +318,10 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   }
 
   function handleClick() {
-    if (inputFile.current) {
-      inputFile.current.click();
+    if (cursor === `pointer`) {
+      if (inputFile.current) {
+        inputFile.current.click();
+      }
     }
   }
 
@@ -339,6 +356,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       onDragEnter={handleDragIn}
       onDragExit={handleDragOut}
       onClick={handleClick}
+      style={{ cursor: cursor }}
     >
       <VisuallyHidden>
         <input
