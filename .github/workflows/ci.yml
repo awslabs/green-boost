@@ -51,7 +51,7 @@ jobs:
         run: pnpm unit-test
 
   gboost-create-tests:
-    needs: gboost create tests
+    needs: unit-tests
     name: gboost-create-tests
     runs-on: ubuntu-latest
     strategy:
@@ -66,7 +66,7 @@ jobs:
         run: cd packages/gboost && pnpm test:gboost-create --scenario ${{ matrix.version }}
 
   gboost-create-test-windows:
-    needs: gboost create windows
+    needs: unit-tests
     name: gboost-create-test-windows
     runs-on: windows-latest
     steps:
