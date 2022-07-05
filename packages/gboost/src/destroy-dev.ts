@@ -17,13 +17,13 @@ export function destroyDev(args: DestroyDevArgs) {
   const tsnodePath = resolve(infraCwd, "./node_modules/.bin/ts-node");
   const appOpt = `--app "${tsnodePath} --esm src/app.ts"`;
   const frontEndStack = `${prefix}-front-end`;
-  if (!frontendOnly) {
+  if (!backendOnly) {
     execSync(`cdk ${appOpt} destroy ${frontEndStack} ${forceOpt}`, {
       cwd: infraCwd,
       stdio: "inherit",
     });
   }
-  if (!backendOnly) {
+  if (!frontendOnly) {
     const backEndStack = `${prefix}-back-end`;
     execSync(`cdk ${appOpt} destroy ${backEndStack} ${forceOpt}`, {
       cwd: infraCwd,

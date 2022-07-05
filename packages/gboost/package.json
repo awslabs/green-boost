@@ -24,7 +24,7 @@
     "build": "rimraf lib && tsc",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "jest",
-    "test:gboost-create": "ts-node-esm src/create/render.test.ts"
+    "test:gboost-create": "ts-node-esm tests/test-scenarios.ts"
   },
   "dependencies": {
     "ejs": "^3.1.8",

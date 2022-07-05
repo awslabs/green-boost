@@ -24,7 +24,7 @@ async function testScenario(scenario: number) {
   execSync("pnpm i", execSyncOptions);
   execSync("gboost deploy-dev", execSyncOptions);
   console.log("gboost deploy-dev succeeded ✅");
-  execSync("gboost destroy-dev --back-end-only", execSyncOptions);
+  execSync("gboost destroy-dev --front-end-only", execSyncOptions);
   // Do async to take less time
-  exec("gboost destroy-dev --front-end-only", execSyncOptions);
+  exec("gboost destroy-dev --back-end-only", execSyncOptions);
 }

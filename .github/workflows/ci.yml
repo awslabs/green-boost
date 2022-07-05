@@ -12,10 +12,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-
       - name: Install
         uses: ./.github/actions/install
-      
       - name: Audit Dependencies
         run: pnpm audit-gb
 
@@ -25,10 +23,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-
       - name: Install
         uses: ./.github/actions/install
-      
       - name: Compile TypeScript
         run: pnpm build
 
@@ -38,10 +34,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-
       - name: Install
         uses: ./.github/actions/install
-      
       - name: Lint
         run: pnpm lint
 
@@ -51,9 +45,40 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-
       - name: Install
         uses: ./.github/actions/install
-      
       - name: Test
         run: pnpm unit-test
+
+  gboost-create-tests:
+    needs: unit-tests
+    name: gboost-create-tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: 
+      matrix:
+        scenario: [1]
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Install
+        uses: ./.github/actions/install
+      - name: gboost-create-tests
+        run: cd packages/gboost && pnpm test:gboost-create --scenario ${{ matrix.version }}
+
+  gboost-create-test-windows:
+    needs: unit-tests
+    name: gboost-create-test-windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Install
+        uses: ./.github/actions/install
+      - name: gboost-create-tests-windows
+        run: cd packages/gboost && pnpm test:gboost-create --scenario 1
+
+# stops workflows in progress if a new commit is added to PR
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
