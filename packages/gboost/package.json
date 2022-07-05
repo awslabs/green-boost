@@ -23,15 +23,19 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "jest"
+    "test": "jest",
+    "test:gboost-create": "ts-node-esm src/create/render.test.ts"
   },
   "dependencies": {
-    "chalk": "^5.0.1",
-    "enquirer": "^2.3.6",
-    "hygen": "^6.2.3",
-    "minimist": "^1.2.6"
+    "ejs": "^3.1.8",
+    "gboost-common": "workspace:^0.6.0",
+    "kleur": "^4.1.5",
+    "minimist": "^1.2.6",
+    "prompts": "^2.4.2",
+    "walk-sync": "^3.0.0"
   },
   "devDependencies": {
+    "@types/ejs": "^3.1.1",
     "@types/jest": "^27.5.2",
     "@types/minimist": "^1.2.2",
     "@types/node": "^16.11.38",
