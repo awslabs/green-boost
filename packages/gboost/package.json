@@ -23,7 +23,7 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:gboost-create": "ts-node-esm tests/test-scenarios.ts"
   },
   "dependencies": {
