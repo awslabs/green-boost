@@ -55,7 +55,6 @@ jobs:
     name: gboost-create-tests
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: 
       matrix:
         scenario: [1]
     steps:
