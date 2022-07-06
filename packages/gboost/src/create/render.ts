@@ -4,6 +4,7 @@ import { renderFile } from "ejs";
 import walkSync from "walk-sync";
 import { Answers, Feature } from "./ask.js";
 import { logger } from "../index.js";
+import { fileURLToPath } from "node:url";
 
 /**
  * Walks _templates/create getting all file names and directories and then
@@ -15,8 +16,9 @@ export async function render(answers: Answers): Promise<void> {
   const ignore = getIgnorePaths(answers);
   // ask.ts checks if repoName folder exists
   mkdirSync(answers.repoName);
-  const createTemplateUrl = new URL("../../_templates/create", import.meta.url);
-  const fileEntries = walkSync.entries(createTemplateUrl.pathname, { ignore });
+  const __dirname = fileURLToPath(new URL(".", import.meta.url));
+  const templatePath = nodeResolve(__dirname, "../_templates/create");
+  const fileEntries = walkSync.entries(templatePath, { ignore });
   logger.debug(`Walking file entries: ${JSON.stringify(fileEntries)}`);
   const promises: Promise<void>[] = [];
   for (const entry of fileEntries) {

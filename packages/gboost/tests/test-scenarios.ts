@@ -1,7 +1,7 @@
 import parse from "minimist";
+import { exec, execSync, ExecSyncOptions } from "node:child_process";
 import { render } from "../src/create/render.js";
 import { Answers, Authn, Feature } from "../src/create/ask.js";
-import { exec, execSync, ExecSyncOptions } from "node:child_process";
 
 const scenarios: Answers[] = [
   {
