@@ -8,7 +8,7 @@ const scenarios: Answers[] = [
   {
     authn: Authn.userPool,
     features: [Feature.demoDashboard, Feature.userMgmt],
-    repoName: "test-1",
+    repoName: getRepoName("test-1"),
   },
 ];
 
@@ -24,12 +24,6 @@ if (!isNaN(scenario)) {
 }
 async function testScenario(scenario: number) {
   const answer = scenarios[scenario];
-  const isWindows = platform() === "win32";
-  if (isWindows) {
-    // windows tests run in parallel so without this, windows tests would
-    // conflict with linux
-    answer.repoName += "-win";
-  }
   await render(answer);
   const execSyncOptions = {
     cwd: answer.repoName,
@@ -45,4 +39,10 @@ async function testScenario(scenario: number) {
   execSync(`${gboostCmd} destroy-dev --front-end-only`, execSyncOptions);
   // Do async to take less time
   exec(`${gboostCmd} destroy-dev --back-end-only`, execSyncOptions);
+}
+
+function getRepoName(name: string) {
+  // windows tests run in parallel so without this, windows tests would
+  // conflict with linux
+  return platform() === "win32" ? name + "-win" : name;
 }
