@@ -5,7 +5,6 @@ const { defineConfig } = require("eslint-define-config");
 module.exports = defineConfig({
   extends: [
     "react-app", // use CRA linting rules
-    "react-app/jest",
     "plugin:prettier/recommended",
   ],
   rules: {

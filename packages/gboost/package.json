@@ -23,7 +23,7 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "jest --passWithNoTests",
+    "test": "vitest run",
     "test:gboost-create": "ts-node-esm tests/test-scenarios.ts"
   },
   "dependencies": {
@@ -32,11 +32,12 @@
     "kleur": "^4.1.5",
     "minimist": "^1.2.6",
     "prompts": "^2.4.2",
+    "vite": "^2.9.12",
+    "vitest": "^0.17.0",
     "walk-sync": "^3.0.0"
   },
   "devDependencies": {
     "@types/ejs": "^3.1.1",
-    "@types/jest": "^27.5.2",
     "@types/minimist": "^1.2.2",
     "@types/node": "^16.11.38",
     "@types/prompts": "^2.4.0",
@@ -45,12 +46,9 @@
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-define-config": "^1.5.1",
-    "eslint-plugin-jest": "^25.7.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.5.1",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "ts-jest": "^27.1.5",
     "ts-node": "^10.8.0",
     "typescript": "^4.7.4"
   },

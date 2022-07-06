@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "jest",
+    "test": "vitest run",
     "watch": "tsc -w"
   },
   "dependencies": {
@@ -23,21 +23,18 @@
     "gboost-infra": "^0.7.0"
   },
   "devDependencies": {
-    "@swc/core": "^1.2.204",
     "@types/aws-lambda": "^8.10.101",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.11.41",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-define-config": "^1.5.1",
-    "eslint-plugin-jest": "^25.7.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.5.1",
     "prettier": "^2.6.2",
-    "ts-jest": "^27.1.5",
     "ts-node": "^10.8.0",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "vite": "^2.9.12",
+    "vitest": "^0.17.0"
   }
 }

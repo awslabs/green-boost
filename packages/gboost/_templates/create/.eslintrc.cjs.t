@@ -7,7 +7,6 @@ module.exports = defineConfig({
   env: {
     es2021: true,
     node: true,
-    jest: true,
   },
   extends: [
     "plugin:@typescript-eslint/recommended", // Uses the recommended rules from @typescript-eslint/eslint-plugin

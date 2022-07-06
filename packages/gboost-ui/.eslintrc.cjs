@@ -7,11 +7,9 @@ module.exports = defineConfig({
   env: {
     es2021: true,
     node: true,
-    jest: true,
   },
   extends: [
     "react-app", // use CRA linting rules
-    "react-app/jest",
     "plugin:prettier/recommended", // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
   ],
   ignorePatterns: ["node_modules", "lib"],
