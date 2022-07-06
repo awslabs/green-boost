@@ -49,7 +49,7 @@ interface GetUploadIdResponse {
 }
 interface GetUploadPartURLResponse {
   getUploadPartURL: {
-    url: string;
+    urls: string;
   };
 }
 interface completeUploadResponse {
@@ -184,26 +184,26 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     updatePercent((partsUploaded / totalParts) * 100);
     updateProgressBarVisibility(`visible`);
     const filePartSize = Math.ceil(file.size / numberOfParts);
-    for (let i = 0; i < numberOfParts; i++) {
-      const {
-        getUploadPartURL: { url },
-      } = await gQuery<GetUploadPartURLResponse>({
-        query: getUploadPartURL,
-        vars: {
-          input: {
-            region: region,
-            bucket: bucket,
-            fileName: fileKey + file.name,
-            partNumber: i + 1,
-            uploadId: uploadId,
-          },
+    const {
+      getUploadPartURL: { urls },
+    } = await gQuery<GetUploadPartURLResponse>({
+      query: getUploadPartURL,
+      vars: {
+        input: {
+          region: region,
+          bucket: bucket,
+          fileName: fileKey + file.name,
+          numberOfParts: numberOfParts,
+          uploadId: uploadId,
         },
-      });
+      },
+    });
+    for (let i = 0; i < numberOfParts; i++) {
       const start = i * filePartSize;
       const end = (i + 1) * filePartSize;
       const filePart =
         i < numberOfParts - 1 ? file.slice(start, end) : file.slice(start);
-      const result = await fetch(url, {
+      const result = await fetch(urls[i], {
         method: "PUT",
         body: filePart,
         mode: "cors",

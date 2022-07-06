@@ -7,7 +7,7 @@ interface getUploadPartURLArgs {
     region: string;
     bucket: string;
     fileName: string;
-    partNumber: number;
+    numberOfParts: number;
     uploadId: string;
   };
 }
@@ -21,23 +21,27 @@ export async function getUploadPartURL(params: getUploadPartURLParams) {
     input: { region },
     input: { bucket },
     input: { fileName },
-    input: { partNumber },
+    input: { numberOfParts },
     input: { uploadId },
   } = params.event.arguments;
 
   const client = new S3Client({ region: region });
   if (process.env.BUCKET_MAP) {
-    const command = new UploadPartCommand({
-      Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket],
-      Key: fileName,
-      PartNumber: partNumber,
-      UploadId: uploadId,
-    });
+    const urls: string[] = [];
+    for (let i = 0; i < numberOfParts; i++) {
+      const command = new UploadPartCommand({
+        Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket],
+        Key: fileName,
+        PartNumber: i + 1,
+        UploadId: uploadId,
+      });
 
-    const url = await getSignedUrl(client, command, { expiresIn: 3600 });
+      const url = await getSignedUrl(client, command, { expiresIn: 3600 });
+      urls.push(url);
+    }
 
     return {
-      url: url,
+      urls: urls,
     };
   } else {
     console.log("Could not find bucket map");
