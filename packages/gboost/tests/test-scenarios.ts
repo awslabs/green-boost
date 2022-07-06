@@ -31,9 +31,10 @@ async function testScenario(scenario: number) {
   // https://github.com/typicode/husky/issues/851
   execSync("git init", execSyncOptions);
   execSync("pnpm i", execSyncOptions);
-  execSync("gboost deploy-dev", execSyncOptions);
+  const gboostCmd = "ts-node-esm ../src/index.ts";
+  execSync(`${gboostCmd} deploy-dev`, execSyncOptions);
   console.log("gboost deploy-dev succeeded ✅");
-  execSync("gboost destroy-dev --front-end-only", execSyncOptions);
+  execSync(`${gboostCmd} destroy-dev --front-end-only`, execSyncOptions);
   // Do async to take less time
-  exec("gboost destroy-dev --back-end-only", execSyncOptions);
+  exec(`${gboostCmd} destroy-dev --back-end-only`, execSyncOptions);
 }
