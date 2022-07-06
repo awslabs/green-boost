@@ -145,9 +145,6 @@ importers:
       typescript: ^4.7.4
       vite: ^2.9.12
       vitest: ^0.17.0
-    dependencies:
-      vite: 2.9.13
-      vitest: 0.17.0
     devDependencies:
       '@types/node': 16.11.41
       '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
@@ -160,6 +157,8 @@ importers:
       rimraf: 3.0.2
       ts-node: 10.8.1_qqpsu5gwjto2muvbbvmj4ndcmu
       typescript: 4.7.4
+      vite: 2.9.13
+      vitest: 0.17.0
 
   packages/gboost-infra:
     specifiers:
