@@ -30,9 +30,9 @@
   "dependencies": {
     "@aws-cdk/aws-appsync-alpha": "2.29.0-alpha.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.102.0",
-    "aws-cdk-lib": "^2.29.0",
+    "aws-cdk-lib": "^2.30.0",
     "cdk-nag": "^2.14.21",
-    "constructs": "^10.1.24",
+    "constructs": "^10.1.43",
     "esbuild": "^0.14.47",
     "gboost-common": "workspace:^0.6.0",
     "joi": "^17.6.0"

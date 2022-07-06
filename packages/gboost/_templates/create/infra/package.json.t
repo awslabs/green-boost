@@ -12,10 +12,9 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@aws-cdk/aws-appsync-alpha": "^2.5.0-alpha.0",
+    "@aws-cdk/aws-appsync-alpha": "^2.30.0-alpha.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.112.0",
-    "aws-cdk": "^2.29.0",
-    "aws-cdk-lib": "^2.29.0",
+    "aws-cdk-lib": "^2.30.0",
     "cdk-nag": "^2.14.41",
     "constructs": "^10.1.42",
     "esbuild": "^0.14.47",

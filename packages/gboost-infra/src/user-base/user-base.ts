@@ -3,6 +3,7 @@ import { Mfa, UserPool, UserPoolClient } from "aws-cdk-lib/aws-cognito";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { NagSuppressions } from "cdk-nag";
 import { Construct } from "constructs";
+import { fileURLToPath } from "node:url";
 import { CommonProps, Stage, Function } from "../index.js";
 import {
   CommonUserBaseProps,
@@ -35,9 +36,11 @@ export class UserBase extends Construct {
     const isProd = stage === Stage.Prod;
 
     const fileExt = import.meta.url.slice(-2);
+    const entry = fileURLToPath(
+      new URL(`./post-confirmation.${fileExt}`, import.meta.url)
+    );
     const postConfirmationFn = new Function(this, "PostConfirmationFunction", {
-      entry: new URL(`./post-confirmation.${fileExt}`, import.meta.url)
-        .pathname,
+      entry,
       environment: {
         DEFAULT_GROUP_NAME: defaultGroupName,
       },

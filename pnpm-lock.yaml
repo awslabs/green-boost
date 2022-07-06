@@ -171,9 +171,9 @@ importers:
       '@types/node': ^16.11.38
       '@typescript-eslint/eslint-plugin': ^5.29.0
       '@typescript-eslint/parser': ^5.29.0
-      aws-cdk-lib: ^2.29.0
+      aws-cdk-lib: ^2.30.0
       cdk-nag: ^2.14.21
-      constructs: ^10.1.24
+      constructs: ^10.1.43
       esbuild: ^0.14.47
       eslint: ^8.18.0
       eslint-config-prettier: ^8.5.0
