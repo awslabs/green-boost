@@ -30,6 +30,7 @@ async function testScenario(scenario: number) {
   } as ExecSyncOptions;
   // https://github.com/typicode/husky/issues/851
   execSync("git init", execSyncOptions);
+  execSync("pnpm add -g aws-cdk", execSyncOptions);
   execSync("pnpm i", execSyncOptions);
   const gboostCmd = "ts-node-esm ../src/index.ts";
   execSync(`${gboostCmd} deploy-dev`, execSyncOptions);
