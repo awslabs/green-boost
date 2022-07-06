@@ -93,7 +93,7 @@ jobs:
           aws-region: us-east-1
           role-session-name: GitHubActionSession
       - name: gboost-create-tests-windows
-        run: cd packages/gboost && pnpm test:gboost-create --scenario 1
+        run: cd packages/gboost && pnpm test:gboost-create --scenario 0
 
 # stops workflows in progress if a new commit is added to PR
 concurrency:
