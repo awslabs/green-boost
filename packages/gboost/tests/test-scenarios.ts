@@ -12,10 +12,14 @@ const scenarios: Answers[] = [
 ];
 
 const argv = parse(process.argv.slice(2));
-const scenario = argv.scenario;
-if (scenario) {
+const scenario = Number(argv.scenario);
+if (!isNaN(scenario)) {
   console.log(`Testing Scenario ${scenario}`);
   await testScenario(scenario);
+} else {
+  throw new Error(
+    "No scenario provided. Usage: ts-node-esm tests/test-scenario --scenario 1"
+  );
 }
 async function testScenario(scenario: number) {
   const answer = scenarios[scenario];
