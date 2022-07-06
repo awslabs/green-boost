@@ -1,7 +1,7 @@
 import parse from "minimist";
 import { render } from "../src/create/render.js";
 import { Answers, Authn, Feature } from "../src/create/ask.js";
-import { exec, execSync } from "node:child_process";
+import { exec, execSync, ExecSyncOptions } from "node:child_process";
 
 const scenarios: Answers[] = [
   {
@@ -25,11 +25,11 @@ async function testScenario(scenario: number) {
   const answer = scenarios[scenario];
   await render(answer);
   const execSyncOptions = {
-    // must run outside green-boost folder b/c husky errors if initialized
-    // in folder with parent .git folder
-    cwd: `../../../../${answer.repoName}`,
+    cwd: answer.repoName,
     stdio: "inherit",
-  } as const;
+  } as ExecSyncOptions;
+  // https://github.com/typicode/husky/issues/851
+  execSync("git init", execSyncOptions);
   execSync("pnpm i", execSyncOptions);
   execSync("gboost deploy-dev", execSyncOptions);
   console.log("gboost deploy-dev succeeded ✅");
