@@ -23,6 +23,7 @@
     "gboost-infra": "^0.7.0"
   },
   "devDependencies": {
+    "@swc/core": "^1.2.204",
     "@types/aws-lambda": "^8.10.101",
     "@types/node": "^16.11.41",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
