@@ -11,7 +11,7 @@ import {
 export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
   const getUploadURLInput = new InputType("getUploadURLInput", {
     definition: {
-      bucketName: GraphqlType.string({ isRequired: true }),
+      bucket: GraphqlType.string({ isRequired: true }),
       fileName: GraphqlType.string({ isRequired: true }),
       region: GraphqlType.string({ isRequired: true }),
     },

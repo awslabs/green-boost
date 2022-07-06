@@ -22,7 +22,8 @@ export function ProgressBar(props: ProgressBarProps) {
         css={{
           borderRadius: "20px",
           height: "100%",
-          width: progress < 3.5 ? `3.5%` : `${progress}%`,
+          width: `${progress}%`,
+          minWidth: "20px",
           backgroundColor: barColor,
         }}
       ></Box>

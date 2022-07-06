@@ -23,14 +23,19 @@ export async function abortUpload(params: abortUploadParams) {
   } = params.event.arguments;
 
   const client = new S3Client({ region: region });
-  const response = await client.send(
-    new AbortMultipartUploadCommand({
-      Bucket: bucket,
-      Key: fileName,
-      UploadId: uploadId,
-    })
-  );
-  return {
-    statusCode: response.$metadata.httpStatusCode,
-  };
+  if (process.env.BUCKET_MAP) {
+    const response = await client.send(
+      new AbortMultipartUploadCommand({
+        Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket],
+        Key: fileName,
+        UploadId: uploadId,
+      })
+    );
+    return {
+      statusCode: response.$metadata.httpStatusCode,
+    };
+  } else {
+    console.log("Could not find bucket map");
+    return;
+  }
 }

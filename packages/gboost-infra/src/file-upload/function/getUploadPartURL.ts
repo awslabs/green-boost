@@ -26,16 +26,21 @@ export async function getUploadPartURL(params: getUploadPartURLParams) {
   } = params.event.arguments;
 
   const client = new S3Client({ region: region });
-  const command = new UploadPartCommand({
-    Bucket: bucket,
-    Key: fileName,
-    PartNumber: partNumber,
-    UploadId: uploadId,
-  });
+  if (process.env.BUCKET_MAP) {
+    const command = new UploadPartCommand({
+      Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket],
+      Key: fileName,
+      PartNumber: partNumber,
+      UploadId: uploadId,
+    });
 
-  const url = await getSignedUrl(client, command, { expiresIn: 3600 });
+    const url = await getSignedUrl(client, command, { expiresIn: 3600 });
 
-  return {
-    url: url,
-  };
+    return {
+      url: url,
+    };
+  } else {
+    console.log("Could not find bucket map");
+    return;
+  }
 }

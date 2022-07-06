@@ -1,16 +1,11 @@
 import type { AppSyncResolverEvent } from "aws-lambda";
-import {
-  S3Client,
-  CreateBucketCommand,
-  PutObjectCommand,
-  PutBucketCorsCommand,
-} from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 interface getUploadURLArgs {
   input: {
     fileName: string;
-    bucketName: string;
+    bucket: string;
     region: string;
   };
 }
@@ -22,43 +17,26 @@ interface getUploadURLParams {
 export async function getUploadURL(params: getUploadURLParams) {
   const {
     input: { fileName },
-    input: { bucketName },
+    input: { bucket },
     input: { region },
   } = params.event.arguments;
 
   const client = new S3Client({ region: region });
-  try {
-    await client.send(
-      new CreateBucketCommand({
-        Bucket: bucketName,
-      })
-    );
-    const corsConfig = {
-      AllowedHeaders: ["*"],
-      AllowedMethods: ["POST", "PUT"],
-      AllowedOrigins: ["*"],
-      ExposeHeaders: ["Access-Control-Allow-Origin", "ETag"],
+
+  if (process.env.BUCKET_MAP) {
+    const command = new PutObjectCommand({
+      Bucket: process.env.BUCKET_MAP
+        ? JSON.parse(process.env.BUCKET_MAP)[bucket]
+        : "errororor",
+      Key: fileName,
+    });
+    const url = await getSignedUrl(client, command, { expiresIn: 3600 });
+
+    return {
+      url: url,
     };
-    const CORSRules = new Array(corsConfig);
-    const corsParams = {
-      Bucket: bucketName,
-      CORSConfiguration: { CORSRules },
-    };
-    const data = await client.send(new PutBucketCorsCommand(corsParams));
-    if (data.$metadata.httpStatusCode != 200) {
-      console.log("Error with PutBucketCorsCommand");
-    }
-  } catch (error) {
-    console.log("\n" + "ERROR\n" + JSON.stringify(error));
+  } else {
+    console.log("Could not find bucket map");
+    return;
   }
-
-  const command = new PutObjectCommand({
-    Bucket: bucketName,
-    Key: fileName,
-  });
-  const url = await getSignedUrl(client, command, { expiresIn: 3600 });
-
-  return {
-    url: url,
-  };
 }

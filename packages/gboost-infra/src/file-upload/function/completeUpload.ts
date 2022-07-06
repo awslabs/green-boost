@@ -29,17 +29,22 @@ export async function completeUpload(params: completeUploadParams) {
   } = params.event.arguments;
 
   const client = new S3Client({ region: region });
-  const command = new CompleteMultipartUploadCommand({
-    Bucket: bucket,
-    Key: fileName,
-    UploadId: uploadId,
-    MultipartUpload: {
-      Parts: multipartUpload,
-    },
-  });
-  const response = await client.send(command);
+  if (process.env.BUCKET_MAP) {
+    const command = new CompleteMultipartUploadCommand({
+      Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket],
+      Key: fileName,
+      UploadId: uploadId,
+      MultipartUpload: {
+        Parts: multipartUpload,
+      },
+    });
+    const response = await client.send(command);
 
-  return {
-    statusCode: response.$metadata.httpStatusCode,
-  };
+    return {
+      statusCode: response.$metadata.httpStatusCode,
+    };
+  } else {
+    console.log("Could not find bucket map");
+    return;
+  }
 }

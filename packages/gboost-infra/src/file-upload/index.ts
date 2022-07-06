@@ -9,22 +9,29 @@ export interface FileUploadProps extends CommonProps {
   api: GraphqlApi;
   stage?: Stage;
   partition?: string;
-  bucketNames: string[];
+  buckets: string;
 }
 
 export class FileUpload extends Construct {
   constructor(scope: Construct, id: string, props: FileUploadProps) {
     super(scope, id);
-    const { api, stage = Stage.Dev, partition = "aws", bucketNames } = props;
+    const { api, stage = Stage.Dev, partition = "aws", buckets } = props;
 
     const fileExt = import.meta.url.slice(-2);
     const resources = [];
-    for (let i = 0; i < bucketNames.length; i++) {
-      resources[2 * i] = "arn:" + partition + ":s3:::" + bucketNames[i] + "/*";
-      resources[2 * i + 1] = "arn:" + partition + ":s3:::" + bucketNames[i];
+    const parsedBuckets = JSON.parse(buckets);
+    for (let i = 0; i < Object.keys(parsedBuckets).length; i++) {
+      const bucketKey = Object.keys(parsedBuckets)[i];
+      resources[2 * i] =
+        "arn:" + partition + ":s3:::" + JSON.parse(buckets)[bucketKey] + "/*";
+      resources[2 * i + 1] =
+        "arn:" + partition + ":s3:::" + JSON.parse(buckets)[bucketKey];
     }
     const uploadFn = new Function(this, "UploadFunction", {
       entry: new URL(`./function/index.${fileExt}`, import.meta.url).pathname,
+      environment: {
+        BUCKET_MAP: buckets,
+      },
       initialPolicy: [
         new PolicyStatement({
           actions: [
