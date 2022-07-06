@@ -3,18 +3,17 @@
 import parse from "minimist";
 import { getErrorMessage } from "gboost-common";
 import { execSync } from "node:child_process";
+import log from "loglevel";
 import { deployDev } from "./deploy-dev.js";
 import { create } from "./create/create.js";
 import { destroyDev } from "./destroy-dev.js";
 import { showHelp } from "./help.js";
-import log from "loglevel";
 
 try {
   listenForSigInt();
   ensurePnpm();
   const argv = parse(process.argv.slice(2));
-  log.setDefaultLevel(log.levels.ERROR);
-  log.setDefaultLevel(argv.d || argv.debug || process.env.LOG_LEVEL);
+  setupLogger(argv);
   const command = argv._[0];
   const backendOnly = argv.b || argv["backend-only"] || false;
   const frontendOnly = argv.f || argv["frontend-only"] || false;
@@ -58,4 +57,10 @@ function ensurePnpm() {
     log.error("Please install PNPM: https://pnpm.io/installation");
     throw err;
   }
+}
+
+function setupLogger(argv: parse.ParsedArgs) {
+  log.setDefaultLevel(log.levels.ERROR);
+  const level = argv.d || argv.debug || process.env.LOG_LEVEL;
+  if (level) log.setLevel(argv.d || argv.debug || process.env.LOG_LEVEL);
 }

@@ -1,8 +1,8 @@
 import parse from "minimist";
 import { exec, execSync, ExecSyncOptions } from "node:child_process";
+import { platform } from "node:os";
 import { render } from "../src/create/render.js";
 import { Answers, Authn, Feature } from "../src/create/ask.js";
-import { platform } from "node:os";
 
 const scenarios: Answers[] = [
   {
@@ -34,11 +34,17 @@ async function testScenario(scenario: number) {
   execSync("pnpm add -g aws-cdk", execSyncOptions);
   execSync("pnpm i", execSyncOptions);
   const gboostCmd = "ts-node-esm ../src/index.ts";
-  execSync(`${gboostCmd} deploy-dev`, execSyncOptions);
+  execSync(`${gboostCmd} deploy-dev --debug trace`, execSyncOptions);
   console.log("gboost deploy-dev succeeded ✅");
-  execSync(`${gboostCmd} destroy-dev --front-end-only`, execSyncOptions);
+  execSync(
+    `${gboostCmd} destroy-dev --front-end-only  --debug trace`,
+    execSyncOptions
+  );
   // Do async to take less time
-  exec(`${gboostCmd} destroy-dev --back-end-only`, execSyncOptions);
+  exec(
+    `${gboostCmd} destroy-dev --back-end-only  --debug trace`,
+    execSyncOptions
+  );
 }
 
 function getRepoName(name: string) {
