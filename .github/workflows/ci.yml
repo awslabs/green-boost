@@ -57,6 +57,9 @@ jobs:
     strategy:
       matrix:
         scenario: [1]
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -75,6 +78,9 @@ jobs:
     needs: unit-tests
     name: gboost-create-test-windows
     runs-on: windows-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
