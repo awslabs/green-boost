@@ -17,7 +17,7 @@ export async function render(answers: Answers): Promise<void> {
   // ask.ts checks if repoName folder exists
   mkdirSync(answers.repoName);
   const __dirname = fileURLToPath(new URL(".", import.meta.url));
-  const templatePath = nodeResolve(__dirname, "../_templates/create");
+  const templatePath = nodeResolve(__dirname, "../../_templates/create");
   const fileEntries = walkSync.entries(templatePath, { ignore });
   logger.debug(`Walking file entries: ${JSON.stringify(fileEntries)}`);
   const promises: Promise<void>[] = [];
