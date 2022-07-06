@@ -17,13 +17,24 @@ to: package.json
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
-    "esbuild": "^0.14.42"
+    "esbuild": "^0.14.47"
   },
   "devDependencies": {
-    "husky": "^7.0.4",
-    "lint-staged": "^12.5.0"
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.2"
   },
   "lint-staged": {
     "*": "true"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@aws-amplify/core",
+        "@aws-amplify/geo",
+        "@babel/plugin-syntax-flow",
+        "@babel/plugin-transform-react-jsx",
+        "react-native"
+      ]
+    }
   }
 }

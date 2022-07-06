@@ -14,27 +14,50 @@ const ListContainer = styled("div", {
 interface NavListProps {
   bottomPages?: (NavLink | Page)[];
   open: boolean;
-  pages: Page[];
+  pages?: Page[];
 }
 
 export function NavList(props: NavListProps): ReactElement {
-  const { bottomPages = [], pages, open } = props;
+  const { bottomPages = [], pages = [], open } = props;
   return (
     <ListContainer>
       <List css={{ flex: "1 1", px: 0 }}>
         {pages.map((p) => (
-          <NavItem key={p.path} open={open} page={p} />
+          <NavItem
+            icon={p.icon}
+            key={p.path}
+            name={p.name}
+            open={open}
+            to={p.path}
+          />
         ))}
       </List>
-      <List css={{ flex: "0", px: 0 }}>
-        {bottomPages.map((i) => {
-          if ("path" in i) {
-            return <NavItem key={i.path} open={open} page={i} />;
-          } else {
-            return <NavItem key={i.href} open={open} navLink={i} />;
-          }
-        })}
-      </List>
+      {bottomPages.length > 0 && (
+        <List css={{ flex: "0", px: 0 }}>
+          {bottomPages.map((i) => (
+            <NavItem
+              icon={i.icon}
+              name={i.name}
+              open={open}
+              {...getNavItemProps(i)}
+            />
+          ))}
+        </List>
+      )}
     </ListContainer>
   );
+}
+
+function getNavItemProps(pageOrNavLink: Page | NavLink) {
+  let href: string | undefined;
+  let to: string | undefined;
+  let key: string | undefined;
+  if ("path" in pageOrNavLink) {
+    to = pageOrNavLink.path;
+    key = pageOrNavLink.path;
+  } else {
+    href = pageOrNavLink.href;
+    key = pageOrNavLink.href;
+  }
+  return { href, to, key };
 }
