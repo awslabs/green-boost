@@ -2,6 +2,7 @@ import parse from "minimist";
 import { exec, execSync, ExecSyncOptions } from "node:child_process";
 import { render } from "../src/create/render.js";
 import { Answers, Authn, Feature } from "../src/create/ask.js";
+import { platform } from "node:os";
 
 const scenarios: Answers[] = [
   {
@@ -23,6 +24,12 @@ if (!isNaN(scenario)) {
 }
 async function testScenario(scenario: number) {
   const answer = scenarios[scenario];
+  const isWindows = platform() === "win32";
+  if (isWindows) {
+    // windows tests run in parallel so without this, windows tests would
+    // conflict with linux
+    answer.repoName += "-win";
+  }
   await render(answer);
   const execSyncOptions = {
     cwd: answer.repoName,
