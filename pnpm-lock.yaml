@@ -96,6 +96,7 @@ importers:
       eslint-plugin-prettier: ^4.0.0
       gboost-common: workspace:^0.6.0
       kleur: ^4.1.5
+      loglevel: ^1.8.0
       minimist: ^1.2.6
       prettier: ^2.7.1
       prompts: ^2.4.2
@@ -109,6 +110,7 @@ importers:
       ejs: 3.1.8
       gboost-common: link:../gboost-common
       kleur: 4.1.5
+      loglevel: 1.8.0
       minimist: 1.2.6
       prompts: 2.4.2
       vite: 2.9.13
@@ -10926,6 +10928,11 @@ packages:
       slice-ansi: 4.0.0
       wrap-ansi: 6.2.0
     dev: true
+
+  /loglevel/1.8.0:
+    resolution: {integrity: sha512-G6A/nJLRgWOuuwdNuA6koovfEV1YpqqAG4pRUlFaz3jj2QNZ8M4vBqnVA+HBTmU/AMNUtlOsMmSpF6NyOjztbA==}
+    engines: {node: '>= 0.6.0'}
+    dev: false
 
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}

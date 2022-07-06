@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { rm } from "node:fs/promises";
 import { userInfo } from "node:os";
 import prompts, { PromptObject, Choice } from "prompts";
-import { logger } from "../index.js";
+import log from "loglevel";
 
 export enum Authn {
   userPool = "Cognito User Pool",
@@ -80,15 +80,15 @@ export async function ask(): Promise<Answers> {
   const answers = (await prompts(questions, {
     onCancel: () => process.kill(process.pid, "SIGINT"),
   })) as Answers;
-  logger.info(`Answers recieved: ${JSON.stringify(answers)}`);
+  log.info(`Answers recieved: ${JSON.stringify(answers)}`);
   await ensureEmptyRepo(answers.repoName);
   return answers;
 }
 
 async function ensureEmptyRepo(newDir: string): Promise<void> {
-  logger.info("Ensuring repoName repo is empty");
+  log.info("Ensuring repoName repo is empty");
   if (existsSync(newDir)) {
-    logger.info(
+    log.info(
       "Root directory already exists. Asking if user wants to overwrite"
     );
     const { confirm } = (await prompts({
@@ -98,7 +98,7 @@ async function ensureEmptyRepo(newDir: string): Promise<void> {
     })) as { confirm: boolean };
     if (confirm) {
       console.log("Overwriting.");
-      logger.info("User wants to remove old directory. Removing");
+      log.info("User wants to remove old directory. Removing");
       await rm(newDir, { recursive: true });
     }
   }

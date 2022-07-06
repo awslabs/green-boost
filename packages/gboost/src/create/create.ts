@@ -1,13 +1,13 @@
 import kleur from "kleur";
 import { execSync } from "node:child_process";
-import { logger } from "../index.js";
+import log from "loglevel";
 import { ask } from "./ask.js";
 import { render } from "./render.js";
 
 export async function create() {
   const answers = await ask();
   await render(answers);
-  logger.info("Linting repo to clean up whitespace and new lines");
+  log.info("Linting repo to clean up whitespace and new lines");
   console.log(`\n📦 Installing dependencies with: ${kleur.yellow("pnpm i")}\n`);
   execSync("pnpm i", { stdio: "inherit", cwd: answers.repoName });
   execSync('pnpm -r exec eslint --fix "src/**/*.ts"', {

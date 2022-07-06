@@ -13,6 +13,6 @@ export function showHelp() {
       "\n\tgboost help" +
       "\n" +
       "\nOptions:" +
-      "\n\t-d, --debug\t[LOG_LEVEL]\terror|warn|info|debug"
+      "\n\t-d, --debug\tlevel\terror|warn|info|debug|trace"
   );
 }
