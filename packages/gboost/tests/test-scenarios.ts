@@ -24,7 +24,12 @@ if (!isNaN(scenario)) {
 async function testScenario(scenario: number) {
   const answer = scenarios[scenario];
   await render(answer);
-  const execSyncOptions = { cwd: answer.repoName, stdio: "inherit" } as const;
+  const execSyncOptions = {
+    // must run outside green-boost folder b/c husky errors if initialized
+    // in folder with parent .git folder
+    cwd: `../../../../${answer.repoName}`,
+    stdio: "inherit",
+  } as const;
   execSync("pnpm i", execSyncOptions);
   execSync("gboost deploy-dev", execSyncOptions);
   console.log("gboost deploy-dev succeeded ✅");
