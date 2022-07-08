@@ -5,11 +5,16 @@ import { Function } from "../function.js";
 import { createSchema } from "./createSchema.js";
 import { CommonProps, Stage } from "../common-props.js";
 
+interface FileUploadBucket {
+  bucket: string;
+  key: string;
+}
+
 export interface FileUploadProps extends CommonProps {
   api: GraphqlApi;
   stage?: Stage;
   partition?: string;
-  buckets: string;
+  buckets: Record<string, FileUploadBucket>;
 }
 
 export class FileUpload extends Construct {
@@ -19,18 +24,17 @@ export class FileUpload extends Construct {
 
     const fileExt = import.meta.url.slice(-2);
     const resources = [];
-    const parsedBuckets = JSON.parse(buckets);
-    for (let i = 0; i < Object.keys(parsedBuckets).length; i++) {
-      const bucketKey = Object.keys(parsedBuckets)[i];
+    for (let i = 0; i < Object.keys(buckets).length; i++) {
+      const bucketKey = Object.keys(buckets)[i];
       resources[2 * i] =
-        "arn:" + partition + ":s3:::" + JSON.parse(buckets)[bucketKey] + "/*";
+        "arn:" + partition + ":s3:::" + buckets[bucketKey].bucket + "/*";
       resources[2 * i + 1] =
-        "arn:" + partition + ":s3:::" + JSON.parse(buckets)[bucketKey];
+        "arn:" + partition + ":s3:::" + buckets[bucketKey].bucket;
     }
     const uploadFn = new Function(this, "UploadFunction", {
       entry: new URL(`./function/index.${fileExt}`, import.meta.url).pathname,
       environment: {
-        BUCKET_MAP: buckets,
+        BUCKET_MAP: JSON.stringify(buckets),
       },
       initialPolicy: [
         new PolicyStatement({

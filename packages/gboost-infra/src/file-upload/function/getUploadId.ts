@@ -23,8 +23,8 @@ export async function getUploadId(params: getUploadIdParams) {
   const client = new S3Client({ region: region });
   if (process.env.BUCKET_MAP) {
     const command = new CreateMultipartUploadCommand({
-      Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket],
-      Key: fileName,
+      Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket].bucket,
+      Key: JSON.parse(process.env.BUCKET_MAP)[bucket].key + fileName,
     });
     const response = await client.send(command);
 

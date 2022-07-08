@@ -31,8 +31,8 @@ export async function completeUpload(params: completeUploadParams) {
   const client = new S3Client({ region: region });
   if (process.env.BUCKET_MAP) {
     const command = new CompleteMultipartUploadCommand({
-      Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket],
-      Key: fileName,
+      Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket].bucket,
+      Key: JSON.parse(process.env.BUCKET_MAP)[bucket].key + fileName,
       UploadId: uploadId,
       MultipartUpload: {
         Parts: multipartUpload,

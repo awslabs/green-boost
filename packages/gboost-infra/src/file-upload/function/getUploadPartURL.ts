@@ -30,8 +30,8 @@ export async function getUploadPartURL(params: getUploadPartURLParams) {
     const urls: string[] = [];
     for (let i = 0; i < numberOfParts; i++) {
       const command = new UploadPartCommand({
-        Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket],
-        Key: fileName,
+        Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket].bucket,
+        Key: JSON.parse(process.env.BUCKET_MAP)[bucket].key + fileName,
         PartNumber: i + 1,
         UploadId: uploadId,
       });
