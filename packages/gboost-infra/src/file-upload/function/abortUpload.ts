@@ -26,8 +26,8 @@ export async function abortUpload(params: abortUploadParams) {
   if (process.env.BUCKET_MAP) {
     const response = await client.send(
       new AbortMultipartUploadCommand({
-        Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket],
-        Key: fileName,
+        Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket].bucket,
+        Key: JSON.parse(process.env.BUCKET_MAP)[bucket].key + fileName,
         UploadId: uploadId,
       })
     );

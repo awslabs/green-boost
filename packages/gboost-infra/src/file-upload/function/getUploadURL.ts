@@ -25,10 +25,8 @@ export async function getUploadURL(params: getUploadURLParams) {
 
   if (process.env.BUCKET_MAP) {
     const command = new PutObjectCommand({
-      Bucket: process.env.BUCKET_MAP
-        ? JSON.parse(process.env.BUCKET_MAP)[bucket]
-        : "errororor",
-      Key: fileName,
+      Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket].bucket,
+      Key: JSON.parse(process.env.BUCKET_MAP)[bucket].key + fileName,
     });
     const url = await getSignedUrl(client, command, { expiresIn: 3600 });
 
