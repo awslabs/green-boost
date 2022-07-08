@@ -1,64 +1,33 @@
 import { Dispatch, ReactElement, SetStateAction } from "react";
-import { Drawer, Page, styled, useBps } from "../../index.js";
+import { Page, useBps } from "../../index.js";
+import { NavAside } from "./NavAside.js";
+import { Drawer } from "../Drawer.js";
 import { NavList as DefaultNavigationList } from "./NavList.js";
 import type { NavLink } from "./NavLink.js";
 
-const Nav = styled("nav", {
-  display: "none",
-  backgroundColor: "$gray1",
-  borderRight: "1px solid $gray6",
-  gridArea: "nav",
-  transition: "$sidebar",
-  "@bp3": {
-    display: "block",
-  },
-  variants: {
-    open: {
-      true: {
-        width: 250,
-      },
-      false: {
-        width: 70,
-      },
-    },
-  },
-});
-
-interface BaseNavigationProps {
+interface NavigationProps {
   bottomPages?: (NavLink | Page)[];
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-interface PagesNavigationProps extends BaseNavigationProps {
   pages: Page[];
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  NavigationList?: typeof DefaultNavigationList;
 }
-
-interface ChildrenNavigationProps extends BaseNavigationProps {
-  NavigationList: typeof DefaultNavigationList;
-}
-
-type NavigationProps = PagesNavigationProps | ChildrenNavigationProps;
 
 export function Navigation(props: NavigationProps): ReactElement {
-  const { bottomPages, open, setOpen } = props;
+  const { bottomPages, open, pages, setOpen, NavigationList } = props;
   const bps = useBps();
-  let navList: ReactElement | undefined;
-  if ("NavigationList" in props) {
-    const { NavigationList } = props;
-    navList = <NavigationList open={open} />;
-  } else {
-    navList = (
-      <DefaultNavigationList
-        bottomPages={bottomPages}
-        open={open}
-        pages={props.pages}
-      />
-    );
-  }
+  let navList = NavigationList ? (
+    <NavigationList bottomPages={bottomPages} open={open} pages={pages} />
+  ) : (
+    <DefaultNavigationList
+      bottomPages={bottomPages}
+      open={open}
+      pages={pages}
+    />
+  );
 
   return bps.bp3 ? (
-    <Nav open={open}>{navList}</Nav>
+    <NavAside css={{ width: open ? 250 : 70 }}>{navList}</NavAside>
   ) : (
     <Drawer open={open} onClose={() => setOpen(false)}>
       {navList}

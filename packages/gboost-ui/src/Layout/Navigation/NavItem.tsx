@@ -1,24 +1,51 @@
 import { ReactElement } from "react";
 import { useLocation } from "react-router-dom";
-import { Box, ListItem } from "../../index.js";
+import { Box, ListItem, Page } from "../../index.js";
+import type { NavLink } from "./NavLink.js";
 
-interface NavItemProps {
+interface NavItemBaseProps {
   open: boolean;
-  href?: string;
-  icon: ReactElement;
-  name: string;
-  to?: string;
 }
 
+interface NavItemWithPageProps extends NavItemBaseProps {
+  page: Page;
+}
+
+interface NavItemWithLinkProps extends NavItemBaseProps {
+  navLink: NavLink;
+}
+
+type NavItemProps = NavItemWithPageProps | NavItemWithLinkProps;
+
 export function NavItem(props: NavItemProps): ReactElement {
-  const { href, icon, name, open, to } = props;
+  const { open } = props;
   const location = useLocation();
-  const listItem = (
-    <ListItem
-      css={{ bc: to && location.pathname.startsWith(to) ? "$gray5" : "" }}
-      href={href}
-      to={to}
-    >
+  let icon: undefined | ReactElement;
+  let name = "";
+  const listItemProps = {
+    key: "",
+    css: {},
+    to: "",
+    href: "",
+  };
+  if ("page" in props) {
+    const page = props.page;
+    icon = page.icon;
+    name = page.name;
+    listItemProps.key = page.path;
+    listItemProps.to = page.path;
+    listItemProps.css = {
+      bc: location.pathname.startsWith(page.path) ? "$gray5" : "",
+    };
+  } else if ("navLink" in props) {
+    const navLink = props.navLink;
+    icon = navLink.icon;
+    name = navLink.name;
+    listItemProps.key = navLink.href;
+    listItemProps.href = navLink.href;
+  }
+  return (
+    <ListItem {...listItemProps}>
       <Box css={{ display: "flex" }}>
         <Box
           css={{
@@ -33,18 +60,4 @@ export function NavItem(props: NavItemProps): ReactElement {
       </Box>
     </ListItem>
   );
-  return listItem;
-  // TODO: using Amplify's Expander adds extra styling we don't need for this
-  // maybe try Radix UI's Collapsible primitive
-  // if (!children) {
-  //   return listItem;
-  // } else {
-  //   return (
-  //     <Expander type="multiple">
-  //       <ExpanderItem title={listItem} value={name}>
-  //         {children}
-  //       </ExpanderItem>
-  //     </Expander>
-  //   );
-  // }
 }

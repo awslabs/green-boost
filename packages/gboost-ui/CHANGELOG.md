@@ -1,59 +1,5 @@
 # gboost-ui
 
-## 0.21.0
-
-### Minor Changes
-
-- [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - Enable providing children to Layout to replace content
-
-* [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - Add MultiCheckboxField and SmartMultiCheckboxField
-
-- [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - add optional RightAside prop on Layout
-
-### Patch Changes
-
-- [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - Normalize smart field props to prevent react console errors
-
-* [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - Add intrinsic props to Link
-
-- [#105](https://github.com/awslabs/green-boost/pull/105) [`db3e1bf`](https://github.com/awslabs/green-boost/commit/db3e1bf1f7566937ded64b9c64fdb30c5013f13f) Thanks [@bestickley](https://github.com/bestickley)! - Fix Carousel to show last slide when clicking on previous button at first slide
-
-## 0.20.1
-
-### Patch Changes
-
-- [#101](https://github.com/awslabs/green-boost/pull/101) [`0fb886e`](https://github.com/awslabs/green-boost/commit/0fb886e0a3ecaef120210f5b7b61e3c38aea4b26) Thanks [@bestickley](https://github.com/bestickley)! - Add @aws-amplify/ui-react as dependency since aws-amplify is now optional
-
-## 0.20.0
-
-### Minor Changes
-
-- [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Add ErrorMessage component
-
-* [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Add Carousel component
-
-- [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Add circle indicator shape option for Carousel
-
-* [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Add DateTimeField
-
-- [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Update Link to handle hrefs
-
-* [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Add FileUploadField and SmartFileUploadField
-
-- [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Add ability to pass ReactElement to Tooltip
-
-* [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Add downloadLink util function
-
-- [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Add primary and secondary colors to StyledButton
-
-* [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Add SmartPhoneNumberField
-
-### Patch Changes
-
-- [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Fix StyledButton to show correct color for disabled
-
-* [#99](https://github.com/awslabs/green-boost/pull/99) [`f7e1ffd`](https://github.com/awslabs/green-boost/commit/f7e1ffd0ad28a41f364de1bda90bb650e42049c4) Thanks [@bestickley](https://github.com/bestickley)! - Add labelHidden to SmartFields
-
 ## 0.19.0
 
 ### Minor Changes

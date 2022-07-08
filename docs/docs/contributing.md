@@ -12,6 +12,45 @@ Instructions below allow you to edit .ts files and test out your changes without
 
 After running `pnpm add ../path/to/gboost/packages/gboost-ui` in your GB app, you'll need to restart the Vite dev server.
 
+Vite will pre-bundle any non JS file (i.e. JSX) so you'll need to add this plugin in your vite.config.ts
+```ts
+import type { Plugin } from "vite";
+
+function reactJsOrJsx({
+  importerRegExpTest,
+}: {
+  importerRegExpTest: RegExp;
+}): Plugin {
+  return {
+    name: "react-js-or-jsx",
+    async resolveId(id: string, importer: string) {
+      if (importerRegExpTest.test(importer)) {
+        let resolved = await this.resolve(id, importer, {
+          skipSelf: true,
+        });
+        if (!resolved) {
+          resolved = await this.resolve(id + "x", importer, {
+            skipSelf: true,
+          });
+        }
+        return resolved;
+      }
+    },
+  };
+}
+
+export default defineConfig(({ mode }) => {
+  // ...
+  return {
+    plugins: [
+      // ...
+      reactJsOrJsx({ importerRegExpTest: /green-boost/ }),
+    ],
+    //...
+  };
+});
+```
+
 For any library used in `gboost-ui` and the consuming package (ui folder), you'll want to add that library to Vite's [resolve.dedupe](https://vitejs.dev/config/#resolve-dedupe) configuration parameter. See an explanation [here](https://blog.maximeheckel.com/posts/duplicate-dependencies-npm-link/). Here is an inexhaustive list: `["aws-amplify", "@aws-amplify/ui-react", "graphql", "graphql-tag", "react", "react-dom", "react-icons", "react-router-dom"]`
 
 ### gboost

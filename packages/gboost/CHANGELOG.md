@@ -1,11 +1,5 @@
 # gboost
 
-## 0.6.1
-
-### Patch Changes
-
-- [#101](https://github.com/awslabs/green-boost/pull/101) [`0fb886e`](https://github.com/awslabs/green-boost/commit/0fb886e0a3ecaef120210f5b7b61e3c38aea4b26) Thanks [@bestickley](https://github.com/bestickley)! - Use pnpm.peerDependencyRules instead of .npmrc to fix peer deps errors
-
 ## 0.6.0
 
 ### Minor Changes

@@ -1,8 +1,6 @@
 import type { ReactElement } from "react";
 import { styled, keyframes } from "../index.js";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
-import { MdInfoOutline } from "react-icons/md";
-import { Icon } from "@aws-amplify/ui-react";
 
 const slideUpAndFade = keyframes({
   "0%": { opacity: 0, transform: "translateY(2px)" },
@@ -51,18 +49,14 @@ const StyledArrow = styled(TooltipPrimitive.Arrow, {
   fill: "white",
 });
 
-export function TooltipIcon() {
-  return <Icon ariaLabel="info" fontSize={20} as={MdInfoOutline} />;
-}
-
 export type TooltipAlign = "start" | "center" | "end";
 export type TooltipSide = "bottom" | "left" | "right" | "top";
 
 interface TooltipProps {
   align?: TooltipAlign;
   alignOffset?: number;
-  content: string | ReactElement;
-  children?: ReactElement;
+  content: string;
+  children: ReactElement;
   defaultOpen?: boolean;
   delayDuration?: number;
   maxWidth?: string | number;
@@ -80,11 +74,7 @@ export function Tooltip(props: TooltipProps): ReactElement {
   const {
     align,
     alignOffset,
-    children = (
-      <span>
-        <TooltipIcon />
-      </span>
-    ),
+    children,
     content,
     defaultOpen,
     delayDuration = 500,

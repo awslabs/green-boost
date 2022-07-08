@@ -20,27 +20,12 @@
     "@changesets/changelog-github": "^0.4.5",
     "@changesets/cli": "^2.23.0",
     "@types/license-checker": "^25.0.3",
-    "@types/node": "^16.11.43",
-    "husky": "^8.0.1",
+    "@types/node": "^16.11.41",
+    "husky": "^7.0.4",
     "license-checker": "^25.0.1",
-    "lint-staged": "^13.0.3",
-    "ts-node": "^10.8.2",
+    "lint-staged": "^12.5.0",
+    "ts-node": "^10.8.1",
     "typescript": "^4.7.4"
   },
-  "license": "Apache-2.0",
-  "pnpm": {
-    "overrides": {
-      "trim@<0.0.3": ">=0.0.3",
-      "got@<11.8.5": ">=11.8.5"
-    },
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "@aws-amplify/core",
-        "@aws-amplify/geo",
-        "react-native",
-        "@babel/plugin-syntax-flow",
-        "@babel/plugin-transform-react-jsx"
-      ]
-    }
-  }
+  "license": "Apache-2.0"
 }
