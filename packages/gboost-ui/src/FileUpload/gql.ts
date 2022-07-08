@@ -17,7 +17,7 @@ export const getUploadId = gql`
 export const getUploadPartURL = gql`
   query getUploadPartURL($input: getUploadPartURLInput) {
     getUploadPartURL(input: $input) {
-      url
+      urls
     }
   }
 `;

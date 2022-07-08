@@ -32,7 +32,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       bucket: GraphqlType.string({ isRequired: true }),
       fileName: GraphqlType.string({ isRequired: true }),
       region: GraphqlType.string({ isRequired: true }),
-      partNumber: GraphqlType.int({ isRequired: true }),
+      numberOfParts: GraphqlType.int({ isRequired: true }),
       uploadId: GraphqlType.string({ isRequired: true }),
     },
   });
@@ -76,6 +76,13 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
     },
   });
   api.addType(uploadURLType);
+
+  const uploadURLPartType = new ObjectType("uploadURLPartType", {
+    definition: {
+      urls: GraphqlType.string({ isRequired: true, isList: true }),
+    },
+  });
+  api.addType(uploadURLPartType);
 
   const uploadIdType = new ObjectType("uploadIdType", {
     definition: {
@@ -127,7 +134,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       dataSource,
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
-      returnType: uploadURLType.attribute(),
+      returnType: uploadURLPartType.attribute(),
     })
   );
 

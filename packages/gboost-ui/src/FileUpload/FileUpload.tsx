@@ -13,6 +13,7 @@ import {
 import { GraphQLError } from "graphql";
 import { CompletedPart } from "@aws-sdk/client-s3";
 import { ProgressBar, StyledButton } from "../components/index.js";
+import { FileViewer } from "./FileViewer.js";
 
 const DropOutline = styled("div", {
   width: "100%",
@@ -49,7 +50,7 @@ interface GetUploadIdResponse {
 }
 interface GetUploadPartURLResponse {
   getUploadPartURL: {
-    url: string;
+    urls: string;
   };
 }
 interface completeUploadResponse {
@@ -95,8 +96,9 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   const [visible, updateProgressBarVisibility] = useState(
     totalParts === 0 ? `hidden` : `visible`
   );
-  const [boxHeight, updateBoxHeight] = useState(`100%`);
-  const [buttonVisibility, updateButtonVisibility] = useState(`hidden`);
+  /* const [listedFiles, setListedFiles] = useState([<div key={1}></div>]); */
+  const boxHeight = instantUpload ? `100%` : `90%`;
+  const buttonVisibility = instantUpload ? `hidden` : `visible`;
 
   async function getURL(
     fileProps: FileProps
@@ -151,6 +153,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       body: `${file.name} will be uploaded in multiple parts.`,
       variation: `info`,
     });
+
     const {
       getUploadId: { uploadId },
     } = await gQuery<GetUploadIdResponse>({
@@ -165,52 +168,42 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     });
 
     let multipartUpload: CompletedPart[] = [];
-    let numberOfPartsUnknown = true;
     let numberOfParts =
       Math.ceil(file.size / 5242880) > 1000
         ? 1000
         : Math.ceil(file.size / 5242880);
-    while (numberOfPartsUnknown) {
-      if (
-        Math.ceil(file.size / numberOfParts) <= 100000000 ||
-        numberOfParts === 1000
-      ) {
-        numberOfPartsUnknown = false;
-      } else {
-        numberOfParts++;
-      }
-    }
     totalParts += numberOfParts;
     updatePercent((partsUploaded / totalParts) * 100);
     updateProgressBarVisibility(`visible`);
     const filePartSize = Math.ceil(file.size / numberOfParts);
-    for (let i = 0; i < numberOfParts; i++) {
-      const {
-        getUploadPartURL: { url },
-      } = await gQuery<GetUploadPartURLResponse>({
-        query: getUploadPartURL,
-        vars: {
-          input: {
-            region: region,
-            bucket: bucket,
-            fileName: fileKey + file.name,
-            partNumber: i + 1,
-            uploadId: uploadId,
-          },
+    const {
+      getUploadPartURL: { urls },
+    } = await gQuery<GetUploadPartURLResponse>({
+      query: getUploadPartURL,
+      vars: {
+        input: {
+          region: region,
+          bucket: bucket,
+          fileName: fileKey + file.name,
+          numberOfParts: numberOfParts,
+          uploadId: uploadId,
         },
-      });
+      },
+    });
+
+    for (let i = 0; i < numberOfParts; i++) {
       const start = i * filePartSize;
       const end = (i + 1) * filePartSize;
       const filePart =
         i < numberOfParts - 1 ? file.slice(start, end) : file.slice(start);
-      const result = await fetch(url, {
+
+      const result = await fetch(urls[i], {
         method: "PUT",
         body: filePart,
         mode: "cors",
       });
 
       let etag = result.headers.get("ETag");
-
       if (etag != null) {
         multipartUpload[i] = {
           ETag: etag,
@@ -277,13 +270,14 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     }
   }
 
-  function handleUpload(files: FileList) {
+  function handleUpload(files: File[]) {
     if (cursor === `pointer`) {
       // maxFiles<=0 is treated as no file limit
       if (maxFiles <= 0 || files.length <= maxFiles) {
-        Array.from(files).forEach((file) => {
+        files.forEach((file) => {
           if (file.size <= maxFileSize) {
             let isSupported = false;
+
             const parts = file.name.split(".");
             const extension = parts[parts.length - 1].toLowerCase();
             if (Array.isArray(fileType)) {
@@ -295,21 +289,17 @@ export function FileUpload(props: FileUploadProps): ReactElement {
             }
 
             if (isSupported) {
-              if (instantUpload) {
-                if (file.size < 100000000) {
-                  uploadFile(file);
-                } else {
-                  multipartUploads++;
-                  updateCursor(`wait`);
-                  handleMultipartUpload(file).then(() => {
-                    multipartUploads--;
-                    if (multipartUploads === 0) {
-                      updateCursor(`pointer`);
-                    }
-                  });
-                }
+              if (file.size < 100000000) {
+                uploadFile(file);
               } else {
-                pendingFiles.push(file);
+                multipartUploads++;
+                updateCursor(`wait`);
+                handleMultipartUpload(file).then(() => {
+                  multipartUploads--;
+                  if (multipartUploads === 0) {
+                    updateCursor(`pointer`);
+                  }
+                });
               }
             } else {
               notify({
@@ -344,12 +334,12 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   function handleClickUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const { files } = e.target;
     if (files && files.length > 0) {
-      handleUpload(files);
-      if (pendingFiles.length === 0) {
-        if (instantUpload === false) {
-          updateButtonVisibility(`hidden`);
-          updateBoxHeight(`100%`);
-        }
+      if (instantUpload) {
+        handleUpload(Array.from(files));
+      } else {
+        pendingFiles = pendingFiles.concat(Array.from(files));
+        /*         setListedFiles(pendingFiles.map((file => <Box>{file.name}</Box>)));
+         */
       }
     }
   }
@@ -358,10 +348,6 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     if (cursor === `pointer`) {
       if (inputFile.current) {
         inputFile.current.click();
-        if (instantUpload === false) {
-          updateButtonVisibility(`visible`);
-          updateBoxHeight(`90%`);
-        }
       }
     }
   }
@@ -371,22 +357,17 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     e.stopPropagation();
 
     if (e.dataTransfer?.files && e.dataTransfer.files.length > 0) {
-      handleUpload(e.dataTransfer.files);
-      if (pendingFiles.length === 0) {
-        if (instantUpload === false) {
-          updateButtonVisibility(`hidden`);
-          updateBoxHeight(`100%`);
-        }
+      if (instantUpload) {
+        handleUpload(Array.from(e.dataTransfer.files));
+      } else {
+        pendingFiles = pendingFiles.concat(Array.from(e.dataTransfer.files));
+        /*         setListedFiles(pendingFiles.map((file => <Box>{file.name}</Box>)));
+         */
       }
     }
   }
 
   function handleDrag(e: React.DragEvent<HTMLDivElement>) {
-    if (instantUpload === false) {
-      updateButtonVisibility(`visible`);
-      updateBoxHeight(`90%`);
-    }
-
     e.preventDefault();
     e.stopPropagation();
   }
@@ -399,10 +380,6 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   function handleDragOut(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
     e.stopPropagation();
-    if (instantUpload === false) {
-      updateButtonVisibility(`hidden`);
-      updateBoxHeight(`100%`);
-    }
   }
 
   return (
@@ -445,52 +422,35 @@ export function FileUpload(props: FileUploadProps): ReactElement {
           height: "10%",
           padding: "5px",
           width: "100%",
-          textAlign: "right",
+          textAlign: "left",
           visibility: buttonVisibility,
         }}
       >
+        <FileViewer files={pendingFiles} />
         <StyledButton
           onClick={() => {
             if (pendingFiles.length !== 0) {
               if (
                 window.confirm(
-                  `Upload ${pendingFiles
+                  `Upload:\n${pendingFiles
                     .map((file) => {
-                      return file.name;
+                      return ">" + file.name;
                     })
-                    .join(", ")}`
+                    .join("\n")}`
                 )
               ) {
-                if (pendingFiles.length <= maxFiles) {
-                  pendingFiles.forEach((file) => {
-                    if (file.size < 100000000) {
-                      uploadFile(file);
-                    } else {
-                      multipartUploads++;
-                      updateCursor(`wait`);
-                      handleMultipartUpload(file).then(() => {
-                        multipartUploads--;
-                        if (multipartUploads === 0) {
-                          updateCursor(`pointer`);
-                        }
-                      });
-                    }
-                  });
-                } else {
-                  notify({
-                    body: `Too many files. Max is ${maxFiles}.`,
-                    variation: "error",
-                  });
-                }
+                handleUpload(pendingFiles);
               }
-              pendingFiles = [];
             }
-            updateButtonVisibility(`hidden`);
-            updateBoxHeight(`100%`);
+            pendingFiles = [];
           }}
           css={{
             height: "100%",
+            float: "left",
+            margin: "5px",
           }}
+          columnStart={"2"}
+          columnEnd={"-1"}
         >
           Submit
         </StyledButton>
