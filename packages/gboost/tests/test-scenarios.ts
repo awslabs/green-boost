@@ -45,6 +45,9 @@ async function testScenario(scenario: number) {
     `${gboostCmd} destroy-dev --back-end-only  --debug trace`,
     execSyncOptions
   );
+  // must manually exit or exec process will keep running
+  // saves build time with safe assumption that back-end will destroy correctly
+  process.exit();
 }
 
 function getRepoName(name: string) {
