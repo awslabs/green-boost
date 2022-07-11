@@ -1,5 +1,15 @@
 # gboost-infra
 
+## 0.8.0
+
+### Minor Changes
+
+- [#107](https://github.com/awslabs/green-boost/pull/107) [`6ca99dc`](https://github.com/awslabs/green-boost/commit/6ca99dc9ccc9f1c2d406ee1406bdf65618fa6a67) Thanks [@bestickley](https://github.com/bestickley)! - Update UserBase constructs
+
+### Patch Changes
+
+- [#107](https://github.com/awslabs/green-boost/pull/107) [`6ca99dc`](https://github.com/awslabs/green-boost/commit/6ca99dc9ccc9f1c2d406ee1406bdf65618fa6a67) Thanks [@bestickley](https://github.com/bestickley)! - Add default typescript lambda power tools env vars to Function construct
+
 ## 0.7.0
 
 ### Minor Changes

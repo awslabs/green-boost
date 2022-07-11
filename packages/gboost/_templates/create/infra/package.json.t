@@ -19,7 +19,7 @@
     "constructs": "^10.1.42",
     "esbuild": "^0.14.47",
     "gboost-common": "^0.6.0",
-    "gboost-infra": "^0.7.0"
+    "gboost-infra": "^0.8.0"
   },
   "devDependencies": {
     "@swc/core": "^1.2.204",

@@ -1,5 +1,13 @@
 # gboost
 
+## 0.7.0
+
+### Minor Changes
+
+- [#107](https://github.com/awslabs/green-boost/pull/107) [`6ca99dc`](https://github.com/awslabs/green-boost/commit/6ca99dc9ccc9f1c2d406ee1406bdf65618fa6a67) Thanks [@bestickley](https://github.com/bestickley)! - Add gboost run-fn command
+
+* [#107](https://github.com/awslabs/green-boost/pull/107) [`6ca99dc`](https://github.com/awslabs/green-boost/commit/6ca99dc9ccc9f1c2d406ee1406bdf65618fa6a67) Thanks [@bestickley](https://github.com/bestickley)! - Exchange hygen dependency for ejs and prompts. Fix windows `gboost create` issue. `gboost create` now installs node_modules and lints final repo for user
+
 ## 0.6.1
 
 ### Patch Changes
