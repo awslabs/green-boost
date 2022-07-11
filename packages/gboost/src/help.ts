@@ -10,6 +10,10 @@ export function showHelp() {
       "\n\tgboost destroy-dev\tDestroy a Green Boost app" +
       "\n\t\t-b, --backend-only\tOnly destroys backend" +
       "\n\t\t-f, --frontend-only\tOnly destroys frontend" +
+      "\n\tgboost run-fn\tRun a Node.js Lambda Function locally" +
+      "\n\t\t-h, --handler\tPath to handler to invoke" +
+      "\n\t\t-e, --event\tOptional event to parse and pass to handler" +
+      "\n\t\t-a, --functionArn\tOptional function arn/name to inject context and environment variables" +
       "\n\tgboost help" +
       "\n" +
       "\nOptions:" +

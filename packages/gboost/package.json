@@ -27,6 +27,7 @@
     "test:gboost-create": "ts-node-esm tests/test-scenarios.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-lambda": "^3.121.0",
     "ejs": "^3.1.8",
     "gboost-common": "workspace:^0.6.0",
     "kleur": "^4.1.5",

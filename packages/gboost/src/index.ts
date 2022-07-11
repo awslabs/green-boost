@@ -8,6 +8,7 @@ import { deployDev } from "./deploy-dev.js";
 import { create } from "./create/create.js";
 import { destroyDev } from "./destroy-dev.js";
 import { showHelp } from "./help.js";
+import { runFn } from "./run-fn/run-fn.js";
 
 try {
   listenForSigInt();
@@ -19,7 +20,7 @@ try {
   const frontendOnly = argv.f || argv["frontend-only"] || false;
   switch (command) {
     case "create":
-      create();
+      await create();
       break;
     case "deploy-dev":
       deployDev({
@@ -34,10 +35,18 @@ try {
         frontendOnly,
       });
       break;
+    case "run-fn":
+      await runFn({
+        handlerPath: argv.h || argv.handler,
+        event: argv.e || argv.event,
+        functionArn: argv.a || argv.functionArn,
+      });
+      break;
     case "help":
     default:
       showHelp();
   }
+  process.exit(); // have to call this or proecss hangs, not sure why
 } catch (err) {
   log.error("An error occurred :(");
   log.debug(getErrorMessage(err));
