@@ -36,7 +36,6 @@ export class UserBase extends Construct {
     const isProd = stage === Stage.Prod;
 
     const fileExt = import.meta.url.slice(-2);
-    console.log({ fileExt });
     const entry = fileURLToPath(
       new URL(`./post-confirmation.${fileExt}`, import.meta.url)
     );
