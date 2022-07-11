@@ -14,16 +14,16 @@ const uiVersion = readJson("../packages/gboost-ui/package.json").version;
 // update package versions in template
 const frontMatter: Record<string, string> = {}; // temp variable for template frontmatter
 const templatePrefix = "../packages/gboost/_templates/repo/create/";
-const infraPkgJson = readJson(templatePrefix + "infra/package.json.t", 4);
+const infraPkgJson = readJson(templatePrefix + "infra/package.json", 4);
 infraPkgJson.dependencies["gboost-common"] = "^" + commonVersion;
 infraPkgJson.dependencies["gboost-infra"] = "^" + infraVersion;
-const uiPkgJson = readJson(templatePrefix + "ui/package.json.t", 4);
+const uiPkgJson = readJson(templatePrefix + "ui/package.json", 4);
 uiPkgJson.dependencies["gboost-common"] = "^" + commonVersion;
 uiPkgJson.dependencies["gboost-ui"] = "^" + uiVersion;
 
 // write new package versions
-writeJson(templatePrefix + "infra/package.json.t", infraPkgJson);
-writeJson(templatePrefix + "ui/package.json.t", uiPkgJson);
+writeJson(templatePrefix + "infra/package.json", infraPkgJson);
+writeJson(templatePrefix + "ui/package.json", uiPkgJson);
 // pnpm turns on frozen-lockfile by default, so we need to manually turn off to
 // allow updating pnpm-lock.yaml
 // https://github.com/pnpm/pnpm/issues/3664
