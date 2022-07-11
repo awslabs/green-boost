@@ -3,7 +3,7 @@
 const { defineConfig } = require("eslint-define-config");
 
 module.exports = defineConfig({
-  extends: ["plugin:jest/recommended", "../../.eslintrc.cjs"],
+  extends: ["../../.eslintrc.cjs"],
   rules: {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
   },

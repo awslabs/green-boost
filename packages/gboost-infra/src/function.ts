@@ -8,7 +8,7 @@ import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
 import { CommonProps, Stage } from "./common-props.js";
 
-interface FunctionProps extends CommonProps, NodejsFunctionProps {}
+export interface FunctionProps extends CommonProps, NodejsFunctionProps {}
 
 /**
  * Node.js Lambda Function with default log retention set based on stage,
@@ -17,27 +17,45 @@ interface FunctionProps extends CommonProps, NodejsFunctionProps {}
 export class Function extends NodejsFunction {
   constructor(scope: Construct, id: string, props: FunctionProps) {
     const { stage = Stage.Dev, ...newProps } = props;
-    if (newProps.logRetention === undefined) {
+    if (!newProps.logRetention) {
       if (stage === Stage.Prod) {
         newProps.logRetention = RetentionDays.SIX_MONTHS;
       } else {
         newProps.logRetention = RetentionDays.ONE_MONTH;
       }
     }
-    if (newProps.bundling === undefined) {
-      newProps.bundling = {
-        sourceMap: true,
-        minify: true,
-      };
+    newProps.bundling = {
+      sourceMap: true,
+      minify: true,
+      ...newProps.bundling,
+    };
+    if (!newProps.environment) {
+      newProps.environment = {};
     }
-    if (newProps.environment?.NODE_OPTIONS === undefined) {
-      if (newProps.environment === undefined) newProps.environment = {};
-      newProps.environment.NODE_OPTIONS = "--enable-source-maps";
+    const stageLogLevel: Record<Stage, string> = {
+      [Stage.Dev]: "debug",
+      [Stage.Test]: "debug",
+      [Stage.Prod]: "error",
+    };
+    newProps.environment = {
+      NODE_OPTIONS: "--enable-source-maps",
+      LOG_LEVEL: stageLogLevel[stage],
+      ...newProps.environment,
+    };
+    if (!newProps.environment.POWERTOOLS_LOGGER_LOG_EVENT) {
+      if (stage === Stage.Dev) {
+        newProps.environment.POWERTOOLS_LOGGER_LOG_EVENT = "true";
+      }
     }
-    if (newProps.architecture === undefined) {
+    if (!newProps.environment.POWERTOOLS_LOGGER_SAMPLE_RATE) {
+      if (stage === Stage.Prod) {
+        newProps.environment.POWERTOOLS_LOGGER_SAMPLE_RATE = "0.2";
+      }
+    }
+    if (!newProps.architecture) {
       newProps.architecture = Architecture.ARM_64;
     }
-    if (newProps.runtime === undefined) {
+    if (!newProps.runtime) {
       newProps.runtime = Runtime.NODEJS_16_X;
     }
     super(scope, id, newProps);

@@ -9,6 +9,7 @@ import {
   BaseDataSource,
   MappingTemplate,
 } from "@aws-cdk/aws-appsync-alpha";
+import { fileURLToPath } from "node:url";
 import { groupNames, adminGroupNames } from "./function/group.js";
 
 export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
@@ -128,7 +129,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       // selectionSetGraphQL and selectionSetList return are not serialized by default
       // so we need custom VTL to get access to know whether to get groups
       requestMappingTemplate: MappingTemplate.fromFile(
-        new URL("./includeSelectionSetList.vtl", import.meta.url).pathname
+        fileURLToPath(new URL("./includeSelectionSetList.vtl", import.meta.url))
       ),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: userType.attribute(),

@@ -39,7 +39,8 @@
         "@aws-amplify/geo",
         "react-native",
         "@babel/plugin-syntax-flow",
-        "@babel/plugin-transform-react-jsx"
+        "@babel/plugin-transform-react-jsx",
+        "@algolia/client-search"
       ]
     }
   }
