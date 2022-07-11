@@ -17,8 +17,8 @@ export async function injectFnConfig(params: InjectFnConfigParams) {
     new GetFunctionConfigurationCommand({ FunctionName: functionArn })
   );
   process.env = {
-    ...process.env,
     ...response.Environment?.Variables,
+    ...process.env, // prioritize user defined env vars over lambda's
   };
   if (response.FunctionName) {
     dummyContext.functionName = response.FunctionName;

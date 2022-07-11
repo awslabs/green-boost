@@ -26,6 +26,17 @@ const dummyContext = {
 
 export async function runFn(params: RunFnParams) {
   const { handlerPath, event, functionArn } = params;
+  // inject function config needs to run before handler is imported so any
+  // logic outside handler has access to env vars retrieved via functionArn
+  if (functionArn) {
+    try {
+      await injectFnConfig({ dummyContext, functionArn });
+    } catch (err) {
+      log.error(`Failed to fetch function configuration for ${functionArn}`);
+      log.error(err);
+      return;
+    }
+  }
   const cwdHandlerPath = resolve(process.cwd(), handlerPath);
   let handlerModule;
   try {
@@ -43,15 +54,6 @@ export async function runFn(params: RunFnParams) {
       parsedEvent = JSON.parse(event);
     } catch (err) {
       log.error("Error parsing event:");
-      log.error(err);
-      return;
-    }
-  }
-  if (functionArn) {
-    try {
-      await injectFnConfig({ dummyContext, functionArn });
-    } catch (err) {
-      log.error(`Failed to fetch function configuration for ${functionArn}`);
       log.error(err);
       return;
     }
