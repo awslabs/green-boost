@@ -10,14 +10,14 @@ export async function create() {
   log.info("Linting repo to clean up whitespace and new lines");
   console.log(`\n📦 Installing dependencies with: ${kleur.yellow("pnpm i")}\n`);
   execSync("pnpm i", { stdio: "inherit", cwd: answers.repoName });
-  execSync('pnpm -r exec eslint --fix "src/**/*.ts"', {
+  execSync('pnpm -r exec eslint --fix "src/**/*.{ts,tsx}"', {
     cwd: answers.repoName,
   });
   console.log(
     "\n",
     `✅  Done! Change directory into your new repo: ${kleur.yellow(
       `cd ${answers.repoName}`
-    )}\n`,
+    )}\n\n`,
     "Quick Guide:\n",
     `✈️   Deploy the development environment: ${kleur.yellow(
       "gboost deploy-dev"

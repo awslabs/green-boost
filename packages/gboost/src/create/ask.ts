@@ -59,7 +59,7 @@ const questions: PromptObject[] = [
   {
     name: "features",
     type: "multiselect",
-    message: "Features: (space to select, enter to confirm)",
+    message: "Features:",
     // prompts has incorrect typings, these props accept functions
     // https://github.com/terkelg/prompts/issues/88#issuecomment-421194998
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
