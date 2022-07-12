@@ -2,7 +2,7 @@ import { Box, gQuery, styled, useNotifications } from "../index.js";
 import { ReactElement, useRef, useState } from "react";
 import { theme } from "../stitches.config.js";
 import React from "react";
-import { Grid, VisuallyHidden } from "@aws-amplify/ui-react";
+import { Grid, ScrollView, VisuallyHidden } from "@aws-amplify/ui-react";
 import {
   abortUpload,
   completeUpload,
@@ -12,8 +12,8 @@ import {
 } from "./gql.js";
 import { GraphQLError } from "graphql";
 import { CompletedPart } from "@aws-sdk/client-s3";
-import { ProgressBar, StyledButton } from "../components/index.js";
-import { FileViewer } from "./FileViewer.js";
+import { StyledButton } from "../components/index.js";
+import { FileList } from "./FileList.js";
 
 const DropOutline = styled("div", {
   width: "100%",
@@ -35,7 +35,12 @@ interface FileUploadProps {
   bucket: string;
   region: string;
   fileKey?: string;
-  instantUpload?: boolean;
+}
+
+export interface FileData {
+  file: File;
+  setPercent: React.Dispatch<React.SetStateAction<number>> | undefined;
+  isUploaded: boolean;
 }
 
 interface GetUploadURLResponse {
@@ -43,21 +48,25 @@ interface GetUploadURLResponse {
     url: string;
   };
 }
+
 interface GetUploadIdResponse {
   getUploadId: {
     uploadId: string;
   };
 }
+
 interface GetUploadPartURLResponse {
   getUploadPartURL: {
     urls: string;
   };
 }
+
 interface completeUploadResponse {
   completeUpload: {
     statusCode: number;
   };
 }
+
 interface abortUploadResponse {
   abortUpload: {
     statusCode: number;
@@ -81,24 +90,29 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       Array.isArray(fileType) ? fileType.join(", ") : fileType
     } files here`,
     fileKey = "",
-    instantUpload = false,
   } = props;
   const inputFile = useRef<HTMLInputElement>(null);
   const { notify } = useNotifications();
-  let multipartUploads = 0; // Number of multipart uploads occuring at once to update cursor
-  let partsUploaded = 0;
-  let totalParts = 0;
-  let pendingFiles: File[] = [];
   const [cursor, updateCursor] = useState(
     deactivated ? `not-allowed` : `pointer`
   );
-  const [percent, updatePercent] = useState(0);
-  const [visible, updateProgressBarVisibility] = useState(
-    totalParts === 0 ? `hidden` : `visible`
-  );
-  /* const [listedFiles, setListedFiles] = useState([<div key={1}></div>]); */
-  const boxHeight = instantUpload ? `100%` : `90%`;
-  const buttonVisibility = instantUpload ? `hidden` : `visible`;
+  const [pendingFilesData, setPendingFilesData] = useState<FileData[]>([]);
+  const [uploading, setUploading] = useState(false);
+
+  function allFilesComplete(): boolean {
+    let allFilesUploaded = true;
+    let i = 0;
+    while (allFilesUploaded && i < pendingFilesData.length) {
+      if (!pendingFilesData[i].isUploaded) {
+        allFilesUploaded = false;
+      }
+      i++;
+    }
+    if (allFilesUploaded && pendingFilesData.length > 0 && uploading) {
+      setUploading(false);
+    }
+    return allFilesUploaded;
+  }
 
   async function getURL(
     fileProps: FileProps
@@ -124,7 +138,11 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     }
   }
 
-  async function uploadFile(file: File) {
+  async function uploadFile(
+    file: File,
+    setPercent: React.Dispatch<React.SetStateAction<number>>
+  ) {
+    setPercent(0.1);
     const response = await getURL({ fileName: file.name, fileType: file.type });
     if (response !== undefined) {
       const { url } = response;
@@ -135,9 +153,23 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       });
 
       if (result.status === 200) {
+        setPercent(100);
         notify({
           body: `Successfully uploaded ${file.name}`,
           variation: "success",
+        });
+        setPendingFilesData((existingData) => {
+          return existingData.map((existingFileData) => {
+            if (existingFileData.file.name === file.name) {
+              return {
+                file: existingFileData.file,
+                setPercent: existingFileData.setPercent,
+                isUploaded: true,
+              };
+            } else {
+              return existingFileData;
+            }
+          });
         });
       } else {
         notify({
@@ -148,7 +180,11 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     }
   }
 
-  async function handleMultipartUpload(file: File) {
+  async function handleMultipartUpload(
+    file: File,
+    setPercent: React.Dispatch<React.SetStateAction<number>>
+  ) {
+    setPercent(0.1);
     notify({
       body: `${file.name} will be uploaded in multiple parts.`,
       variation: `info`,
@@ -172,9 +208,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       Math.ceil(file.size / 5242880) > 1000
         ? 1000
         : Math.ceil(file.size / 5242880);
-    totalParts += numberOfParts;
-    updatePercent((partsUploaded / totalParts) * 100);
-    updateProgressBarVisibility(`visible`);
+    let partsUploaded = 0;
     const filePartSize = Math.ceil(file.size / numberOfParts);
     const {
       getUploadPartURL: { urls },
@@ -225,17 +259,12 @@ export function FileUpload(props: FileUploadProps): ReactElement {
           body: `Error uploading ${file.name}`,
           variation: `error`,
         });
-        totalParts -= numberOfParts;
-        partsUploaded -= numberOfParts;
-        updatePercent((partsUploaded / totalParts) * 100);
-        if (totalParts === 0) {
-          updateProgressBarVisibility(`hidden`);
-          updatePercent(0);
-        }
+        partsUploaded = 0;
+        setPercent((partsUploaded / numberOfParts) * 100);
         return;
       } else {
         partsUploaded += 1;
-        updatePercent((partsUploaded / totalParts) * 100);
+        setPercent((partsUploaded / numberOfParts) * 100);
       }
     }
 
@@ -258,64 +287,139 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         body: `File ${file.name} successfully uploaded`,
         variation: `success`,
       });
-      totalParts -= numberOfParts;
-      partsUploaded -= numberOfParts;
-      updatePercent((partsUploaded / totalParts) * 100);
-      if (totalParts === 0) {
-        updateProgressBarVisibility(`hidden`);
-        updatePercent(0);
-      }
+      setPercent((partsUploaded / numberOfParts) * 100);
+      setPendingFilesData((existingData) => {
+        return existingData.map((existingFileData) => {
+          if (existingFileData.file.name === file.name) {
+            return {
+              file: existingFileData.file,
+              setPercent: existingFileData.setPercent,
+              isUploaded: true,
+            };
+          } else {
+            return existingFileData;
+          }
+        });
+      });
     }
   }
 
-  function handleUpload(files: File[]) {
-    if (cursor === `pointer`) {
-      // maxFiles<=0 is treated as no file limit
-      if (maxFiles <= 0 || files.length <= maxFiles) {
-        files.forEach((file) => {
-          if (file.size <= maxFileSize) {
-            let isSupported = false;
+  function handleUpload(
+    file: File,
+    setPercent: React.Dispatch<React.SetStateAction<number>>
+  ) {
+    if (file.size <= maxFileSize) {
+      let isSupported = false;
 
-            const parts = file.name.split(".");
-            const extension = parts[parts.length - 1].toLowerCase();
-            if (Array.isArray(fileType)) {
-              if (fileType.includes(extension)) {
-                isSupported = true;
-              }
-            } else if (fileType === extension) {
-              isSupported = true;
-            }
+      const parts = file.name.split(".");
+      const extension = parts[parts.length - 1].toLowerCase();
+      if (Array.isArray(fileType)) {
+        if (fileType.includes(extension)) {
+          isSupported = true;
+        }
+      } else if (fileType === extension) {
+        isSupported = true;
+      }
 
-            if (isSupported) {
-              if (file.size < 100000000) {
-                uploadFile(file);
-              } else {
-                multipartUploads++;
-                updateCursor(`wait`);
-                handleMultipartUpload(file).then(() => {
-                  multipartUploads--;
-                  if (multipartUploads === 0) {
-                    updateCursor(`pointer`);
-                  }
-                });
-              }
-            } else {
-              notify({
-                body: `Files of type ${extension} are not accepted.`,
-                variation: "error",
-              });
-            }
-          } else {
-            notify({
-              body: `File ${file.name} is over the maximum ${maxFileSize} bytes.`,
-              variation: "error",
-            });
-          }
-        });
+      if (isSupported) {
+        setUploading(true);
+        if (file.size < 100000000) {
+          uploadFile(file, setPercent);
+        } else {
+          updateCursor(`wait`);
+          handleMultipartUpload(file, setPercent);
+        }
       } else {
         notify({
-          body: `Too many files. Max is ${maxFiles}.`,
+          body: `Files of type ${extension} are not accepted.`,
           variation: "error",
+        });
+      }
+    } else {
+      notify({
+        body: `File ${file.name} is over the maximum ${maxFileSize} bytes.`,
+        variation: "error",
+      });
+    }
+  }
+
+  function addFileToPending(file: File) {
+    let fileExists = false;
+    pendingFilesData.forEach((currentFilesData) => {
+      if (currentFilesData.file.name === file.name) {
+        fileExists = true;
+        setPendingFilesData((formerFilesData) => {
+          return formerFilesData.map((fileData) => {
+            if (fileData.file.name !== file.name) {
+              return fileData;
+            } else {
+              return {
+                file: file,
+                setPercent: undefined,
+                isUploaded: false,
+              };
+            }
+          });
+        });
+      }
+    });
+    if (!fileExists) {
+      setPendingFilesData((previousFiles) =>
+        previousFiles.concat({
+          file: file,
+          setPercent: undefined,
+          isUploaded: false,
+        })
+      );
+    }
+  }
+
+  function handleClickUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const { files } = e.target;
+    if (files && files.length > 0) {
+      Array.from(files).forEach((file) => {
+        addFileToPending(file);
+      });
+    }
+  }
+
+  function handleClick() {
+    if (pendingFilesData.length > 0 ? (uploading ? false : true) : true) {
+      // If all currently displayed files are finished uploading, clear them then add new files
+      if (pendingFilesData.length > 0) {
+        if (allFilesComplete()) {
+          setPendingFilesData([]);
+        }
+      }
+      if (inputFile.current) {
+        inputFile.current.click();
+      }
+    } else {
+      notify({
+        body:
+          cursor === `not-allowed`
+            ? "File drop target is currently deactivated."
+            : "Previous files are still being uploaded.",
+        variation: "error",
+      });
+    }
+  }
+
+  function handleDrop(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (pendingFilesData.length > 0 ? (uploading ? false : true) : true) {
+      // If all currently displayed files are finished uploading, clear them then add new files
+      if (pendingFilesData.length > 0) {
+        if (allFilesComplete()) {
+          setPendingFilesData([]);
+        }
+      }
+
+      if (e.dataTransfer?.files && e.dataTransfer.files.length > 0) {
+        Array.from(e.dataTransfer.files).forEach((file) => {
+          addFileToPending(file);
         });
       }
     } else {
@@ -329,42 +433,6 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     }
   }
 
-  function handleClickUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const { files } = e.target;
-    if (files && files.length > 0) {
-      if (instantUpload) {
-        handleUpload(Array.from(files));
-      } else {
-        pendingFiles = pendingFiles.concat(Array.from(files));
-        /*         setListedFiles(pendingFiles.map((file => <Box>{file.name}</Box>)));
-         */
-      }
-    }
-  }
-
-  function handleClick() {
-    if (cursor === `pointer`) {
-      if (inputFile.current) {
-        inputFile.current.click();
-      }
-    }
-  }
-
-  function handleDrop(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (e.dataTransfer?.files && e.dataTransfer.files.length > 0) {
-      if (instantUpload) {
-        handleUpload(Array.from(e.dataTransfer.files));
-      } else {
-        pendingFiles = pendingFiles.concat(Array.from(e.dataTransfer.files));
-        /*         setListedFiles(pendingFiles.map((file => <Box>{file.name}</Box>)));
-         */
-      }
-    }
-  }
-
   function handleDrag(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
     e.stopPropagation();
@@ -373,6 +441,12 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   function handleDragIn(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
     e.stopPropagation();
+    // If all currently displayed files are finished uploading, clear them then add new files
+    if (pendingFilesData.length > 0) {
+      if (allFilesComplete()) {
+        setPendingFilesData([]);
+      }
+    }
   }
 
   function handleDragOut(e: React.DragEvent<HTMLDivElement>) {
@@ -381,7 +455,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   }
 
   return (
-    <Box css={{ height: "100%", flex: 2 }}>
+    <Box css={{ height: "100%" }}>
       <DropOutline
         onDrop={handleDrop}
         onDragOver={handleDrag}
@@ -389,9 +463,14 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         onDragExit={handleDragOut}
         onClick={handleClick}
         style={{
-          cursor: cursor,
+          cursor:
+            pendingFilesData.length > 0
+              ? uploading
+                ? `wait`
+                : `pointer`
+              : `pointer`,
           justifyContent: "center",
-          height: boxHeight,
+          height: "100%",
         }}
       >
         <VisuallyHidden>
@@ -402,57 +481,104 @@ export function FileUpload(props: FileUploadProps): ReactElement {
             type="file"
           />
         </VisuallyHidden>
-        <Grid style={{ width: "50%", textAlign: "center" }}>
-          {text}
-          <Box
-            css={{
-              visibility: visible,
-              height: "20px",
+        {pendingFilesData.length === 0 && (
+          <Box css={{ width: "100%", textAlign: "center" }}>{text}</Box>
+        )}
+        {pendingFilesData.length > 0 && (
+          <Grid
+            style={{
+              gridTemplateRows: "80% 20%",
               width: "100%",
+              height: "100%",
             }}
           >
-            <ProgressBar progress={percent} />
-          </Box>
-        </Grid>
+            <ScrollView
+              style={{
+                height: "100%",
+                width: "100%",
+                paddingTop: "15px",
+                paddingBottom: "15px",
+              }}
+              rowStart={1}
+              rowEnd={1}
+            >
+              <FileList
+                filesData={pendingFilesData}
+                setPendingFilesData={setPendingFilesData}
+              />
+            </ScrollView>
+            <Box
+              css={{
+                height: "100%",
+                padding: "1%",
+                width: "100%",
+                textAlign: "left",
+                gridRowStart: "2",
+                gridRowEnd: "-1",
+              }}
+            >
+              <StyledButton
+                onClick={(event) => {
+                  event.stopPropagation();
+                  // maxFiles<=0 is treated as no file limit
+                  if (maxFiles <= 0 || pendingFilesData.length <= maxFiles) {
+                    pendingFilesData.forEach((fileData) => {
+                      if (fileData.setPercent) {
+                        handleUpload(fileData.file, fileData.setPercent);
+                      }
+                    });
+                  } else {
+                    notify({
+                      body: `Too many files selected. Max files is ${maxFiles}`,
+                      variation: `error`,
+                    });
+                  }
+                }}
+                css={{
+                  height: "100%",
+                  float: "left",
+                  margin: "5px",
+                }}
+                columnStart={"2"}
+                columnEnd={"-1"}
+                isDisabled={
+                  pendingFilesData.length > 0
+                    ? !uploading
+                      ? allFilesComplete()
+                        ? true
+                        : false
+                      : true
+                    : true
+                }
+              >
+                Upload
+              </StyledButton>
+              <StyledButton
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setPendingFilesData([]);
+                }}
+                css={{
+                  height: "100%",
+                  float: "left",
+                  margin: "5px",
+                }}
+                isDisabled={
+                  pendingFilesData.length > 0
+                    ? uploading
+                      ? allFilesComplete()
+                        ? false
+                        : true
+                      : false
+                    : true
+                }
+              >
+                Clear
+              </StyledButton>
+            </Box>
+          </Grid>
+        )}
       </DropOutline>
-      <Box
-        css={{
-          height: "10%",
-          padding: "5px",
-          width: "100%",
-          textAlign: "left",
-          visibility: buttonVisibility,
-        }}
-      >
-        <FileViewer files={pendingFiles} />
-        <StyledButton
-          onClick={() => {
-            if (pendingFiles.length !== 0) {
-              if (
-                window.confirm(
-                  `Upload:\n${pendingFiles
-                    .map((file) => {
-                      return ">" + file.name;
-                    })
-                    .join("\n")}`
-                )
-              ) {
-                handleUpload(pendingFiles);
-              }
-            }
-            pendingFiles = [];
-          }}
-          css={{
-            height: "100%",
-            float: "left",
-            margin: "5px",
-          }}
-          columnStart={"2"}
-          columnEnd={"-1"}
-        >
-          Submit
-        </StyledButton>
-      </Box>
     </Box>
   );
 }

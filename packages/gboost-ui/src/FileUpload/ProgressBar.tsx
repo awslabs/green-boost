@@ -1,9 +1,11 @@
 import { theme } from "../stitches.config.js";
-import { Box } from "./index.js";
+import { Box } from "../components/index.js";
 
 interface ProgressBarProps {
   barColor?: string;
   progress: number;
+  columnStart?: number;
+  columnEnd?: number;
 }
 
 export function ProgressBar(props: ProgressBarProps) {
@@ -22,7 +24,7 @@ export function ProgressBar(props: ProgressBarProps) {
         css={{
           borderRadius: "20px",
           height: "100%",
-          width: `${progress}%`,
+          width: progress > 3.5 ? `${progress}%` : `3.5%`,
           minWidth: "20px",
           backgroundColor: barColor,
         }}

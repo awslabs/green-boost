@@ -4,6 +4,7 @@ import { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
 import { Function } from "../function.js";
 import { createSchema } from "./createSchema.js";
 import { CommonProps, Stage } from "../common-props.js";
+import { Duration } from "aws-cdk-lib";
 
 interface FileUploadBucket {
   bucket: string;
@@ -48,6 +49,7 @@ export class FileUpload extends Construct {
         }),
       ],
       memorySize: 512,
+      timeout: Duration.seconds(10),
       stage,
     });
 
