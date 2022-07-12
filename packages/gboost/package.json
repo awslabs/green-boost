@@ -1,6 +1,6 @@
 {
   "name": "gboost",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Green Boost Command Line Interface",
   "bin": {
     "gboost": "src/index.ts"
@@ -29,7 +29,7 @@
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.121.0",
     "ejs": "^3.1.8",
-    "gboost-common": "workspace:^0.6.0",
+    "gboost-common": "workspace:^0.7.0",
     "kleur": "^4.1.5",
     "loglevel": "^1.8.0",
     "minimist": "^1.2.6",

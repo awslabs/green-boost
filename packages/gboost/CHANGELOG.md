@@ -1,5 +1,12 @@
 # gboost
 
+## 0.7.2
+
+### Patch Changes
+
+- Updated dependencies [[`4865d9b`](https://github.com/awslabs/green-boost/commit/4865d9b876d0d47713918ce307f6dc913fa0d6c6)]:
+  - gboost-common@0.7.0
+
 ## 0.7.1
 
 ### Patch Changes
