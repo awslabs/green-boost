@@ -1,5 +1,11 @@
 # gboost
 
+## 0.7.1
+
+### Patch Changes
+
+- [`8a9539f`](https://github.com/awslabs/green-boost/commit/8a9539faef93a1040b1d86239e0ceca3bddaaed9) Thanks [@bestickley](https://github.com/bestickley)! - Fix gboost CLI by excluding tests from tsc to maintain entry point
+
 ## 0.7.0
 
 ### Minor Changes
