@@ -1,5 +1,5 @@
 import { Box, gQuery, styled, useNotifications } from "../index.js";
-import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
+import { ReactElement, useRef, useState } from "react";
 import { theme } from "../stitches.config.js";
 import React from "react";
 import { Grid, ScrollView, VisuallyHidden } from "@aws-amplify/ui-react";
@@ -35,7 +35,7 @@ interface FileUploadProps {
   bucket: string;
   region: string;
   fileKey?: string;
-  buttonRef?: React.MutableRefObject<{ handleClick: Function }>;
+  buttonRef?: { current: { handleClick: Function } };
 }
 
 export interface FileData {
@@ -94,7 +94,6 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       Array.isArray(fileType) ? fileType.join(", ") : fileType
     } files here`,
     fileKey = "",
-    buttonRef = undefined,
   } = props;
   const inputFile = useRef<HTMLInputElement>(null);
   const { notify } = useNotifications();
@@ -119,256 +118,249 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     return allFilesUploaded;
   }
 
-  const getURL = useCallback(
-    async (fileProps: FileProps): Promise<{ url: string } | undefined> => {
-      try {
-        const {
-          getUploadURL: { url },
-        } = await gQuery<GetUploadURLResponse>({
-          query: getUploadURL,
-          vars: {
-            input: {
-              bucket: bucket,
-              fileName: fileKey + fileProps.fileName,
-              region: region,
-            },
+  async function getURL(
+    fileProps: FileProps
+  ): Promise<{ url: string } | undefined> {
+    try {
+      const {
+        getUploadURL: { url },
+      } = await gQuery<GetUploadURLResponse>({
+        query: getUploadURL,
+        vars: {
+          input: {
+            bucket: bucket,
+            fileName: fileKey + fileProps.fileName,
+            region: region,
           },
-        });
-        return { url };
-      } catch (err) {
-        const errors = err as GraphQLError[];
-        console.log("Error: " + JSON.stringify(errors[0]));
-        notify({
-          body: `Error uploading file ${fileProps.fileName}`,
-          variation: "error",
-        });
-        return undefined;
-      }
-    },
-    [bucket, fileKey, notify, region]
-  );
-
-  const uploadFile = useCallback(
-    async (
-      file: File,
-      setPercent: React.Dispatch<React.SetStateAction<number>>
-    ) => {
-      setPercent(0.1);
-      const response = await getURL({
-        fileName: file.name,
-        fileType: file.type,
+        },
       });
-      if (response !== undefined) {
-        const { url } = response;
-        try {
-          const result = await fetch(url, {
-            method: "PUT",
-            body: file,
-            mode: "cors",
+      return { url };
+    } catch (err) {
+      const errors = err as GraphQLError[];
+      console.log("Error: " + JSON.stringify(errors[0]));
+      notify({
+        body: `Error uploading file ${fileProps.fileName}`,
+        variation: "error",
+      });
+      return undefined;
+    }
+  }
+
+  async function uploadFile(
+    file: File,
+    setPercent: React.Dispatch<React.SetStateAction<number>>
+  ) {
+    setPercent(0.1);
+    const response = await getURL({
+      fileName: file.name,
+      fileType: file.type,
+    });
+    if (response !== undefined) {
+      const { url } = response;
+      try {
+        const result = await fetch(url, {
+          method: "PUT",
+          body: file,
+          mode: "cors",
+        });
+        if (result.status === 200) {
+          setPercent(100);
+          notify({
+            body: `Successfully uploaded ${file.name}`,
+            variation: "success",
           });
-          if (result.status === 200) {
-            setPercent(100);
-            notify({
-              body: `Successfully uploaded ${file.name}`,
-              variation: "success",
+          setPendingFilesData((existingData) => {
+            return existingData.map((existingFileData) => {
+              if (existingFileData.file.name === file.name) {
+                return {
+                  file: existingFileData.file,
+                  setPercent: existingFileData.setPercent,
+                  isUploaded: true,
+                };
+              } else {
+                return existingFileData;
+              }
             });
-            setPendingFilesData((existingData) => {
-              return existingData.map((existingFileData) => {
-                if (existingFileData.file.name === file.name) {
-                  return {
-                    file: existingFileData.file,
-                    setPercent: existingFileData.setPercent,
-                    isUploaded: true,
-                  };
-                } else {
-                  return existingFileData;
-                }
-              });
-            });
-          } else {
-            notify({
-              body: `Error uploading file ${file.name}`,
-              variation: "error",
-            });
-          }
-        } catch (err) {
-          const errors = err as GraphQLError[];
-          console.log("Error: " + JSON.stringify(errors[0]));
+          });
+        } else {
           notify({
             body: `Error uploading file ${file.name}`,
             variation: "error",
           });
         }
-      }
-    },
-    [getURL, notify]
-  );
-
-  const handleMultipartUpload = useCallback(
-    async (
-      file: File,
-      setPercent: React.Dispatch<React.SetStateAction<number>>
-    ) => {
-      setPercent(0.1);
-      notify({
-        body: `${file.name} will be uploaded in multiple parts.`,
-        variation: `info`,
-      });
-
-      const {
-        getUploadId: { uploadId },
-      } = await gQuery<GetUploadIdResponse>({
-        query: getUploadId,
-        vars: {
-          input: {
-            bucket: bucket,
-            region: region,
-            fileName: fileKey + file.name,
-          },
-        },
-      });
-
-      let multipartUpload: CompletedPart[] = [];
-      let numberOfParts =
-        Math.ceil(file.size / 5242880) > 1000
-          ? 1000
-          : Math.ceil(file.size / 5242880);
-      let partsUploaded = 0;
-      const filePartSize = Math.ceil(file.size / numberOfParts);
-      const {
-        getUploadPartURL: { urls },
-      } = await gQuery<GetUploadPartURLResponse>({
-        query: getUploadPartURL,
-        vars: {
-          input: {
-            region: region,
-            bucket: bucket,
-            fileName: fileKey + file.name,
-            numberOfParts: numberOfParts,
-            uploadId: uploadId,
-          },
-        },
-      });
-      for (let i = 0; i < numberOfParts; i++) {
-        const start = i * filePartSize;
-        const end = (i + 1) * filePartSize;
-        const filePart =
-          i < numberOfParts - 1 ? file.slice(start, end) : file.slice(start);
-        const result = await fetch(urls[i], {
-          method: "PUT",
-          body: filePart,
-          mode: "cors",
-        });
-
-        let etag = result.headers.get("ETag");
-        if (etag != null) {
-          multipartUpload[i] = {
-            ETag: etag,
-            PartNumber: i + 1,
-          };
-        }
-
-        if (result.status !== 200) {
-          await gQuery<abortUploadResponse>({
-            query: abortUpload,
-            vars: {
-              input: {
-                region: region,
-                bucket: bucket,
-                fileName: fileKey + file.name,
-                uploadId: uploadId,
-              },
-            },
-          });
-          notify({
-            body: `Error uploading ${file.name}`,
-            variation: `error`,
-          });
-          partsUploaded = 0;
-          setPercent((partsUploaded / numberOfParts) * 100);
-          return;
-        } else {
-          partsUploaded += 1;
-          setPercent((partsUploaded / numberOfParts) * 100);
-        }
-      }
-
-      const {
-        completeUpload: { statusCode },
-      } = await gQuery<completeUploadResponse>({
-        query: completeUpload,
-        vars: {
-          input: {
-            region: region,
-            bucket: bucket,
-            fileName: fileKey + file.name,
-            uploadId: uploadId,
-            multipartUpload: multipartUpload,
-          },
-        },
-      });
-      if (statusCode === 200) {
+      } catch (err) {
+        const errors = err as GraphQLError[];
+        console.log("Error: " + JSON.stringify(errors[0]));
         notify({
-          body: `File ${file.name} successfully uploaded`,
-          variation: `success`,
-        });
-        setPercent((partsUploaded / numberOfParts) * 100);
-        setPendingFilesData((existingData) => {
-          return existingData.map((existingFileData) => {
-            if (existingFileData.file.name === file.name) {
-              return {
-                file: existingFileData.file,
-                setPercent: existingFileData.setPercent,
-                isUploaded: true,
-              };
-            } else {
-              return existingFileData;
-            }
-          });
-        });
-      }
-    },
-    [bucket, fileKey, notify, region]
-  );
-
-  const handleUpload = useCallback(
-    (file: File, setPercent: React.Dispatch<React.SetStateAction<number>>) => {
-      if (file.size <= maxFileSize) {
-        let isSupported = false;
-
-        const parts = file.name.split(".");
-        const extension = parts[parts.length - 1].toLowerCase();
-        if (Array.isArray(fileType)) {
-          if (fileType.includes(extension)) {
-            isSupported = true;
-          }
-        } else if (fileType === extension) {
-          isSupported = true;
-        }
-
-        if (isSupported) {
-          setUploading(true);
-          if (file.size < 100000000) {
-            uploadFile(file, setPercent);
-          } else {
-            updateCursor(`wait`);
-            handleMultipartUpload(file, setPercent);
-          }
-        } else {
-          notify({
-            body: `Files of type ${extension} are not accepted.`,
-            variation: "error",
-          });
-        }
-      } else {
-        notify({
-          body: `File ${file.name} is over the maximum ${maxFileSize} bytes.`,
+          body: `Error uploading file ${file.name}`,
           variation: "error",
         });
       }
-    },
-    [fileType, handleMultipartUpload, maxFileSize, notify, uploadFile]
-  );
+    }
+  }
+
+  async function handleMultipartUpload(
+    file: File,
+    setPercent: React.Dispatch<React.SetStateAction<number>>
+  ) {
+    setPercent(0.1);
+    notify({
+      body: `${file.name} will be uploaded in multiple parts.`,
+      variation: `info`,
+    });
+
+    const {
+      getUploadId: { uploadId },
+    } = await gQuery<GetUploadIdResponse>({
+      query: getUploadId,
+      vars: {
+        input: {
+          bucket: bucket,
+          region: region,
+          fileName: fileKey + file.name,
+        },
+      },
+    });
+
+    let multipartUpload: CompletedPart[] = [];
+    let numberOfParts =
+      Math.ceil(file.size / 5242880) > 1000
+        ? 1000
+        : Math.ceil(file.size / 5242880);
+    let partsUploaded = 0;
+    const filePartSize = Math.ceil(file.size / numberOfParts);
+    const {
+      getUploadPartURL: { urls },
+    } = await gQuery<GetUploadPartURLResponse>({
+      query: getUploadPartURL,
+      vars: {
+        input: {
+          region: region,
+          bucket: bucket,
+          fileName: fileKey + file.name,
+          numberOfParts: numberOfParts,
+          uploadId: uploadId,
+        },
+      },
+    });
+    for (let i = 0; i < numberOfParts; i++) {
+      const start = i * filePartSize;
+      const end = (i + 1) * filePartSize;
+      const filePart =
+        i < numberOfParts - 1 ? file.slice(start, end) : file.slice(start);
+      const result = await fetch(urls[i], {
+        method: "PUT",
+        body: filePart,
+        mode: "cors",
+      });
+
+      let etag = result.headers.get("ETag");
+      if (etag != null) {
+        multipartUpload[i] = {
+          ETag: etag,
+          PartNumber: i + 1,
+        };
+      }
+
+      if (result.status !== 200) {
+        await gQuery<abortUploadResponse>({
+          query: abortUpload,
+          vars: {
+            input: {
+              region: region,
+              bucket: bucket,
+              fileName: fileKey + file.name,
+              uploadId: uploadId,
+            },
+          },
+        });
+        notify({
+          body: `Error uploading ${file.name}`,
+          variation: `error`,
+        });
+        partsUploaded = 0;
+        setPercent((partsUploaded / numberOfParts) * 100);
+        return;
+      } else {
+        partsUploaded += 1;
+        setPercent((partsUploaded / numberOfParts) * 100);
+      }
+    }
+
+    const {
+      completeUpload: { statusCode },
+    } = await gQuery<completeUploadResponse>({
+      query: completeUpload,
+      vars: {
+        input: {
+          region: region,
+          bucket: bucket,
+          fileName: fileKey + file.name,
+          uploadId: uploadId,
+          multipartUpload: multipartUpload,
+        },
+      },
+    });
+    if (statusCode === 200) {
+      notify({
+        body: `File ${file.name} successfully uploaded`,
+        variation: `success`,
+      });
+      setPercent((partsUploaded / numberOfParts) * 100);
+      setPendingFilesData((existingData) => {
+        return existingData.map((existingFileData) => {
+          if (existingFileData.file.name === file.name) {
+            return {
+              file: existingFileData.file,
+              setPercent: existingFileData.setPercent,
+              isUploaded: true,
+            };
+          } else {
+            return existingFileData;
+          }
+        });
+      });
+    }
+  }
+
+  function handleUpload(
+    file: File,
+    setPercent: React.Dispatch<React.SetStateAction<number>>
+  ) {
+    if (file.size <= maxFileSize) {
+      let isSupported = false;
+
+      const parts = file.name.split(".");
+      const extension = parts[parts.length - 1].toLowerCase();
+      if (Array.isArray(fileType)) {
+        if (fileType.includes(extension)) {
+          isSupported = true;
+        }
+      } else if (fileType === extension) {
+        isSupported = true;
+      }
+
+      if (isSupported) {
+        setUploading(true);
+        if (file.size < 100000000) {
+          uploadFile(file, setPercent);
+        } else {
+          updateCursor(`wait`);
+          handleMultipartUpload(file, setPercent);
+        }
+      } else {
+        notify({
+          body: `Files of type ${extension} are not accepted.`,
+          variation: "error",
+        });
+      }
+    } else {
+      notify({
+        body: `File ${file.name} is over the maximum ${maxFileSize} bytes.`,
+        variation: "error",
+      });
+    }
+  }
 
   function addFileToPending(file: File) {
     let fileExists = false;
@@ -481,7 +473,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     e.stopPropagation();
   }
 
-  const handleClick = useCallback(() => {
+  function handleClick() {
     // maxFiles<=0 is treated as no file limit
     if (maxFiles <= 0 || pendingFilesData.length <= maxFiles) {
       pendingFilesData.forEach((fileData) => {
@@ -495,13 +487,11 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         variation: `error`,
       });
     }
-  }, [handleUpload, maxFiles, notify, pendingFilesData]);
+  }
 
-  useEffect(() => {
-    if (buttonRef) {
-      buttonRef.current.handleClick = handleClick;
-    }
-  }, [buttonRef, handleClick]);
+  if (props.buttonRef) {
+    props.buttonRef.current.handleClick = handleClick;
+  }
 
   return (
     <Box css={{ height: "100%" }}>
@@ -566,7 +556,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
                 gridRowEnd: "-1",
               }}
             >
-              {!buttonRef && (
+              {!props.buttonRef && (
                 <StyledButton
                   onClick={(event) => {
                     event.stopPropagation();
