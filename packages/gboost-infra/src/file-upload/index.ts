@@ -13,11 +13,13 @@ interface FileUploadBucket {
 
 export interface FileUploadProps extends CommonProps {
   api: GraphqlApi;
-  stage?: Stage;
   partition?: string;
   buckets: Record<string, FileUploadBucket>;
 }
 
+/**
+ * Creates a Lambda Function
+ */
 export class FileUpload extends Construct {
   constructor(scope: Construct, id: string, props: FileUploadProps) {
     super(scope, id);
