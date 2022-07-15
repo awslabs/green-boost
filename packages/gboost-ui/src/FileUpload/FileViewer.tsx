@@ -1,15 +1,17 @@
-import { Grid, Text } from "@aws-amplify/ui-react";
+import { TableCell, TableRow, Text } from "@aws-amplify/ui-react";
 import { ReactElement, useEffect, useState } from "react";
-import { Box, FileData, theme } from "../index.js";
+import { Box, FileData } from "../index.js";
 import { ProgressBar } from "./ProgressBar.js";
+import { RemoveFile } from "./RemoveFile.js";
 
 interface FileViewerProps {
   fileData: FileData;
   setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>;
+  removeFile: Function;
 }
 
 export function FileViewer(props: FileViewerProps): ReactElement {
-  const { fileData, setPendingFilesData } = props;
+  const { fileData, setPendingFilesData, removeFile } = props;
   const [percent, setPercent] = useState(0);
   useEffect(() => {
     setPendingFilesData((existingData) =>
@@ -31,43 +33,32 @@ export function FileViewer(props: FileViewerProps): ReactElement {
     );
   }, [fileData.file, setPendingFilesData]);
   return (
-    <Box
-      css={{
-        height: "5%",
-        width: "100%",
-      }}
-    >
-      <Grid
+    <TableRow>
+      <TableCell style={{ maxWidth: "100px" }}>
+        <Text isTruncated={true}>{fileData.file.name}</Text>
+      </TableCell>
+      <TableCell style={{ maxWidth: "50px" }}>{fileData.file.size}</TableCell>
+      <TableCell
         style={{
-          borderBottom: `1px solid ${theme.colors.gray8}`,
-          gridTemplateColumns: "2fr 3fr",
+          alignItems: "center",
+          display: "flex",
+          alignContent: "center",
+          textAlign: "center",
+          height: "100%",
         }}
       >
-        <Text columnStart={1} columnEnd={2} isTruncated={true}>
-          {fileData.file.name}
-        </Text>
         <Box
           css={{
+            visibility: percent > 0 ? `visible` : `hidden`,
             width: "100%",
-            display: "flex",
-            alignItems: "center",
           }}
         >
-          <Box
-            css={{
-              height: "85%",
-              width: "100%",
-              visibility: percent > 0 ? `visible` : `hidden`,
-            }}
-          >
-            <ProgressBar
-              columnStart={3}
-              columnEnd={-1}
-              progress={percent}
-            ></ProgressBar>
-          </Box>
+          <ProgressBar progress={percent} />
         </Box>
-      </Grid>
-    </Box>
+      </TableCell>
+      <TableCell>
+        <RemoveFile onClick={removeFile} fileName={fileData.file.name} />
+      </TableCell>
+    </TableRow>
   );
 }

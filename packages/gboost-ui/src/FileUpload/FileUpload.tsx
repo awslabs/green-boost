@@ -493,6 +493,20 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     props.buttonRef.current.handleClick = handleClick;
   }
 
+  function removeFile(fileName: string, event: React.MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    setPendingFilesData((oldData) => {
+      let newData: FileData[] = [];
+      for (let i = 0; i < oldData.length; i++) {
+        if (oldData[i].file.name !== fileName) {
+          newData.push(oldData[i]);
+        }
+      }
+      return newData;
+    });
+  }
+
   return (
     <Box css={{ height: "100%" }}>
       <DropOutline
@@ -544,6 +558,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
               <FileList
                 filesData={pendingFilesData}
                 setPendingFilesData={setPendingFilesData}
+                removeFile={removeFile}
               />
             </ScrollView>
             <Box
