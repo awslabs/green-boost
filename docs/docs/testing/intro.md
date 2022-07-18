@@ -1,3 +1,3 @@
 # Testing
 
-TODO - jest, react-testing-library, cypress
+TODO - vitest, react-testing-library, cypress

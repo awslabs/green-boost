@@ -1,6 +1,6 @@
 {
   "name": "gboost-ui",
-  "version": "0.19.0",
+  "version": "0.21.1",
   "description": "Green Boost UI Library of React Components",
   "type": "module",
   "main": "./src/index.ts",
@@ -25,52 +25,45 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
-    "test": "jest"
+    "test": "vitest run"
   },
   "dependencies": {
-    "@hookform/resolvers": "^2.8.10",
+    "@aws-amplify/ui-react": "^3.0.1",
+    "@hookform/resolvers": "^2.9.1",
     "@mantine/hooks": "^3.6.14",
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-portal": "^0.1.4",
     "@radix-ui/react-tooltip": "^0.1.7",
     "@stitches/react": "^1.2.8",
-    "gboost-common": "workspace:^0.6.0",
+    "gboost-common": "workspace:^0.7.0",
     "graphql": "^15.8.0",
     "graphql-tag": "^2.12.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.31.3",
+    "react-hook-form": "^7.32.2",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-transition-group": "^4.4.2",
     "zod": "^3.17.3"
   },
   "devDependencies": {
-    "@aws-amplify/ui-react": "^2.18.3",
-    "@types/jest": "^27.5.1",
-    "@types/react": "^17.0.45",
+    "@types/react": "^17.0.47",
     "@types/react-dom": "^17.0.17",
-    "@types/react-transition-group": "^4.4.4",
-    "@typescript-eslint/eslint-plugin": "^5.27.0",
-    "@typescript-eslint/parser": "^5.27.0",
-    "aws-amplify": "^4.3.24",
-    "eslint": "^8.16.0",
+    "@types/react-transition-group": "^4.4.5",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "aws-amplify": "^4.3.26",
+    "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
-    "eslint-define-config": "^1.5.0",
-    "eslint-plugin-jest": "^25.7.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "jest": "^27.5.1",
-    "prettier": "^2.6.2",
+    "eslint-define-config": "^1.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "ts-jest": "^27.1.5",
-    "typescript": "^4.7.2",
-    "vite": "^2.9.9"
-  },
-  "peerDependencies": {
-    "@aws-amplify/ui-react": "^2.15.5",
-    "aws-amplify": "^4.3.20"
+    "typescript": "^4.7.4",
+    "vite": "^2.9.13",
+    "vitest": "^0.17.0"
   },
   "repository": {
     "type": "git",
@@ -91,14 +84,5 @@
   "bugs": {
     "url": "https://github.com/awslabs/green-boost/issues"
   },
-  "homepage": "https://awslabs.github.io/green-boost",
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "@babel/plugin-syntax-flow",
-        "@babel/plugin-transform-react-jsx",
-        "react-native"
-      ]
-    }
-  }
+  "homepage": "https://awslabs.github.io/green-boost"
 }

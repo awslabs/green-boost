@@ -12,10 +12,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-
       - name: Install
         uses: ./.github/actions/install
-      
       - name: Audit Dependencies
         run: pnpm audit-gb
 
@@ -25,10 +23,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-
       - name: Install
         uses: ./.github/actions/install
-      
       - name: Compile TypeScript
         run: pnpm build
 
@@ -38,10 +34,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-
       - name: Install
         uses: ./.github/actions/install
-      
       - name: Lint
         run: pnpm lint
 
@@ -51,9 +45,57 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-
       - name: Install
         uses: ./.github/actions/install
-      
       - name: Test
         run: pnpm unit-test
+
+  gboost-create-tests:
+    needs: unit-tests
+    name: gboost-create-tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        scenario: [0]
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Install
+        uses: ./.github/actions/install
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+          role-session-name: GitHubActionSession
+      - name: gboost-create-tests
+        run: cd packages/gboost && pnpm test:gboost-create --scenario ${{ matrix.scenario }}
+
+  gboost-create-test-windows:
+    needs: unit-tests
+    name: gboost-create-test-windows
+    runs-on: windows-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Install
+        uses: ./.github/actions/install
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+          role-session-name: GitHubActionSession
+      - name: gboost-create-tests-windows
+        run: cd packages/gboost && pnpm test:gboost-create --scenario 0
+
+# stops workflows in progress if a new commit is added to PR
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true

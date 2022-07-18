@@ -1,5 +1,0 @@
----
-to: .husky/_/.gitignore
----
-
-*
