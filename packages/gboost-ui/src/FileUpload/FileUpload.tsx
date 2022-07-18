@@ -42,6 +42,7 @@ export interface FileData {
   file: File;
   setPercent: React.Dispatch<React.SetStateAction<number>> | undefined;
   isUploaded: boolean;
+  fileName: string;
 }
 
 interface GetUploadURLResponse {
@@ -148,11 +149,12 @@ export function FileUpload(props: FileUploadProps): ReactElement {
 
   async function uploadFile(
     file: File,
-    setPercent: React.Dispatch<React.SetStateAction<number>>
+    setPercent: React.Dispatch<React.SetStateAction<number>>,
+    fileName: string
   ) {
     setPercent(0.1);
     const response = await getURL({
-      fileName: file.name,
+      fileName: fileName,
       fileType: file.type,
     });
     if (response !== undefined) {
@@ -165,17 +167,14 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         });
         if (result.status === 200) {
           setPercent(100);
-          notify({
-            body: `Successfully uploaded ${file.name}`,
-            variation: "success",
-          });
           setPendingFilesData((existingData) => {
             return existingData.map((existingFileData) => {
-              if (existingFileData.file.name === file.name) {
+              if (existingFileData.fileName === fileName) {
                 return {
                   file: existingFileData.file,
                   setPercent: existingFileData.setPercent,
                   isUploaded: true,
+                  fileName: existingFileData.fileName,
                 };
               } else {
                 return existingFileData;
@@ -184,7 +183,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
           });
         } else {
           notify({
-            body: `Error uploading file ${file.name}`,
+            body: `Error uploading file ${fileName}`,
             variation: "error",
           });
         }
@@ -192,7 +191,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         const errors = err as GraphQLError[];
         console.log("Error: " + JSON.stringify(errors[0]));
         notify({
-          body: `Error uploading file ${file.name}`,
+          body: `Error uploading file ${fileName}`,
           variation: "error",
         });
       }
@@ -201,14 +200,10 @@ export function FileUpload(props: FileUploadProps): ReactElement {
 
   async function handleMultipartUpload(
     file: File,
-    setPercent: React.Dispatch<React.SetStateAction<number>>
+    setPercent: React.Dispatch<React.SetStateAction<number>>,
+    fileName: string
   ) {
     setPercent(0.1);
-    notify({
-      body: `${file.name} will be uploaded in multiple parts.`,
-      variation: `info`,
-    });
-
     const {
       getUploadId: { uploadId },
     } = await gQuery<GetUploadIdResponse>({
@@ -217,7 +212,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         input: {
           bucket: bucket,
           region: region,
-          fileName: fileKey + file.name,
+          fileName: fileKey + fileName,
         },
       },
     });
@@ -237,7 +232,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         input: {
           region: region,
           bucket: bucket,
-          fileName: fileKey + file.name,
+          fileName: fileKey + fileName,
           numberOfParts: numberOfParts,
           uploadId: uploadId,
         },
@@ -269,13 +264,13 @@ export function FileUpload(props: FileUploadProps): ReactElement {
             input: {
               region: region,
               bucket: bucket,
-              fileName: fileKey + file.name,
+              fileName: fileKey + fileName,
               uploadId: uploadId,
             },
           },
         });
         notify({
-          body: `Error uploading ${file.name}`,
+          body: `Error uploading ${fileName}`,
           variation: `error`,
         });
         partsUploaded = 0;
@@ -295,25 +290,22 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         input: {
           region: region,
           bucket: bucket,
-          fileName: fileKey + file.name,
+          fileName: fileKey + fileName,
           uploadId: uploadId,
           multipartUpload: multipartUpload,
         },
       },
     });
     if (statusCode === 200) {
-      notify({
-        body: `File ${file.name} successfully uploaded`,
-        variation: `success`,
-      });
       setPercent((partsUploaded / numberOfParts) * 100);
       setPendingFilesData((existingData) => {
         return existingData.map((existingFileData) => {
-          if (existingFileData.file.name === file.name) {
+          if (existingFileData.fileName === fileName) {
             return {
               file: existingFileData.file,
               setPercent: existingFileData.setPercent,
               isUploaded: true,
+              fileName: existingFileData.fileName,
             };
           } else {
             return existingFileData;
@@ -325,12 +317,13 @@ export function FileUpload(props: FileUploadProps): ReactElement {
 
   function handleUpload(
     file: File,
-    setPercent: React.Dispatch<React.SetStateAction<number>>
+    setPercent: React.Dispatch<React.SetStateAction<number>>,
+    fileName: string
   ) {
     if (file.size <= maxFileSize) {
       let isSupported = false;
 
-      const parts = file.name.split(".");
+      const parts = fileName.split(".");
       const extension = parts[parts.length - 1].toLowerCase();
       if (Array.isArray(fileType)) {
         if (fileType.includes(extension)) {
@@ -343,10 +336,10 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       if (isSupported) {
         setUploading(true);
         if (file.size < 100000000) {
-          uploadFile(file, setPercent);
+          uploadFile(file, setPercent, fileName);
         } else {
           updateCursor(`wait`);
-          handleMultipartUpload(file, setPercent);
+          handleMultipartUpload(file, setPercent, fileName);
         }
       } else {
         notify({
@@ -356,7 +349,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       }
     } else {
       notify({
-        body: `File ${file.name} is over the maximum ${maxFileSize} bytes.`,
+        body: `File ${fileName} is over the maximum ${maxFileSize} bytes.`,
         variation: "error",
       });
     }
@@ -365,17 +358,18 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   function addFileToPending(file: File) {
     let fileExists = false;
     pendingFilesData.forEach((currentFilesData) => {
-      if (currentFilesData.file.name === file.name) {
+      if (currentFilesData.fileName === file.name) {
         fileExists = true;
         setPendingFilesData((formerFilesData) => {
           return formerFilesData.map((fileData) => {
-            if (fileData.file.name !== file.name) {
+            if (fileData.fileName !== file.name) {
               return fileData;
             } else {
               return {
                 file: file,
                 setPercent: undefined,
                 isUploaded: false,
+                fileName: file.name,
               };
             }
           });
@@ -388,6 +382,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
           file: file,
           setPercent: undefined,
           isUploaded: false,
+          fileName: file.name,
         })
       );
     }
@@ -478,7 +473,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     if (maxFiles <= 0 || pendingFilesData.length <= maxFiles) {
       pendingFilesData.forEach((fileData) => {
         if (fileData.setPercent) {
-          handleUpload(fileData.file, fileData.setPercent);
+          handleUpload(fileData.file, fileData.setPercent, fileData.fileName);
         }
       });
     } else {
@@ -499,12 +494,54 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     setPendingFilesData((oldData) => {
       let newData: FileData[] = [];
       for (let i = 0; i < oldData.length; i++) {
-        if (oldData[i].file.name !== fileName) {
+        if (oldData[i].fileName !== fileName) {
           newData.push(oldData[i]);
         }
       }
       return newData;
     });
+  }
+
+  function changeFileName(oldFileName: string, newFileName: string): boolean {
+    let fileNameExists = false;
+    pendingFilesData.forEach((fileData) => {
+      if (fileData.fileName === newFileName) {
+        fileNameExists = true;
+      }
+    });
+    if (fileNameExists) {
+      let fileParts = newFileName.split(".");
+      let newestFileName = "";
+      for (let i = 0; i < fileParts.length; i++) {
+        if (i < fileParts.length - 1) {
+          if (i === 0) {
+            newestFileName += fileParts[i];
+          } else {
+            newestFileName += "." + fileParts[i];
+          }
+        } else {
+          newestFileName += "-copy." + fileParts[i];
+        }
+      }
+      changeFileName(oldFileName, newestFileName);
+      return false;
+    } else {
+      setPendingFilesData((oldData) => {
+        return oldData.map((oldFileData) => {
+          if (oldFileData.fileName === oldFileName) {
+            return {
+              file: oldFileData.file,
+              setPercent: oldFileData.setPercent,
+              isUploaded: oldFileData.isUploaded,
+              fileName: newFileName,
+            };
+          } else {
+            return oldFileData;
+          }
+        });
+      });
+      return true;
+    }
   }
 
   return (
@@ -559,6 +596,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
                 filesData={pendingFilesData}
                 setPendingFilesData={setPendingFilesData}
                 removeFile={removeFile}
+                changeFileName={changeFileName}
               />
             </ScrollView>
             <Box

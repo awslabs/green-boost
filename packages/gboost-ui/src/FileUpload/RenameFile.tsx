@@ -1,13 +1,12 @@
 import { ReactElement } from "react";
 import { Box } from "../index.js";
 
-interface RemoveFileProps {
+interface RenameFileProps {
   onClick: Function;
-  fileName: string;
 }
 
-export function RemoveFile(props: RemoveFileProps): ReactElement {
-  const { onClick, fileName } = props;
+export function RenameFile(props: RenameFileProps): ReactElement {
+  const { onClick } = props;
   return (
     <Box
       css={{
@@ -15,13 +14,12 @@ export function RemoveFile(props: RemoveFileProps): ReactElement {
         height: "100%",
         width: "fit-content",
         paddingRight: "10px",
-        paddingLeft: "10px",
       }}
       onClick={(event) => {
-        onClick(fileName, event);
+        onClick(event);
       }}
     >
-      X
+      Rename
     </Box>
   );
 }

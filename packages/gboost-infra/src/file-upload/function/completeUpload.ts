@@ -21,11 +21,7 @@ interface completeUploadParams {
 
 export async function completeUpload(params: completeUploadParams) {
   const {
-    input: { region },
-    input: { bucket },
-    input: { fileName },
-    input: { uploadId },
-    input: { multipartUpload },
+    input: { region, bucket, fileName, uploadId, multipartUpload },
   } = params.event.arguments;
 
   const client = new S3Client({ region: region });

@@ -15,9 +15,7 @@ interface getUploadIdParams {
 
 export async function getUploadId(params: getUploadIdParams) {
   const {
-    input: { region },
-    input: { bucket },
-    input: { fileName },
+    input: { region, bucket, fileName },
   } = params.event.arguments;
 
   const client = new S3Client({ region: region });

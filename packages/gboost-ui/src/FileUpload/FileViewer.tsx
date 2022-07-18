@@ -1,48 +1,50 @@
-import { TableCell, TableRow, Text } from "@aws-amplify/ui-react";
-import { ReactElement, useEffect, useState } from "react";
+import { Grid, TableCell, TableRow } from "@aws-amplify/ui-react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Box, FileData } from "../index.js";
+import { FileName } from "./FileName.js";
 import { ProgressBar } from "./ProgressBar.js";
 import { RemoveFile } from "./RemoveFile.js";
+import { RenameFile } from "./RenameFile.js";
 
 interface FileViewerProps {
   fileData: FileData;
   setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>;
   removeFile: Function;
+  changeFileName: Function;
 }
 
 export function FileViewer(props: FileViewerProps): ReactElement {
-  const { fileData, setPendingFilesData, removeFile } = props;
+  const { fileData, setPendingFilesData, removeFile, changeFileName } = props;
   const [percent, setPercent] = useState(0);
+  const [disabled, setDisabled] = useState(true);
   useEffect(() => {
     setPendingFilesData((existingData) =>
       existingData.map((oldFileData) => {
-        if (oldFileData.file.name === fileData.file.name) {
+        if (oldFileData.fileName === fileData.fileName) {
           return {
             file: oldFileData.file,
             setPercent: setPercent,
             isUploaded: oldFileData.isUploaded,
+            fileName: oldFileData.fileName,
           };
         } else {
-          return {
-            file: oldFileData.file,
-            setPercent: oldFileData.setPercent,
-            isUploaded: oldFileData.isUploaded,
-          };
+          return oldFileData;
         }
       })
     );
-  }, [fileData.file, setPendingFilesData]);
+  }, [fileData.fileName, setPendingFilesData]);
   return (
     <TableRow>
       <TableCell style={{ maxWidth: "100px" }}>
-        <Text isTruncated={true}>{fileData.file.name}</Text>
+        <FileName
+          fileName={fileData.fileName}
+          isDisabled={disabled}
+          changeFileName={changeFileName}
+        />
       </TableCell>
       <TableCell style={{ maxWidth: "50px" }}>{fileData.file.size}</TableCell>
       <TableCell
         style={{
-          alignItems: "center",
-          display: "flex",
-          alignContent: "center",
           textAlign: "center",
           height: "100%",
         }}
@@ -56,8 +58,41 @@ export function FileViewer(props: FileViewerProps): ReactElement {
           <ProgressBar progress={percent} />
         </Box>
       </TableCell>
-      <TableCell>
-        <RemoveFile onClick={removeFile} fileName={fileData.file.name} />
+      <TableCell
+        style={{
+          maxWidth: "150px",
+          textAlign: "right",
+          height: "100%",
+        }}
+      >
+        <Grid
+          style={{
+            gridTemplateColumns: "fit-content(100px) fit-content(50px)",
+          }}
+        >
+          <Box
+            css={{
+              gridColumnStart: "1",
+              gridColumnEnd: "1",
+            }}
+          >
+            <RenameFile
+              onClick={(event: React.MouseEvent<HTMLElement>) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setDisabled(false);
+              }}
+            />
+          </Box>
+          <Box
+            css={{
+              gridColumnStart: "2",
+              gridColumnEnd: "-1",
+            }}
+          >
+            <RemoveFile onClick={removeFile} fileName={fileData.fileName} />
+          </Box>
+        </Grid>
       </TableCell>
     </TableRow>
   );

@@ -16,10 +16,7 @@ interface abortUploadParams {
 
 export async function abortUpload(params: abortUploadParams) {
   const {
-    input: { region },
-    input: { bucket },
-    input: { fileName },
-    input: { uploadId },
+    input: { region, bucket, fileName, uploadId },
   } = params.event.arguments;
 
   const client = new S3Client({ region: region });

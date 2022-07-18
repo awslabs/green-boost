@@ -13,10 +13,11 @@ interface FileListProps {
   filesData: FileData[];
   setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>;
   removeFile: Function;
+  changeFileName: Function;
 }
 
 export function FileList(props: FileListProps): ReactElement {
-  const { filesData, setPendingFilesData, removeFile } = props;
+  const { filesData, setPendingFilesData, removeFile, changeFileName } = props;
   return (
     <Table variation="striped" size="small">
       <TableHead>
@@ -24,16 +25,19 @@ export function FileList(props: FileListProps): ReactElement {
           <TableCell as="th">File</TableCell>
           <TableCell as="th">Size</TableCell>
           <TableCell as="th">Progress</TableCell>
-          <TableCell as="th">Actions</TableCell>
+          <TableCell as="th" style={{ width: "150px" }}>
+            Actions
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {filesData.map((fileData) => (
           <FileViewer
-            key={fileData.file.name}
+            key={fileData.fileName}
             fileData={fileData}
             setPendingFilesData={setPendingFilesData}
             removeFile={removeFile}
+            changeFileName={changeFileName}
           ></FileViewer>
         ))}
       </TableBody>

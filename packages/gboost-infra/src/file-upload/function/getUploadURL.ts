@@ -16,9 +16,7 @@ interface getUploadURLParams {
 
 export async function getUploadURL(params: getUploadURLParams) {
   const {
-    input: { fileName },
-    input: { bucket },
-    input: { region },
+    input: { fileName, bucket, region },
   } = params.event.arguments;
 
   const client = new S3Client({ region: region });

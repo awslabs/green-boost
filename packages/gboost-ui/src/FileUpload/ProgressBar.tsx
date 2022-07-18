@@ -27,8 +27,8 @@ export function ProgressBar(props: ProgressBarProps) {
           position: "absolute",
           left: "50%",
           top: "0%",
-          marginLeft: "-125px",
-          width: "250px",
+          marginLeft: "-100px",
+          width: "200px",
         }}
       >
         {progress === 100 ? `Complete` : `${Math.round(progress)}% Uploaded`}
