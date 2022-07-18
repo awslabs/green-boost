@@ -13,11 +13,11 @@ const uiVersion = readJson("../packages/gboost-ui/package.json").version;
 
 // update package versions in template
 const frontMatter: Record<string, string> = {}; // temp variable for template frontmatter
-const templatePrefix = "../packages/gboost/_templates/repo/create/";
-const infraPkgJson = readJson(templatePrefix + "infra/package.json.t", 4);
+const templatePrefix = "../packages/gboost/_templates/create/";
+const infraPkgJson = readJson(templatePrefix + "infra/package.json.t");
 infraPkgJson.dependencies["gboost-common"] = "^" + commonVersion;
 infraPkgJson.dependencies["gboost-infra"] = "^" + infraVersion;
-const uiPkgJson = readJson(templatePrefix + "ui/package.json.t", 4);
+const uiPkgJson = readJson(templatePrefix + "ui/package.json.t");
 uiPkgJson.dependencies["gboost-common"] = "^" + commonVersion;
 uiPkgJson.dependencies["gboost-ui"] = "^" + uiVersion;
 
@@ -35,16 +35,12 @@ execSync("git add --all", {
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function readJson(relativePath: string, skipLines?: number): any {
+function readJson(relativePath: string): any {
   let fileString = "";
   fileString = readFileSync(new URL(relativePath, import.meta.url), {
     encoding: "utf8",
   }).toString();
-  if (skipLines) {
-    const splitFile = fileString.split("\n");
-    frontMatter[relativePath] = splitFile.slice(0, skipLines).join("\n");
-    fileString = splitFile.slice(skipLines).join("\n");
-  }
+  console.log(fileString);
   return JSON.parse(fileString);
 }
 

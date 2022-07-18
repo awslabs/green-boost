@@ -5,6 +5,7 @@ import { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
 import { Function } from "../function.js";
 import { createSchema } from "./createSchema.js";
 import { CommonProps, Stage } from "../common-props.js";
+import { fileURLToPath } from "node:url";
 
 export interface UserManagementProps extends CommonProps {
   api: GraphqlApi;
@@ -31,8 +32,11 @@ export class UserManagement extends Construct {
     } = props;
 
     const fileExt = import.meta.url.slice(-2);
+    const entry = fileURLToPath(
+      new URL(`./function/index.${fileExt}`, import.meta.url)
+    );
     const userFn = new Function(this, "UserFunction", {
-      entry: new URL(`./function/index.${fileExt}`, import.meta.url).pathname,
+      entry,
       environment: {
         USER_POOL_ID: userPoolId,
         GROUP_NAMES: JSON.stringify(groupNames),

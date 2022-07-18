@@ -1,5 +1,32 @@
 # gboost
 
+## 0.7.2
+
+### Patch Changes
+
+- Updated dependencies [[`4865d9b`](https://github.com/awslabs/green-boost/commit/4865d9b876d0d47713918ce307f6dc913fa0d6c6)]:
+  - gboost-common@0.7.0
+
+## 0.7.1
+
+### Patch Changes
+
+- [`8a9539f`](https://github.com/awslabs/green-boost/commit/8a9539faef93a1040b1d86239e0ceca3bddaaed9) Thanks [@bestickley](https://github.com/bestickley)! - Fix gboost CLI by excluding tests from tsc to maintain entry point
+
+## 0.7.0
+
+### Minor Changes
+
+- [#107](https://github.com/awslabs/green-boost/pull/107) [`6ca99dc`](https://github.com/awslabs/green-boost/commit/6ca99dc9ccc9f1c2d406ee1406bdf65618fa6a67) Thanks [@bestickley](https://github.com/bestickley)! - Add gboost run-fn command
+
+* [#107](https://github.com/awslabs/green-boost/pull/107) [`6ca99dc`](https://github.com/awslabs/green-boost/commit/6ca99dc9ccc9f1c2d406ee1406bdf65618fa6a67) Thanks [@bestickley](https://github.com/bestickley)! - Exchange hygen dependency for ejs and prompts. Fix windows `gboost create` issue. `gboost create` now installs node_modules and lints final repo for user
+
+## 0.6.1
+
+### Patch Changes
+
+- [#101](https://github.com/awslabs/green-boost/pull/101) [`0fb886e`](https://github.com/awslabs/green-boost/commit/0fb886e0a3ecaef120210f5b7b61e3c38aea4b26) Thanks [@bestickley](https://github.com/bestickley)! - Use pnpm.peerDependencyRules instead of .npmrc to fix peer deps errors
+
 ## 0.6.0
 
 ### Minor Changes

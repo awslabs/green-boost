@@ -22,7 +22,7 @@ Green Boost has opinions on what tools to use. A standard toolbox enables develo
 - AWS Lambda Middleware Engine: [Middy](https://middy.js.org/)
 - Node.js Package Manager: [PNPM](https://pnpm.io/)
 - Front End Tooling: [Vite](https://vitejs.dev)
-- Unit Test Framework: [Jest](https://jestjs.io)
+- Unit Test Framework: [Vitest](https://vitest.dev)
 - Static Runtime Code Analysis: [ESLint](https://eslint.org/)
 - Static Infrastructure Code Analysis: [cdk-nag](https://github.com/cdklabs/cdk-nag)
 - 3rd Party Dependency Analysis: [npm audit](https://docs.npmjs.com/cli/v8/commands/npm-audit)

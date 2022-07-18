@@ -32,6 +32,7 @@ import { createWafRules } from "./createWafRules.js";
 import { CfnOutput } from "aws-cdk-lib";
 import { NagSuppressions } from "cdk-nag";
 import { CommonProps, Stage } from "../common-props.js";
+import { fileURLToPath } from "node:url";
 
 export interface StaticSiteProps extends CommonProps {
   /**
@@ -271,6 +272,9 @@ export class StaticSite extends Construct {
           "Server Access Logs Bucket doesn't need a Server Access Logs Bucket",
       },
     ]);
+    const filePath = fileURLToPath(
+      new URL("./rewrite-url.js", import.meta.url)
+    );
     return {
       defaultBehavior: {
         origin: new S3Origin(this.bucket),
@@ -279,7 +283,7 @@ export class StaticSite extends Construct {
             eventType: FunctionEventType.VIEWER_REQUEST,
             function: new Function(this, "RewriteUrl", {
               code: FunctionCode.fromFile({
-                filePath: new URL("./rewrite-url.js", import.meta.url).pathname,
+                filePath,
               }),
             }),
           },

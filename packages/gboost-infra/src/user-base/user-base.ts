@@ -3,8 +3,13 @@ import { Mfa, UserPool, UserPoolClient } from "aws-cdk-lib/aws-cognito";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { NagSuppressions } from "cdk-nag";
 import { Construct } from "constructs";
+import { fileURLToPath } from "node:url";
 import { CommonProps, Stage, Function } from "../index.js";
-import { CommonUserBaseProps, createUserPoolGroups } from "./common.js";
+import {
+  CommonUserBaseProps,
+  createUserPoolGroups,
+  defaultPasswordPolicy,
+} from "./common.js";
 
 export interface UserBaseProps extends CommonProps, CommonUserBaseProps {
   sesEmail?: string;
@@ -31,9 +36,11 @@ export class UserBase extends Construct {
     const isProd = stage === Stage.Prod;
 
     const fileExt = import.meta.url.slice(-2);
+    const entry = fileURLToPath(
+      new URL(`./post-confirmation.${fileExt}`, import.meta.url)
+    );
     const postConfirmationFn = new Function(this, "PostConfirmationFunction", {
-      entry: new URL(`./post-confirmation.${fileExt}`, import.meta.url)
-        .pathname,
+      entry,
       environment: {
         DEFAULT_GROUP_NAME: defaultGroupName,
       },
@@ -54,16 +61,6 @@ export class UserBase extends Construct {
       stage,
     });
 
-    // user define password policy or default CFN policy
-    // must explicitly define defaul CFN policy for cdk nag
-    const defaultPasswordPolicy = {
-      minLength: 8,
-      requireDigits: true,
-      requireLowercase: true,
-      requireSymbols: true,
-      requireUppercase: true,
-      tempPasswordValidity: Duration.days(7),
-    };
     this.userPool = new UserPool(this, "UserPool", {
       removalPolicy: isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
@@ -86,7 +83,7 @@ export class UserBase extends Construct {
     NagSuppressions.addResourceSuppressions(this.userPool, [
       {
         id: "AwsSolutions-COG3",
-        reason: "Let user opt in if desired - to expensive for default",
+        reason: "Let user opt in if desired - too expensive for default",
       },
     ]);
 
