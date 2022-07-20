@@ -16,6 +16,8 @@ export function RemoveFile(props: RemoveFileProps): ReactElement {
         width: "fit-content",
         paddingRight: "10px",
         paddingLeft: "10px",
+        alignItems: "center",
+        display: "flex",
       }}
       onClick={(event) => {
         onClick(fileName, event);

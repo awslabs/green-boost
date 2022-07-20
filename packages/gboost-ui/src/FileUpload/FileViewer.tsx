@@ -1,5 +1,5 @@
 import { Grid, TableCell, TableRow } from "@aws-amplify/ui-react";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Box, FileData } from "../index.js";
 import { FileName } from "./FileName.js";
 import { ProgressBar } from "./ProgressBar.js";
@@ -17,6 +17,7 @@ export function FileViewer(props: FileViewerProps): ReactElement {
   const { fileData, setPendingFilesData, removeFile, changeFileName } = props;
   const [percent, setPercent] = useState(0);
   const [disabled, setDisabled] = useState(true);
+  const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     setPendingFilesData((existingData) =>
       existingData.map((oldFileData) => {
@@ -33,13 +34,27 @@ export function FileViewer(props: FileViewerProps): ReactElement {
       })
     );
   }, [fileData.fileName, setPendingFilesData]);
+
+  useEffect(() => {
+    if (!disabled && inputRef.current) {
+      inputRef.current.focus();
+
+      inputRef.current.setSelectionRange(
+        0,
+        inputRef.current.value.lastIndexOf(".")
+      );
+    }
+  }, [disabled]);
+
   return (
     <TableRow>
       <TableCell style={{ maxWidth: "100px" }}>
         <FileName
+          inputRef={inputRef}
           fileName={fileData.fileName}
           isDisabled={disabled}
           changeFileName={changeFileName}
+          setDisabled={setDisabled}
         />
       </TableCell>
       <TableCell style={{ maxWidth: "50px" }}>{fileData.file.size}</TableCell>

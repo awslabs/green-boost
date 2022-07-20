@@ -1,5 +1,5 @@
 import { Box, useNotifications } from "../index.js";
-import { ReactElement, useRef, useState } from "react";
+import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 import React from "react";
 import { handleUpload } from "./FileUploadFunctions.js";
 import { DropOutline } from "./DropOutline.js";
@@ -48,7 +48,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   const [pendingFilesData, setPendingFilesData] = useState<FileData[]>([]);
   const [uploading, setUploading] = useState(false);
 
-  function allFilesComplete(): boolean {
+  const allFilesComplete = useCallback((): boolean => {
     let allFilesUploaded = true;
     let i = 0;
     while (allFilesUploaded && i < pendingFilesData.length) {
@@ -57,55 +57,64 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       }
       i++;
     }
-    if (allFilesUploaded && pendingFilesData.length > 0 && uploading) {
+    return allFilesUploaded;
+  }, [pendingFilesData]);
+
+  useEffect(() => {
+    if (allFilesComplete() && uploading) {
       setUploading(false);
     }
-    return allFilesUploaded;
-  }
+  }, [allFilesComplete, uploading, pendingFilesData]);
 
-  function addFileToPending(file: File) {
-    let fileExists = false;
-    pendingFilesData.forEach((currentFilesData) => {
-      if (currentFilesData.fileName === file.name) {
-        fileExists = true;
-        setPendingFilesData((formerFilesData) => {
-          return formerFilesData.map((fileData) => {
-            if (fileData.fileName !== file.name) {
-              return fileData;
-            } else {
-              return {
-                file: file,
-                setPercent: undefined,
-                isUploaded: false,
-                fileName: file.name,
-              };
-            }
+  const addFileToPending = useCallback(
+    (file: File) => {
+      let fileExists = false;
+      pendingFilesData.forEach((currentFilesData) => {
+        if (currentFilesData.fileName === file.name) {
+          fileExists = true;
+          setPendingFilesData((formerFilesData) => {
+            return formerFilesData.map((fileData) => {
+              if (fileData.fileName !== file.name) {
+                return fileData;
+              } else {
+                return {
+                  file: file,
+                  setPercent: undefined,
+                  isUploaded: false,
+                  fileName: file.name,
+                };
+              }
+            });
           });
+        }
+      });
+      if (!fileExists) {
+        setPendingFilesData((previousFiles) =>
+          previousFiles.concat({
+            file: file,
+            setPercent: undefined,
+            isUploaded: false,
+            fileName: file.name,
+          })
+        );
+      }
+    },
+    [pendingFilesData]
+  );
+
+  const handleClickUpload = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { files } = e.target;
+      if (files && files.length > 0) {
+        Array.from(files).forEach((file) => {
+          addFileToPending(file);
         });
       }
-    });
-    if (!fileExists) {
-      setPendingFilesData((previousFiles) =>
-        previousFiles.concat({
-          file: file,
-          setPercent: undefined,
-          isUploaded: false,
-          fileName: file.name,
-        })
-      );
-    }
-  }
+    },
+    [addFileToPending]
+  );
 
-  function handleClickUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const { files } = e.target;
-    if (files && files.length > 0) {
-      Array.from(files).forEach((file) => {
-        addFileToPending(file);
-      });
-    }
-  }
-
-  function handleBoxClick() {
+  const handleBoxClick = useCallback(() => {
     if (pendingFilesData.length > 0 ? (uploading ? false : true) : true) {
       // If all currently displayed files are finished uploading, clear them then add new files
       if (pendingFilesData.length > 0) {
@@ -125,58 +134,47 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         variation: "error",
       });
     }
-  }
+  }, [allFilesComplete, cursor, notify, pendingFilesData.length, uploading]);
 
-  function handleDrop(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleDrop = useCallback(
+    (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    if (pendingFilesData.length > 0 ? (uploading ? false : true) : true) {
-      // If all currently displayed files are finished uploading, clear them then add new files
-      if (pendingFilesData.length > 0) {
-        if (allFilesComplete()) {
-          setPendingFilesData([]);
+      if (pendingFilesData.length > 0 ? (uploading ? false : true) : true) {
+        // If all currently displayed files are finished uploading, clear them then add new files
+        if (pendingFilesData.length > 0) {
+          if (allFilesComplete()) {
+            setPendingFilesData([]);
+          }
         }
-      }
 
-      if (e.dataTransfer?.files && e.dataTransfer.files.length > 0) {
-        Array.from(e.dataTransfer.files).forEach((file) => {
-          addFileToPending(file);
+        if (e.dataTransfer?.files && e.dataTransfer.files.length > 0) {
+          Array.from(e.dataTransfer.files).forEach((file) => {
+            addFileToPending(file);
+          });
+        }
+      } else {
+        notify({
+          body:
+            cursor === `not-allowed`
+              ? "File drop target is currently deactivated."
+              : "Previous files are still being uploaded.",
+          variation: "error",
         });
       }
-    } else {
-      notify({
-        body:
-          cursor === `not-allowed`
-            ? "File drop target is currently deactivated."
-            : "Previous files are still being uploaded.",
-        variation: "error",
-      });
-    }
-  }
+    },
+    [
+      addFileToPending,
+      allFilesComplete,
+      cursor,
+      notify,
+      pendingFilesData.length,
+      uploading,
+    ]
+  );
 
-  function handleDrag(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  function handleDragIn(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-    // If all currently displayed files are finished uploading, clear them then add new files
-    if (pendingFilesData.length > 0) {
-      if (allFilesComplete()) {
-        setPendingFilesData([]);
-      }
-    }
-  }
-
-  function handleDragOut(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  function handleClick() {
+  const handleClick = useCallback(() => {
     // maxFiles<=0 is treated as no file limit
     if (maxFiles <= 0 || pendingFilesData.length <= maxFiles) {
       pendingFilesData.forEach((fileData) => {
@@ -205,75 +203,90 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         variation: `error`,
       });
     }
-  }
+  }, [
+    bucket,
+    fileKey,
+    fileType,
+    maxFileSize,
+    maxFiles,
+    notify,
+    pendingFilesData,
+    region,
+  ]);
 
   if (props.buttonRef) {
     props.buttonRef.current.handleClick = handleClick;
   }
 
-  function removeFile(fileName: string, event: React.MouseEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    setPendingFilesData((oldData) => {
-      let newData: FileData[] = [];
-      for (let i = 0; i < oldData.length; i++) {
-        if (oldData[i].fileName !== fileName) {
-          newData.push(oldData[i]);
-        }
-      }
-      return newData;
-    });
-  }
-
-  function changeFileName(oldFileName: string, newFileName: string): boolean {
-    let fileNameExists = false;
-    pendingFilesData.forEach((fileData) => {
-      if (fileData.fileName === newFileName) {
-        fileNameExists = true;
-      }
-    });
-    if (fileNameExists) {
-      let fileParts = newFileName.split(".");
-      let newestFileName = "";
-      for (let i = 0; i < fileParts.length; i++) {
-        if (i < fileParts.length - 1) {
-          if (i === 0) {
-            newestFileName += fileParts[i];
-          } else {
-            newestFileName += "." + fileParts[i];
-          }
-        } else {
-          newestFileName += "-copy." + fileParts[i];
-        }
-      }
-      changeFileName(oldFileName, newestFileName);
-      return false;
-    } else {
+  const removeFile = useCallback(
+    (fileName: string, event: React.MouseEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
       setPendingFilesData((oldData) => {
-        return oldData.map((oldFileData) => {
-          if (oldFileData.fileName === oldFileName) {
-            return {
-              file: oldFileData.file,
-              setPercent: oldFileData.setPercent,
-              isUploaded: oldFileData.isUploaded,
-              fileName: newFileName,
-            };
-          } else {
-            return oldFileData;
+        let newData: FileData[] = [];
+        for (let i = 0; i < oldData.length; i++) {
+          if (oldData[i].fileName !== fileName) {
+            newData.push(oldData[i]);
+          }
+        }
+        return newData;
+      });
+    },
+    []
+  );
+
+  const changeFileName = useCallback(
+    (oldFileName: string, newFileName: string): boolean => {
+      let fileNameExists = false;
+      if (oldFileName !== newFileName) {
+        pendingFilesData.forEach((fileData) => {
+          if (fileData.fileName === newFileName) {
+            fileNameExists = true;
           }
         });
-      });
-      return true;
-    }
-  }
+        if (fileNameExists) {
+          let fileParts = newFileName.split(".");
+          let newestFileName = "";
+          for (let i = 0; i < fileParts.length; i++) {
+            if (i < fileParts.length - 1) {
+              if (i === 0) {
+                newestFileName += fileParts[i];
+              } else {
+                newestFileName += "." + fileParts[i];
+              }
+            } else {
+              newestFileName += "-Copy." + fileParts[i];
+            }
+          }
+          changeFileName(oldFileName, newestFileName);
+        } else {
+          setPendingFilesData((oldData) => {
+            return oldData.map((oldFileData) => {
+              if (oldFileData.fileName === oldFileName) {
+                return {
+                  file: oldFileData.file,
+                  setPercent: oldFileData.setPercent,
+                  isUploaded: oldFileData.isUploaded,
+                  fileName: newFileName,
+                };
+              } else {
+                return oldFileData;
+              }
+            });
+          });
+        }
+      } else {
+        fileNameExists = false;
+      }
+      return !fileNameExists;
+    },
+    [pendingFilesData]
+  );
 
   return (
     <Box css={{ height: "100%" }}>
       <DropOutline
         handleDrop={handleDrop}
-        handleDrag={handleDrag}
-        handleDragIn={handleDragIn}
-        handleDragOut={handleDragOut}
         handleBoxClick={handleBoxClick}
         handleClickUpload={handleClickUpload}
         inputFile={inputFile}
