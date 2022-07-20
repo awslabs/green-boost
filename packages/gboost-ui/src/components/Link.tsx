@@ -7,7 +7,10 @@ import { Link as RouterLink } from "react-router-dom";
 
 interface LinkProps
   extends AmplifyLinkProps,
-    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "color" | "children"> {
+    Omit<
+      AnchorHTMLAttributes<HTMLAnchorElement>,
+      "color" | "children" | "role" | "style"
+    > {
   href?: string;
 }
 

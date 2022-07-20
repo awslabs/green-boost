@@ -60,7 +60,7 @@ export function UserManagement(props: UserManagementProps): ReactElement {
   return (
     <Box css={{ m: "$2" }}>
       {showTabs && (
-        <Tabs currentIndex={tab} onChange={(t) => setTab(t as number)}>
+        <Tabs currentIndex={tab} onChange={(t: number) => setTab(t)}>
           <TabItem
             onClick={() => navigate(usersPath)}
             title={

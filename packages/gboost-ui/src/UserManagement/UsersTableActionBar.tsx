@@ -183,7 +183,7 @@ export function UsersTableActionBar(
       <Menu
         ref={ref}
         isOpen={menuOpen}
-        onOpenChange={(isOpen) => {
+        onOpenChange={(isOpen: boolean) => {
           // let open action be "controlled" by Menu component but for closing
           // require it to be done externally
           // not sure why clicking off menu still closes menu ???
