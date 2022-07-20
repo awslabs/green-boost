@@ -40,7 +40,7 @@ export function FilterValue({
           disabled={!comparator}
           label="Value"
           labelHidden
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
             handleChangeValue(e.target.value)
           }
           onKeyPress={handleKeyPress}

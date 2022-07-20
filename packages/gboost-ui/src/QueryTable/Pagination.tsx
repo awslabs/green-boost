@@ -43,7 +43,7 @@ export function Pagination(props: PaginationProps): ReactElement {
       <StyledSelectField
         label="Page Size"
         labelHidden={true}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
           onPageSizeChange(Number(e.target.value))
         }
         value={pageSize.toString()}
