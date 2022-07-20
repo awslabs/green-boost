@@ -83,7 +83,7 @@ export function NewFilterRow({
         disabled={!filter.column}
         label="Comparator"
         labelHidden
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
           setFilter((f) => ({ ...f, comparator: e.target.value }))
         }
         placeholder="Comparator"
