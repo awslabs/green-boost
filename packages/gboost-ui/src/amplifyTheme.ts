@@ -24,6 +24,16 @@ export function getAmplifyTheme(
   return createTheme({
     name: "gb",
     tokens: {
+      components: {
+        link: {
+          // when using lighter primary colors (green) right drawer nav looks bad
+          // this fixes it
+          color: t.colors.primary12,
+          hover: {
+            color: t.colors.primary12,
+          },
+        },
+      },
       colors: {
         brand: {
           primary: Object.entries(amplifyToRadixScale).reduce(
