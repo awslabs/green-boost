@@ -1,5 +1,5 @@
 import { Button, SelectField, Text } from "@aws-amplify/ui-react";
-import { ReactElement } from "react";
+import { ChangeEvent, ReactElement } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Box, styled } from "../index.js";
 import type { CSS } from "@stitches/react";
@@ -43,7 +43,9 @@ export function Pagination(props: PaginationProps): ReactElement {
       <StyledSelectField
         label="Page Size"
         labelHidden={true}
-        onChange={(e) => onPageSizeChange(Number(e.target.value))}
+        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+          onPageSizeChange(Number(e.target.value))
+        }
         value={pageSize.toString()}
       >
         {pageSizeOptions.map((s) => (

@@ -5,6 +5,7 @@ import {
   SearchField,
 } from "@aws-amplify/ui-react";
 import {
+  ChangeEvent,
   ForwardedRef,
   forwardRef,
   ReactElement,
@@ -218,7 +219,7 @@ function _TransferList<T extends Record<string, any>>(
               label="Source Filter"
               labelHidden
               placeholder="Search"
-              onSubmit={(s) => setSourceFilter(s)}
+              onSubmit={(s: string) => setSourceFilter(s)}
               onClear={() => setSourceFilter("")}
               size="small"
             />
@@ -230,7 +231,9 @@ function _TransferList<T extends Record<string, any>>(
                   checked={selectedKeys.includes(s)}
                   label={render(optionsMap[s])}
                   name={s}
-                  onChange={(e) => handleCheck(s, e.target.checked)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleCheck(s, e.target.checked)
+                  }
                   value={s}
                 />
               </li>
@@ -269,7 +272,7 @@ function _TransferList<T extends Record<string, any>>(
               label="Target Filter"
               labelHidden
               placeholder="Search"
-              onSubmit={(s) => setTargetFilter(s)}
+              onSubmit={(s: string) => setTargetFilter(s)}
               onClear={() => setTargetFilter("")}
               size="small"
             />
@@ -281,7 +284,9 @@ function _TransferList<T extends Record<string, any>>(
                   checked={selectedKeys.includes(t)}
                   label={render(optionsMap[t])}
                   name={t}
-                  onChange={(e) => handleCheck(t, e.target.checked)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleCheck(t, e.target.checked)
+                  }
                   value={t}
                 />
               </li>

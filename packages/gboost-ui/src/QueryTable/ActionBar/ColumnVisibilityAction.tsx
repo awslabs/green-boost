@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ChangeEvent, ReactElement } from "react";
 import { MdViewColumn } from "react-icons/md";
 import { Button, Icon, SwitchField } from "@aws-amplify/ui-react";
 import { Box, Dialog } from "../../index.js";
@@ -32,7 +32,7 @@ export function ColumnVisibilityAction(
             label={k}
             labelPosition="end"
             isChecked={v}
-            onChange={(e) =>
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
               handleChangeColumnVisibility({
                 ...columnVisibility,
                 [k]: e.target.checked,

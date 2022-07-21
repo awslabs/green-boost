@@ -1,10 +1,12 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { resolve as nodeResolve } from "node:path";
 import { renderFile } from "ejs";
 import walkSync from "walk-sync";
 import log from "loglevel";
 import { fileURLToPath } from "node:url";
 import { Answers, Feature } from "./ask.js";
+
+const copyExtensions = ["png", "ico"];
 
 /**
  * Walks _templates/create getting all file names and directories and then
@@ -29,6 +31,8 @@ export async function render(answers: Answers): Promise<void> {
         try {
           if (entry.isDirectory()) {
             mkdirSync(newPath);
+          } else if (copyExtensions.some((e) => newPath.endsWith(e))) {
+            copyFileSync(oldPath, newPath);
           } else {
             const fileContents = await renderFile(oldPath, answers, {
               async: true,

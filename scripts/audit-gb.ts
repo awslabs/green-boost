@@ -4,7 +4,10 @@ type AllowedAdvisories = Record<
   string,
   { package?: string; justification: string }
 >;
-const allowedAdvisories: AllowedAdvisories = {};
+const allowedAdvisories: AllowedAdvisories = {
+  // "1067407": { package: "package-name", justification: "Because..." }
+  "1081532": { package: "terser", justification: "used in docs site" },
+};
 interface Advisory {
   module_name: string;
   // more fields but N/A for this script

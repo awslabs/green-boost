@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, ChangeEvent } from "react";
 import { CheckboxField, CheckboxFieldProps, Text } from "@aws-amplify/ui-react";
 import type { CSS } from "../../index.js";
 import { ErrorMessage, styled } from "../../index.js";
@@ -66,7 +66,9 @@ export function MultiCheckboxField(
               name={o.value}
               value={o.value}
               checked={value.includes(o.value)}
-              onChange={(e) => setValue([...value, e.target.value])}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setValue([...value, e.target.value])
+              }
             />
             {o.labelEnd}
           </CheckboxContainer>

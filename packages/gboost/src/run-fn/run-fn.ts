@@ -1,6 +1,7 @@
-import { resolve } from "path";
+import { execSync } from "node:child_process";
 import log from "loglevel";
-import { injectFnConfig } from "./injectFnConfig.js";
+import { injectFnConfig } from "./inject-fn-config.js";
+import { fileURLToPath } from "node:url";
 
 interface RunFnParams {
   event?: string;
@@ -30,6 +31,7 @@ export async function runFn(params: RunFnParams) {
   // logic outside handler has access to env vars retrieved via functionArn
   if (functionArn) {
     try {
+      // injects fn config into process.env and dummyContext
       await injectFnConfig({ dummyContext, functionArn });
     } catch (err) {
       log.error(`Failed to fetch function configuration for ${functionArn}`);
@@ -37,35 +39,13 @@ export async function runFn(params: RunFnParams) {
       return;
     }
   }
-  const cwdHandlerPath = resolve(process.cwd(), handlerPath);
-  let handlerModule;
-  try {
-    handlerModule = await import(cwdHandlerPath);
-  } catch (err) {
-    log.error("Error importing handler");
-    log.error(err);
-  }
-  if (!("handler" in handlerModule)) {
-    throw new Error(`handler is not exported from ${handlerPath}`);
-  }
-  let parsedEvent;
-  if (event) {
-    try {
-      parsedEvent = JSON.parse(event);
-    } catch (err) {
-      log.error("Error parsing event:");
-      log.error(err);
-      return;
-    }
-  }
-  try {
-    log.debug("Calling handler");
-    const returnValue = await handlerModule.handler(parsedEvent, dummyContext);
-    log.debug("Handler successfully called");
-    console.log("Handler response:");
-    console.log(returnValue as string);
-  } catch (err) {
-    log.error("Error running handler:");
-    log.error(err as string);
-  }
+  const ext = import.meta.url.split(".").pop();
+  const callFnPath = fileURLToPath(new URL("call-fn." + ext, import.meta.url));
+  // --cwdMode look for tsconfig.json in developer's directory instead of node_modules
+  execSync(
+    `ts-node-esm --cwdMode ${callFnPath} -h ${handlerPath} -e ${event} -c '${JSON.stringify(
+      dummyContext
+    )}'`,
+    { env: process.env, stdio: "inherit", encoding: "utf-8" }
+  );
 }

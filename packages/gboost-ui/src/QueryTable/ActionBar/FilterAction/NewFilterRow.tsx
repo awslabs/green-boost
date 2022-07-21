@@ -1,4 +1,5 @@
 import {
+  ChangeEvent,
   ChangeEventHandler,
   ReactElement,
   useCallback,
@@ -82,7 +83,7 @@ export function NewFilterRow({
         disabled={!filter.column}
         label="Comparator"
         labelHidden
-        onChange={(e) =>
+        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
           setFilter((f) => ({ ...f, comparator: e.target.value }))
         }
         placeholder="Comparator"
