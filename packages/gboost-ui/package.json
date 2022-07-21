@@ -1,6 +1,6 @@
 {
   "name": "gboost-ui",
-  "version": "0.21.1",
+  "version": "0.21.2",
   "description": "Green Boost UI Library of React Components",
   "type": "module",
   "main": "./src/index.ts",

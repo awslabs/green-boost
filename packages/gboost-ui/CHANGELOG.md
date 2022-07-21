@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.21.2
+
+### Patch Changes
+
+- [#111](https://github.com/awslabs/green-boost/pull/111) [`fa7b2e2`](https://github.com/awslabs/green-boost/commit/fa7b2e2608db506edbb709868b86dfee86284ebd) Thanks [@bestickley](https://github.com/bestickley)! - Fix default Amplify Link color
+
 ## 0.21.1
 
 ### Patch Changes

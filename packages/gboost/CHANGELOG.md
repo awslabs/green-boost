@@ -1,5 +1,15 @@
 # gboost
 
+## 0.7.3
+
+### Patch Changes
+
+- [#111](https://github.com/awslabs/green-boost/pull/111) [`fa7b2e2`](https://github.com/awslabs/green-boost/commit/fa7b2e2608db506edbb709868b86dfee86284ebd) Thanks [@bestickley](https://github.com/bestickley)! - Init git repository to fix husky errors
+
+* [#111](https://github.com/awslabs/green-boost/pull/111) [`fa7b2e2`](https://github.com/awslabs/green-boost/commit/fa7b2e2608db506edbb709868b86dfee86284ebd) Thanks [@bestickley](https://github.com/bestickley)! - Fix gboost create ui/public images
+
+- [#111](https://github.com/awslabs/green-boost/pull/111) [`fa7b2e2`](https://github.com/awslabs/green-boost/commit/fa7b2e2608db506edbb709868b86dfee86284ebd) Thanks [@bestickley](https://github.com/bestickley)! - Fix run-fn command to allow TS files
+
 ## 0.7.2
 
 ### Patch Changes
