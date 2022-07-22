@@ -8,7 +8,7 @@ import { deployDev } from "./deploy-dev.js";
 import { create } from "./create/create.js";
 import { destroyDev } from "./destroy-dev.js";
 import { showHelp } from "./help.js";
-import { runFn } from "./run-fn/run-fn.js";
+import { setupFn } from "./run-fn/setup-fn.js";
 
 try {
   listenForSigInt();
@@ -36,10 +36,11 @@ try {
       });
       break;
     case "run-fn":
-      await runFn({
+      await setupFn({
         handlerPath: argv.h || argv.handler,
         event: argv.e || argv.event,
         functionArn: argv.a || argv.functionArn,
+        debug: argv.d || argv.debug,
       });
       break;
     case "help":
@@ -70,6 +71,8 @@ function ensurePnpm() {
 
 function setupLogger(argv: parse.ParsedArgs) {
   log.setDefaultLevel(log.levels.ERROR);
-  const level = argv.d || argv.debug || process.env.LOG_LEVEL;
-  if (level) log.setLevel(argv.d || argv.debug || process.env.LOG_LEVEL);
+  const level = argv.l || argv.logLevel || process.env.LOG_LEVEL;
+  if (level) {
+    log.setLevel(argv.d || argv.debug || process.env.LOG_LEVEL);
+  }
 }
