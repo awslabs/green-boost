@@ -7,6 +7,7 @@ interface RunFnParams {
   event?: string;
   functionArn?: string;
   handlerPath: string;
+  debug?: boolean;
 }
 
 const dummyContext = {
@@ -25,8 +26,8 @@ const dummyContext = {
   succeed: () => console.log("Succeeded!"),
 };
 
-export async function runFn(params: RunFnParams) {
-  const { handlerPath, event, functionArn } = params;
+export async function setupFn(params: RunFnParams) {
+  const { handlerPath, event, functionArn, debug } = params;
   // inject function config needs to run before handler is imported so any
   // logic outside handler has access to env vars retrieved via functionArn
   if (functionArn) {
@@ -39,13 +40,16 @@ export async function runFn(params: RunFnParams) {
       return;
     }
   }
+  let command = "";
+  if (debug) {
+    command += 'NODE_OPTIONS="--inspect-brk" ';
+  }
   const ext = import.meta.url.split(".").pop();
   const callFnPath = fileURLToPath(new URL("call-fn." + ext, import.meta.url));
   // --cwdMode look for tsconfig.json in developer's directory instead of node_modules
-  execSync(
-    `ts-node-esm --cwdMode ${callFnPath} -h ${handlerPath} -e ${event} -c '${JSON.stringify(
-      dummyContext
-    )}'`,
-    { env: process.env, stdio: "inherit", encoding: "utf-8" }
-  );
+  command += `ts-node-esm --cwdMode ${callFnPath} -h ${handlerPath} -c ${JSON.stringify(
+    dummyContext
+  )} `;
+  if (event) command += `-e ${event}`;
+  execSync(command, { env: process.env, stdio: "inherit", encoding: "utf-8" });
 }

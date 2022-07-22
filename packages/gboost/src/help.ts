@@ -12,11 +12,12 @@ export function showHelp() {
       "\n\t\t-f, --frontend-only\tOnly destroys frontend" +
       "\n\tgboost run-fn\tRun a Node.js Lambda Function locally" +
       "\n\t\t-h, --handler\tPath to handler to invoke" +
-      "\n\t\t-e, --event\tOptional event to parse and pass to handler" +
-      "\n\t\t-a, --functionArn\tOptional function arn/name to inject context and environment variables" +
+      "\n\t\t-e, --event\t Event to parse and pass to handler" +
+      "\n\t\t-a, --functionArn\t Function arn/name to inject context and environment variables" +
+      "\n\t\t-d, --debug\t Run ts-node with --inspect-brk node option. Must attach to process in IDE." +
       "\n\tgboost help" +
       "\n" +
       "\nOptions:" +
-      "\n\t-d, --debug\tlevel\terror|warn|info|debug|trace"
+      "\n\t-l, --log-level\terror|warn|info|debug|trace"
   );
 }
