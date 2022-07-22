@@ -57,7 +57,9 @@ export function FileViewer(props: FileViewerProps): ReactElement {
           setDisabled={setDisabled}
         />
       </TableCell>
-      <TableCell style={{ maxWidth: "50px" }}>{fileData.file.size}</TableCell>
+      <TableCell style={{ maxWidth: "50px" }}>
+        {toReadableString(fileData.file.size)}
+      </TableCell>
       <TableCell
         style={{
           textAlign: "center",
@@ -124,4 +126,13 @@ export function FileViewer(props: FileViewerProps): ReactElement {
       </TableCell>
     </TableRow>
   );
+}
+function toReadableString(size: number): String {
+  const units = ["Bytes", "KB", "MB", "GB", "TB"];
+  let divisions = 0;
+  while (size > 1024) {
+    size /= 1024;
+    divisions++;
+  }
+  return `${Math.round(size * 100) / 100} ${units[divisions]}`;
 }
