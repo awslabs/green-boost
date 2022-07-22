@@ -1,5 +1,11 @@
 # gboost
 
+## 0.8.0
+
+### Minor Changes
+
+- [#113](https://github.com/awslabs/green-boost/pull/113) [`ffc8d7e`](https://github.com/awslabs/green-boost/commit/ffc8d7ec3480f614d86ff8f4dfa4a8c7d7487251) Thanks [@bestickley](https://github.com/bestickley)! - Add ability to debug run-fn
+
 ## 0.7.3
 
 ### Patch Changes
