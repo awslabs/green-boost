@@ -1,13 +1,15 @@
 import { Grid, ScrollView, VisuallyHidden } from "@aws-amplify/ui-react";
-import {
+import React, {
   ChangeEventHandler,
   DragEventHandler,
   MouseEventHandler,
   ReactElement,
   useCallback,
 } from "react";
-import { Box, FileData, StyledButton, theme, styled } from "../index.js";
+import { Box, FileData, theme, styled } from "../index.js";
+import { ActionButtons } from "./ActionButtons.js";
 import { FileList } from "./FileList.js";
+import { CustomActionButtonProps } from "./CustomActionButtons.js";
 
 interface DropOutlineProps {
   inputFile: React.RefObject<HTMLInputElement>;
@@ -15,14 +17,16 @@ interface DropOutlineProps {
   pendingFilesData: FileData[];
   text: string;
   setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>;
-  removeFile: Function;
-  changeFileName: Function;
-  buttonRef?: { current: { handleClick: Function } };
-  handleClick: Function;
+  removeFile: (fileName: string, event: React.MouseEvent) => void;
+  changeFileName: (oldFileName: string, newFileName: string) => boolean;
+  handleClick: (event: React.MouseEvent) => void;
   uploading: boolean;
-  allFilesComplete: Function;
+  allFilesComplete: () => boolean;
   handleDrop: DragEventHandler<HTMLDivElement>;
   handleBoxClick: MouseEventHandler<HTMLDivElement>;
+  onSubmit?: (event: React.MouseEvent) => void;
+  onClear?: (event: React.MouseEvent) => void;
+  Buttons?: (props: CustomActionButtonProps) => ReactElement;
 }
 
 const DropOutlineBox = styled("div", {
@@ -43,35 +47,86 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
     e.stopPropagation();
   }, []);
 
+  const {
+    inputFile,
+    handleClickUpload,
+    pendingFilesData,
+    text,
+    setPendingFilesData,
+    removeFile,
+    changeFileName,
+    handleClick,
+    uploading,
+    allFilesComplete,
+    handleDrop,
+    handleBoxClick,
+    onSubmit,
+    onClear,
+    Buttons,
+  } = props;
+
   const handleDragIn = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
       e.stopPropagation();
       // If all currently displayed files are finished uploading, clear them then add new files
-      if (props.pendingFilesData.length > 0) {
-        if (props.allFilesComplete()) {
-          props.setPendingFilesData([]);
+      if (pendingFilesData.length > 0) {
+        if (allFilesComplete()) {
+          setPendingFilesData([]);
         }
       }
     },
-    [props]
+    [allFilesComplete, pendingFilesData.length, setPendingFilesData]
   );
 
   const handleDragOut = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
   }, []);
+
+  let handleClear: (event: React.MouseEvent) => void;
+  if (onClear) {
+    handleClear = onClear;
+  } else {
+    handleClear = (event: React.MouseEvent) => {
+      event.stopPropagation();
+      setPendingFilesData([]);
+    };
+  }
+
+  let handleUpload: (event: React.MouseEvent) => void;
+  if (onSubmit) {
+    handleUpload = onSubmit;
+  } else {
+    handleUpload = handleClick;
+  }
+
+  let buttons: ReactElement;
+  if (Buttons) {
+    buttons = <Buttons handleUpload={handleUpload} handleClear={handleClear} />;
+  } else {
+    buttons = (
+      <ActionButtons
+        handleClick={handleUpload}
+        handleClear={handleClear}
+        pendingFilesData={pendingFilesData}
+        allFilesComplete={allFilesComplete}
+        uploading={uploading}
+      />
+    );
+  }
+
   return (
     <DropOutlineBox
-      onDrop={props.handleDrop}
+      onDrop={handleDrop}
       onDragOver={handleDrag}
       onDragEnter={handleDragIn}
       onDragExit={handleDragOut}
-      onClick={props.handleBoxClick}
+      onClick={handleBoxClick}
       style={{
         cursor:
-          props.pendingFilesData.length > 0
-            ? props.uploading
+          pendingFilesData.length > 0
+            ? uploading
               ? `wait`
               : `pointer`
             : `pointer`,
@@ -82,15 +137,15 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
       <VisuallyHidden>
         <input
           multiple
-          ref={props.inputFile}
-          onChange={props.handleClickUpload}
+          ref={inputFile}
+          onChange={handleClickUpload}
           type="file"
         />
       </VisuallyHidden>
-      {props.pendingFilesData.length === 0 && (
-        <Box css={{ width: "100%", textAlign: "center" }}>{props.text}</Box>
+      {pendingFilesData.length === 0 && (
+        <Box css={{ width: "100%", textAlign: "center" }}>{text}</Box>
       )}
-      {props.pendingFilesData.length > 0 && (
+      {pendingFilesData.length > 0 && (
         <Grid
           style={{
             gridTemplateRows: "fit-content(80%) auto",
@@ -112,10 +167,10 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
             rowEnd={1}
           >
             <FileList
-              filesData={props.pendingFilesData}
-              setPendingFilesData={props.setPendingFilesData}
-              removeFile={props.removeFile}
-              changeFileName={props.changeFileName}
+              filesData={pendingFilesData}
+              setPendingFilesData={setPendingFilesData}
+              removeFile={removeFile}
+              changeFileName={changeFileName}
             />
           </ScrollView>
           <Box
@@ -129,60 +184,7 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
               position: "relative",
             }}
           >
-            <Box
-              css={{
-                position: "absolute",
-                bottom: "5px",
-                left: "5px",
-              }}
-            >
-              {!props.buttonRef && (
-                <StyledButton
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    props.handleClick();
-                  }}
-                  css={{
-                    float: "left",
-                    margin: "5px",
-                  }}
-                  columnStart={"2"}
-                  columnEnd={"-1"}
-                  isDisabled={
-                    props.pendingFilesData.length > 0
-                      ? !props.uploading
-                        ? props.allFilesComplete()
-                          ? true
-                          : false
-                        : true
-                      : true
-                  }
-                >
-                  Upload
-                </StyledButton>
-              )}
-              <StyledButton
-                onClick={(event) => {
-                  event.stopPropagation();
-                  props.setPendingFilesData([]);
-                }}
-                css={{
-                  float: "left",
-                  margin: "5px",
-                }}
-                isDisabled={
-                  props.pendingFilesData.length > 0
-                    ? props.uploading
-                      ? props.allFilesComplete()
-                        ? false
-                        : true
-                      : false
-                    : true
-                }
-              >
-                Clear
-              </StyledButton>
-            </Box>
+            {buttons}
           </Box>
         </Grid>
       )}

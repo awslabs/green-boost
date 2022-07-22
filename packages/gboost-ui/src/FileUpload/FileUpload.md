@@ -6,6 +6,21 @@
 
 * "*.s3.[REGION].amazonaws.com/" must be a source for connect-src
 
+### Bucket CORS Policy
+
+* Bucket's CORS policy must include exposedHeaders: ["ETag"] and allowedMethods: ["PUT"]
+
+``` 
+const exampleBucket = new Bucket(this, "example-bucket", {
+    cors:[{
+    allowedHeaders: ["*"],
+    allowedMethods: ["PUT"],
+    allowedOrigins: ["*"],
+    exposedHeaders: ["ETag"],
+    }],
+});
+```
+
 ## UI Component
 
 ### Props
@@ -29,7 +44,7 @@
 
     * Optional
     * Key appended to the beginning of all files
-    * Key must end with a '/'
+    * Key must end with a '/' for the key to be interpretted as a file
 
 5. fileType: string[] | string
     
@@ -55,9 +70,23 @@
     * Optional
     * String displayed in center of component when no files have been added
 
+## Backend Construct
 
+### Props
 
+1. api: GraphqlApi
 
+    * API for calling lambda functions
 
+2. buckets: Record<string, {bucket: string, key: string}>
 
+    * Map mapping key to bucket
+    * bucket is the bucket's name
+    * key is the key to be appended to the beginning of each file
+        * Must end in '/' for key to be interpretted as a file
+
+3. partition: string (Default: "aws")
+
+    * Optional
+    * Partition the S3 buckets exist in
 

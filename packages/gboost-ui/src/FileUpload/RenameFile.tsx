@@ -3,10 +3,11 @@ import { ReactElement } from "react";
 
 interface RenameFileProps {
   onClick: Function;
+  percent: Number;
 }
 
 export function RenameFile(props: RenameFileProps): ReactElement {
-  const { onClick } = props;
+  const { onClick, percent } = props;
   return (
     <Button
       style={{
@@ -18,6 +19,7 @@ export function RenameFile(props: RenameFileProps): ReactElement {
         onClick(event);
       }}
       size={"small"}
+      disabled={percent === 0 ? false : true}
     >
       Rename
     </Button>

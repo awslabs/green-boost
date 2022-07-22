@@ -9,7 +9,18 @@ import { GraphQLError } from "graphql";
 import { CompletedPart } from "@aws-sdk/client-s3";
 import { FileData, gQuery } from "../index.js";
 
-interface UploadProps {
+export interface HandleUploadProps {
+  file: File;
+  setPercent: React.Dispatch<React.SetStateAction<number>>;
+  fileName: string;
+  uploadProps: UploadProps;
+  setUploading: React.Dispatch<React.SetStateAction<boolean>>;
+  updateCursor: React.Dispatch<React.SetStateAction<string>>;
+  notify: Function;
+  setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>;
+}
+
+export interface UploadProps {
   fileType: string[] | string; //Represented as lowercase file extensions eg 'pdf'
   maxFileSize: Number;
   bucket: string;
@@ -52,16 +63,17 @@ interface FileProps {
   fileType: string | string[];
 }
 
-export function handleUpload(
-  file: File,
-  setPercent: React.Dispatch<React.SetStateAction<number>>,
-  fileName: string,
-  uploadProps: UploadProps,
-  setUploading: React.Dispatch<React.SetStateAction<boolean>>,
-  updateCursor: React.Dispatch<React.SetStateAction<string>>,
-  notify: Function,
-  setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>
-) {
+export function handleUpload(props: HandleUploadProps) {
+  const {
+    file,
+    uploadProps,
+    fileName,
+    setUploading,
+    setPercent,
+    notify,
+    setPendingFilesData,
+    updateCursor,
+  } = props;
   if (file.size <= uploadProps.maxFileSize) {
     let isSupported = false;
 

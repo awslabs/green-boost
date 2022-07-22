@@ -195,6 +195,8 @@ importers:
     specifiers:
       '@aws-cdk/aws-appsync-alpha': 2.29.0-alpha.0
       '@aws-sdk/client-cognito-identity-provider': ^3.102.0
+      '@aws-sdk/client-s3': ^3.131.0
+      '@aws-sdk/s3-request-presigner': ^3.135.0
       '@types/aws-lambda': ^8.10.97
       '@types/fs-extra': ^9.0.13
       '@types/node': ^16.11.38
@@ -219,6 +221,8 @@ importers:
     dependencies:
       '@aws-cdk/aws-appsync-alpha': 2.29.0-alpha.0_3rxmiabkq4wkiiltx52jvpwxmu
       '@aws-sdk/client-cognito-identity-provider': 3.121.0
+      '@aws-sdk/client-s3': 3.131.0
+      '@aws-sdk/s3-request-presigner': 3.135.0
       aws-cdk-lib: 2.31.0_constructs@10.1.43
       cdk-nag: 2.15.3_3rxmiabkq4wkiiltx52jvpwxmu
       constructs: 10.1.43
@@ -3103,6 +3107,22 @@ packages:
       '@aws-sdk/types': 3.6.1
       tslib: 1.14.1
 
+  /@aws-sdk/s3-request-presigner/3.135.0:
+    resolution: {integrity: sha512-Fwm9Y65pvjzn++dVdkjypHs0VtNz4Rcn02A+a+uwgicmTsx//GIpp/xltOGDw3BsgsPMsQ8srsnegm4j7LW2qg==}
+    engines: {node: '>= 12.0.0'}
+    dependencies:
+      '@aws-sdk/middleware-sdk-s3': 3.127.0
+      '@aws-sdk/protocol-http': 3.127.0
+      '@aws-sdk/signature-v4-multi-region': 3.130.0
+      '@aws-sdk/smithy-client': 3.127.0
+      '@aws-sdk/types': 3.127.0
+      '@aws-sdk/util-create-request': 3.127.0
+      '@aws-sdk/util-format-url': 3.127.0
+      tslib: 2.4.0
+    transitivePeerDependencies:
+      - '@aws-sdk/signature-v4-crt'
+    dev: false
+
   /@aws-sdk/s3-request-presigner/3.6.1:
     resolution: {integrity: sha512-OI7UHCKBwuiO/RmHHewBKnL2NYqdilXRmpX67TJ4tTszIrWP2+vpm3lIfrx/BM8nf8nKTzgkO98uFhoJsEhmTg==}
     engines: {node: '>= 10.0.0'}
@@ -3434,6 +3454,16 @@ packages:
     dependencies:
       tslib: 2.4.0
 
+  /@aws-sdk/util-create-request/3.127.0:
+    resolution: {integrity: sha512-jDSOgmgBiQp+LDl0pbaLw3m8iAvGIX5cY2x0zXfPa3rV1ChAaF+d70A5/KvR7seq0JPCXJBP+zRa11GbaCgQqg==}
+    engines: {node: '>= 12.0.0'}
+    dependencies:
+      '@aws-sdk/middleware-stack': 3.127.0
+      '@aws-sdk/smithy-client': 3.127.0
+      '@aws-sdk/types': 3.127.0
+      tslib: 2.4.0
+    dev: false
+
   /@aws-sdk/util-create-request/3.6.1:
     resolution: {integrity: sha512-jR1U8WpwXl+xZ9ThS42Jr5MXuegQ7QioHsZjQn3V5pbm8CXTkBF0B2BcULQu/2G1XtHOJb8qUZQlk/REoaORfQ==}
     engines: {node: '>= 10.0.0'}
@@ -3513,6 +3543,15 @@ packages:
       '@aws-sdk/property-provider': 3.47.2
       '@aws-sdk/types': 3.47.1
       tslib: 2.4.0
+
+  /@aws-sdk/util-format-url/3.127.0:
+    resolution: {integrity: sha512-leZeq6vxm6MSpu9Ruc5WKr7pzJ8kVXNJVerB4ixEk5KtFPPrJDw7MoEtnbnhVzhraLUnqHqYvrb6OlmkkISR+Q==}
+    engines: {node: '>= 12.0.0'}
+    dependencies:
+      '@aws-sdk/querystring-builder': 3.127.0
+      '@aws-sdk/types': 3.127.0
+      tslib: 2.4.0
+    dev: false
 
   /@aws-sdk/util-format-url/3.6.1:
     resolution: {integrity: sha512-FvhcXcqLyJ0j0WdlmGs7PtjCCv8NaY4zBuXYO2iwAmqoy2SIZXQL63uAvmilqWj25q47ASAsUwSFLReCCfMklQ==}

@@ -3,8 +3,14 @@ import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 import React from "react";
 import { handleUpload } from "./FileUploadFunctions.js";
 import { DropOutline } from "./DropOutline.js";
+import { handleClick, HandleClickParams } from "./HandleClick.js";
 
 interface FileUploadProps {
+  /**
+   *
+   * description
+   * @example ['pdf', 'txt']
+   */
   fileType: string[] | string; //Represented as lowercase file extensions eg 'pdf'
   deactivated?: boolean;
   maxFileSize?: Number;
@@ -14,6 +20,11 @@ interface FileUploadProps {
   region: string;
   fileKey?: string;
   buttonRef?: { current: { handleClick: Function } };
+  onSubmit?: (params: HandleClickParams) => void;
+  onClear?: (
+    setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>
+  ) => void;
+  Buttons?: () => ReactElement;
 }
 
 export interface FileData {
@@ -39,6 +50,9 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       Array.isArray(fileType) ? fileType.join(", ") : fileType
     } files here`,
     fileKey = "",
+    onSubmit,
+    onClear,
+    Buttons,
   } = props;
   const inputFile = useRef<HTMLInputElement>(null);
   const { notify } = useNotifications();
@@ -79,7 +93,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
               } else {
                 return {
                   file: file,
-                  setPercent: undefined,
+                  setPercent: fileData.setPercent,
                   isUploaded: false,
                   fileName: file.name,
                 };
@@ -174,54 +188,8 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     ]
   );
 
-  const handleClick = useCallback(() => {
-    // maxFiles<=0 is treated as no file limit
-    if (maxFiles <= 0 || pendingFilesData.length <= maxFiles) {
-      pendingFilesData.forEach((fileData) => {
-        if (fileData.setPercent) {
-          handleUpload(
-            fileData.file,
-            fileData.setPercent,
-            fileData.fileName,
-            {
-              fileType: fileType,
-              maxFileSize: maxFileSize,
-              bucket: bucket,
-              region: region,
-              fileKey: fileKey,
-            },
-            setUploading,
-            updateCursor,
-            notify,
-            setPendingFilesData
-          );
-        }
-      });
-    } else {
-      notify({
-        body: `Too many files selected. Max files is ${maxFiles}`,
-        variation: `error`,
-      });
-    }
-  }, [
-    bucket,
-    fileKey,
-    fileType,
-    maxFileSize,
-    maxFiles,
-    notify,
-    pendingFilesData,
-    region,
-  ]);
-
-  if (props.buttonRef) {
-    props.buttonRef.current.handleClick = handleClick;
-  }
-
   const removeFile = useCallback(
     (fileName: string, event: React.MouseEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
       setPendingFilesData((oldData) => {
         let newData: FileData[] = [];
         for (let i = 0; i < oldData.length; i++) {
@@ -295,10 +263,62 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         setPendingFilesData={setPendingFilesData}
         removeFile={removeFile}
         changeFileName={changeFileName}
-        buttonRef={props.buttonRef}
-        handleClick={handleClick}
+        handleClick={(event: React.MouseEvent) => {
+          event.preventDefault();
+          event.stopPropagation();
+          handleClick({
+            maxFiles: maxFiles,
+            pendingFilesData: pendingFilesData,
+            uploadProps: {
+              fileType: fileType,
+              maxFileSize: maxFileSize,
+              bucket: bucket,
+              region: region,
+              fileKey: fileKey,
+            },
+            setUploading: setUploading,
+            updateCursor: updateCursor,
+            notify: notify,
+            setPendingFilesData: setPendingFilesData,
+            handleUpload: handleUpload,
+          });
+        }}
         uploading={uploading}
         allFilesComplete={allFilesComplete}
+        Buttons={Buttons}
+        {...(onSubmit
+          ? {
+              onSubmit: (event: React.MouseEvent) => {
+                event.preventDefault();
+                event.stopPropagation();
+                onSubmit({
+                  maxFiles: maxFiles,
+                  pendingFilesData: pendingFilesData,
+                  uploadProps: {
+                    fileType: fileType,
+                    maxFileSize: maxFileSize,
+                    bucket: bucket,
+                    region: region,
+                    fileKey: fileKey,
+                  },
+                  setUploading: setUploading,
+                  updateCursor: updateCursor,
+                  notify: notify,
+                  setPendingFilesData: setPendingFilesData,
+                  handleUpload: handleUpload,
+                });
+              },
+            }
+          : {})}
+        {...(onClear
+          ? {
+              onClear: (event: React.MouseEvent) => {
+                event.preventDefault();
+                event.stopPropagation();
+                onClear(setPendingFilesData);
+              },
+            }
+          : {})}
       />
     </Box>
   );

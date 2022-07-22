@@ -97,6 +97,7 @@ export function FileViewer(props: FileViewerProps): ReactElement {
                 event.stopPropagation();
                 setDisabled(false);
               }}
+              percent={percent}
             />
           </Box>
           <Box
@@ -105,7 +106,19 @@ export function FileViewer(props: FileViewerProps): ReactElement {
               gridColumnEnd: "-1",
             }}
           >
-            <RemoveFile onClick={removeFile} fileName={fileData.fileName} />
+            <RemoveFile
+              onClick={(
+                fileName: string,
+                event: React.MouseEvent<HTMLElement>
+              ) => {
+                event.preventDefault();
+                event.stopPropagation();
+                if (percent === 0 || percent === 100) {
+                  removeFile(fileName, event);
+                }
+              }}
+              fileName={fileData.fileName}
+            />
           </Box>
         </Grid>
       </TableCell>
