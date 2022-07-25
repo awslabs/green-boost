@@ -7,7 +7,7 @@ import {
 } from "./gql.js";
 import { GraphQLError } from "graphql";
 import { CompletedPart } from "@aws-sdk/client-s3";
-import { FileData, gQuery } from "../index.js";
+import { ContextNotification, FileData, gQuery } from "../index.js";
 
 export interface HandleUploadProps {
   file: File;
@@ -16,7 +16,7 @@ export interface HandleUploadProps {
   uploadProps: UploadProps;
   setUploading: React.Dispatch<React.SetStateAction<boolean>>;
   updateCursor: React.Dispatch<React.SetStateAction<string>>;
-  notify: Function;
+  notify: (notification: ContextNotification) => void;
   setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>;
 }
 
@@ -125,7 +125,7 @@ export function handleUpload(props: HandleUploadProps) {
 
 export async function getURL(
   fileProps: FileProps,
-  notify: Function,
+  notify: (notification: ContextNotification) => void,
   uploadProps: UploadProps
 ): Promise<{ url: string } | undefined> {
   try {
@@ -156,7 +156,7 @@ export async function getURL(
 export async function uploadFile(
   fileProps: FileProps,
   setPercent: React.Dispatch<React.SetStateAction<number>>,
-  notify: Function,
+  notify: (notification: ContextNotification) => void,
   uploadProps: UploadProps,
   file: File,
   setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>
@@ -210,7 +210,7 @@ export async function handleMultipartUpload(
   fileName: string,
   uploadProps: UploadProps,
   setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>,
-  notify: Function
+  notify: (notification: ContextNotification) => void
 ) {
   setPercent(0.1);
   const {

@@ -12,8 +12,8 @@ import { FileViewer } from "./FileViewer.js";
 interface FileListProps {
   filesData: FileData[];
   setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>;
-  removeFile: Function;
-  changeFileName: Function;
+  removeFile: (fileName: string, event: React.MouseEvent) => void;
+  changeFileName: (oldFileName: string, newFileName: string) => boolean;
 }
 
 export function FileList(props: FileListProps): ReactElement {
@@ -25,9 +25,6 @@ export function FileList(props: FileListProps): ReactElement {
           <TableCell as="th">File</TableCell>
           <TableCell as="th">Size</TableCell>
           <TableCell as="th">Progress</TableCell>
-          <TableCell as="th" style={{ width: "150px" }}>
-            Actions
-          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

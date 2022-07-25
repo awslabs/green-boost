@@ -1,26 +1,33 @@
 import { TextField } from "@aws-amplify/ui-react";
-import { ReactElement, useState } from "react";
-import { useNotifications } from "../index.js";
+import * as Stitches from "@stitches/react";
+import React, { ReactElement, useState } from "react";
+import { styled, theme, useNotifications } from "../index.js";
 
 interface FileNameProps {
   fileName: string;
   isDisabled: boolean;
-  changeFileName: Function;
+  changeFileName: (oldFileName: string, newFileName: string) => boolean;
   inputRef: React.RefObject<HTMLInputElement>;
-  setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const StyledTextField = styled(TextField, {});
+
 export function FileName(props: FileNameProps): ReactElement {
-  const { fileName, isDisabled, changeFileName, setDisabled } = props;
+  const { fileName, isDisabled, changeFileName } = props;
   const [inputText, setInputText] = useState(fileName);
+  const [style, setStyle] = useState<Stitches.CSS>({
+    backgroundColor: theme.colors.gray3,
+    borderStyle: "none",
+  });
   const { notify } = useNotifications();
   return (
-    <TextField
+    <StyledTextField
       isDisabled={isDisabled}
       ref={props.inputRef}
       labelHidden={true}
       label={""}
       defaultValue={fileName}
+      css={style}
       onBlur={(event: React.FocusEvent<HTMLElement>) => {
         if (!changeFileName(fileName, inputText)) {
           notify({
@@ -28,7 +35,13 @@ export function FileName(props: FileNameProps): ReactElement {
             variation: `error`,
           });
         }
-        setDisabled(true);
+        setStyle({
+          backgroundColor: theme.colors.gray5,
+          border: "none",
+        });
+      }}
+      onFocus={() => {
+        setStyle({});
       }}
       onClick={(event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();

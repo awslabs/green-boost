@@ -1,3 +1,4 @@
+import { ContextNotification } from "../context/NotificationsContext.js";
 import { FileData } from "./FileUpload.js";
 import { HandleUploadProps, UploadProps } from "./FileUploadFunctions.js";
 
@@ -7,7 +8,7 @@ export interface HandleClickParams {
   uploadProps: UploadProps;
   setUploading: React.Dispatch<React.SetStateAction<boolean>>;
   updateCursor: React.Dispatch<React.SetStateAction<string>>;
-  notify: Function;
+  notify: (notification: ContextNotification) => void;
   setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>;
   handleUpload: (props: HandleUploadProps) => void;
 }

@@ -38,7 +38,7 @@ const DropOutlineBox = styled("div", {
   display: "flex",
   borderColor: theme.colors.gray8,
   color: theme.colors.blackA9,
-  backgroundColor: "$gray3",
+  backgroundColor: theme.colors.gray3,
 });
 
 export function DropOutline(props: DropOutlineProps): ReactElement {
@@ -103,7 +103,17 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
 
   let buttons: ReactElement;
   if (Buttons) {
-    buttons = <Buttons handleUpload={handleUpload} handleClear={handleClear} />;
+    buttons = (
+      <Box
+        css={{
+          position: "absolute",
+          bottom: "5px",
+          left: "5px",
+        }}
+      >
+        <Buttons handleUpload={handleUpload} handleClear={handleClear} />
+      </Box>
+    );
   } else {
     buttons = (
       <ActionButtons

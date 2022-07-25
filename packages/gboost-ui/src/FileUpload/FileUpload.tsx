@@ -19,7 +19,6 @@ interface FileUploadProps {
   bucket: string;
   region: string;
   fileKey?: string;
-  buttonRef?: { current: { handleClick: Function } };
   onSubmit?: (params: HandleClickParams) => void;
   onClear?: (
     setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>
