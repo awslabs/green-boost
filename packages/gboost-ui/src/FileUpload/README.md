@@ -39,49 +39,6 @@ const exampleBucket = new Bucket(this, "example-bucket", {
 
     * Function returning buttons to be displayed in place of deafult buttons
 
-```
-<Box>
-    <Button
-        onClick={handleClick}
-        style={{
-            float: "left",
-            margin: "5px",
-        }}
-        columnStart={"2"}
-        columnEnd={"-1"}
-        isDisabled={
-            pendingFilesData.length > 0
-            ? !uploading
-                ? allFilesComplete()
-                ? true
-                : false
-                : true
-            : true
-        }
-    >
-    Upload
-    </Button>
-    <Button
-        onClick={handleClear}
-        style={{
-            float: "left",
-            margin: "5px",
-        }}
-        isDisabled={
-            pendingFilesData.length > 0
-            ? uploading
-                ? allFilesComplete()
-                ? false
-                : true
-                : false
-            : true
-        }
-    >
-    Clear
-    </Button>
-</Box>
-```
-
 4. deactivated: boolean (Default: false)
 
     * Optional
@@ -145,9 +102,11 @@ const exampleBucket = new Bucket(this, "example-bucket", {
     * Optional
     * Partition the S3 buckets exist in
 
-## onSubmit
+##
 
-### Example Code
+### onSubmit
+
+#### Example Code
 
 
 ```
@@ -187,10 +146,57 @@ export function handleClick(params: HandleClickParams) {
 }
 ```
 
-## onClear
+### onClear
 
-### Example Code
+#### Example Code
 
 ```
 setPendingFilesData([]);
+```
+
+### Buttons
+
+#### Example Code
+
+```
+<Box>
+    <Button
+        onClick={handleClick}
+        style={{
+            float: "left",
+            margin: "5px",
+        }}
+        columnStart={"2"}
+        columnEnd={"-1"}
+        isDisabled={
+            pendingFilesData.length > 0
+            ? !uploading
+                ? allFilesComplete()
+                ? true
+                : false
+                : true
+            : true
+        }
+    >
+    Upload
+    </Button>
+    <Button
+        onClick={handleClear}
+        style={{
+            float: "left",
+            margin: "5px",
+        }}
+        isDisabled={
+            pendingFilesData.length > 0
+            ? uploading
+                ? allFilesComplete()
+                ? false
+                : true
+                : false
+            : true
+        }
+    >
+    Clear
+    </Button>
+</Box>
 ```
