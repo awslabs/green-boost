@@ -24,6 +24,12 @@ interface FileUploadProps {
     setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>
   ) => void;
   Buttons?: () => ReactElement;
+  buttonRef: {
+    current: {
+      handleUpload: (event: React.MouseEvent) => void;
+      handleClear: (event: React.MouseEvent) => void;
+    };
+  };
 }
 
 export interface FileData {
@@ -318,6 +324,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
               },
             }
           : {})}
+        buttonRef={props.buttonRef}
       />
     </Box>
   );

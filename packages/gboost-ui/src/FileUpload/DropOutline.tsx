@@ -27,6 +27,12 @@ interface DropOutlineProps {
   onSubmit?: (event: React.MouseEvent) => void;
   onClear?: (event: React.MouseEvent) => void;
   Buttons?: (props: CustomActionButtonProps) => ReactElement;
+  buttonRef: {
+    current: {
+      handleUpload: (event: React.MouseEvent) => void;
+      handleClear: (event: React.MouseEvent) => void;
+    };
+  };
 }
 
 const DropOutlineBox = styled("div", {
@@ -115,15 +121,39 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
       </Box>
     );
   } else {
-    buttons = (
-      <ActionButtons
-        handleClick={handleUpload}
-        handleClear={handleClear}
-        pendingFilesData={pendingFilesData}
-        allFilesComplete={allFilesComplete}
-        uploading={uploading}
-      />
-    );
+    if (!props.buttonRef) {
+      buttons = (
+        <ActionButtons
+          handleClick={handleUpload}
+          handleClear={handleClear}
+          pendingFilesData={pendingFilesData}
+          allFilesComplete={allFilesComplete}
+          uploading={uploading}
+        />
+      );
+    } else {
+      buttons = <div />;
+    }
+  }
+
+  const handleExternalUpload = useCallback(
+    (event: React.MouseEvent) => {
+      handleUpload(event);
+    },
+    [handleUpload]
+  );
+  const handleExternalClear = useCallback(
+    (event: React.MouseEvent) => {
+      handleClear(event);
+    },
+    [handleClear]
+  );
+
+  if (props.buttonRef) {
+    props.buttonRef.current = {
+      handleUpload: handleExternalUpload,
+      handleClear: handleExternalClear,
+    };
   }
 
   return (
@@ -183,19 +213,21 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
               changeFileName={changeFileName}
             />
           </ScrollView>
-          <Box
-            css={{
-              height: "100%",
-              padding: "1%",
-              width: "100%",
-              textAlign: "left",
-              gridRowStart: "2",
-              gridRowEnd: "-1",
-              position: "relative",
-            }}
-          >
-            {buttons}
-          </Box>
+          {buttons && (
+            <Box
+              css={{
+                height: "100%",
+                padding: "1%",
+                width: "100%",
+                textAlign: "left",
+                gridRowStart: "2",
+                gridRowEnd: "-1",
+                position: "relative",
+              }}
+            >
+              {buttons}
+            </Box>
+          )}
         </Grid>
       )}
     </DropOutlineBox>
