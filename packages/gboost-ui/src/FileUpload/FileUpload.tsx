@@ -4,26 +4,68 @@ import React from "react";
 import { handleUpload } from "./FileUploadFunctions.js";
 import { DropOutline } from "./DropOutline.js";
 import { handleClick, HandleClickParams } from "./HandleClick.js";
+import { CustomActionButtonProps } from "./CustomActionButtons.js";
 
 interface FileUploadProps {
   /**
    *
-   * description
+   * Accepted file types represented as file extensions
    * @example ['pdf', 'txt']
    */
-  fileType: string[] | string; //Represented as lowercase file extensions eg 'pdf'
+  fileType: string[] | string;
+  /**
+   * If true, no files can be uploaded
+   * @default false
+   */
   deactivated?: boolean;
+  /**
+   * Represented in number of bytes
+   * @default 5497558138880
+   */
   maxFileSize?: Number;
+  /**
+   * Maximum number of files to be accepted per upload
+   * maxFiles <= 0 represent no file limit
+   * @default 0
+   */
   maxFiles?: Number;
+  /**
+   * Text to be placed in the center of the component
+   */
   text?: string;
+  /**
+   * Bucket key corresponding with the target bucket
+   * Should be the same as the key used in the construct
+   * @exaple 'example-bucket'
+   */
   bucket: string;
+  /**
+   * AWS region where the target bucket is located
+   * @example 'us-east-1'
+   */
   region: string;
+  /**
+   * Key appended to the beginning of every file
+   * @example 'folder/'
+   */
   fileKey?: string;
+  /**
+   * Overrides default upload behavior
+   */
   onSubmit?: (params: HandleClickParams) => void;
+  /**
+   * Overrides default clear behavior
+   */
   onClear?: (
     setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>
   ) => void;
-  Buttons?: () => ReactElement;
+  /**
+   * Buttons displayed inside the component
+   */
+  Buttons?: (props: CustomActionButtonProps) => ReactElement;
+  /**
+   * Reference to trigger upload and clear from external buttons
+   */
   buttonRef: {
     current: {
       handleUpload: (event: React.MouseEvent) => void;
@@ -46,7 +88,7 @@ export interface FileData {
 export function FileUpload(props: FileUploadProps): ReactElement {
   const {
     fileType,
-    maxFileSize = 5000000000000,
+    maxFileSize = 5497558138880,
     deactivated = false,
     maxFiles = 0,
     bucket,

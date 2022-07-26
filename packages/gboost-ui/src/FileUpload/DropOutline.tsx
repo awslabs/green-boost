@@ -188,7 +188,9 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
       {pendingFilesData.length > 0 && (
         <Grid
           style={{
-            gridTemplateRows: "fit-content(80%) auto",
+            gridTemplateRows: `fit-content(${
+              props.buttonRef ? (Buttons ? "80%" : "100%") : "80%"
+            }) auto`,
             width: "100%",
             height: "100%",
             paddingTop: "20px",

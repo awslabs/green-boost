@@ -13,7 +13,18 @@ interface FileUploadBucket {
 
 export interface FileUploadProps extends CommonProps {
   api: GraphqlApi;
+  /**
+   * AWS Partition where buckets exists
+   * @example "aws"
+   */
   partition?: string;
+  /**
+   * Maps bucket keys to bucket names
+   * @example {
+   * BUCKET-KEY: { bucket: BUCKET-NAME, key: KEY },
+   * BUCKET-KEY2: { bucket: BUCKET-NAME2, key: KEY2}
+   * }
+   */
   buckets: Record<string, FileUploadBucket>;
 }
 
