@@ -20,7 +20,7 @@ interface BucketProps extends CommonProps, CdkBucketProps {
  * Also adds a server access logs bucket following AWS best practices
  */
 export class Bucket extends CdkBucket {
-  constructor(scope: Construct, id: string, props: BucketProps) {
+  constructor(scope: Construct, id: string, props?: BucketProps) {
     const { ...newProps } = props;
     if (newProps.encryption === undefined) {
       newProps.encryption = BucketEncryption.S3_MANAGED;
