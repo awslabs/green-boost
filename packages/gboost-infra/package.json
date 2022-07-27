@@ -30,6 +30,8 @@
   "dependencies": {
     "@aws-cdk/aws-appsync-alpha": "2.29.0-alpha.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.102.0",
+    "@aws-sdk/client-s3": "^3.131.0",
+    "@aws-sdk/s3-request-presigner": "^3.135.0",
     "aws-cdk-lib": "^2.31.0",
     "cdk-nag": "^2.14.21",
     "constructs": "^10.1.43",
