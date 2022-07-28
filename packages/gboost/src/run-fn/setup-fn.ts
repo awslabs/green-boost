@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import log from "loglevel";
 import { injectFnConfig } from "./inject-fn-config.js";
 import { fileURLToPath } from "node:url";
+import { readFileSync } from "node:fs";
 
 interface RunFnParams {
   event?: string;
@@ -50,6 +51,29 @@ export async function setupFn(params: RunFnParams) {
   command += `ts-node-esm --cwdMode ${callFnPath} -h ${handlerPath} -c ${JSON.stringify(
     dummyContext
   )} `;
-  if (event) command += `-e ${event}`;
-  execSync(command, { env: process.env, stdio: "inherit", encoding: "utf-8" });
+  if (event) {
+    if (event[0] === "{") {
+      log.debug("Assuming event is a string object");
+      command += `-e '${event}'`;
+      console.log({ command });
+    } else {
+      log.debug("Assuming event is a file path");
+      try {
+        const eventStr = readFileSync(event, { encoding: "utf-8" });
+        command += `e '${eventStr}'`;
+      } catch (err) {
+        log.debug(err);
+        log.error(`File does not exist at path ${event}`);
+      }
+    }
+  }
+  try {
+    execSync(command, {
+      env: process.env,
+      stdio: "inherit",
+      encoding: "utf-8",
+    });
+  } catch (err) {
+    log.error(err);
+  }
 }
