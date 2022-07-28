@@ -55,7 +55,6 @@ export async function setupFn(params: RunFnParams) {
     if (event[0] === "{") {
       log.debug("Assuming event is a string object");
       command += `-e '${event}'`;
-      console.log({ command });
     } else {
       log.debug("Assuming event is a file path");
       try {
