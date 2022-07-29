@@ -24,7 +24,6 @@ export interface UploadProps {
   fileType: string[] | string; //Represented as lowercase file extensions eg 'pdf'
   maxFileSize: Number;
   bucket: string;
-  region: string;
   fileKey: string;
 }
 
@@ -137,7 +136,6 @@ export async function getURL(
         input: {
           bucket: uploadProps.bucket,
           fileName: uploadProps.fileKey + fileProps.fileName,
-          region: uploadProps.region,
         },
       },
     });
@@ -220,7 +218,6 @@ export async function handleMultipartUpload(
     vars: {
       input: {
         bucket: uploadProps.bucket,
-        region: uploadProps.region,
         fileName: uploadProps.fileKey + fileName,
       },
     },
@@ -239,7 +236,6 @@ export async function handleMultipartUpload(
     query: getUploadPartURL,
     vars: {
       input: {
-        region: uploadProps.region,
         bucket: uploadProps.bucket,
         fileName: uploadProps.fileKey + fileName,
         numberOfParts: numberOfParts,
@@ -271,7 +267,6 @@ export async function handleMultipartUpload(
         query: abortUpload,
         vars: {
           input: {
-            region: uploadProps.region,
             bucket: uploadProps.bucket,
             fileName: uploadProps.fileKey + fileName,
             uploadId: uploadId,
@@ -297,7 +292,6 @@ export async function handleMultipartUpload(
     query: completeUpload,
     vars: {
       input: {
-        region: uploadProps.region,
         bucket: uploadProps.bucket,
         fileName: uploadProps.fileKey + fileName,
         uploadId: uploadId,
@@ -320,6 +314,22 @@ export async function handleMultipartUpload(
           return existingFileData;
         }
       });
+    });
+  } else {
+    setPercent(0);
+    await gQuery<abortUploadResponse>({
+      query: abortUpload,
+      vars: {
+        input: {
+          bucket: uploadProps.bucket,
+          fileName: uploadProps.fileKey + fileName,
+          uploadId: uploadId,
+        },
+      },
+    });
+    notify({
+      body: `Error uploading ${fileName}`,
+      variation: `error`,
     });
   }
 }
