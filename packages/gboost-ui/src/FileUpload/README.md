@@ -32,7 +32,7 @@ const exampleBucket = new Bucket(this, "example-bucket", {
 2. buttonRef: React.MutavleRefObject<{ handleClick: Function }>
 
     * Optional
-    * When passed in the upload button does not appear in the component
+    * When passed in the upload and clear button do not appear in the component
     * calling ref.current.handleClick() from outside the component will cause the files in the component to upload
 
 3. Buttons: (props: CustomActionButtonProps) => ReactElement
@@ -73,10 +73,6 @@ const exampleBucket = new Bucket(this, "example-bucket", {
 
     * Overrides the default Uploading function
 
-11. region: string
-
-    * AWS region the bucket is hosted in ('us-east-1')
-
 12. text: string
 
     * Optional
@@ -96,11 +92,10 @@ const exampleBucket = new Bucket(this, "example-bucket", {
     * bucket is the bucket's name
     * key is the key to be appended to the beginning of each file
         * Must end in '/' for key to be interpretted as a file
+    
+3. region: string
 
-3. partition: string (Default: "aws")
-
-    * Optional
-    * Partition the S3 buckets exist in
+    * AWS region the bucket is hosted in ('us-east-1')
 
 ##
 
@@ -168,15 +163,7 @@ setPendingFilesData([]);
         }}
         columnStart={"2"}
         columnEnd={"-1"}
-        isDisabled={
-            pendingFilesData.length > 0
-            ? !uploading
-                ? allFilesComplete()
-                ? true
-                : false
-                : true
-            : true
-        }
+        isDisabled={props.isUploadDisabled}
     >
     Upload
     </Button>
@@ -186,22 +173,9 @@ setPendingFilesData([]);
             float: "left",
             margin: "5px",
         }}
-        isDisabled={
-            pendingFilesData.length > 0
-            ? uploading
-                ? allFilesComplete()
-                ? false
-                : true
-                : false
-            : true
-        }
+        isDisabled={props.isClearDisabled}
     >
     Clear
     </Button>
 </Box>
 ```
-# CHANGES
-
-remove partition from construct
-remove region from component
-added region to construct
