@@ -1,3 +1,4 @@
+import { Logger } from "@aws-lambda-powertools/logger";
 import {
   CompletedPart,
   CompleteMultipartUploadCommand,
@@ -7,7 +8,6 @@ import { AppSyncResolverEvent } from "aws-lambda";
 
 interface completeUploadArgs {
   input: {
-    region: string;
     bucket: string;
     fileName: string;
     uploadId: string;
@@ -17,14 +17,17 @@ interface completeUploadArgs {
 
 interface completeUploadParams {
   event: AppSyncResolverEvent<completeUploadArgs>;
+  logger: Logger;
 }
+
+const client = new S3Client({ region: process.env.REGION });
 
 export async function completeUpload(params: completeUploadParams) {
   const {
-    input: { region, bucket, fileName, uploadId, multipartUpload },
+    input: { bucket, fileName, uploadId, multipartUpload },
   } = params.event.arguments;
+  const { logger } = params;
 
-  const client = new S3Client({ region: region });
   if (process.env.BUCKET_MAP) {
     const command = new CompleteMultipartUploadCommand({
       Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket].bucket,
@@ -40,7 +43,7 @@ export async function completeUpload(params: completeUploadParams) {
       statusCode: response.$metadata.httpStatusCode,
     };
   } else {
-    console.log("Could not find bucket map");
+    logger.error("Could not find bucket map");
     return;
   }
 }

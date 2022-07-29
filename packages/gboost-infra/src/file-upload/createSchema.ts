@@ -13,16 +13,15 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
     definition: {
       bucket: GraphqlType.string({ isRequired: true }),
       fileName: GraphqlType.string({ isRequired: true }),
-      region: GraphqlType.string({ isRequired: true }),
     },
   });
   api.addType(getUploadURLInput);
 
+  // getUploadId, getUploadPartURL, completeUpload, and abortUpload are all used in multipart uploads
   const getUploadIdInput = new InputType("getUploadIdInput", {
     definition: {
       bucket: GraphqlType.string({ isRequired: true }),
       fileName: GraphqlType.string({ isRequired: true }),
-      region: GraphqlType.string({ isRequired: true }),
     },
   });
   api.addType(getUploadIdInput);
@@ -31,7 +30,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
     definition: {
       bucket: GraphqlType.string({ isRequired: true }),
       fileName: GraphqlType.string({ isRequired: true }),
-      region: GraphqlType.string({ isRequired: true }),
       numberOfParts: GraphqlType.int({ isRequired: true }),
       uploadId: GraphqlType.string({ isRequired: true }),
     },
@@ -50,7 +48,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
     definition: {
       bucket: GraphqlType.string({ isRequired: true }),
       fileName: GraphqlType.string({ isRequired: true }),
-      region: GraphqlType.string({ isRequired: true }),
       uploadId: GraphqlType.string({ isRequired: true }),
       multipartUpload: multipartUploadInput.attribute({
         isRequired: true,
@@ -64,7 +61,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
     definition: {
       bucket: GraphqlType.string({ isRequired: true }),
       fileName: GraphqlType.string({ isRequired: true }),
-      region: GraphqlType.string({ isRequired: true }),
       uploadId: GraphqlType.string({ isRequired: true }),
     },
   });
