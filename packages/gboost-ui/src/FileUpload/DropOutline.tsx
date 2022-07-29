@@ -107,18 +107,44 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
     handleUpload = handleClick;
   }
 
+  let isUploadButtonDisabled = false;
+  if (pendingFilesData.length > 0) {
+    if (!uploading) {
+      isUploadButtonDisabled = allFilesComplete();
+    } else {
+      isUploadButtonDisabled = true;
+    }
+  } else {
+    isUploadButtonDisabled = true;
+  }
+
+  let isClearButtonDisabled = false;
+  if (pendingFilesData.length > 0) {
+    if (uploading) {
+      isClearButtonDisabled = !allFilesComplete();
+    }
+  } else {
+    isClearButtonDisabled = true;
+  }
+
   let buttons: ReactElement | null;
   if (Buttons) {
-    buttons = <Buttons handleUpload={handleUpload} handleClear={handleClear} />;
+    buttons = (
+      <Buttons
+        handleUpload={handleUpload}
+        handleClear={handleClear}
+        isClearDisabled={isClearButtonDisabled}
+        isUploadDisabled={isUploadButtonDisabled}
+      />
+    );
   } else {
     if (!props.buttonRef) {
       buttons = (
         <ActionButtons
           handleClick={handleUpload}
           handleClear={handleClear}
-          pendingFilesData={pendingFilesData}
-          allFilesComplete={allFilesComplete}
-          uploading={uploading}
+          isClearDisabled={isClearButtonDisabled}
+          isUploadDisabled={isUploadButtonDisabled}
         />
       );
     } else {
