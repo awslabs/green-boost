@@ -1,7 +1,6 @@
 import { TextField } from "@aws-amplify/ui-react";
-import * as Stitches from "@stitches/react";
 import React, { ReactElement, useState } from "react";
-import { styled, theme, useNotifications } from "../index.js";
+import { styled, useNotifications } from "../index.js";
 
 interface FileNameProps {
   fileName: string;
@@ -10,15 +9,17 @@ interface FileNameProps {
   inputRef: React.RefObject<HTMLInputElement>;
 }
 
-const StyledTextField = styled(TextField, {});
+const StyledTextField = styled(TextField, {
+  backgroundColor: "$gray5",
+  borderStyle: "none",
+  "&:focus-within": {
+    backgroundColor: "$gray1",
+  },
+});
 
 export function FileName(props: FileNameProps): ReactElement {
   const { fileName, isDisabled, changeFileName } = props;
   const [inputText, setInputText] = useState(fileName);
-  const [style, setStyle] = useState<Stitches.CSS>({
-    backgroundColor: theme.colors.gray3,
-    borderStyle: "none",
-  });
   const { notify } = useNotifications();
   return (
     <StyledTextField
@@ -27,7 +28,6 @@ export function FileName(props: FileNameProps): ReactElement {
       labelHidden={true}
       label={""}
       defaultValue={fileName}
-      css={style}
       onBlur={(event: React.FocusEvent<HTMLElement>) => {
         if (!changeFileName(fileName, inputText)) {
           notify({
@@ -35,13 +35,6 @@ export function FileName(props: FileNameProps): ReactElement {
             variation: `error`,
           });
         }
-        setStyle({
-          backgroundColor: theme.colors.gray5,
-          border: "none",
-        });
-      }}
-      onFocus={() => {
-        setStyle({});
       }}
       onClick={(event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();

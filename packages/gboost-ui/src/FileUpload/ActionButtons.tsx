@@ -20,14 +20,29 @@ export function ActionButtons(props: ActionButtonProps): ReactElement {
     allFilesComplete,
     uploading,
   } = props;
+
+  let isUploadButtonDisabled = false;
+  if (pendingFilesData.length > 0) {
+    if (!uploading) {
+      isUploadButtonDisabled = allFilesComplete();
+    } else {
+      isUploadButtonDisabled = true;
+    }
+  } else {
+    isUploadButtonDisabled = true;
+  }
+
+  let isClearButtonDisabled = false;
+  if (pendingFilesData.length > 0) {
+    if (uploading) {
+      isClearButtonDisabled = !allFilesComplete();
+    }
+  } else {
+    isClearButtonDisabled = true;
+  }
+
   return (
-    <Box
-      css={{
-        position: "absolute",
-        bottom: "5px",
-        left: "5px",
-      }}
-    >
+    <Box>
       <StyledButton
         onClick={handleClick}
         css={{
@@ -36,15 +51,7 @@ export function ActionButtons(props: ActionButtonProps): ReactElement {
         }}
         columnStart={"2"}
         columnEnd={"-1"}
-        isDisabled={
-          pendingFilesData.length > 0
-            ? !uploading
-              ? allFilesComplete()
-                ? true
-                : false
-              : true
-            : true
-        }
+        isDisabled={isUploadButtonDisabled}
       >
         Upload
       </StyledButton>
@@ -54,15 +61,7 @@ export function ActionButtons(props: ActionButtonProps): ReactElement {
           float: "left",
           margin: "5px",
         }}
-        isDisabled={
-          pendingFilesData.length > 0
-            ? uploading
-              ? allFilesComplete()
-                ? false
-                : true
-              : false
-            : true
-        }
+        isDisabled={isClearButtonDisabled}
       >
         Clear
       </StyledButton>

@@ -41,11 +41,6 @@ interface FileUploadProps {
    */
   bucket: string;
   /**
-   * AWS region where the target bucket is located
-   * @example 'us-east-1'
-   */
-  region: string;
-  /**
    * Key appended to the beginning of every file
    * @example 'folder/'
    */
@@ -93,7 +88,6 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     deactivated = false,
     maxFiles = 0,
     bucket,
-    region,
     text = `Drop ${
       Array.isArray(fileType) ? fileType.join(", ") : fileType
     } files here`,
@@ -321,7 +315,6 @@ export function FileUpload(props: FileUploadProps): ReactElement {
               fileType: fileType,
               maxFileSize: maxFileSize,
               bucket: bucket,
-              region: region,
               fileKey: fileKey,
             },
             setUploading: setUploading,
@@ -346,7 +339,6 @@ export function FileUpload(props: FileUploadProps): ReactElement {
                     fileType: fileType,
                     maxFileSize: maxFileSize,
                     bucket: bucket,
-                    region: region,
                     fileKey: fileKey,
                   },
                   setUploading: setUploading,

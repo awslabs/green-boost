@@ -200,3 +200,8 @@ setPendingFilesData([]);
     </Button>
 </Box>
 ```
+# CHANGES
+
+remove partition from construct
+remove region from component
+added region to construct

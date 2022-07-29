@@ -1,4 +1,4 @@
-import { Grid, ScrollView, VisuallyHidden } from "@aws-amplify/ui-react";
+import { Flex, ScrollView, VisuallyHidden } from "@aws-amplify/ui-react";
 import React, {
   ChangeEventHandler,
   DragEventHandler,
@@ -107,19 +107,9 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
     handleUpload = handleClick;
   }
 
-  let buttons: ReactElement;
+  let buttons: ReactElement | null;
   if (Buttons) {
-    buttons = (
-      <Box
-        css={{
-          position: "absolute",
-          bottom: "5px",
-          left: "5px",
-        }}
-      >
-        <Buttons handleUpload={handleUpload} handleClear={handleClear} />
-      </Box>
-    );
+    buttons = <Buttons handleUpload={handleUpload} handleClear={handleClear} />;
   } else {
     if (!props.buttonRef) {
       buttons = (
@@ -132,7 +122,7 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
         />
       );
     } else {
-      buttons = <div />;
+      buttons = null;
     }
   }
 
@@ -186,27 +176,23 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
         <Box css={{ width: "100%", textAlign: "center" }}>{text}</Box>
       )}
       {pendingFilesData.length > 0 && (
-        <Grid
+        <Flex
           style={{
-            gridTemplateRows: `fit-content(${
-              props.buttonRef ? (Buttons ? "80%" : "100%") : "80%"
-            }) auto`,
             width: "100%",
             height: "100%",
             paddingTop: "20px",
             paddingLeft: "5px",
             paddingRight: "5px",
+            paddingBottom: "20px",
           }}
+          direction={"column"}
         >
           <ScrollView
             style={{
               height: "100%",
               width: "100%",
-              paddingTop: "15px",
-              paddingBottom: "15px",
             }}
-            rowStart={1}
-            rowEnd={1}
+            flex={19}
           >
             <FileList
               filesData={pendingFilesData}
@@ -219,18 +205,15 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
             <Box
               css={{
                 height: "100%",
-                padding: "1%",
+                padding: "5px",
                 width: "100%",
-                textAlign: "left",
-                gridRowStart: "2",
-                gridRowEnd: "-1",
-                position: "relative",
+                flex: 1,
               }}
             >
               {buttons}
             </Box>
           )}
-        </Grid>
+        </Flex>
       )}
     </DropOutlineBox>
   );
