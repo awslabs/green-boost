@@ -1,9 +1,9 @@
+import { Logger } from "@aws-lambda-powertools/logger";
 import { CreateMultipartUploadCommand, S3Client } from "@aws-sdk/client-s3";
 import { AppSyncResolverEvent } from "aws-lambda";
 
 interface getUploadIdArgs {
   input: {
-    region: string;
     bucket: string;
     fileName: string;
   };
@@ -11,14 +11,17 @@ interface getUploadIdArgs {
 
 interface getUploadIdParams {
   event: AppSyncResolverEvent<getUploadIdArgs>;
+  logger: Logger;
 }
+
+const client = new S3Client({ region: process.env.REGION });
 
 export async function getUploadId(params: getUploadIdParams) {
   const {
-    input: { region, bucket, fileName },
+    input: { bucket, fileName },
   } = params.event.arguments;
+  const { logger } = params;
 
-  const client = new S3Client({ region: region });
   if (process.env.BUCKET_MAP) {
     const command = new CreateMultipartUploadCommand({
       Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket].bucket,
@@ -30,7 +33,7 @@ export async function getUploadId(params: getUploadIdParams) {
       uploadId: response.UploadId,
     };
   } else {
-    console.log("Could not find bucket map");
+    logger.error("Could not find bucket map");
     return;
   }
 }

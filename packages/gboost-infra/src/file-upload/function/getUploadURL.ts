@@ -1,25 +1,27 @@
 import type { AppSyncResolverEvent } from "aws-lambda";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { Logger } from "@aws-lambda-powertools/logger";
 
 interface getUploadURLArgs {
   input: {
     fileName: string;
     bucket: string;
-    region: string;
   };
 }
 
 interface getUploadURLParams {
   event: AppSyncResolverEvent<getUploadURLArgs>;
+  logger: Logger;
 }
+
+const client = new S3Client({ region: process.env.REGION });
 
 export async function getUploadURL(params: getUploadURLParams) {
   const {
-    input: { fileName, bucket, region },
+    input: { fileName, bucket },
   } = params.event.arguments;
-
-  const client = new S3Client({ region: region });
+  const { logger } = params;
 
   if (process.env.BUCKET_MAP) {
     const command = new PutObjectCommand({
@@ -32,7 +34,7 @@ export async function getUploadURL(params: getUploadURLParams) {
       url: url,
     };
   } else {
-    console.log("Could not find bucket map");
+    logger.error("Could not find bucket map");
     return;
   }
 }

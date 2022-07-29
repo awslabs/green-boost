@@ -4,15 +4,20 @@ import { completeUpload } from "./completeUpload.js";
 import { getUploadId } from "./getUploadId.js";
 import { getUploadPartURL } from "./getUploadPartURL.js";
 import { getUploadURL } from "./getUploadURL.js";
+import { injectLambdaContext, Logger } from "@aws-lambda-powertools/logger";
+import middy from "@middy/core";
 
-export async function handler(
+const logger = new Logger({ serviceName: "greenBoostFileUpload" });
+
+async function lambdaHandler(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   event: AppSyncResolverEvent<any>
 ): Promise<unknown> {
   const params = {
     event,
+    logger,
   };
-  console.log(JSON.stringify(event));
+
   try {
     switch (event.info.fieldName) {
       case "getUploadURL":
@@ -34,3 +39,7 @@ export async function handler(
     console.error(error);
   }
 }
+
+export const handler = middy(lambdaHandler).use(
+  injectLambdaContext(logger, { logEvent: true })
+);

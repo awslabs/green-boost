@@ -1,9 +1,9 @@
+import { Logger } from "@aws-lambda-powertools/logger";
 import { AbortMultipartUploadCommand, S3Client } from "@aws-sdk/client-s3";
 import { AppSyncResolverEvent } from "aws-lambda";
 
 interface abortUploadArgs {
   input: {
-    region: string;
     bucket: string;
     fileName: string;
     uploadId: string;
@@ -12,14 +12,16 @@ interface abortUploadArgs {
 
 interface abortUploadParams {
   event: AppSyncResolverEvent<abortUploadArgs>;
+  logger: Logger;
 }
+
+const client = new S3Client({ region: process.env.REGION });
 
 export async function abortUpload(params: abortUploadParams) {
   const {
-    input: { region, bucket, fileName, uploadId },
+    input: { bucket, fileName, uploadId },
   } = params.event.arguments;
-
-  const client = new S3Client({ region: region });
+  const { logger } = params;
   if (process.env.BUCKET_MAP) {
     const response = await client.send(
       new AbortMultipartUploadCommand({
@@ -32,7 +34,7 @@ export async function abortUpload(params: abortUploadParams) {
       statusCode: response.$metadata.httpStatusCode,
     };
   } else {
-    console.log("Could not find bucket map");
+    logger.error("Could not find bucket map");
     return;
   }
 }

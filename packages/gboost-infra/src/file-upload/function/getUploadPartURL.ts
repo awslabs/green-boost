@@ -1,10 +1,10 @@
+import { Logger } from "@aws-lambda-powertools/logger";
 import { S3Client, UploadPartCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { AppSyncResolverEvent } from "aws-lambda";
 
 interface getUploadPartURLArgs {
   input: {
-    region: string;
     bucket: string;
     fileName: string;
     numberOfParts: number;
@@ -14,14 +14,17 @@ interface getUploadPartURLArgs {
 
 interface getUploadPartURLParams {
   event: AppSyncResolverEvent<getUploadPartURLArgs>;
+  logger: Logger;
 }
+
+const client = new S3Client({ region: process.env.REGION });
 
 export async function getUploadPartURL(params: getUploadPartURLParams) {
   const {
-    input: { region, bucket, fileName, numberOfParts, uploadId },
+    input: { bucket, fileName, numberOfParts, uploadId },
   } = params.event.arguments;
+  const { logger } = params;
 
-  const client = new S3Client({ region: region });
   if (process.env.BUCKET_MAP) {
     const urls: string[] = [];
     for (let i = 0; i < numberOfParts; i++) {
@@ -40,7 +43,7 @@ export async function getUploadPartURL(params: getUploadPartURLParams) {
       urls: urls,
     };
   } else {
-    console.log("Could not find bucket map");
+    logger.error("Could not find bucket map");
     return;
   }
 }
