@@ -8,6 +8,8 @@ import {
 
 export interface DateTimeFieldProps extends TextFieldProps {
   type?: "datetime-local" | "date" | "time";
+  max?: string;
+  min?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
