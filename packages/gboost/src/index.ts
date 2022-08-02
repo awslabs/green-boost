@@ -73,6 +73,6 @@ function setupLogger(argv: parse.ParsedArgs) {
   log.setDefaultLevel(log.levels.ERROR);
   const level = argv.l || argv.logLevel || process.env.LOG_LEVEL;
   if (level) {
-    log.setLevel(argv.d || argv.debug || process.env.LOG_LEVEL);
+    log.setLevel(level);
   }
 }
