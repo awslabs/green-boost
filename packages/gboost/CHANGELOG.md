@@ -1,5 +1,11 @@
 # gboost
 
+## 0.8.1
+
+### Patch Changes
+
+- [#117](https://github.com/awslabs/green-boost/pull/117) [`fcb3c96`](https://github.com/awslabs/green-boost/commit/fcb3c96d0a2da90f71dbacf7775062ddd5e2d0c9) Thanks [@bestickley](https://github.com/bestickley)! - Fix run-fn by passing event in quotes when object
+
 ## 0.8.0
 
 ### Minor Changes
