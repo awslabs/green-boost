@@ -26,22 +26,36 @@ export async function getUploadPartURL(params: getUploadPartURLParams) {
   const { logger } = params;
 
   if (process.env.BUCKET_MAP) {
-    const urls: string[] = [];
-    for (let i = 0; i < numberOfParts; i++) {
-      const command = new UploadPartCommand({
-        Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket].bucket,
-        Key: JSON.parse(process.env.BUCKET_MAP)[bucket].key + fileName,
-        PartNumber: i + 1,
-        UploadId: uploadId,
-      });
-
-      const url = await getSignedUrl(client, command, { expiresIn: 3600 });
-      urls.push(url);
+    const bucketMap = JSON.parse(process.env.BUCKET_MAP);
+    let i = 0;
+    let notFound = true;
+    while (notFound && i < bucketMap.length) {
+      if (bucketMap[i].bucket === bucket) {
+        notFound = false;
+      } else {
+        i++;
+      }
     }
+    if (notFound) {
+      logger.error(`Could not find bucket ${bucket}`);
+    } else {
+      const urls: string[] = [];
+      for (let urlIndex = 0; urlIndex < numberOfParts; urlIndex++) {
+        const command = new UploadPartCommand({
+          Bucket: bucket,
+          Key: bucketMap[i].baseKey + fileName,
+          PartNumber: urlIndex + 1,
+          UploadId: uploadId,
+        });
 
-    return {
-      urls: urls,
-    };
+        const url = await getSignedUrl(client, command, { expiresIn: 3600 });
+        urls.push(url);
+      }
+
+      return {
+        urls: urls,
+      };
+    }
   } else {
     logger.error("Could not find bucket map");
     return;

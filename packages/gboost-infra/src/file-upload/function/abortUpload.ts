@@ -23,16 +23,30 @@ export async function abortUpload(params: abortUploadParams) {
   } = params.event.arguments;
   const { logger } = params;
   if (process.env.BUCKET_MAP) {
-    const response = await client.send(
-      new AbortMultipartUploadCommand({
-        Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket].bucket,
-        Key: JSON.parse(process.env.BUCKET_MAP)[bucket].key + fileName,
-        UploadId: uploadId,
-      })
-    );
-    return {
-      statusCode: response.$metadata.httpStatusCode,
-    };
+    const bucketMap = JSON.parse(process.env.BUCKET_MAP);
+    let i = 0;
+    let notFound = true;
+    while (notFound && i < bucketMap.length) {
+      if (bucketMap[i].bucket === bucket) {
+        notFound = false;
+      } else {
+        i++;
+      }
+    }
+    if (notFound) {
+      logger.error(`Could not find bucket ${bucket}`);
+    } else {
+      const response = await client.send(
+        new AbortMultipartUploadCommand({
+          Bucket: bucket,
+          Key: bucketMap[i].baseKey + fileName,
+          UploadId: uploadId,
+        })
+      );
+      return {
+        statusCode: response.$metadata.httpStatusCode,
+      };
+    }
   } else {
     logger.error("Could not find bucket map");
     return;

@@ -84,7 +84,7 @@ export interface FileData {
 export function FileUpload(props: FileUploadProps): ReactElement {
   const {
     fileType,
-    maxFileSize = 5497558138880,
+    maxFileSize = 1073741824, // 1GB
     deactivated = false,
     maxFiles = 0,
     bucket,
@@ -294,7 +294,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   );
 
   return (
-    <Box css={{ height: "100%" }}>
+    <Box css={{ height: "1px", minHeight: "100%" }}>
       <DropOutline
         handleDrop={handleDrop}
         handleBoxClick={handleBoxClick}

@@ -230,7 +230,6 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
           {buttons && (
             <Box
               css={{
-                height: "100%",
                 padding: "5px",
                 width: "100%",
                 flex: 1,

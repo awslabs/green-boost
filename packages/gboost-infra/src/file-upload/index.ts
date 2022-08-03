@@ -6,11 +6,11 @@ import { CommonProps, Stage } from "../common-props.js";
 import { Duration, Stack } from "aws-cdk-lib";
 import { Bucket } from "../bucket.js";
 import { NagSuppressions } from "cdk-nag";
-import { CfnBucket } from "aws-cdk-lib/aws-s3/index.js";
+import { CfnBucket, CorsRule, HttpMethods } from "aws-cdk-lib/aws-s3/index.js";
 
 interface FileUploadBucket {
   bucket: Bucket;
-  key: string;
+  baseKey: string;
 }
 
 export interface FileUploadProps extends CommonProps {
@@ -22,7 +22,7 @@ export interface FileUploadProps extends CommonProps {
    * BUCKET-KEY2: { bucket: BUCKET-NAME2, key: KEY2}
    * }
    */
-  buckets: Record<string, FileUploadBucket>;
+  buckets: FileUploadBucket[];
   /**
    * The region the buckets are in
    * @example "us-east-1"
@@ -41,13 +41,11 @@ export class FileUpload extends Construct {
     const fileExt = import.meta.url.slice(-2);
 
     //Convert buckets to bucket names to add to environment variable
-    const environmentBuckets: Record<string, { bucket: string; key: string }> =
-      {};
-    for (let i = 0; i < Object.keys(buckets).length; i++) {
-      const bucketKey = Object.keys(buckets)[i];
-      environmentBuckets[bucketKey] = {
-        bucket: buckets[bucketKey].bucket.bucketName,
-        key: buckets[bucketKey].key,
+    const environmentBuckets: { bucket: string; baseKey: string }[] = [];
+    for (let i = 0; i < buckets.length; i++) {
+      environmentBuckets[i] = {
+        bucket: buckets[i].bucket.bucketName,
+        baseKey: buckets[i].baseKey,
       };
     }
 
@@ -62,19 +60,53 @@ export class FileUpload extends Construct {
       stage,
     });
 
-    for (let i = 0; i < Object.keys(buckets).length; i++) {
-      const bucketKey = Object.keys(buckets)[i];
-      buckets[bucketKey].bucket.grantDelete(uploadFn);
-      buckets[bucketKey].bucket.grantReadWrite(uploadFn);
+    for (let i = 0; i < buckets.length; i++) {
+      buckets[i].bucket.grantDelete(uploadFn);
+      buckets[i].bucket.grantReadWrite(uploadFn);
+
+      const unknownBucket = buckets[i].bucket as unknown;
+      const corsSettings = (unknownBucket as { cors: CorsRule[] }).cors;
+      if (corsSettings) {
+        let allowedHeaderExist,
+          allowedMethodsExists,
+          exposedHeadersExist = false;
+        for (let corsIndex = 0; corsIndex < corsSettings.length; corsIndex++) {
+          if ((corsSettings[corsIndex].allowedHeaders || []).length > 0) {
+            allowedHeaderExist = true;
+          }
+
+          if (
+            corsSettings[corsIndex].allowedMethods.includes(
+              "PUT" as HttpMethods
+            )
+          ) {
+            allowedMethodsExists = true;
+          }
+
+          if (corsSettings[corsIndex].exposedHeaders?.includes("ETag")) {
+            exposedHeadersExist = true;
+          }
+        }
+        if (!allowedHeaderExist) {
+          console.warn(`Bucket's cors policy allowHeaders is empty`);
+        }
+        if (!allowedMethodsExists) {
+          console.warn(`Bucket's cors policy does not allow method "PUT"`);
+        }
+        if (!exposedHeadersExist) {
+          console.warn(`Bucket's cors policy does not expose header "ETAG"`);
+        }
+      }
+
       const bucketLogicalId = Stack.of(this).getLogicalId(
-        buckets[bucketKey].bucket.node.defaultChild as CfnBucket
+        buckets[i].bucket.node.defaultChild as CfnBucket
       );
       NagSuppressions.addResourceSuppressions(
         uploadFn,
         [
           {
-            id: `GBoost-FileUpload`,
-            reason: `GBoost-FileUpload`,
+            id: `AwsSolutions-IAM5`,
+            reason: `FileUpload function should have the ability to dynamically write to any key within this bucket`,
             appliesTo: [
               "Action::S3:AbortMultiPartUpload",
               "Action::S3:PutObject",
