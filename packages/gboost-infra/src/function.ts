@@ -2,6 +2,7 @@ import { Architecture, Runtime } from "aws-cdk-lib/aws-lambda";
 import {
   NodejsFunction,
   NodejsFunctionProps,
+  OutputFormat,
 } from "aws-cdk-lib/aws-lambda-nodejs";
 import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import { NagSuppressions } from "cdk-nag";
@@ -27,6 +28,7 @@ export class Function extends NodejsFunction {
     newProps.bundling = {
       sourceMap: true,
       minify: true,
+      format: OutputFormat.ESM,
       ...newProps.bundling,
     };
     if (!newProps.environment) {
