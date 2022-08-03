@@ -60,7 +60,7 @@ const exampleBucket = new Bucket(this, "example-bucket", {
     * Maximum number of files allowed per upload
     * maxFiles of 0 is interpretted as no limit
 
-8. maxFileSize: number
+8. maxFileSize: number (Default: 1073741824 or 1GB)
 
     * Optional
     * Maximum size of a file repesented in bytes

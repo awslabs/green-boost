@@ -23,15 +23,29 @@ export async function getUploadId(params: getUploadIdParams) {
   const { logger } = params;
 
   if (process.env.BUCKET_MAP) {
-    const command = new CreateMultipartUploadCommand({
-      Bucket: JSON.parse(process.env.BUCKET_MAP)[bucket].bucket,
-      Key: JSON.parse(process.env.BUCKET_MAP)[bucket].key + fileName,
-    });
-    const response = await client.send(command);
+    const bucketMap = JSON.parse(process.env.BUCKET_MAP);
+    let i = 0;
+    let notFound = true;
+    while (notFound && i < bucketMap.length) {
+      if (bucketMap[i].bucket === bucket) {
+        notFound = false;
+      } else {
+        i++;
+      }
+    }
+    if (notFound) {
+      logger.error(`Could not find bucket ${bucket}`);
+    } else {
+      const command = new CreateMultipartUploadCommand({
+        Bucket: bucket,
+        Key: bucketMap[i].baseKey + fileName,
+      });
+      const response = await client.send(command);
 
-    return {
-      uploadId: response.UploadId,
-    };
+      return {
+        uploadId: response.UploadId,
+      };
+    }
   } else {
     logger.error("Could not find bucket map");
     return;
