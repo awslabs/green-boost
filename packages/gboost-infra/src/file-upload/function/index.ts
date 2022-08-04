@@ -32,7 +32,7 @@ async function lambdaHandler(
         return abortUpload(params);
       default:
         throw new Error(
-          `unknown event.infor.fieldname: ${event.info.fieldName}`
+          `unknown event.info.fieldname: ${event.info.fieldName}`
         );
     }
   } catch (error) {

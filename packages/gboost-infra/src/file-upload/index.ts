@@ -110,6 +110,11 @@ export class FileUpload extends Construct {
             appliesTo: [
               "Action::S3:AbortMultiPartUpload",
               "Action::S3:PutObject",
+              "Action::s3:DeleteObject",
+              "Action::s3:GetObject",
+              "Action::s3:GetBucket",
+              "Action::s3:List",
+              "Action::s3:Abort",
               `Resource::<${bucketLogicalId}.Arn>/*`,
             ],
           },
