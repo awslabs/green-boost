@@ -127,7 +127,6 @@ export async function getURL(
   notify: (notification: ContextNotification) => void,
   uploadProps: UploadProps
 ): Promise<{ url: string } | undefined> {
-  console.log(uploadProps.bucket);
   try {
     const {
       getUploadURL: { url },
