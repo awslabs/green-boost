@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.9.1
+
+### Patch Changes
+
+- [#122](https://github.com/awslabs/green-boost/pull/122) [`7829fd3`](https://github.com/awslabs/green-boost/commit/7829fd3960ace215d4bcb6279dbecc770608cfdc) Thanks [@CPfaltzgraff](https://github.com/CPfaltzgraff)! - Added Nag suppression to file upload construct
+
 ## 0.9.0
 
 ### Minor Changes
