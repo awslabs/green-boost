@@ -6,7 +6,7 @@ type AllowedAdvisories = Record<
 >;
 const allowedAdvisories: AllowedAdvisories = {
   // "1067407": { package: "package-name", justification: "Because..." }
-  "1081532": { package: "terser", justification: "used in docs site" },
+  "1081698": { package: "terser", justification: "used in docs site" },
 };
 interface Advisory {
   module_name: string;
