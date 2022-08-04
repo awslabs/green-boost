@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.23.0
+
+### Minor Changes
+
+- [#116](https://github.com/awslabs/green-boost/pull/116) [`c1bbb43`](https://github.com/awslabs/green-boost/commit/c1bbb4356ac0f1cff461a507451218cbbc979973) Thanks [@CPfaltzgraff](https://github.com/CPfaltzgraff)! - Added FileUpload component and corresponding construct
+
 ## 0.22.0
 
 ### Minor Changes
