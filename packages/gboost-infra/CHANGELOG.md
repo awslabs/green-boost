@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.10.0
+
+### Minor Changes
+
+- [#127](https://github.com/awslabs/green-boost/pull/127) [`566c286`](https://github.com/awslabs/green-boost/commit/566c286224dbfb1be6c61dc1653407f3d08da39b) Thanks [@bestickley](https://github.com/bestickley)! - Default Function to ESM
+
 ## 0.9.2
 
 ### Patch Changes
