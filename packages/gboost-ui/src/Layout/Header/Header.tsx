@@ -1,4 +1,4 @@
-import { Heading, Image } from "@aws-amplify/ui-react";
+import { Heading, Image, Icon } from "@aws-amplify/ui-react";
 import { MdMenu, MdMenuOpen } from "react-icons/md";
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,23 +25,34 @@ const HeadingContainer = styled("div", {
 });
 const StyledHeading = styled(Heading);
 const StyledImage = styled(Image, { maxWidth: `calc($header - $4)` });
-const StyledMenu = styled(MdMenu, { fontSize: "$7", cursor: "pointer" });
-const StyledMenuOpen = styled(MdMenuOpen, {
+const StyledIcon = styled(Icon, {
   fontSize: "$7",
   cursor: "pointer",
 });
 
-interface HeaderProps {
+interface CognitoUserHeaderProps {
+  user: CognitoUser;
+  AccountMenu?: ReactElement;
+  AccountSidebar?: ReactElement;
+}
+
+interface CustomUserHeaderProps {
+  user: any;
+  AccountMenu: ReactElement;
+  AccountSidebar: ReactElement;
+}
+
+interface BaseHeaderProps {
   logoSrc: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   signOut: () => unknown;
   title?: string;
-  user: CognitoUser;
-  AccountMenu?: ReactElement;
-  AccountSidebar?: ReactElement;
   HeaderTitle?: ReactElement;
 }
+
+type HeaderProps = BaseHeaderProps &
+  (CognitoUserHeaderProps | CustomUserHeaderProps);
 
 export function Header(props: HeaderProps): ReactElement {
   const {
@@ -122,9 +133,9 @@ export function Header(props: HeaderProps): ReactElement {
           }}
         >
           {open ? (
-            <StyledMenuOpen onClick={() => setOpen(false)} />
+            <StyledIcon as={MdMenuOpen} onClick={() => setOpen(false)} />
           ) : (
-            <StyledMenu onClick={() => setOpen(true)} />
+            <StyledIcon as={MdMenu} onClick={() => setOpen(true)} />
           )}
           {headerTitle}
         </Box>

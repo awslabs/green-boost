@@ -36,16 +36,6 @@ export type CognitoUser = ReturnType<typeof useAuthenticator>["user"];
 
 interface BaseLayoutProps {
   /**
-   * Custom account menu shown on right side of header. Should consider desktop
-   * and mobile view. See default account menu for guidance.
-   */
-  AccountMenu?: ReactElement;
-  /**
-   * Custom account sidebar that shows in drawer when mobile screen and user
-   * clicks on account menu button.
-   */
-  AccountSidebar?: ReactElement;
-  /**
    * Custom header title shown to right of hamburger menu. When used, `title`
    * and `logoSrc` prop aren't used in header.
    */
@@ -73,11 +63,38 @@ interface BaseLayoutProps {
    * string for header title
    */
   title?: string;
+}
+
+interface CognitoUserLayoutProps {
   /**
    * Explicitly defined user for Account Menu instead of using `user` returned
    * from `useAuthenticator`
    */
   user: CognitoUser;
+  /**
+   * Custom account menu shown on right side of header. Should consider desktop
+   * and mobile view. See default account menu for guidance.
+   */
+  AccountMenu?: ReactElement;
+  /**
+   * Custom account sidebar that shows in drawer when mobile screen and user
+   * clicks on account menu button.
+   */
+  AccountSidebar?: ReactElement;
+}
+
+interface CustomUserLayoutProps {
+  user: any;
+  /**
+   * Custom account menu shown on right side of header. Should consider desktop
+   * and mobile view. See default account menu for guidance.
+   */
+  AccountMenu?: ReactElement;
+  /**
+   * Custom account sidebar that shows in drawer when mobile screen and user
+   * clicks on account menu button.
+   */
+  AccountSidebar?: ReactElement;
 }
 
 interface PagesLayoutProps {
@@ -97,6 +114,8 @@ interface ChildrenLayoutProps {
    * Custom navigation list
    */
   NavigationList: typeof NavList;
+  pages?: never;
+  bottomPages?: never;
 }
 
 interface FooterComponentLayoutProps {
@@ -104,15 +123,18 @@ interface FooterComponentLayoutProps {
    * Custom footer component. When used, `footer` prop is ignored.
    */
   Footer: ReactElement;
+  footer?: never;
 }
 interface FooterTextLayoutProps {
   /**
    * string for footer
    */
   footer: string;
+  Footer?: never;
 }
 
 export type LayoutProps = BaseLayoutProps &
+  (CognitoUserLayoutProps | CustomUserLayoutProps) &
   (PagesLayoutProps | ChildrenLayoutProps) &
   (FooterComponentLayoutProps | FooterTextLayoutProps);
 
@@ -142,7 +164,7 @@ export function Layout(props: LayoutProps): ReactElement {
   }, [bps.bp3]);
   let navigation: ReactElement | undefined;
   let content: ReactElement | undefined;
-  if ("pages" in props) {
+  if (props.pages) {
     navigation = (
       <Navigation
         bottomPages={props.bottomPages}
@@ -173,7 +195,7 @@ export function Layout(props: LayoutProps): ReactElement {
     );
   }
   let footer: ReactElement;
-  if ("footer" in props) {
+  if (props.footer) {
     footer = <Footer footer={props.footer} />;
   } else {
     footer = <Footer Footer={props.Footer} />;
