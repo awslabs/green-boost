@@ -22,6 +22,7 @@ interface DropOutlineProps {
   handleClick: (event: React.MouseEvent) => void;
   uploading: boolean;
   allFilesComplete: () => boolean;
+  allFilesFailed: () => boolean;
   handleDrop: DragEventHandler<HTMLDivElement>;
   handleBoxClick: MouseEventHandler<HTMLDivElement>;
   onSubmit?: (event: React.MouseEvent) => void;
@@ -64,6 +65,7 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
     handleClick,
     uploading,
     allFilesComplete,
+    allFilesFailed,
     handleDrop,
     handleBoxClick,
     onSubmit,
@@ -77,8 +79,17 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
       e.stopPropagation();
       // If all currently displayed files are finished uploading, clear them then add new files
       if (pendingFilesData.length > 0) {
+        // Don't remove files which failed to upload
         if (allFilesComplete()) {
-          setPendingFilesData([]);
+          setPendingFilesData((prev) => {
+            let newPendingFilesData: FileData[] = [];
+            prev.forEach((oldFileData) => {
+              if (oldFileData.hasFailed) {
+                newPendingFilesData.push(oldFileData);
+              }
+            });
+            return newPendingFilesData;
+          });
         }
       }
     },
@@ -96,7 +107,21 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
   } else {
     handleClear = (event: React.MouseEvent) => {
       event.stopPropagation();
-      setPendingFilesData([]);
+      // If the user clicks clear after already clearing the successful uploads, remove all uploads
+      if (allFilesFailed()) {
+        setPendingFilesData([]);
+      } else {
+        // Only remove the files which have been uploaded
+        setPendingFilesData((prev) => {
+          let newPendingFilesData: FileData[] = [];
+          prev.forEach((oldFileData) => {
+            if (oldFileData.hasFailed) {
+              newPendingFilesData.push(oldFileData);
+            }
+          });
+          return newPendingFilesData;
+        });
+      }
     };
   }
 

@@ -75,6 +75,7 @@ export interface FileData {
   setPercent: React.Dispatch<React.SetStateAction<number>> | undefined;
   isUploaded: boolean;
   fileName: string;
+  hasFailed: boolean;
 }
 
 /**
@@ -105,22 +106,45 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   const [uploading, setUploading] = useState(false);
 
   const allFilesComplete = useCallback((): boolean => {
+    // Returns true if all files in the list have been uploaded or failed, if all files have failed returns false
     let allFilesUploaded = true;
+    let allFilesFailed = true;
     let i = 0;
     while (allFilesUploaded && i < pendingFilesData.length) {
       if (!pendingFilesData[i].isUploaded) {
-        allFilesUploaded = false;
+        if (!pendingFilesData[i].hasFailed) {
+          allFilesUploaded = false;
+          allFilesFailed = false;
+        }
+      } else {
+        allFilesFailed = false;
       }
       i++;
     }
-    return allFilesUploaded;
+    if (allFilesFailed) {
+      return false;
+    } else {
+      return allFilesUploaded;
+    }
+  }, [pendingFilesData]);
+
+  const allFilesFailed = useCallback((): boolean => {
+    let allFailed = true;
+    let i = 0;
+    while (allFailed && i < pendingFilesData.length) {
+      if (!pendingFilesData[i].hasFailed || pendingFilesData[i].isUploaded) {
+        allFailed = false;
+      }
+      i++;
+    }
+    return allFailed;
   }, [pendingFilesData]);
 
   useEffect(() => {
-    if (allFilesComplete() && uploading) {
+    if ((allFilesComplete() || allFilesFailed()) && uploading) {
       setUploading(false);
     }
-  }, [allFilesComplete, uploading, pendingFilesData]);
+  }, [allFilesComplete, uploading, pendingFilesData, allFilesFailed]);
 
   const addFileToPending = useCallback(
     (file: File) => {
@@ -138,6 +162,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
                   setPercent: fileData.setPercent,
                   isUploaded: false,
                   fileName: file.name,
+                  hasFailed: false,
                 };
               }
             });
@@ -151,6 +176,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
             setPercent: undefined,
             isUploaded: false,
             fileName: file.name,
+            hasFailed: false,
           })
         );
       }
@@ -175,7 +201,16 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       // If all currently displayed files are finished uploading, clear them then add new files
       if (pendingFilesData.length > 0) {
         if (allFilesComplete()) {
-          setPendingFilesData([]);
+          //Don't remove files which failed to upload
+          setPendingFilesData((prev) => {
+            let newPendingFilesData: FileData[] = [];
+            prev.forEach((oldFileData) => {
+              if (oldFileData.hasFailed) {
+                newPendingFilesData.push(oldFileData);
+              }
+            });
+            return newPendingFilesData;
+          });
         }
       }
       if (inputFile.current) {
@@ -201,7 +236,16 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         // If all currently displayed files are finished uploading, clear them then add new files
         if (pendingFilesData.length > 0) {
           if (allFilesComplete()) {
-            setPendingFilesData([]);
+            // Don't Clear files which failed to upload
+            setPendingFilesData((prev) => {
+              let newPendingFilesData: FileData[] = [];
+              prev.forEach((oldFileData) => {
+                if (oldFileData.hasFailed) {
+                  newPendingFilesData.push(oldFileData);
+                }
+              });
+              return newPendingFilesData;
+            });
           }
         }
 
@@ -278,6 +322,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
                   setPercent: oldFileData.setPercent,
                   isUploaded: oldFileData.isUploaded,
                   fileName: newFileName,
+                  hasFailed: oldFileData.hasFailed,
                 };
               } else {
                 return oldFileData;
@@ -326,6 +371,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         }}
         uploading={uploading}
         allFilesComplete={allFilesComplete}
+        allFilesFailed={allFilesFailed}
         Buttons={Buttons}
         {...(onSubmit
           ? {

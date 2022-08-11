@@ -113,11 +113,31 @@ export function handleUpload(props: HandleUploadProps) {
         body: `Files of type ${extension} are not accepted.`,
         variation: "error",
       });
+      // The file is not a valid file so remove it from the pending list
+      setPendingFilesData((prev) => {
+        let newPendingFilesData: FileData[] = [];
+        prev.forEach((oldFileData) => {
+          if (fileName !== oldFileData.fileName) {
+            newPendingFilesData.push(oldFileData);
+          }
+        });
+        return newPendingFilesData;
+      });
     }
   } else {
     notify({
       body: `File ${fileName} is over the maximum ${uploadProps.maxFileSize} bytes.`,
       variation: "error",
+    });
+    // The file is not a valid file so remove it from the pending list
+    setPendingFilesData((prev) => {
+      let newPendingFilesData: FileData[] = [];
+      prev.forEach((oldFileData) => {
+        if (fileName !== oldFileData.fileName) {
+          newPendingFilesData.push(oldFileData);
+        }
+      });
+      return newPendingFilesData;
     });
   }
 }
@@ -179,6 +199,7 @@ export async function uploadFile(
                 setPercent: existingFileData.setPercent,
                 isUploaded: true,
                 fileName: existingFileData.fileName,
+                hasFailed: existingFileData.hasFailed,
               };
             } else {
               return existingFileData;
@@ -199,6 +220,25 @@ export async function uploadFile(
         variation: "error",
       });
     }
+  } else {
+    // Update the files hasFailed
+    setPendingFilesData((prev) => {
+      let newPendingFilesData: FileData[] = [];
+      prev.forEach((oldFileData) => {
+        if (uploadProps.fileKey !== oldFileData.fileName) {
+          newPendingFilesData.push(oldFileData);
+        } else {
+          newPendingFilesData.push({
+            file: oldFileData.file,
+            fileName: oldFileData.fileName,
+            isUploaded: oldFileData.isUploaded,
+            setPercent: oldFileData.setPercent,
+            hasFailed: true,
+          });
+        }
+      });
+      return newPendingFilesData;
+    });
   }
 }
 
@@ -278,7 +318,25 @@ export async function handleMultipartUpload(
         variation: `error`,
       });
       partsUploaded = 0;
-      setPercent((partsUploaded / numberOfParts) * 100);
+      setPercent(0);
+      // Update the files hasFailed
+      setPendingFilesData((prev) => {
+        let newPendingFilesData: FileData[] = [];
+        prev.forEach((oldFileData) => {
+          if (fileName !== oldFileData.fileName) {
+            newPendingFilesData.push(oldFileData);
+          } else {
+            newPendingFilesData.push({
+              file: oldFileData.file,
+              fileName: oldFileData.fileName,
+              isUploaded: oldFileData.isUploaded,
+              setPercent: oldFileData.setPercent,
+              hasFailed: true,
+            });
+          }
+        });
+        return newPendingFilesData;
+      });
       return;
     } else {
       partsUploaded += 1;
@@ -309,6 +367,7 @@ export async function handleMultipartUpload(
             setPercent: existingFileData.setPercent,
             isUploaded: true,
             fileName: existingFileData.fileName,
+            hasFailed: existingFileData.hasFailed,
           };
         } else {
           return existingFileData;
@@ -317,6 +376,24 @@ export async function handleMultipartUpload(
     });
   } else {
     setPercent(0);
+    // Update the files hasFailed
+    setPendingFilesData((prev) => {
+      let newPendingFilesData: FileData[] = [];
+      prev.forEach((oldFileData) => {
+        if (fileName !== oldFileData.fileName) {
+          newPendingFilesData.push(oldFileData);
+        } else {
+          newPendingFilesData.push({
+            file: oldFileData.file,
+            fileName: oldFileData.fileName,
+            isUploaded: oldFileData.isUploaded,
+            setPercent: oldFileData.setPercent,
+            hasFailed: true,
+          });
+        }
+      });
+      return newPendingFilesData;
+    });
     await gQuery<abortUploadResponse>({
       query: abortUpload,
       vars: {
