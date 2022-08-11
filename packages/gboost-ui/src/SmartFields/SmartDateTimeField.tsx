@@ -29,7 +29,9 @@ export function SmartDateTimeField<T extends FieldValues>(
   return (
     <BaseSmartField
       {...getBaseSmartFieldProps(props)}
-      descriptiveText={`Click calendar icon for ${pickerType} picker`}
+      descriptiveText={
+        props.descriptiveText || `Click calendar icon for ${pickerType} picker`
+      }
       className="amplify-textfield"
       id={id}
       loadingHeight={40}
