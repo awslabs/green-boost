@@ -25,6 +25,7 @@ export function FileViewer(props: FileViewerProps): ReactElement {
             setPercent: setPercent,
             isUploaded: oldFileData.isUploaded,
             fileName: oldFileData.fileName,
+            hasFailed: oldFileData.hasFailed,
           };
         } else {
           return oldFileData;
