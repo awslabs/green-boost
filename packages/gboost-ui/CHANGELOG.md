@@ -1,5 +1,17 @@
 # gboost-ui
 
+## 0.24.0
+
+### Minor Changes
+
+- [#127](https://github.com/awslabs/green-boost/pull/127) [`566c286`](https://github.com/awslabs/green-boost/commit/566c286224dbfb1be6c61dc1653407f3d08da39b) Thanks [@bestickley](https://github.com/bestickley)! - Allow use of custom user with Layout component
+
+### Patch Changes
+
+- [#126](https://github.com/awslabs/green-boost/pull/126) [`bb5c2c9`](https://github.com/awslabs/green-boost/commit/bb5c2c9c7ae027eda799438a1f1ff9a8b02a330f) Thanks [@CPfaltzgraff](https://github.com/CPfaltzgraff)! - Fixed a bug where a file failing to upload causes the component to hang
+
+* [#127](https://github.com/awslabs/green-boost/pull/127) [`566c286`](https://github.com/awslabs/green-boost/commit/566c286224dbfb1be6c61dc1653407f3d08da39b) Thanks [@bestickley](https://github.com/bestickley)! - Allow overriding descriptiveText of SmartDateTimeField
+
 ## 0.23.0
 
 ### Minor Changes
