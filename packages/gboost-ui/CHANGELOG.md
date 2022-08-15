@@ -1,5 +1,13 @@
 # gboost-ui
 
+## 0.25.0
+
+### Minor Changes
+
+- [#129](https://github.com/awslabs/green-boost/pull/129) [`bea4846`](https://github.com/awslabs/green-boost/commit/bea484617359c033c661abafdffced3b7b786e66) Thanks [@bestickley](https://github.com/bestickley)! - Add NoData prop to QueryTable to customize component shown when no data
+
+* [#129](https://github.com/awslabs/green-boost/pull/129) [`bea4846`](https://github.com/awslabs/green-boost/commit/bea484617359c033c661abafdffced3b7b786e66) Thanks [@bestickley](https://github.com/bestickley)! - SmartTextField sets value as number when using type number
+
 ## 0.24.0
 
 ### Minor Changes
