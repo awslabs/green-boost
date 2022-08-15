@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ChangeEvent, ReactElement } from "react";
 import { TextField, TextFieldProps } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
@@ -23,6 +23,12 @@ export function SmartTextField<T extends FieldValues>(
     field: { ref, onChange, value },
     fieldState: { error, invalid },
   } = useController({ name, control });
+  let newOnChange = onChange;
+  if (props.type === "number") {
+    newOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.valueAsNumber);
+    };
+  }
 
   return (
     <BaseSmartField
@@ -38,7 +44,7 @@ export function SmartTextField<T extends FieldValues>(
         hasError={hasError || invalid}
         name={name}
         labelHidden
-        onChange={onChange}
+        onChange={newOnChange}
         value={value}
       />
     </BaseSmartField>

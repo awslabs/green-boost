@@ -9,7 +9,6 @@ import {
   useRef,
 } from "react";
 import {
-  Alert,
   Placeholder,
   Table,
   TableBody,
@@ -31,6 +30,8 @@ import type { Density } from "./ActionBar/DensityAction.js";
 import { TableHeaderCell } from "./TableHeaderCell.js";
 import { SelectionHeader } from "./SelectionHeader.js";
 import { SelectionCell } from "./SelectionCell.js";
+import { DefaultNoData } from "./DefaultNoData.js";
+import { ErrorMessage } from "./ErrorMessage.js";
 
 const StyledPlaceholder = styled(Placeholder, { height: 55 });
 const StyledTable = styled(Table, {
@@ -54,6 +55,9 @@ export const StyledTableCell = styled(TableCell, {
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
 });
+const rowHeight = 55;
+const selectColWidth = 50;
+const defaultColWidth = "minmax(150px, 1fr)";
 
 export interface Column<T> {
   accessor: Extract<keyof T, string>;
@@ -92,9 +96,12 @@ export interface OnQueryParams {
 type OnQuerySuccessReturnValue<T> = {
   rows: T[];
   nextToken: string;
+  errorMessage?: never;
 };
 type OnQueryErrorReturnValue = {
   errorMessage: string;
+  rows?: never;
+  nextToken?: never;
 };
 export type OnQueryReturnValue<T> =
   | OnQuerySuccessReturnValue<T>
@@ -204,9 +211,13 @@ interface QueryTableProps<T> {
    */
   ActionButton?: ReactElement;
   /**
-   * Amplify UI TableProps to be passes to the table
+   * Amplify UI TableProps
    */
   tableProps?: TableProps;
+  /**
+   * Displayed when no data is returned
+   */
+  NoData?: ReactElement;
 }
 
 const densityToPadding: Record<Density, string> = {
@@ -358,8 +369,8 @@ export function QueryTable<T extends Record<string, any>>(
     refreshRef,
     ActionButton,
     tableProps,
+    NoData,
   } = props;
-  let spanTableEl: ReactElement | undefined;
   const [
     {
       columnVisibility,
@@ -414,7 +425,12 @@ export function QueryTable<T extends Record<string, any>>(
           sorts,
           refresh,
         });
-        if ("rows" in res) {
+        if (res.errorMessage) {
+          dispatch({
+            type: "changeError",
+            message: res.errorMessage,
+          });
+        } else if (res.rows) {
           dispatch({
             type: "changeRows",
             nextNextToken: res.nextToken,
@@ -423,7 +439,7 @@ export function QueryTable<T extends Record<string, any>>(
         } else {
           dispatch({
             type: "changeError",
-            message: res.errorMessage || defaultErrorMessage,
+            message: defaultErrorMessage,
           });
         }
       } catch (err) {
@@ -439,19 +455,6 @@ export function QueryTable<T extends Record<string, any>>(
   const handlePageSizeChange = useCallback((newPageSize: number) => {
     dispatch({ type: "changePageSize", pageSize: newPageSize });
   }, []);
-  if (errorMessage) {
-    spanTableEl = <Alert variation="error">{errorMessage}</Alert>;
-  } else if (loading) {
-    spanTableEl = (
-      <Box
-        css={{ display: "flex", gap: "$1", flexDirection: "column", my: "$2" }}
-      >
-        {[...Array(pageSize)].map((e, i) => (
-          <StyledPlaceholder key={i} />
-        ))}
-      </Box>
-    );
-  }
   const handleFilter = useCallback((newFilters: InternalFilter[]) => {
     dispatch({ type: "filter", filters: newFilters });
   }, []);
@@ -517,14 +520,60 @@ export function QueryTable<T extends Record<string, any>>(
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const gridTemplateColumns = useMemo(() => {
     let gridTempCols = visibleColumns.reduce(
-      (prev, cur) => `${prev} ${cur.width || "minmax(150px, 1fr)"}`,
+      (prev, cur) => `${prev} ${cur.width || defaultColWidth}`,
       ""
     );
-    if (enableSelect) gridTempCols = "50px " + gridTempCols;
+    if (enableSelect) gridTempCols = `${selectColWidth}px ` + gridTempCols;
     return gridTempCols;
   }, [enableSelect, visibleColumns]);
-  const showBody = !errorMessage && !loading;
   const padding = densityToPadding[density];
+  let body: ReactElement | undefined = undefined;
+  // need alt body b/c body is inside table grid
+  let altBody: ReactElement | undefined = undefined;
+  let paginationMt = 0;
+  if (errorMessage) {
+    altBody = <ErrorMessage height={rowHeight}>{errorMessage}</ErrorMessage>;
+    // - 1 b/c 1 row of error alert message
+    paginationMt = rowHeight * (pageSize - 1);
+  } else if (loading) {
+    altBody = (
+      <Box
+        css={{ display: "flex", gap: "$1", flexDirection: "column", my: "$2" }}
+      >
+        {[...Array(pageSize)].map((e, i) => (
+          <StyledPlaceholder key={i} />
+        ))}
+      </Box>
+    );
+  } else if (!rows.length) {
+    altBody = NoData || <DefaultNoData height={rowHeight} />;
+    paginationMt = rowHeight * (pageSize - 1);
+  } else if (rows.length) {
+    body = (
+      <StyledTableBody>
+        {rows.map((r) => (
+          <StyledTableRow key={getRowId(r)} rowSpan={columns.length}>
+            {enableSelect && (
+              <SelectionCell
+                enableSingleSelect={enableSingleSelect}
+                padding={padding}
+                onSelect={handleSelect}
+                onUnselect={handleUnselect}
+                row={r}
+                selected={selected.some((s) => getRowId(s) === getRowId(r))}
+              />
+            )}
+            {visibleColumns.map((c) => (
+              <StyledTableCell key={c.accessor} css={{ padding }}>
+                {c.renderCell ? c.renderCell(r[c.accessor], r) : r[c.accessor]}
+              </StyledTableCell>
+            ))}
+          </StyledTableRow>
+        ))}
+      </StyledTableBody>
+    );
+    paginationMt = rowHeight * (pageSize - rows.length);
+  }
   return (
     <>
       {!hideActionBar && (
@@ -556,7 +605,6 @@ export function QueryTable<T extends Record<string, any>>(
         {...tableProps}
         css={{
           gridTemplateColumns,
-          mb: !loading ? 55 * (pageSize - rows.length) : undefined,
         }}
       >
         <StyledTableHead>
@@ -586,35 +634,12 @@ export function QueryTable<T extends Record<string, any>>(
             ))}
           </StyledTableRow>
         </StyledTableHead>
-        {showBody && (
-          <StyledTableBody>
-            {rows.map((r) => (
-              <StyledTableRow key={getRowId(r)} rowSpan={columns.length}>
-                {enableSelect && (
-                  <SelectionCell
-                    enableSingleSelect={enableSingleSelect}
-                    padding={padding}
-                    onSelect={handleSelect}
-                    onUnselect={handleUnselect}
-                    row={r}
-                    selected={selected.some((s) => getRowId(s) === getRowId(r))}
-                  />
-                )}
-                {visibleColumns.map((c) => (
-                  <StyledTableCell key={c.accessor} css={{ padding }}>
-                    {c.renderCell
-                      ? c.renderCell(r[c.accessor], r)
-                      : r[c.accessor]}
-                  </StyledTableCell>
-                ))}
-              </StyledTableRow>
-            ))}
-          </StyledTableBody>
-        )}
+        {body}
       </StyledTable>
-      {spanTableEl}
+      {altBody}
       {!hidePagination && (
         <Pagination
+          css={{ mt: paginationMt }}
           disableNext={!nextNextToken}
           disablePrev={!prevTokens.length}
           onPageChange={handlePageChange}
