@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { Heading, Icon } from "@aws-amplify/ui-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { MdClose } from "react-icons/md";
-import { keyframes, styled, Box } from "../index.js";
+import { keyframes, styled, Box, CSS } from "../index.js";
 
 const overlayShow = keyframes({
   "0%": { opacity: 0 },
@@ -54,6 +54,7 @@ interface BaseDialogProps {
    */
   title?: string;
   maxWidth?: string;
+  css?: CSS;
 }
 interface UncontrolledDialogProps extends BaseDialogProps {
   trigger: ReactElement;
@@ -69,7 +70,7 @@ type DialogProps = UncontrolledDialogProps | ControlledDialogProps;
  * nested pages where possible
  */
 export function Dialog(props: DialogProps): ReactElement {
-  const { children, description, title, maxWidth } = props;
+  const { children, css, description, title, maxWidth } = props;
   let trigger: ReactElement | undefined = undefined;
   let open: boolean | undefined = undefined;
   let onOpenChange: ((open: boolean) => void) | undefined = undefined;
@@ -86,7 +87,10 @@ export function Dialog(props: DialogProps): ReactElement {
       )}
       <DialogPrimitive.Portal>
         <StyledOverlay />
-        <StyledContent aria-describedby={description} css={{ maxWidth }}>
+        <StyledContent
+          aria-describedby={description}
+          css={{ ...css, maxWidth }}
+        >
           <>
             {title && (
               <Box
