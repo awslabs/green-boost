@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.26.0
+
+### Minor Changes
+
+- [#135](https://github.com/awslabs/green-boost/pull/135) [`b7d1454`](https://github.com/awslabs/green-boost/commit/b7d14547a7dcaa4aa3a68e3b100d83fac6c749f8) Thanks [@bestickley](https://github.com/bestickley)! - Add css prop to Dialog
+
 ## 0.25.0
 
 ### Minor Changes
