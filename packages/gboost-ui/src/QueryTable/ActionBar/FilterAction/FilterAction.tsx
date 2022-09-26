@@ -52,7 +52,7 @@ export function FilterAction<T>({
   const filterColumnsObj = useMemo(
     () =>
       filterColumns.reduce((prev, cur) => {
-        prev[cur.accessor] = {
+        prev[String(cur.accessor)] = {
           filterOptions: cur.filterOptions,
           name: cur.name,
         };

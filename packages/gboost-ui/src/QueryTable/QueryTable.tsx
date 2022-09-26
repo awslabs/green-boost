@@ -60,7 +60,7 @@ const selectColWidth = 50;
 const defaultColWidth = "minmax(150px, 1fr)";
 
 export interface Column<T> {
-  accessor: Extract<keyof T, string>;
+  accessor: keyof T;
   filterOptions?: FilterOptions;
   name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -170,6 +170,8 @@ interface QueryTableProps<T> {
   initFilters?: Filter[];
   /**
    * Number of rows per page
+   * If you change the default value to a number other than the default `pageOptions`
+   * then you'll need to customize those too so your custom page size can be selected
    * @default 10
    */
   initPageSize?: number;
@@ -201,9 +203,18 @@ interface QueryTableProps<T> {
     actionRow?: T
   ) => void;
   /**
+   * Options for page sizes
+   * @default [10, 20, 50]
+   */
+  pageSizeOptions?: number[];
+  /**
    * Ref to enable manually refreshing with refreshRef.click()
    */
   refreshRef?: MutableRefObject<HTMLButtonElement | null>;
+  /**
+   * Turns selection into "controlled" component
+   */
+  selectedValue?: T[];
   /**
    * Action Button Component placed on top right of table, often used for creating a row or
    * displaying an actions menu button for user to perform actions on selected
@@ -236,7 +247,6 @@ interface TableState<T> {
   nextNextToken: string;
   page: number;
   pageSize: number;
-  pageSizeOptions: number[];
   prevTokens: string[];
   refresh: boolean; // if true, indicates query is from refresh
   rows: T[];
@@ -352,8 +362,8 @@ export function QueryTable<T extends Record<string, any>>(
     disableRefresh = false,
     download = false,
     downloadFileName = "data.csv",
-    enableSelect = false,
-    enableSingleSelect = false,
+    enableSelect,
+    enableSingleSelect,
     getRowId = (r: T) => r.id,
     heading,
     hideActionBar = false,
@@ -364,9 +374,11 @@ export function QueryTable<T extends Record<string, any>>(
     initSelected = [],
     initSorts = [],
     onQuery,
+    pageSizeOptions = [10, 20, 50],
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onSelect = (s) => {},
     refreshRef,
+    selectedValue: controlledSelected,
     ActionButton,
     tableProps,
     NoData,
@@ -382,11 +394,10 @@ export function QueryTable<T extends Record<string, any>>(
       nextNextToken,
       page,
       pageSize,
-      pageSizeOptions,
       prevTokens,
       refresh,
       rows,
-      selected,
+      selected: uncontrolledSelected,
       sorts,
     },
     dispatch,
@@ -403,13 +414,18 @@ export function QueryTable<T extends Record<string, any>>(
     nextNextToken: "",
     page: 1,
     pageSize: initPageSize,
-    pageSizeOptions: [10, 20, 50],
     prevTokens: [],
     refresh: false,
     rows: [],
     selected: initSelected,
     sorts: initSorts,
   });
+  const selected = controlledSelected || uncontrolledSelected;
+  useEffect(() => {
+    if (controlledSelected) {
+      dispatch({ type: "changeSelected", selected: controlledSelected });
+    }
+  }, [controlledSelected]);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -555,7 +571,7 @@ export function QueryTable<T extends Record<string, any>>(
           <StyledTableRow key={getRowId(r)} rowSpan={columns.length}>
             {enableSelect && (
               <SelectionCell
-                enableSingleSelect={enableSingleSelect}
+                enableSingleSelect={Boolean(enableSingleSelect)}
                 padding={padding}
                 onSelect={handleSelect}
                 onUnselect={handleUnselect}
@@ -564,7 +580,7 @@ export function QueryTable<T extends Record<string, any>>(
               />
             )}
             {visibleColumns.map((c) => (
-              <StyledTableCell key={c.accessor} css={{ padding }}>
+              <StyledTableCell key={String(c.accessor)} css={{ padding }}>
                 {c.renderCell ? c.renderCell(r[c.accessor], r) : r[c.accessor]}
               </StyledTableCell>
             ))}
@@ -611,7 +627,7 @@ export function QueryTable<T extends Record<string, any>>(
           <StyledTableRow>
             {enableSelect && (
               <SelectionHeader
-                enableSingleSelect={enableSingleSelect}
+                enableSingleSelect={Boolean(enableSingleSelect)}
                 onSelectAll={handleSelectAll}
                 onUnselectAll={handleUnselectAll}
                 padding={padding}
@@ -621,7 +637,7 @@ export function QueryTable<T extends Record<string, any>>(
             )}
             {visibleColumns.map((c, i) => (
               <TableHeaderCell
-                key={c.accessor}
+                key={String(c.accessor)}
                 activeFilter={filters.some((f) => f.column === c.accessor)}
                 column={c}
                 filterButtonRef={filterButtonRef}
