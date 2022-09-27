@@ -60,7 +60,7 @@ const selectColWidth = 50;
 const defaultColWidth = "minmax(150px, 1fr)";
 
 export interface Column<T> {
-  accessor: keyof T;
+  accessor: keyof T | string;
   filterOptions?: FilterOptions;
   name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -375,8 +375,7 @@ export function QueryTable<T extends Record<string, any>>(
     initSorts = [],
     onQuery,
     pageSizeOptions = [10, 20, 50],
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onSelect = (s) => {},
+    onSelect = (s) => undefined,
     refreshRef,
     selectedValue: controlledSelected,
     ActionButton,
@@ -527,8 +526,8 @@ export function QueryTable<T extends Record<string, any>>(
   }, [onSelect, rows]);
   const handleUnselectAll = useCallback(() => {
     dispatch({ type: "changeSelected", selected: [] });
-    onSelect("unselect", rows);
-  }, [onSelect, rows]);
+    onSelect("unselect", []);
+  }, [onSelect]);
   const visibleColumns = useMemo(
     () => columns.filter((c) => columnVisibility[c.name]),
     [columns, columnVisibility]
