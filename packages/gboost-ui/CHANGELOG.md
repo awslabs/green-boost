@@ -1,5 +1,15 @@
 # gboost-ui
 
+## 0.27.0
+
+### Minor Changes
+
+- [#137](https://github.com/awslabs/green-boost/pull/137) [`902f70f`](https://github.com/awslabs/green-boost/commit/902f70fb4f25426f3e12fb487101c9dfcc95d646) Thanks [@bestickley](https://github.com/bestickley)! - Enable controlled QueryTable selections
+
+### Patch Changes
+
+- [#137](https://github.com/awslabs/green-boost/pull/137) [`902f70f`](https://github.com/awslabs/green-boost/commit/902f70fb4f25426f3e12fb487101c9dfcc95d646) Thanks [@bestickley](https://github.com/bestickley)! - Fix unselect all in QueryTable
+
 ## 0.26.0
 
 ### Minor Changes
