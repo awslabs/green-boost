@@ -52,22 +52,24 @@ export function SelectionHeader<T>(
       onClick={() => handleSelectAll(rows)}
     />
   );
-  if (rows.length > 0 && selected.length === rows.length) {
-    checkbox = (
-      <Icon
-        as={CheckBox}
-        ariaLabel="checked box"
-        onClick={() => handleUnselectAll()}
-      />
-    );
-  } else if (selected.length) {
-    checkbox = (
-      <Icon
-        as={CheckBoxIndeterminate}
-        ariaLabel="indeterminate box"
-        onClick={() => handleUnselectAll()}
-      />
-    );
+  if (rows.length > 0) {
+    if (selected.length === rows.length) {
+      checkbox = (
+        <Icon
+          as={CheckBox}
+          ariaLabel="checked box"
+          onClick={() => handleUnselectAll()}
+        />
+      );
+    } else if (selected.length) {
+      checkbox = (
+        <Icon
+          as={CheckBoxIndeterminate}
+          ariaLabel="indeterminate box"
+          onClick={() => handleUnselectAll()}
+        />
+      );
+    }
   }
   return (
     <StyledTableCell

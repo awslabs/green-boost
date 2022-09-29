@@ -12,7 +12,7 @@ import { useId } from "@mantine/hooks";
 export type SmartSelectFieldProps<T> = ExternalBaseSmartFieldProps &
   ControlProps<T> &
   Omit<SelectFieldProps, "name"> & {
-    children: ReactElement | ReactElement[];
+    children: ReactElement | ReactElement[] | undefined;
   };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

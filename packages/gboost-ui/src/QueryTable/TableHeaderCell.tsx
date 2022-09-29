@@ -44,13 +44,13 @@ export function TableHeaderCell<T>(
   const handleClick = useCallback(() => {
     if (sort) {
       if (sort.direction === "asc") {
-        handleUpdateSort(column.accessor, "desc");
+        handleUpdateSort(String(column.accessor), "desc");
       } else {
-        handleRemoveSort(column.accessor);
+        handleRemoveSort(String(column.accessor));
         sortButton.current?.blur();
       }
     } else {
-      handleCreateSort({ column: column.accessor, direction: "asc" });
+      handleCreateSort({ column: String(column.accessor), direction: "asc" });
     }
   }, [
     column.accessor,
