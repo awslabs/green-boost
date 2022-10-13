@@ -1,9 +1,10 @@
 import { TableCell, TableRow } from "@aws-amplify/ui-react";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
-import { Box, FileData } from "../index.js";
+import { Box } from "../index.js";
 import { FileName } from "./FileName.js";
 import { ProgressBar } from "./ProgressBar.js";
 import { RemoveFile } from "./RemoveFile.js";
+import { FileData } from "./index.js";
 
 interface FileViewerProps {
   fileData: FileData;

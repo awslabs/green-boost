@@ -15,16 +15,15 @@ import {
   SmartMultiSelectField,
   SmartTextField,
   StyledButton,
-  useBps,
   useNotifications,
 } from "../index.js";
 import {
   Container,
   BackIcon,
   Title,
-  getFormGridCols,
-  getTitleSize,
   baseUserSchema,
+  useFormGridCols,
+  useTitleSize,
 } from "./common.js";
 
 const schema = baseUserSchema.extend({
@@ -43,9 +42,8 @@ interface CreateUserProps {
 
 export function CreateUser(props: CreateUserProps): ReactElement {
   const { groupNameOptions } = props;
-  const bps = useBps();
-  const formGridCols = getFormGridCols(bps);
-  const titleSize = getTitleSize(bps);
+  const formGridCols = useFormGridCols();
+  const titleSize = useTitleSize();
   const {
     control,
     formState: { errors },

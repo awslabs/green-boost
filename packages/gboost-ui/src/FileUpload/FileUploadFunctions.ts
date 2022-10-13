@@ -7,7 +7,8 @@ import {
 } from "./gql.js";
 import { GraphQLError } from "graphql";
 import { CompletedPart } from "@aws-sdk/client-s3";
-import { ContextNotification, FileData, gQuery } from "../index.js";
+import { ContextNotification, gQuery } from "../index.js";
+import { FileData } from "./index.js";
 
 export interface HandleUploadProps {
   file: File;

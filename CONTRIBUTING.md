@@ -6,6 +6,8 @@ documentation, we greatly value feedback and contributions from our community.
 Please read through this document before submitting any issues or pull requests to ensure we have all the necessary
 information to effectively respond to your bug report or contribution.
 
+## Package Guidelines/Rules:
+- When building a React component or CDK construct that depends on a 3rd party library outside of the core 3rd party dependencies, make those dependencies optional peer dependencies and do not export the component or construct from the index/root of the package. Export the component or construct from a subpath of the module so that only consumers of the package who want to use that functionality have to install the 3rd party dependency. Core dependencies include libraries already included in the `"dependencies"` key of the package.json. 
 
 ## Reporting Bugs/Feature Requests
 

@@ -17,6 +17,7 @@ interface BreakpointProviderProps {
 
 /**
  * Provider to enable use of useBps hook
+ * @deprecated
  */
 export function BreakpointsProvider(
   props: BreakpointProviderProps
@@ -33,6 +34,7 @@ export function BreakpointsProvider(
 
 /**
  * Hook to access breakpoints
+ * @deprecated
  */
 export function useBps() {
   const context = useContext(BreakpointsContext);

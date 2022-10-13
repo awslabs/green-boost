@@ -25,7 +25,8 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "^16.11.38",

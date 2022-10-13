@@ -24,7 +24,8 @@
     "build": "rimraf lib && tsc",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "vitest run",
-    "test:gboost-create": "ts-node-esm tests/test-scenarios.ts"
+    "test:gboost-create": "ts-node-esm tests/test-scenarios.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.121.0",

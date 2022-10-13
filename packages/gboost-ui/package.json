@@ -5,14 +5,32 @@
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./OldQueryTable": "./src/OldQueryTable/QueryTable.ts",
+    "./UserManagement": "./src/UserManagement/UserManagement.ts",
+    "./FileUpload": "./src/FileUpload/FileUpload.ts"
   },
   "types": "./src/index.ts",
   "publishConfig": {
     "main": "./lib/index.js",
     "module": "./lib/index.js",
     "exports": {
-      ".": "./lib/index.js"
+      ".": {
+        "types": "./lib/index.d.ts",
+        "import": "./lib/index.js"
+      },
+      "./OldQueryTable": {
+        "types": "./lib/OldQueryTable/QueryTable.d.ts",
+        "import": "./lib/OldQueryTable/QueryTable.js"
+      },
+      "./UserManagement": {
+        "types": "./lib/UserManagement/UserManagement.d.ts",
+        "import": "./lib/UserManagement/UserManagement.js"
+      },
+      "./FileUpload": {
+        "types": "./lib/FileUpload/FileUpload.d.ts",
+        "import": "./lib/FileUpload/FileUpload.js"
+      }
     },
     "types": "./lib/index.d.ts"
   },
@@ -25,11 +43,11 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^3.0.1",
-    "@aws-sdk/client-s3": "^3.131.0",
+    "@aws-amplify/ui-react": "^3.5.7",
     "@hookform/resolvers": "^2.9.7",
     "@mantine/hooks": "^3.6.14",
     "@radix-ui/colors": "^0.1.8",
@@ -44,23 +62,24 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.34.0",
     "react-icons": "^4.4.0",
-    "react-router-dom": "^6.3.0",
     "react-transition-group": "^4.4.2",
     "zod": "^3.17.3"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.137.0",
     "@types/react": "^17.0.47",
     "@types/react-dom": "^17.0.17",
     "@types/react-transition-group": "^4.4.5",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
-    "aws-amplify": "^4.3.26",
+    "aws-amplify": "^4.3.37",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-define-config": "^1.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.7.1",
+    "react-router-dom": "^6.3.0",
     "rimraf": "^3.0.2",
     "typescript": "^4.7.4",
     "vite": "^2.9.13",

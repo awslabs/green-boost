@@ -1,12 +1,49 @@
-import { Heading, Icon } from "@aws-amplify/ui-react";
+import { Heading, Icon, useTheme } from "@aws-amplify/ui-react";
 import * as z from "zod";
 import { Badge } from "@aws-amplify/ui-react";
 import { Breakpoints, styled } from "../index.js";
 import { CognitoUserStatus } from "gboost-common";
+import { useMediaQuery } from "@mantine/hooks";
 
 export const Container = styled("div", { display: "grid", gap: "$2" });
 export const BackIcon = styled(Icon, { display: "inline", mr: "$1" });
 export const Title = styled(Heading, { textAlign: "center" });
+
+export function useFormGridCols() {
+  const theme = useTheme();
+  const mqMd = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.medium}px)`
+  );
+  const mqLg = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.large}px)`
+  );
+  let formGridCols = 1;
+  if (mqMd) {
+    formGridCols = 2;
+  }
+  if (mqLg) {
+    formGridCols = 3;
+  }
+  return formGridCols;
+}
+
+export function useTitleSize() {
+  const theme = useTheme();
+  const mqMd = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.medium}px)`
+  );
+  const mqLg = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.large}px)`
+  );
+  let titleSize = "$6";
+  if (mqMd) {
+    titleSize = "$7";
+  }
+  if (mqLg) {
+    titleSize = "$8";
+  }
+  return titleSize;
+}
 
 export function getFormGridCols(bps: Breakpoints): number {
   let formGridCols = 1;
