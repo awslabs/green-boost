@@ -1,11 +1,8 @@
-import { Heading, Image, Icon } from "@aws-amplify/ui-react";
+import { Icon, useTheme } from "@aws-amplify/ui-react";
 import { MdMenu, MdMenuOpen } from "react-icons/md";
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Box, Drawer, styled, useBps } from "../../index.js";
-import { AccountMenu as DefaultAccountMenu } from "./AccountMenu.js";
-import { AccountSidebar as DefaultAccountSidebar } from "./AccountSidebar.js";
-import type { CognitoUser } from "../Layout.js";
+import { Box, Drawer, styled } from "../../index.js";
+import { useMediaQuery } from "@mantine/hooks";
 
 const StyledHeader = styled("header", {
   bc: "$primary9",
@@ -18,109 +15,27 @@ const StyledHeader = styled("header", {
   py: "$2",
   minWidth: "320px", // small mobile
 });
-const HeadingContainer = styled("div", {
-  display: "flex",
-  gap: "$2",
-  cursor: "pointer",
-});
-const StyledHeading = styled(Heading);
-const StyledImage = styled(Image, { maxWidth: `calc($header - $4)` });
 const StyledIcon = styled(Icon, {
   fontSize: "$7",
   cursor: "pointer",
 });
 
-interface CognitoUserHeaderProps {
-  user: CognitoUser;
+interface HeaderProps {
   AccountMenu?: ReactElement;
   AccountSidebar?: ReactElement;
-}
-
-interface CustomUserHeaderProps {
-  user: any;
-  AccountMenu: ReactElement;
-  AccountSidebar: ReactElement;
-}
-
-interface BaseHeaderProps {
-  logoSrc: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  signOut: () => unknown;
-  title?: string;
   HeaderTitle?: ReactElement;
 }
 
-type HeaderProps = BaseHeaderProps &
-  (CognitoUserHeaderProps | CustomUserHeaderProps);
-
 export function Header(props: HeaderProps): ReactElement {
-  const {
-    logoSrc,
-    setOpen,
-    open,
-    signOut,
-    title,
-    user,
-    AccountMenu,
-    AccountSidebar,
-    HeaderTitle,
-  } = props;
+  const { setOpen, open, AccountMenu, AccountSidebar, HeaderTitle } = props;
   const [leftOpen, setLeftOpen] = useState(false);
-  const bps = useBps();
-  const navigate = useNavigate();
-  const username = user.username || "unknown";
-  const email = user?.attributes?.email || "unknown";
-  const family_name = user?.attributes?.family_name || "Unknown";
-  const given_name = user?.attributes?.given_name || "Unknown";
-  const fullName = `${given_name} ${family_name}`;
-  let headerTitle: ReactElement;
-  if (HeaderTitle) {
-    headerTitle = HeaderTitle;
-  } else {
-    headerTitle = (
-      <HeadingContainer onClick={() => navigate("/")}>
-        <StyledHeading level={4} css={{ color: "white", cursor: "pointer" }}>
-          {title}
-        </StyledHeading>
-        {bps.bp1 && (
-          <StyledImage
-            alt="logo"
-            src={logoSrc}
-            css={{ maxHeight: "$header" }}
-          />
-        )}
-      </HeadingContainer>
-    );
-  }
-  let accountMenu: ReactElement;
-  const handleClick = bps.bp3 ? undefined : () => setLeftOpen(true);
-  if (AccountMenu) {
-    accountMenu = <div onClick={handleClick}>{AccountMenu}</div>;
-  } else {
-    accountMenu = (
-      <div onClick={handleClick}>
-        <DefaultAccountMenu
-          email={email}
-          fullName={fullName}
-          signOut={signOut}
-          username={username}
-        />
-      </div>
-    );
-  }
-  let accountSidebar: ReactElement;
-  if (AccountSidebar) {
-    accountSidebar = AccountSidebar;
-  } else {
-    accountSidebar = (
-      <DefaultAccountSidebar
-        email={email}
-        fullName={fullName}
-        signOut={signOut}
-      />
-    );
-  }
+  const theme = useTheme();
+  const mqLg = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.large}px)`
+  );
+  const handleClick = mqLg ? undefined : () => setLeftOpen(true);
   return (
     <StyledHeader>
       <Box css={{ display: "flex" }}>
@@ -137,16 +52,18 @@ export function Header(props: HeaderProps): ReactElement {
           ) : (
             <StyledIcon as={MdMenu} onClick={() => setOpen(true)} />
           )}
-          {headerTitle}
+          {HeaderTitle}
         </Box>
-        <Box css={{ display: "flex" }}>{accountMenu}</Box>
+        <Box css={{ display: "flex" }}>
+          <div onClick={handleClick}>{AccountMenu}</div>
+        </Box>
       </Box>
       <Drawer
         open={leftOpen}
         position="right"
         onClose={() => setLeftOpen(false)}
       >
-        {accountSidebar}
+        {AccountSidebar}
       </Drawer>
     </StyledHeader>
   );

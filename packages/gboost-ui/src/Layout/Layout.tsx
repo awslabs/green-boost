@@ -1,15 +1,9 @@
 import { ReactElement, useEffect, useState } from "react";
-import { Auth } from "aws-amplify";
-import type { useAuthenticator } from "@aws-amplify/ui-react";
-import { styled, useBps } from "../index.js";
-import type { Page } from "../index.js";
+import { useTheme } from "@aws-amplify/ui-react";
+import { styled } from "../index.js";
 import { Header } from "./Header/Header.js";
-import { Navigation } from "./Navigation/Navigation.js";
-import { NavList } from "./Navigation/NavList.js";
-import type { NavLink } from "./Navigation/NavLink.js";
 import { RightAside as RightAsideContainer } from "./RightAside.js";
-import { Content } from "./Content.js";
-import { Footer } from "./Footer.js";
+import { useMediaQuery } from "@mantine/hooks";
 
 const LayoutContainer = styled("div", {
   display: "grid",
@@ -31,192 +25,106 @@ const LayoutContainer = styled("div", {
     },
   },
 });
+const StyledMain = styled("main", {
+  gridArea: "content",
+  bc: "$gray1",
+  height: "100%",
+});
+const StyledNav = styled("nav", {
+  display: "none",
+  backgroundColor: "$gray1",
+  borderRight: "1px solid $gray6",
+  gridArea: "nav",
+  transition: "$sidebar",
+  "@bp3": {
+    display: "block",
+  },
+  variants: {
+    open: {
+      true: {
+        width: 250,
+      },
+      false: {
+        width: 70,
+      },
+    },
+  },
+});
+const StyledFooter = styled("footer", {
+  gridArea: "footer",
+});
 
-export type CognitoUser = ReturnType<typeof useAuthenticator>["user"];
-
-interface BaseLayoutProps {
+interface LayoutProps {
   /**
-   * Custom header title shown to right of hamburger menu. When used, `title`
-   * and `logoSrc` prop aren't used in header.
+   * Account menu shown on right side of header. Should consider desktop
+   * and mobile view. When mobile, provide `AccountSidebar` for component
+   * that will be put in `Drawer` and shown below breakpoint threshold
+   */
+  AccountMenu?: ReactElement;
+  /**
+   * User account information that will be put in right side drawer when mobile
+   */
+  AccountSidebar?: ReactElement;
+  /**
+   * Header title shown to right of hamburger menu
    */
   HeaderTitle?: ReactElement;
+  /**
+   * Class applied to parent grid element
+   */
   className?: string;
   /**
-   * Default path visited by React Router when visiting index /
-   */
-  defaultPath?: string;
-  /**
-   * Source URL of logo shown to the right of the header title and when loading
-   * lazily loaded routes
-   */
-  logoSrc: string;
-  /**
-   * Aside that pops out from right.
+   * Aside that pops out from right. Useful for tutorial/help info
    */
   RightAside?: ReactElement;
   /**
-   * Logs off user
-   * @default Auth.signOut
+   * Component shown at bottom of Layout
    */
-  signOut?: () => unknown;
-  /**
-   * string for header title
-   */
-  title?: string;
-}
-
-interface CognitoUserLayoutProps {
-  /**
-   * Explicitly defined user for Account Menu instead of using `user` returned
-   * from `useAuthenticator`
-   */
-  user: CognitoUser;
-  /**
-   * Custom account menu shown on right side of header. Should consider desktop
-   * and mobile view. See default account menu for guidance.
-   */
-  AccountMenu?: ReactElement;
-  /**
-   * Custom account sidebar that shows in drawer when mobile screen and user
-   * clicks on account menu button.
-   */
-  AccountSidebar?: ReactElement;
-}
-
-interface CustomUserLayoutProps {
-  user: any;
-  /**
-   * Custom account menu shown on right side of header. Should consider desktop
-   * and mobile view. See default account menu for guidance.
-   */
-  AccountMenu?: ReactElement;
-  /**
-   * Custom account sidebar that shows in drawer when mobile screen and user
-   * clicks on account menu button.
-   */
-  AccountSidebar?: ReactElement;
-}
-
-interface PagesLayoutProps {
-  /**
-   * Pages to be displayed in bottom-left navigation drawer
-   */
-  bottomPages?: (NavLink | Page)[];
-  /**
-   * Pages to be displayed in left navigation drawer and routes created for
-   * content
-   */
-  pages: Page[];
-}
-interface ChildrenLayoutProps {
+  Footer?: ReactElement;
   children: ReactElement;
   /**
    * Custom navigation list
    */
-  NavigationList: typeof NavList;
-  pages?: never;
-  bottomPages?: never;
+  NavigationList?: ({ open }: { open: boolean }) => ReactElement;
 }
-
-interface FooterComponentLayoutProps {
-  /**
-   * Custom footer component. When used, `footer` prop is ignored.
-   */
-  Footer: ReactElement;
-  footer?: never;
-}
-interface FooterTextLayoutProps {
-  /**
-   * string for footer
-   */
-  footer: string;
-  Footer?: never;
-}
-
-export type LayoutProps = BaseLayoutProps &
-  (CognitoUserLayoutProps | CustomUserLayoutProps) &
-  (PagesLayoutProps | ChildrenLayoutProps) &
-  (FooterComponentLayoutProps | FooterTextLayoutProps);
 
 /**
  * App Layout including header, aside, main and footer
  */
 export function Layout(props: LayoutProps): ReactElement {
   const {
+    className,
     AccountMenu,
     AccountSidebar,
     HeaderTitle,
-    className,
-    defaultPath,
-    logoSrc,
+    NavigationList,
     RightAside,
-    signOut = Auth.signOut,
-    title,
-    user,
+    Footer,
   } = props;
-  const bps = useBps();
+  const theme = useTheme();
+  const mqLg = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.large}px)`
+  );
   // initial state makes sidebar open for laptop but closed for tablet and mobile
-  const [open, setOpen] = useState(bps.bp3);
+  const [open, setOpen] = useState(mqLg);
   useEffect(() => {
     // if changing from laptop to tablet, close sidebar
     // if changing from tablet to laptop, open sidebar
-    setOpen(bps.bp3);
-  }, [bps.bp3]);
-  let navigation: ReactElement | undefined;
-  let content: ReactElement | undefined;
-  if (props.pages) {
-    navigation = (
-      <Navigation
-        bottomPages={props.bottomPages}
-        open={open}
-        pages={props.pages}
-        setOpen={setOpen}
-      />
-    );
-    content = (
-      <Content
-        defaultPath={defaultPath}
-        logoSrc={logoSrc}
-        pages={props.pages}
-      />
-    );
-  } else {
-    navigation = (
-      <Navigation
-        NavigationList={props.NavigationList}
-        open={open}
-        setOpen={setOpen}
-      />
-    );
-    content = (
-      <Content defaultPath={defaultPath} logoSrc={logoSrc}>
-        {props.children}
-      </Content>
-    );
-  }
-  let footer: ReactElement;
-  if (props.footer) {
-    footer = <Footer footer={props.footer} />;
-  } else {
-    footer = <Footer Footer={props.Footer} />;
-  }
+    setOpen(mqLg);
+  }, [mqLg]);
   return (
     <LayoutContainer className={className} rightAside={Boolean(RightAside)}>
       <Header
-        logoSrc={logoSrc}
         open={open}
         setOpen={setOpen}
-        signOut={signOut}
-        title={title}
-        user={user}
         AccountMenu={AccountMenu}
         AccountSidebar={AccountSidebar}
         HeaderTitle={HeaderTitle}
       />
-      {navigation}
-      {content}
+      <StyledNav>{NavigationList && <NavigationList open={open} />}</StyledNav>
+      <StyledMain>{props.children}</StyledMain>
       {RightAside && <RightAsideContainer>{RightAside}</RightAsideContainer>}
-      {footer}
+      <StyledFooter>{Footer}</StyledFooter>
     </LayoutContainer>
   );
 }
