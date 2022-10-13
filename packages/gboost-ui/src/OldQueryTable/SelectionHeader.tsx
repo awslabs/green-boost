@@ -6,7 +6,7 @@ import {
   MdOutlineIndeterminateCheckBox,
 } from "react-icons/md";
 import { styled } from "../stitches.config.js";
-import { StyledTableCell } from "./StyledTableCell.js";
+import { StyledTableCell } from "./QueryTable.js";
 
 export const iconSize = 25;
 export const CheckBox = styled(MdOutlineCheckBox, {

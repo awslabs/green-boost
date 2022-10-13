@@ -2,8 +2,7 @@ import { ReactElement, useCallback, useRef } from "react";
 import { Button, TableCell } from "@aws-amplify/ui-react";
 import * as Stitches from "@stitches/react";
 import { MdArrowDownward, MdArrowUpward, MdFilterList } from "react-icons/md";
-import type { Column } from "./types/column.js";
-import type { Sort } from "./types/sort.js";
+import { Column, Sort } from "./QueryTable.js";
 import { Box, config, styled } from "../index.js";
 import { RefObject } from "react";
 
@@ -45,15 +44,21 @@ export function TableHeaderCell<T>(
   const handleClick = useCallback(() => {
     if (sort) {
       if (sort.direction === "asc") {
-        handleUpdateSort(String(column.id), "desc");
+        handleUpdateSort(String(column.accessor), "desc");
       } else {
-        handleRemoveSort(String(column.id));
+        handleRemoveSort(String(column.accessor));
         sortButton.current?.blur();
       }
     } else {
-      handleCreateSort({ columnId: String(column.id), direction: "asc" });
+      handleCreateSort({ column: String(column.accessor), direction: "asc" });
     }
-  }, [column.id, handleUpdateSort, handleRemoveSort, handleCreateSort, sort]);
+  }, [
+    column.accessor,
+    handleUpdateSort,
+    handleRemoveSort,
+    handleCreateSort,
+    sort,
+  ]);
   let buttonCss: Stitches.CSS<typeof config> = {};
   let iconCss: Stitches.CSS<typeof config> = {};
   if (sort) {
@@ -92,7 +97,7 @@ export function TableHeaderCell<T>(
       }}
     >
       <Box css={{ display: "flex", gap: "$1", height: "100%" }}>
-        <Box css={{ alignSelf: "end" }}>{column.headerName}</Box>
+        <Box css={{ alignSelf: "end" }}>{column.name}</Box>
         {activeFilter && (
           <StyledHeaderButton
             variation="link"

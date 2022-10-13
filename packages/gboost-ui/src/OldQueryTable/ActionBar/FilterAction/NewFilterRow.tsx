@@ -10,18 +10,24 @@ import {
 import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
 import { MdCheck } from "react-icons/md";
 import { FilterValue as FilterValueComponent } from "./FilterValue.js";
-import { ColumnOption, Filter, FilterColumnsObj } from "../../types/filter.js";
+import {
+  ColumnOption,
+  FilterColumnsObj,
+  InternalFilter,
+} from "./FilterAction.js";
+import { randomId } from "@mantine/hooks";
 
-const initFilter: Filter = {
-  columnId: "",
+const initFilter: InternalFilter = {
+  column: "",
   comparator: "",
+  id: "",
   value: "",
 };
 
 interface NewFilterProps {
   columnOptions: ColumnOption[];
   filterColumnsObj: FilterColumnsObj;
-  onCreateFilter: (filter: Filter) => void;
+  onCreateFilter: (filter: InternalFilter) => void;
 }
 
 export function NewFilterRow({
@@ -29,22 +35,22 @@ export function NewFilterRow({
   filterColumnsObj,
   onCreateFilter,
 }: NewFilterProps): ReactElement {
-  const [filter, setFilter] = useState<Filter>(initFilter);
+  const [filter, setFilter] = useState<InternalFilter>(initFilter);
   const columnRef = useRef<HTMLSelectElement>(null);
   useLayoutEffect(() => {
     columnRef.current?.focus();
   }, []);
-  const filterOptions = filterColumnsObj[filter.columnId]?.filterOptions;
+  const filterOptions = filterColumnsObj[filter.column]?.filterOptions;
   const handleCreateFilter = useCallback(() => {
-    onCreateFilter(filter);
+    onCreateFilter({ ...filter, id: randomId() });
     setFilter(initFilter);
   }, [filter, onCreateFilter]);
   const handleChangeColumn: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => {
       setFilter((f) => {
-        const newFilter: Filter = {
+        const newFilter: InternalFilter = {
           ...filter,
-          columnId: e.target.value,
+          column: e.target.value,
         };
         const newComparators =
           filterColumnsObj[e.target.value]?.filterOptions?.comparators || [];
@@ -65,7 +71,7 @@ export function NewFilterRow({
         labelHidden
         onChange={handleChangeColumn}
         placeholder="Column"
-        value={filter.columnId}
+        value={filter.column}
       >
         {columnOptions.map((n) => (
           <option key={n.accessor} value={n.accessor}>
@@ -74,7 +80,7 @@ export function NewFilterRow({
         ))}
       </SelectField>
       <SelectField
-        disabled={!filter.columnId}
+        disabled={!filter.column}
         label="Comparator"
         labelHidden
         onChange={(e: ChangeEvent<HTMLSelectElement>) =>

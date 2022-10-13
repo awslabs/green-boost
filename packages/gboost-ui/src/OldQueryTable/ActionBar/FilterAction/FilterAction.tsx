@@ -2,37 +2,59 @@ import { RefObject, ReactElement, useCallback, useMemo } from "react";
 import { Button, Icon } from "@aws-amplify/ui-react";
 import { MdFilterList } from "react-icons/md";
 import { Box, Dialog } from "../../../index.js";
-import { Column } from "../../types/column.js";
+import { Column } from "../../QueryTable.js";
 import { FilterRow } from "./FilterRow.js";
 import { NewFilterRow } from "./NewFilterRow.js";
-import { ColumnOption, Filter, FilterOptions } from "../../types/filter.js";
+
+export interface Filter {
+  column: string;
+  comparator: string;
+  value: string;
+}
+export interface InternalFilter extends Filter {
+  id: string;
+}
+export interface ColumnOption {
+  accessor: string;
+  name: string;
+}
+export type FilterValue =
+  | { type: "text" }
+  | { type: "select"; options: { value: string; name: string }[] };
+export type FilterColumnsObj = Record<
+  string,
+  { name: string; filterOptions?: FilterOptions }
+>;
+type FilterComparator = {
+  value: string;
+  name: string;
+};
+export interface FilterOptions {
+  comparators: FilterComparator[];
+  value: FilterValue;
+}
 
 interface FilterActionProps<T> {
   disableMultiFilter: boolean;
   filterColumns: Column<T>[];
-  filters: Filter[];
+  filters: InternalFilter[];
   filterButtonRef: RefObject<HTMLButtonElement>;
-  onChangeFilters?: (filters: Filter[]) => void;
+  onFilter: (filters: InternalFilter[]) => void;
 }
 
-function serializeFilter(f: Filter): string {
-  return f.columnId + f.comparator + f.value;
-}
-
-export function FilterAction<T>(props: FilterActionProps<T>): ReactElement {
-  const {
-    disableMultiFilter,
-    filterColumns,
-    filters,
-    filterButtonRef,
-    onChangeFilters,
-  } = props;
+export function FilterAction<T>({
+  disableMultiFilter,
+  filterColumns,
+  filters,
+  filterButtonRef,
+  onFilter,
+}: FilterActionProps<T>): ReactElement {
   const filterColumnsObj = useMemo(
     () =>
       filterColumns.reduce((prev, cur) => {
-        prev[String(cur.id)] = {
+        prev[String(cur.accessor)] = {
           filterOptions: cur.filterOptions,
-          name: cur.headerName,
+          name: cur.name,
         };
         return prev;
       }, {} as Record<string, { filterOptions?: FilterOptions; name: string }>),
@@ -47,39 +69,33 @@ export function FilterAction<T>(props: FilterActionProps<T>): ReactElement {
     [filterColumnsObj]
   );
   const handleCreateFilter = useCallback(
-    (filter: Filter) => {
-      if (onChangeFilters) {
-        onChangeFilters(disableMultiFilter ? [filter] : [...filters, filter]);
-      }
+    (filter: InternalFilter) => {
+      const newFilters = disableMultiFilter ? [] : [...filters];
+      newFilters.push(filter);
+      onFilter(newFilters);
     },
-    [disableMultiFilter, filters, onChangeFilters]
+    [disableMultiFilter, filters, onFilter]
   );
   const handleUpdateFilter = useCallback(
-    (oldFilter: Filter, newFilter: Filter) => {
-      if (onChangeFilters) {
-        const newFilters: Filter[] = [];
-        for (const f of filters) {
-          if (serializeFilter(f) === serializeFilter(oldFilter)) {
-            newFilters.push(newFilter);
-          } else {
-            newFilters.push(f);
-          }
+    (id: string, filter: InternalFilter) => {
+      const newFilters: InternalFilter[] = [];
+      for (const f of filters) {
+        if (f.id === id) {
+          newFilters.push(filter);
+        } else {
+          newFilters.push(f);
         }
-        onChangeFilters(newFilters);
       }
+      onFilter(newFilters);
     },
-    [filters, onChangeFilters]
+    [filters, onFilter]
   );
   const handleRemoveFilter = useCallback(
-    (filter: Filter) => {
-      if (onChangeFilters) {
-        const newFilters = filters.filter(
-          (f) => serializeFilter(f) === serializeFilter(filter)
-        );
-        onChangeFilters(newFilters);
-      }
+    (id: string) => {
+      const newFilters = filters.filter((f) => f.id !== id);
+      onFilter(newFilters);
     },
-    [filters, onChangeFilters]
+    [filters, onFilter]
   );
   const showNewFilter =
     (disableMultiFilter && filters.length === 0) || !disableMultiFilter;
@@ -102,10 +118,11 @@ export function FilterAction<T>(props: FilterActionProps<T>): ReactElement {
       >
         {[...filters].map((f) => (
           <FilterRow
-            key={serializeFilter(f)}
+            key={f.id}
             columnOptions={columnOptions}
             filterColumnsObj={filterColumnsObj}
             filter={f}
+            id={f.id}
             onUpdateFilter={handleUpdateFilter}
             onRemoveFilter={handleRemoveFilter}
           />

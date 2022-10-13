@@ -8,24 +8,30 @@ import {
 import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
 import { MdCheck, MdDelete } from "react-icons/md";
 import { FilterValue as FilterValueComponent } from "./FilterValue.js";
-import { ColumnOption, Filter, FilterColumnsObj } from "../../types/filter.js";
+import {
+  ColumnOption,
+  InternalFilter,
+  FilterColumnsObj,
+} from "./FilterAction.js";
 
 interface FilterProps {
   columnOptions: ColumnOption[];
   filterColumnsObj: FilterColumnsObj;
-  filter: Filter;
-  onRemoveFilter: (filter: Filter) => void;
-  onUpdateFilter: (oldFilter: Filter, newFilter: Filter) => void;
+  id: string;
+  filter: InternalFilter;
+  onRemoveFilter: (key: string) => void;
+  onUpdateFilter: (key: string, filter: InternalFilter) => void;
 }
 
 export function FilterRow({
   columnOptions,
   filterColumnsObj,
+  id,
   filter,
   onRemoveFilter: handleRemoveFilter,
   onUpdateFilter: handleUpdateFilter,
 }: FilterProps): ReactElement {
-  const filterOptions = filterColumnsObj[filter.columnId]?.filterOptions;
+  const filterOptions = filterColumnsObj[filter.column]?.filterOptions;
   // dirty is true when user changes any part of filter
   const [dirty, setDirty] = useState(false);
   // value is used to temporarily hold user's dirty input value so that we're not
@@ -34,8 +40,9 @@ export function FilterRow({
   const handleChangeColumn: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => {
       setDirty(true);
-      const newFilter: Filter = {
-        columnId: e.target.value,
+      const newFilter: InternalFilter = {
+        ...filter,
+        column: e.target.value,
         comparator: "",
         value: "",
       };
@@ -45,45 +52,44 @@ export function FilterRow({
       if (!filter.comparator && newComparators.length === 1) {
         newFilter.comparator = newComparators[0].value;
       }
-      handleUpdateFilter(filter, newFilter);
+      handleUpdateFilter(id, newFilter);
     },
-    [filter, filterColumnsObj, handleUpdateFilter]
+    [filter, filterColumnsObj, handleUpdateFilter, id]
   );
   const handleChangeComparator: ChangeEventHandler<HTMLSelectElement> =
     useCallback(
       (e) => {
         setDirty(true);
-        const newFilter: Filter = {
+        handleUpdateFilter(id, {
           ...filter,
           comparator: e.target.value,
           value: "",
-        };
-        handleUpdateFilter(filter, newFilter);
+        });
       },
-      [filter, handleUpdateFilter]
+      [filter, handleUpdateFilter, id]
     );
   const handleChangeValue = useCallback(() => {
-    handleUpdateFilter(filter, { ...filter, value });
+    handleUpdateFilter(id, { ...filter, value });
     setDirty(false);
-  }, [filter, handleUpdateFilter, value]);
+  }, [filter, handleUpdateFilter, id, value]);
   const handleChangeTempValue = useCallback((value) => {
     setDirty(true);
     setValue(value);
   }, []);
   const handleEnterValue = useCallback(() => {
-    handleUpdateFilter(filter, { ...filter, value });
+    handleUpdateFilter(id, { ...filter, value });
     setDirty(false);
-  }, [filter, handleUpdateFilter, value]);
+  }, [filter, handleUpdateFilter, id, value]);
   useEffect(() => {
     // if only 1 comparator option, pre-select it
     if (!filter.comparator && filterOptions?.comparators.length === 1) {
-      handleUpdateFilter(filter, {
+      handleUpdateFilter(id, {
         ...filter,
         comparator: filterOptions?.comparators[0].value,
         value: "",
       });
     }
-  }, [filter, filterOptions?.comparators, handleUpdateFilter]);
+  }, [filter, filterOptions?.comparators, handleUpdateFilter, id]);
   return (
     <>
       <SelectField
@@ -91,7 +97,7 @@ export function FilterRow({
         labelHidden
         onChange={handleChangeColumn}
         placeholder="Column"
-        value={filter.columnId}
+        value={filter.column}
       >
         {columnOptions.map((n) => (
           <option key={n.accessor} value={n.accessor}>
@@ -100,7 +106,7 @@ export function FilterRow({
         ))}
       </SelectField>
       <SelectField
-        disabled={!filter.columnId}
+        disabled={!filter.column}
         label="Comparator"
         labelHidden
         onChange={handleChangeComparator}
@@ -125,7 +131,7 @@ export function FilterRow({
           <Icon ariaLabel="update" as={MdCheck} />
         </Button>
       ) : (
-        <Button onClick={() => handleRemoveFilter(filter)}>
+        <Button onClick={() => handleRemoveFilter(id)}>
           <Icon ariaLabel="delete" as={MdDelete} />
         </Button>
       )}

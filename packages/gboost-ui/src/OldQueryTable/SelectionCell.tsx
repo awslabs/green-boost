@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { Icon } from "@aws-amplify/ui-react";
 import { MdRadioButtonChecked, MdRadioButtonUnchecked } from "react-icons/md";
 import { styled } from "../stitches.config.js";
-import { StyledTableCell } from "./StyledTableCell.js";
+import { StyledTableCell } from "./QueryTable.js";
 import { CheckBox, CheckBoxBlank, iconSize } from "./SelectionHeader.js";
 
 export const RadioChecked = styled(MdRadioButtonChecked, {
@@ -26,25 +26,51 @@ interface SelectionCellProps<T> {
 }
 
 export function SelectionCell<T>(props: SelectionCellProps<T>): ReactElement {
-  const { enableSingleSelect, padding, onSelect, onUnselect, row, selected } =
-    props;
+  const {
+    padding,
+    enableSingleSelect,
+    onSelect: handleSelect,
+    onUnselect: handleUnselect,
+    row,
+    selected,
+  } = props;
   let selectEl;
-  if (selected) {
-    selectEl = (
-      <Icon
-        as={enableSingleSelect ? RadioChecked : CheckBox}
-        ariaLabel={enableSingleSelect ? "radio checked" : "checkbox"}
-        onClick={() => onSelect(row)}
-      />
-    );
+  if (enableSingleSelect) {
+    if (selected) {
+      selectEl = (
+        <Icon
+          as={RadioChecked}
+          ariaLabel="radio checked"
+          onClick={() => handleSelect(row)}
+        />
+      );
+    } else {
+      selectEl = (
+        <Icon
+          as={RadioUnchecked}
+          ariaLabel="radio unchecked"
+          onClick={() => handleSelect(row)}
+        />
+      );
+    }
   } else {
-    selectEl = (
-      <Icon
-        as={enableSingleSelect ? RadioUnchecked : CheckBoxBlank}
-        ariaLabel={enableSingleSelect ? "radio unchecked" : "blank checkbox"}
-        onClick={() => onUnselect(row)}
-      />
-    );
+    if (selected) {
+      selectEl = (
+        <Icon
+          as={CheckBox}
+          ariaLabel="checkbox"
+          onClick={() => handleUnselect(row)}
+        />
+      );
+    } else {
+      selectEl = (
+        <Icon
+          as={CheckBoxBlank}
+          ariaLabel="blank checkbox"
+          onClick={() => handleSelect(row)}
+        />
+      );
+    }
   }
   return (
     <StyledTableCell css={{ padding, textOverflow: "clip" }}>
