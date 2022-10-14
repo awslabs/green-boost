@@ -49,7 +49,7 @@ export function QueryTable<T extends Record<string, any>>(
     getRowId = (r: T) => r.id,
     heading,
     initDensity = "standard",
-    initColumnVisibility = {},
+    initColumnVisibility,
     loading = false,
     pageSiblingCount = 1,
     pageSizeOptions = [10, 20, 50],
@@ -67,8 +67,14 @@ export function QueryTable<T extends Record<string, any>>(
     AlertMessage,
     Pagination: CustomPagination,
   } = props;
-  const [columnVisibility, setColumnVisibility] =
-    useState<Record<string, boolean>>(initColumnVisibility);
+  // if no initialColumnVisibility, show all columns
+  const [columnVisibility, setColumnVisibility] = useState<
+    Record<string, boolean>
+  >(
+    !initColumnVisibility
+      ? columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})
+      : initColumnVisibility
+  );
   const [density, setDensity] = useState<Density>(initDensity);
   const visibleColumns = useMemo(
     () => columns.filter((c) => columnVisibility[c.id as string]),
@@ -84,7 +90,6 @@ export function QueryTable<T extends Record<string, any>>(
     return gridTempCols;
   }, [selected, visibleColumns]);
   const padding = densityToPadding[density];
-  let body: ReactElement | undefined = undefined;
   // need alt body b/c body is inside table grid
   let altBody: ReactElement | undefined = undefined;
   let paginationMt = 0;
@@ -105,18 +110,6 @@ export function QueryTable<T extends Record<string, any>>(
       </Box>
     );
   } else if (rows.length) {
-    body = (
-      <TableBody
-        columns={columns}
-        enableSingleSelect={enableSingleSelect}
-        getRowId={getRowId}
-        onChangeSelected={onChangeSelected}
-        padding={padding}
-        rows={rows}
-        selected={selected}
-        visibleColumns={visibleColumns}
-      />
-    );
     if (pagination?.pageSize) {
       paginationMt = rowHeight * (pagination?.pageSize - rows.length);
     }
@@ -176,7 +169,16 @@ export function QueryTable<T extends Record<string, any>>(
           sorts={sorts}
           visibleColumns={visibleColumns}
         />
-        {body}
+        <TableBody
+          columns={columns}
+          enableSingleSelect={enableSingleSelect}
+          getRowId={getRowId}
+          onChangeSelected={onChangeSelected}
+          padding={padding}
+          rows={rows}
+          selected={selected}
+          visibleColumns={visibleColumns}
+        />
       </StyledTable>
       {altBody}
       {Pagination}

@@ -94,12 +94,15 @@ export function TableBody<T>(props: TableBodyProps<T>): ReactElement {
           )}
           {visibleColumns.map((c) => {
             let Cell: ReactElement | undefined | string = undefined;
-            if (String(c.id) in r) {
-              if (c.renderCell) {
-                Cell = c.renderCell(r[c.id as keyof T], r);
-              } else {
-                Cell = String(r[c.id as keyof T]);
-              }
+            const id = String(c.id);
+            let value = "";
+            if (id in r) {
+              value = String(r[c.id as keyof T]);
+            }
+            if (c.renderCell) {
+              Cell = c.renderCell(value, r);
+            } else {
+              Cell = value;
             }
             return (
               <StyledTableCell key={String(c.id)} css={{ padding }}>
