@@ -10,9 +10,10 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export type SmartDateTimeFieldProps<T> = ExternalBaseSmartFieldProps &
-  ControlProps<T> &
-  Omit<DateTimeFieldProps, "name">;
+export type SmartDateTimeFieldProps<T extends FieldValues> =
+  ExternalBaseSmartFieldProps &
+    ControlProps<T> &
+    Omit<DateTimeFieldProps, "name">;
 
 export function SmartDateTimeField<T extends FieldValues>(
   props: SmartDateTimeFieldProps<T>

@@ -7,8 +7,9 @@ import { Column } from "./column.js";
 import { Sort } from "./sort.js";
 import { OnChangeSelectedParams } from "./selected.js";
 import { ActionBar } from "../ActionBar/ActionBar.js";
+import { Row } from "./row.js";
 
-export interface QueryTableProps<T> {
+export interface QueryTableProps<T extends Row> {
   /**
    * Column definitions
    */

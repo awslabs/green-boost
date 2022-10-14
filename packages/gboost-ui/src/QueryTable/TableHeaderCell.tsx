@@ -6,6 +6,7 @@ import type { Column } from "./types/column.js";
 import type { Sort } from "./types/sort.js";
 import { Box, config, styled } from "../index.js";
 import { RefObject } from "react";
+import { Row } from "./types/row.js";
 
 const StyledTableCell = styled(TableCell, {
   overflow: "hidden",
@@ -17,7 +18,7 @@ const StyledArrowUpward = styled(MdArrowUpward);
 const StyledArrowDownward = styled(MdArrowDownward);
 const StyledFilterList = styled(MdFilterList);
 
-interface TableHeaderCellProps<T> {
+interface TableHeaderCellProps<T extends Row> {
   activeFilter: boolean;
   column: Column<T>;
   filterButtonRef: RefObject<HTMLButtonElement>;
@@ -28,7 +29,7 @@ interface TableHeaderCellProps<T> {
   sort?: Sort;
 }
 
-export function TableHeaderCell<T>(
+export function TableHeaderCell<T extends Row>(
   props: TableHeaderCellProps<T>
 ): ReactElement {
   const {

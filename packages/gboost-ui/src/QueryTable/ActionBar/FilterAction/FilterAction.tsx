@@ -6,8 +6,9 @@ import { Column } from "../../types/column.js";
 import { FilterRow } from "./FilterRow.js";
 import { NewFilterRow } from "./NewFilterRow.js";
 import { ColumnOption, Filter, FilterOptions } from "../../types/filter.js";
+import { Row } from "../../types/row.js";
 
-interface FilterActionProps<T> {
+interface FilterActionProps<T extends Row> {
   disableMultiFilter: boolean;
   filterColumns: Column<T>[];
   filters: Filter[];
@@ -19,7 +20,9 @@ function serializeFilter(f: Filter): string {
   return f.columnId + f.comparator + f.value;
 }
 
-export function FilterAction<T>(props: FilterActionProps<T>): ReactElement {
+export function FilterAction<T extends Row>(
+  props: FilterActionProps<T>
+): ReactElement {
   const {
     disableMultiFilter,
     filterColumns,

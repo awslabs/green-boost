@@ -8,6 +8,7 @@ import { styled } from "../stitches.config.js";
 import { SelectionCell } from "./SelectionCell.js";
 import type { Column } from "./types/column.js";
 import type { OnChangeSelectedParams } from "./types/selected.js";
+import { Row } from "./types/row.js";
 
 const StyledTableBody = styled(AmplifyTableBody, {
   display: "contents !important",
@@ -22,7 +23,7 @@ export const StyledTableCell = styled(TableCell, {
   whiteSpace: "nowrap",
 });
 
-interface TableBodyProps<T> {
+interface TableBodyProps<T extends Row> {
   columns: Column<T>[];
   enableSingleSelect: boolean;
   getRowId: (row: T) => string;
@@ -33,7 +34,9 @@ interface TableBodyProps<T> {
   visibleColumns: Column<T>[];
 }
 
-export function TableBody<T>(props: TableBodyProps<T>): ReactElement {
+export function TableBody<T extends Row>(
+  props: TableBodyProps<T>
+): ReactElement {
   const {
     columns,
     enableSingleSelect,

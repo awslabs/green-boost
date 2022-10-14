@@ -9,11 +9,12 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export type SmartSelectFieldProps<T> = ExternalBaseSmartFieldProps &
-  ControlProps<T> &
-  Omit<SelectFieldProps, "name"> & {
-    children: ReactElement | ReactElement[] | undefined;
-  };
+export type SmartSelectFieldProps<T extends FieldValues> =
+  ExternalBaseSmartFieldProps &
+    ControlProps<T> &
+    Omit<SelectFieldProps, "name"> & {
+      children: ReactElement | ReactElement[] | undefined;
+    };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function SmartSelectField<T extends FieldValues>(

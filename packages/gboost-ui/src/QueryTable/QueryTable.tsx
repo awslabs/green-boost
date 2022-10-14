@@ -7,6 +7,7 @@ import type { Density } from "./ActionBar/DensityAction.js";
 import { TableBody } from "./TableBody.js";
 import { QueryTableProps } from "./types/props.js";
 import { TableHeader } from "./TableHeader.js";
+import { Row } from "./types/row.js";
 
 const StyledPlaceholder = styled(Placeholder, { height: 55 });
 const StyledTable = styled(Table, {
@@ -37,8 +38,7 @@ const densityToPadding: Record<Density, string> = {
  * simply remove their functionality from the component.
  *
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function QueryTable<T extends Record<string, any>>(
+export function QueryTable<T extends Row>(
   props: QueryTableProps<T>
 ): ReactElement {
   const {

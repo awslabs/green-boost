@@ -4,6 +4,7 @@ import { MdRadioButtonChecked, MdRadioButtonUnchecked } from "react-icons/md";
 import { styled } from "../stitches.config.js";
 import { StyledTableCell } from "./StyledTableCell.js";
 import { CheckBox, CheckBoxBlank, iconSize } from "./SelectionHeader.js";
+import { Row } from "./types/row.js";
 
 export const RadioChecked = styled(MdRadioButtonChecked, {
   cursor: "pointer",
@@ -16,7 +17,7 @@ export const RadioUnchecked = styled(MdRadioButtonUnchecked, {
   height: iconSize,
 });
 
-interface SelectionCellProps<T> {
+interface SelectionCellProps<T extends Row> {
   enableSingleSelect: boolean;
   onSelect: (row: T) => void;
   onUnselect: (row: T) => void;
@@ -25,7 +26,9 @@ interface SelectionCellProps<T> {
   selected: boolean;
 }
 
-export function SelectionCell<T>(props: SelectionCellProps<T>): ReactElement {
+export function SelectionCell<T extends Row>(
+  props: SelectionCellProps<T>
+): ReactElement {
   const { enableSingleSelect, padding, onSelect, onUnselect, row, selected } =
     props;
   let selectEl;

@@ -6,8 +6,9 @@ import { FilterAction } from "./FilterAction/FilterAction.js";
 import { ColumnVisibilityAction } from "./ColumnVisibilityAction.js";
 import { Density, DensityAction } from "./DensityAction.js";
 import { Filter } from "../types/filter.js";
+import { Row } from "../types/row.js";
 
-interface ActionBarProps<T> {
+interface ActionBarProps<T extends Row> {
   columns: Column<T>[];
   columnVisibility: Record<string, boolean>;
   density: Density;
@@ -24,7 +25,9 @@ interface ActionBarProps<T> {
 /**
  * Bar of actions across top of table
  */
-export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
+export function ActionBar<T extends Row>(
+  props: ActionBarProps<T>
+): ReactElement {
   const {
     columns,
     columnVisibility,

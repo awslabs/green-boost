@@ -7,6 +7,7 @@ import {
 } from "react-icons/md";
 import { styled } from "../stitches.config.js";
 import { StyledTableCell } from "./StyledTableCell.js";
+import { Row } from "./types/row.js";
 
 export const iconSize = 25;
 export const CheckBox = styled(MdOutlineCheckBox, {
@@ -25,7 +26,7 @@ const CheckBoxIndeterminate = styled(MdOutlineIndeterminateCheckBox, {
   height: iconSize,
 });
 
-interface SelectionHeaderProps<T> {
+interface SelectionHeaderProps<T extends Row> {
   enableSingleSelect: boolean;
   onSelectAll: (s: T[]) => void;
   onUnselectAll: () => void;
@@ -34,7 +35,7 @@ interface SelectionHeaderProps<T> {
   selected: T[];
 }
 
-export function SelectionHeader<T>(
+export function SelectionHeader<T extends Row>(
   props: SelectionHeaderProps<T>
 ): ReactElement {
   const {

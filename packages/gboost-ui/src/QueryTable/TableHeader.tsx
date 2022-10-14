@@ -7,6 +7,7 @@ import { Sort, SortDirection } from "./types/sort.js";
 import { Filter } from "./types/filter.js";
 import { Column } from "./types/column.js";
 import { OnChangeSelectedParams } from "./types/selected.js";
+import { Row } from "./types/row.js";
 
 // https://adamlynch.com/flexible-data-tables-with-css-grid/
 const StyledTableHead = styled(TableHead, {
@@ -17,7 +18,7 @@ const StyledTableRow = styled(TableRow, {
   gridRow: "auto !important",
 });
 
-interface TableHeaderProps<T> {
+interface TableHeaderProps<T extends Row> {
   enableSingleSelect: boolean;
   filters?: Filter[];
   filterButtonRef: RefObject<HTMLButtonElement>;
@@ -31,7 +32,9 @@ interface TableHeaderProps<T> {
   visibleColumns: Column<T>[];
 }
 
-export function TableHeader<T>(props: TableHeaderProps<T>): ReactElement {
+export function TableHeader<T extends Row>(
+  props: TableHeaderProps<T>
+): ReactElement {
   const {
     enableSingleSelect,
     filters,

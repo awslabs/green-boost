@@ -1,7 +1,8 @@
 import { ReactElement } from "react";
 import { FilterOptions } from "./filter.js";
+import { Row } from "./row.js";
 
-export interface Column<T extends Record<string, any>> {
+export interface Column<T extends Row> {
   /**
    * Must be unique for all columns. Will be used to access your row's object's
    * value or can be any unique string as a display column. If `id` is not a
