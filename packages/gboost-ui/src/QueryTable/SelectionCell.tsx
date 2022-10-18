@@ -37,7 +37,7 @@ export function SelectionCell<T extends Row>(
       <Icon
         as={enableSingleSelect ? RadioChecked : CheckBox}
         ariaLabel={enableSingleSelect ? "radio checked" : "checkbox"}
-        onClick={() => onSelect(row)}
+        onClick={() => onUnselect(row)}
       />
     );
   } else {
@@ -45,7 +45,7 @@ export function SelectionCell<T extends Row>(
       <Icon
         as={enableSingleSelect ? RadioUnchecked : CheckBoxBlank}
         ariaLabel={enableSingleSelect ? "radio unchecked" : "blank checkbox"}
-        onClick={() => onUnselect(row)}
+        onClick={() => onSelect(row)}
       />
     );
   }
