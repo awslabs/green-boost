@@ -121,7 +121,9 @@ export function Layout(props: LayoutProps): ReactElement {
         AccountSidebar={AccountSidebar}
         HeaderTitle={HeaderTitle}
       />
-      <StyledNav>{NavigationList && <NavigationList open={open} />}</StyledNav>
+      <StyledNav open={open}>
+        {NavigationList && <NavigationList open={open} />}
+      </StyledNav>
       <StyledMain>{props.children}</StyledMain>
       {RightAside && <RightAsideContainer>{RightAside}</RightAsideContainer>}
       <StyledFooter>{Footer}</StyledFooter>
