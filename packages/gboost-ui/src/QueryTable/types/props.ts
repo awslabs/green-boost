@@ -20,6 +20,11 @@ export interface QueryTableProps<T extends Row> {
    */
   disableMultiFilter?: boolean;
   /**
+   * Default column width
+   * @default "minmax(150px, 1fr)"
+   */
+  defaultColumnWidth?: string;
+  /**
    * Use radio buttons instead of checkboxes for selection. Enabling single
    * select will causes the table to only display the first row in the
    * `selection` array as selected.

@@ -18,9 +18,7 @@ const StyledTable = styled(Table, {
   // this example: https://codepen.io/adam-lynch/pen/XwKWdG
 });
 
-const rowHeight = 55;
 const selectColWidth = 50;
-const defaultColWidth = "minmax(150px, 1fr)";
 
 const densityToPadding: Record<Density, string> = {
   cozy: ".5rem !important",
@@ -43,6 +41,7 @@ export function QueryTable<T extends Row>(
 ): ReactElement {
   const {
     columns,
+    defaultColumnWidth = "minmax(150px, 1fr)",
     disableMultiFilter = false,
     enableSingleSelect = false,
     filters,
@@ -81,21 +80,29 @@ export function QueryTable<T extends Row>(
     [columns, columnVisibility]
   );
   const filterButtonRef = useRef<HTMLButtonElement>(null);
+  const tableRef = useRef<HTMLTableElement>(null);
+  const cell = tableRef.current?.children[1]?.children[0]?.children[0] as
+    | HTMLTableCellElement
+    | undefined;
+  const rowHeight = cell?.offsetHeight || 60;
   const gridTemplateColumns = useMemo(() => {
     let gridTempCols = visibleColumns.reduce(
-      (prev, cur) => `${prev} ${cur.width || defaultColWidth}`,
+      (prev, cur) => `${prev} ${cur.width || defaultColumnWidth}`,
       ""
     );
     if (selected) gridTempCols = `${selectColWidth}px ` + gridTempCols;
     return gridTempCols;
-  }, [selected, visibleColumns]);
+  }, [defaultColumnWidth, selected, visibleColumns]);
   const padding = densityToPadding[density];
   // need alt body b/c body is inside table grid
   let altBody: ReactElement | undefined = undefined;
   let paginationMt = 0;
+  if (pagination?.pageSize) {
+    paginationMt = rowHeight * (pagination?.pageSize - rows.length);
+  }
   if (AlertMessage) {
     altBody = AlertMessage;
-    // - 1 b/c 1 row of error alert message
+    // subtract 1 b/c 1 row of error alert message
     if (pagination?.pageSize) {
       paginationMt = rowHeight * (pagination.pageSize - 1);
     }
@@ -109,10 +116,6 @@ export function QueryTable<T extends Row>(
         ))}
       </Box>
     );
-  } else if (rows.length) {
-    if (pagination?.pageSize) {
-      paginationMt = rowHeight * (pagination?.pageSize - rows.length);
-    }
   }
   let ActionBar: ReactElement;
   const actionBarProps: Parameters<typeof DefaultActionBar<T>>[0] = {
@@ -151,6 +154,7 @@ export function QueryTable<T extends Row>(
     <>
       {ActionBar}
       <StyledTable
+        ref={tableRef}
         {...tableProps}
         css={{
           gridTemplateColumns,
