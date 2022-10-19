@@ -5,7 +5,6 @@ import {
 } from "@aws-amplify/ui-react";
 import { ChangeEvent, ReactElement, useCallback, useEffect } from "react";
 import { Box, styled } from "../index.js";
-import type { CSS } from "@stitches/react";
 import { Pagination as PaginationState } from "./types/pagination.js";
 
 const StyledText = styled(Text, {
@@ -17,21 +16,13 @@ const StyledSelectField = styled(SelectField, {
 });
 
 interface PaginationProps extends PaginationState {
-  css?: CSS;
   onChangePagination?: (params: PaginationState) => void;
-  // disableNext: boolean;
-  // disablePrev: boolean;
-  // onPageChange: (newPage: number) => void;
-  // onPageSizeChange: (size: number) => void;
-  // page: number;
-  // pageSize: number;
   pageSizeOptions: number[];
   siblingCount: number;
 }
 
 export function Pagination(props: PaginationProps): ReactElement {
   const {
-    css = {},
     currentPage,
     hasMorePages,
     onChangePagination,
@@ -64,7 +55,7 @@ export function Pagination(props: PaginationProps): ReactElement {
   );
   return (
     <Box css={{ mt: "$2" }}>
-      <Box css={{ display: "flex", justifyContent: "end", ...css }}>
+      <Box css={{ display: "flex", justifyContent: "end" }}>
         <StyledText>Page Size:</StyledText>
         <StyledSelectField
           label="Page Size"

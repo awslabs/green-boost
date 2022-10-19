@@ -62,7 +62,7 @@ export interface QueryTableProps<T extends Row> {
   /**
    * Background loading. Shows `Loader` below table header when true
    */
-  bgLoading?: boolean;
+  // bgLoading?: boolean;
   /**
    * When true, replaces rows with `Placeholder` components
    * @default false

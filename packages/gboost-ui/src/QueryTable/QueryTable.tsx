@@ -93,12 +93,6 @@ export function QueryTable<T extends Row>(
   }, [defaultColumnWidth, selected, visibleColumns]);
   const padding = densityToPadding[density];
 
-  let paginationMt = 0;
-  if (pagination?.pageSize) {
-    const numContentRowsAbovePagination = AlertMessage ? 1 : rows.length;
-    const rowCount = pagination.pageSize - numContentRowsAbovePagination;
-    paginationMt = rowHeight * rowCount;
-  }
   let ActionBar: ReactElement;
   const actionBarProps: Parameters<typeof DefaultActionBar<T>>[0] = {
     columns,
@@ -124,7 +118,6 @@ export function QueryTable<T extends Row>(
   } else if (pagination) {
     Pagination = (
       <DefaultPagination
-        css={{ mt: paginationMt }}
         onChangePagination={onChangePagination}
         pageSizeOptions={pageSizeOptions}
         siblingCount={pageSiblingCount}
