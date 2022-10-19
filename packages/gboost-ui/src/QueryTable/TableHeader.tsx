@@ -1,5 +1,4 @@
 import { RefObject, ReactElement, useCallback } from "react";
-import { TableHead, TableRow } from "@aws-amplify/ui-react";
 import { TableHeaderCell } from "./TableHeaderCell.js";
 import { SelectionHeader } from "./SelectionHeader.js";
 import { styled } from "../stitches.config.js";
@@ -10,10 +9,10 @@ import { OnChangeSelectedParams } from "./types/selected.js";
 import { Row } from "./types/row.js";
 
 // https://adamlynch.com/flexible-data-tables-with-css-grid/
-const StyledTableHead = styled(TableHead, {
+const StyledTableHead = styled("div", {
   display: "contents !important",
 });
-const StyledTableRow = styled(TableRow, {
+const StyledTableRow = styled("div", {
   display: "contents !important",
   gridRow: "auto !important",
 });
@@ -99,8 +98,8 @@ export function TableHeader<T extends Row>(
     [onChangeSorts, sorts]
   );
   return (
-    <StyledTableHead>
-      <StyledTableRow>
+    <StyledTableHead className="amplify_table__head">
+      <StyledTableRow className="amplify-table__tr">
         {selected && (
           <SelectionHeader
             enableSingleSelect={Boolean(enableSingleSelect)}

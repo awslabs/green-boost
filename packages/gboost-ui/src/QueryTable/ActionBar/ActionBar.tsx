@@ -66,6 +66,7 @@ export function ActionBar<T extends Row>(
           />
         )}
         <ColumnVisibilityAction
+          columns={columns}
           columnVisibility={columnVisibility}
           onChangeColumnVisibility={handleChangeColumnVisibility}
         />

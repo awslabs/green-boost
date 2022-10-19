@@ -50,7 +50,10 @@ export function SelectionCell<T extends Row>(
     );
   }
   return (
-    <StyledTableCell css={{ padding, textOverflow: "clip" }}>
+    <StyledTableCell
+      css={{ padding, textOverflow: "clip" }}
+      className="amplify-table__td"
+    >
       {selectEl}
     </StyledTableCell>
   );

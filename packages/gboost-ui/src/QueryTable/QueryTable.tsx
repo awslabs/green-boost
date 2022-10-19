@@ -1,6 +1,5 @@
 import { ReactElement, useMemo, useRef, useState } from "react";
-import { Placeholder, Table } from "@aws-amplify/ui-react";
-import { Box, styled } from "../index.js";
+import { styled } from "../index.js";
 import { Pagination as DefaultPagination } from "./Pagination.js";
 import { ActionBar as DefaultActionBar } from "./ActionBar/ActionBar.js";
 import type { Density } from "./ActionBar/DensityAction.js";
@@ -9,8 +8,7 @@ import { QueryTableProps } from "./types/props.js";
 import { TableHeader } from "./TableHeader.js";
 import { Row } from "./types/row.js";
 
-const StyledPlaceholder = styled(Placeholder, { height: 55 });
-const StyledTable = styled(Table, {
+const StyledTable = styled("div", {
   display: "grid",
   borderCollapse: "collapse",
   minWidth: "100%",
@@ -94,28 +92,12 @@ export function QueryTable<T extends Row>(
     return gridTempCols;
   }, [defaultColumnWidth, selected, visibleColumns]);
   const padding = densityToPadding[density];
-  // need alt body b/c body is inside table grid
-  let altBody: ReactElement | undefined = undefined;
+
   let paginationMt = 0;
   if (pagination?.pageSize) {
-    paginationMt = rowHeight * (pagination?.pageSize - rows.length);
-  }
-  if (AlertMessage) {
-    altBody = AlertMessage;
-    // subtract 1 b/c 1 row of error alert message
-    if (pagination?.pageSize) {
-      paginationMt = rowHeight * (pagination.pageSize - 1);
-    }
-  } else if (loading) {
-    altBody = (
-      <Box
-        css={{ display: "flex", gap: "$1", flexDirection: "column", my: "$2" }}
-      >
-        {[...Array(pagination?.pageSize)].map((e, i) => (
-          <StyledPlaceholder key={i} />
-        ))}
-      </Box>
-    );
+    const numContentRowsAbovePagination = AlertMessage ? 1 : rows.length;
+    const rowCount = pagination.pageSize - numContentRowsAbovePagination;
+    paginationMt = rowHeight * rowCount;
   }
   let ActionBar: ReactElement;
   const actionBarProps: Parameters<typeof DefaultActionBar<T>>[0] = {
@@ -159,6 +141,7 @@ export function QueryTable<T extends Row>(
         css={{
           gridTemplateColumns,
         }}
+        className="amplify-table"
       >
         <TableHeader
           enableSingleSelect={enableSingleSelect}
@@ -174,17 +157,19 @@ export function QueryTable<T extends Row>(
           visibleColumns={visibleColumns}
         />
         <TableBody
-          columns={columns}
           enableSingleSelect={enableSingleSelect}
           getRowId={getRowId}
+          loading={loading}
           onChangeSelected={onChangeSelected}
           padding={padding}
+          pageSize={pagination?.pageSize || 10}
           rows={rows}
+          rowHeight={rowHeight}
           selected={selected}
           visibleColumns={visibleColumns}
         />
       </StyledTable>
-      {altBody}
+      {AlertMessage}
       {Pagination}
     </>
   );

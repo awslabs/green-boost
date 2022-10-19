@@ -1,35 +1,30 @@
 import { ReactElement, useCallback, useMemo } from "react";
-import {
-  TableBody as AmplifyTableBody,
-  TableRow,
-  TableCell,
-} from "@aws-amplify/ui-react";
-import { styled } from "../stitches.config.js";
+import { Placeholder } from "@aws-amplify/ui-react";
+import { Box, styled } from "../index";
 import { SelectionCell } from "./SelectionCell.js";
 import type { Column } from "./types/column.js";
 import type { OnChangeSelectedParams } from "./types/selected.js";
 import { Row } from "./types/row.js";
+import { TableCell } from "./TableCell.js";
 
-const StyledTableBody = styled(AmplifyTableBody, {
+const StyledTableBody = styled("div", {
   display: "contents !important",
 });
-const StyledTableRow = styled(TableRow, {
+const StyledTableRow = styled("div", {
   display: "contents !important",
   gridRow: "auto !important",
 });
-export const StyledTableCell = styled(TableCell, {
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-  whiteSpace: "nowrap",
-});
+const StyledPlaceholder = styled(Placeholder);
 
 interface TableBodyProps<T extends Row> {
-  columns: Column<T>[];
   enableSingleSelect: boolean;
   getRowId: (row: T) => string;
+  loading: boolean;
   onChangeSelected?: (params: OnChangeSelectedParams<T>) => void;
   padding: string;
+  pageSize: number;
   rows: T[];
+  rowHeight: number;
   selected?: T[];
   visibleColumns: Column<T>[];
 }
@@ -38,12 +33,14 @@ export function TableBody<T extends Row>(
   props: TableBodyProps<T>
 ): ReactElement {
   const {
-    columns,
     enableSingleSelect,
     getRowId,
+    loading,
     onChangeSelected,
     padding,
+    pageSize,
     rows,
+    rowHeight,
     selected,
     visibleColumns,
   } = props;
@@ -81,40 +78,42 @@ export function TableBody<T extends Row>(
     },
     [getRowId, onChangeSelected, selected]
   );
+  let body: ReactElement[];
+  if (!rows.length && loading) {
+    body = Array.from({ length: pageSize }).map((_, i) => (
+      <StyledTableRow key={i} className="amplify-table__row">
+        {selected && (
+          <Box css={{ padding, height: rowHeight }}>
+            <StyledPlaceholder height="100%" />
+          </Box>
+        )}
+        {visibleColumns.map((c) => (
+          <Box css={{ padding, height: rowHeight }} key={String(c.id)}>
+            <StyledPlaceholder key={String(c.id)} height="100%" />
+          </Box>
+        ))}
+      </StyledTableRow>
+    ));
+  } else {
+    body = rows.map((r) => (
+      <StyledTableRow key={getRowId(r)} className="amplify-table__row">
+        {selected && (
+          <SelectionCell
+            enableSingleSelect={enableSingleSelect}
+            padding={padding}
+            onSelect={handleSelect}
+            onUnselect={handleUnselect}
+            row={r}
+            selected={selectedMap[getRowId(r)]}
+          />
+        )}
+        {visibleColumns.map((c) => (
+          <TableCell col={c} key={String(c.id)} padding={padding} row={r} />
+        ))}
+      </StyledTableRow>
+    ));
+  }
   return (
-    <StyledTableBody>
-      {rows.map((r) => (
-        <StyledTableRow key={getRowId(r)} rowSpan={columns.length}>
-          {selected && (
-            <SelectionCell
-              enableSingleSelect={enableSingleSelect}
-              padding={padding}
-              onSelect={handleSelect}
-              onUnselect={handleUnselect}
-              row={r}
-              selected={selectedMap[getRowId(r)]}
-            />
-          )}
-          {visibleColumns.map((c) => {
-            let Cell: ReactElement | undefined | string = undefined;
-            const id = String(c.id);
-            let value = "";
-            if (id in r) {
-              value = String(r[c.id as keyof T]);
-            }
-            if (c.renderCell) {
-              Cell = c.renderCell(value, r);
-            } else {
-              Cell = value;
-            }
-            return (
-              <StyledTableCell key={String(c.id)} css={{ padding }}>
-                {Cell}
-              </StyledTableCell>
-            );
-          })}
-        </StyledTableRow>
-      ))}
-    </StyledTableBody>
+    <StyledTableBody className="amplify-table__body">{body}</StyledTableBody>
   );
 }

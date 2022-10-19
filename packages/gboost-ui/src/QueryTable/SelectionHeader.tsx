@@ -74,7 +74,6 @@ export function SelectionHeader<T extends Row>(
   }
   return (
     <StyledTableCell
-      as="th"
       // amplify-table__th is removed when using display: "contents"
       // is used for thead, tbody, and tr's
       css={{
@@ -82,6 +81,7 @@ export function SelectionHeader<T extends Row>(
         backgroundColor: "$primary5",
         textOverflow: "clip",
       }}
+      className="amplify-table__th"
     >
       {!enableSingleSelect && checkbox}
     </StyledTableCell>
