@@ -3,14 +3,15 @@ import { MdViewColumn } from "react-icons/md";
 import type { Column } from "../types/column.js";
 import { Button, Icon, SwitchField } from "@aws-amplify/ui-react";
 import { Box, Dialog } from "../../index.js";
+import { Row } from "../types/row.js";
 
-interface ColumnVisibilityActionProps<T> {
+interface ColumnVisibilityActionProps<T extends Row> {
   columns: Column<T>[];
   columnVisibility: Record<string, boolean>;
   onChangeColumnVisibility: (columnVisibility: Record<string, boolean>) => void;
 }
 
-export function ColumnVisibilityAction<T>(
+export function ColumnVisibilityAction<T extends Row>(
   props: ColumnVisibilityActionProps<T>
 ): ReactElement {
   const {
