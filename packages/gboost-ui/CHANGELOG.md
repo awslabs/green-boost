@@ -1,5 +1,22 @@
 # gboost-ui
 
+## 0.28.0
+
+### Minor Changes
+
+- [#139](https://github.com/awslabs/green-boost/pull/139) [`f394ef3`](https://github.com/awslabs/green-boost/commit/f394ef39e0e7807152d3110f31353ba9554c3ca3) Thanks [@bestickley](https://github.com/bestickley)! - Add new QueryTable component. Deprecate previous QueryTable, renaming to OldQueryTable. New QueryTable allow user to control data related to querying. This makes the component much more flexible. Lift state up!
+
+- [#139](https://github.com/awslabs/green-boost/pull/139) [`f394ef3`](https://github.com/awslabs/green-boost/commit/f394ef39e0e7807152d3110f31353ba9554c3ca3) Thanks [@bestickley](https://github.com/bestickley)! - Update deps
+
+- [#139](https://github.com/awslabs/green-boost/pull/139) [`f394ef3`](https://github.com/awslabs/green-boost/commit/f394ef39e0e7807152d3110f31353ba9554c3ca3) Thanks [@bestickley](https://github.com/bestickley)! - Remove BreakpointsProvider. Export UserManagement and FileUpload from sub-folder. Remove Link component fixing Amplify UI deprecation notice.
+
+- [#139](https://github.com/awslabs/green-boost/pull/139) [`f394ef3`](https://github.com/awslabs/green-boost/commit/f394ef39e0e7807152d3110f31353ba9554c3ca3) Thanks [@bestickley](https://github.com/bestickley)! - Simplify Layout component
+
+### Patch Changes
+
+- Updated dependencies [[`f394ef3`](https://github.com/awslabs/green-boost/commit/f394ef39e0e7807152d3110f31353ba9554c3ca3)]:
+  - gboost-common@0.8.0
+
 ## 0.27.0
 
 ### Minor Changes
