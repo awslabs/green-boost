@@ -2,6 +2,7 @@ import { ReactElement } from "react";
 import { MdLineWeight } from "react-icons/md";
 import { Icon, Menu, MenuButton, MenuItem } from "@aws-amplify/ui-react";
 import { styled } from "../../stitches.config.js";
+import { Tooltip } from "../../index.js";
 
 export type Density = "cozy" | "standard" | "comfy";
 
@@ -17,9 +18,15 @@ export function DensityAction(props: DensityActionProps): ReactElement {
   return (
     <Menu
       trigger={
-        <MenuButton size="large">
-          <Icon ariaLabel="columns" as={MdLineWeight} />
-        </MenuButton>
+        <div>
+          <Tooltip content="Row Density">
+            <span>
+              <MenuButton size="large">
+                <Icon ariaLabel="columns" as={MdLineWeight} />
+              </MenuButton>
+            </span>
+          </Tooltip>
+        </div>
       }
     >
       <StyledMenuItem
