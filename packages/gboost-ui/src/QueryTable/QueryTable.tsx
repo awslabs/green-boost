@@ -7,6 +7,8 @@ import { TableBody } from "./TableBody.js";
 import { QueryTableProps } from "./types/props.js";
 import { TableHeader } from "./TableHeader.js";
 import { Row } from "./types/row.js";
+import { Flex } from "@aws-amplify/ui-react";
+import { BgLoading } from "./BgLoading.js";
 
 const StyledTable = styled("div", {
   display: "grid",
@@ -38,6 +40,7 @@ export function QueryTable<T extends Row>(
   props: QueryTableProps<T>
 ): ReactElement {
   const {
+    bgLoading,
     columns,
     defaultColumnWidth = "minmax(150px, 1fr)",
     disableMultiFilter = false,
@@ -79,10 +82,10 @@ export function QueryTable<T extends Row>(
   );
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
-  const cell = tableRef.current?.children[1]?.children[0]?.children[0] as
+  const firstCell = tableRef.current?.children[1]?.children[0]?.children[0] as
     | HTMLTableCellElement
     | undefined;
-  const rowHeight = cell?.offsetHeight || 60;
+  const rowHeight = firstCell?.offsetHeight || 60;
   const gridTemplateColumns = useMemo(() => {
     let gridTempCols = visibleColumns.reduce(
       (prev, cur) => `${prev} ${cur.width || defaultColumnWidth}`,
@@ -126,7 +129,8 @@ export function QueryTable<T extends Row>(
     );
   }
   return (
-    <>
+    <Flex direction="column" gap="small" position="relative">
+      {bgLoading && <BgLoading />}
       {ActionBar}
       <StyledTable
         ref={tableRef}
@@ -164,6 +168,6 @@ export function QueryTable<T extends Row>(
       </StyledTable>
       {AlertMessage}
       {Pagination}
-    </>
+    </Flex>
   );
 }

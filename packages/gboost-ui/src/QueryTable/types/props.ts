@@ -11,6 +11,10 @@ import { Row } from "./row.js";
 
 export interface QueryTableProps<T extends Row> {
   /**
+   * Background loading. Shows `Loader` below table header when true
+   */
+  bgLoading?: boolean;
+  /**
    * Column definitions
    */
   columns: Column<T>[];
@@ -59,10 +63,6 @@ export interface QueryTableProps<T extends Row> {
    * @default "standard"
    */
   initDensity?: Density;
-  /**
-   * Background loading. Shows `Loader` below table header when true
-   */
-  // bgLoading?: boolean;
   /**
    * When true, replaces rows with `Placeholder` components
    * @default false
