@@ -6,7 +6,8 @@ import React, {
   ReactElement,
   useCallback,
 } from "react";
-import { Box, FileData, theme, styled } from "../index.js";
+import { Box, theme, styled } from "../index.js";
+import { FileData } from "./index.js";
 import { ActionButtons } from "./ActionButtons.js";
 import { FileList } from "./FileList.js";
 import { CustomActionButtonProps } from "./CustomActionButtons.js";

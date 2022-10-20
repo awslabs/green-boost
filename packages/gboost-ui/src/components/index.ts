@@ -5,7 +5,6 @@ export * from "./Drawer.js";
 export * from "./ErrorMessage.js";
 export * from "./FlowStepper.js";
 export * from "./List.js";
-export * from "./Link.js";
 export * from "./Loading.js";
 export * from "./Fields/index.js";
 export * from "./Overlay.js";

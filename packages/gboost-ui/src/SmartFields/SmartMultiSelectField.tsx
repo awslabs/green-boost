@@ -10,9 +10,10 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export type SmartMultiSelectFieldProps<T> = ExternalBaseSmartFieldProps &
-  ControlProps<T> &
-  Omit<MultiSelectFieldProps, "name">;
+export type SmartMultiSelectFieldProps<T extends FieldValues> =
+  ExternalBaseSmartFieldProps &
+    ControlProps<T> &
+    Omit<MultiSelectFieldProps, "name">;
 
 export function SmartMultiSelectField<T extends FieldValues>(
   props: SmartMultiSelectFieldProps<T>

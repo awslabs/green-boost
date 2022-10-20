@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const libDir = fileURLToPath(new URL("../lib", import.meta.url));
 const srcDir = fileURLToPath(new URL("../src", import.meta.url));
 fse.removeSync(libDir);
-execSync("pnpm exec tsc");
+execSync("pnpm exec tsc", { stdio: "inherit" });
 fse.copySync(srcDir, libDir, {
   filter: (src, dest) => {
     // must return true for directories to recursively get to files

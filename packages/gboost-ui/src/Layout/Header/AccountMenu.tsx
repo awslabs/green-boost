@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
-import { Menu, MenuItem, MenuButton } from "@aws-amplify/ui-react";
+import { Menu, MenuItem, MenuButton, useTheme } from "@aws-amplify/ui-react";
 import { MdAccountCircle, MdLogout } from "react-icons/md";
 import { styled } from "../../stitches.config.js";
-import { useBps } from "../../context/BreakpointsContext.js";
+import { useMediaQuery } from "@mantine/hooks";
 
 const StyledAccountCircle = styled(MdAccountCircle, { fontSize: "$7" });
 const StyledLogout = styled(MdLogout, { fontSize: "$7" });
@@ -20,8 +20,14 @@ interface AccountMenuProps {
 
 export function AccountMenu(props: AccountMenuProps): ReactElement {
   const { email, fullName, signOut, username } = props;
-  const bps = useBps();
-  if (bps.bp3) {
+  const theme = useTheme();
+  const mqLg = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.large}px)`
+  );
+  const mqSm = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.small}px)`
+  );
+  if (mqLg) {
     return (
       <Menu
         trigger={
@@ -45,7 +51,7 @@ export function AccountMenu(props: AccountMenuProps): ReactElement {
   } else {
     return (
       <StyledMenuButton variation="primary">
-        {bps.bp1 && username}
+        {mqSm && username}
         <StyledAccountCircle />
       </StyledMenuButton>
     );

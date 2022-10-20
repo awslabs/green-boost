@@ -4,7 +4,7 @@ import React from "react";
 import { handleUpload } from "./FileUploadFunctions.js";
 import { DropOutline } from "./DropOutline.js";
 import { handleClick } from "./HandleClick.js";
-import { HandleClickParams } from "../index.js";
+import { HandleClickParams } from "./index.js";
 import { CustomActionButtonProps } from "./CustomActionButtons.js";
 
 interface FileUploadProps {

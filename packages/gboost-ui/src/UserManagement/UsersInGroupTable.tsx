@@ -1,26 +1,25 @@
 import { ReactElement, useCallback, useMemo } from "react";
 import { listUsersInGroup } from "./gql.js";
 import type { CognitoUser, ListUsersInGroupArgs } from "gboost-common";
-import { Link } from "@aws-amplify/ui-react";
+import { Link, useTheme } from "@aws-amplify/ui-react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import {
-  Box,
   Column,
-  gQuery,
   QueryTable,
   OnQueryParams,
   OnQueryReturnValue,
-  useBps,
-} from "../index.js";
+} from "../OldQueryTable/QueryTable.js";
+import { Box, gQuery } from "../index.js";
 import {
   BackIcon,
   Container,
-  getTitleSize,
   renderDate,
   renderStatus,
   Title,
+  useTitleSize,
 } from "./common.js";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface ListUsersInGroupResponse {
   listUsersInGroup: {
@@ -30,9 +29,13 @@ interface ListUsersInGroupResponse {
 }
 
 export function UsersInGroupTable(): ReactElement {
+  const theme = useTheme();
+  const mqLg = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.large}px)`
+  );
+  const mqXl = useMediaQuery(`(min-width: ${theme.breakpoints.values.xl}px)`);
   const { groupName } = useParams();
-  const bps = useBps();
-  const titleSize = getTitleSize(bps);
+  const titleSize = useTitleSize();
   const handleQuery = useCallback(
     async function handleQuery(
       params: OnQueryParams
@@ -78,12 +81,12 @@ export function UsersInGroupTable(): ReactElement {
       {
         accessor: "family_name",
         name: "Last Name",
-        width: !bps.bp3 ? "0" : undefined,
+        width: !mqLg ? "0" : undefined,
       },
       {
         accessor: "given_name",
         name: "First Name",
-        width: !bps.bp3 ? "0" : undefined,
+        width: !mqLg ? "0" : undefined,
       },
       {
         accessor: "status",
@@ -95,22 +98,22 @@ export function UsersInGroupTable(): ReactElement {
         accessor: "enabled",
         name: "Enabled",
         renderCell: (v) => (v ? "Enabled" : "Disabled"),
-        width: !bps.bp4 ? "0" : "1fr",
+        width: !mqXl ? "0" : "1fr",
       },
       {
         accessor: "createdAt",
         name: "Created At",
         renderCell: renderDate,
-        width: !bps.bp4 ? "0" : "2fr",
+        width: !mqXl ? "0" : "2fr",
       },
       {
         accessor: "updatedAt",
         name: "Updated At",
         renderCell: renderDate,
-        width: !bps.bp4 ? "0" : "2fr",
+        width: !mqXl ? "0" : "2fr",
       },
     ],
-    [bps]
+    [mqLg, mqXl]
   );
   return (
     <Container>

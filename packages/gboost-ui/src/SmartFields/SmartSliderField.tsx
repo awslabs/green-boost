@@ -16,11 +16,12 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export type SmartSliderFieldProps<T> = ExternalBaseSmartFieldProps &
-  ControlProps<T> &
-  Omit<SliderFieldProps, "name"> & {
-    renderValue?: (v: number) => string;
-  };
+export type SmartSliderFieldProps<T extends FieldValues> =
+  ExternalBaseSmartFieldProps &
+    ControlProps<T> &
+    Omit<SliderFieldProps, "name"> & {
+      renderValue?: (v: number) => string;
+    };
 
 export function SmartSliderField<T extends FieldValues>(
   props: SmartSliderFieldProps<T>

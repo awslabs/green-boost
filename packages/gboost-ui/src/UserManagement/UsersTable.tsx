@@ -8,7 +8,7 @@ import {
   useRef,
   useEffect,
 } from "react";
-import { Link } from "@aws-amplify/ui-react";
+import { Link, useTheme } from "@aws-amplify/ui-react";
 import { Link as RouterLink } from "react-router-dom";
 import type { CognitoUser, ListUsersArgs } from "gboost-common";
 import { CognitoUserStatus } from "gboost-common";
@@ -16,13 +16,13 @@ import { listUsers } from "./gql.js";
 import { UsersTableActionBar } from "./UsersTableActionBar.js";
 import {
   Column,
-  gQuery,
   OnQueryParams,
   OnQueryReturnValue,
   QueryTable,
-  useBps,
-} from "../index.js";
+} from "../OldQueryTable/QueryTable.js";
+import { gQuery } from "../index.js";
 import { renderDate, renderStatus } from "./common.js";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface ListUsersResponse {
   listUsers: {
@@ -89,7 +89,11 @@ export function UsersTable(props: UsersTableProps): ReactElement {
     },
     [setUsers]
   );
-  const bps = useBps();
+  const theme = useTheme();
+  const mqLg = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.large}px)`
+  );
+  const mqXl = useMediaQuery(`(min-width: ${theme.breakpoints.values.xl}px)`);
   const columns: Column<CognitoUser>[] = useMemo(
     () => [
       {
@@ -112,13 +116,13 @@ export function UsersTable(props: UsersTableProps): ReactElement {
         accessor: "family_name",
         filterOptions: textFilterOptions,
         name: "Last Name",
-        width: !bps.bp3 ? "0" : undefined,
+        width: !mqLg ? "0" : undefined,
       },
       {
         accessor: "given_name",
         filterOptions: textFilterOptions,
         name: "First Name",
-        width: !bps.bp3 ? "0" : undefined,
+        width: !mqLg ? "0" : undefined,
       },
       {
         accessor: "status",
@@ -182,22 +186,22 @@ export function UsersTable(props: UsersTableProps): ReactElement {
         },
         name: "Enabled",
         renderCell: (v) => (v ? "Enabled" : "Disabled"),
-        width: !bps.bp4 ? "0" : "1fr",
+        width: !mqXl ? "0" : "1fr",
       },
       {
         accessor: "createdAt",
         name: "Created At",
         renderCell: renderDate,
-        width: !bps.bp4 ? "0" : "2fr",
+        width: !mqXl ? "0" : "2fr",
       },
       {
         accessor: "updatedAt",
         name: "Updated At",
         renderCell: renderDate,
-        width: !bps.bp4 ? "0" : "2fr",
+        width: !mqXl ? "0" : "2fr",
       },
     ],
-    [bps]
+    [mqLg, mqXl]
   );
   const refreshRef = useRef<HTMLButtonElement>(null);
   return (

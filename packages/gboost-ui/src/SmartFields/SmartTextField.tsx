@@ -10,9 +10,8 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export type SmartTextFieldProps<T> = ExternalBaseSmartFieldProps &
-  ControlProps<T> &
-  Omit<TextFieldProps, "name">;
+export type SmartTextFieldProps<T extends FieldValues> =
+  ExternalBaseSmartFieldProps & ControlProps<T> & Omit<TextFieldProps, "name">;
 
 export function SmartTextField<T extends FieldValues>(
   props: SmartTextFieldProps<T>

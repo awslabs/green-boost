@@ -10,7 +10,10 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export type SmartTransferListProps<T, U> = ExternalBaseSmartFieldProps &
+export type SmartTransferListProps<
+  T extends FieldValues,
+  U
+> = ExternalBaseSmartFieldProps &
   ControlProps<T> &
   Omit<TransferListProps<U>, "name" | "value" | "onChange">;
 

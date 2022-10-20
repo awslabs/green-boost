@@ -4,30 +4,19 @@ import {
   ReactElement,
   useCallback,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
 import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
 import { MdCheck } from "react-icons/md";
 import { FilterValue as FilterValueComponent } from "./FilterValue.js";
-import {
-  ColumnOption,
-  FilterColumnsObj,
-  InternalFilter,
-} from "./FilterAction.js";
-import { randomId } from "@mantine/hooks";
-
-const initFilter: InternalFilter = {
-  column: "",
-  comparator: "",
-  id: "",
-  value: "",
-};
+import { ColumnOption, Filter, FilterColumnsObj } from "../../types/filter.js";
 
 interface NewFilterProps {
   columnOptions: ColumnOption[];
   filterColumnsObj: FilterColumnsObj;
-  onCreateFilter: (filter: InternalFilter) => void;
+  onCreateFilter: (filter: Filter) => void;
 }
 
 export function NewFilterRow({
@@ -35,29 +24,38 @@ export function NewFilterRow({
   filterColumnsObj,
   onCreateFilter,
 }: NewFilterProps): ReactElement {
-  const [filter, setFilter] = useState<InternalFilter>(initFilter);
+  const initFilter = useMemo<Filter>(() => {
+    // select first comparator by default
+    const firstColumnId = columnOptions[0].id;
+    const firstComparator =
+      filterColumnsObj[firstColumnId]?.filterOptions?.comparators[0]?.value;
+    return {
+      columnId: firstColumnId || "",
+      comparator: firstComparator || "",
+      value: "",
+    };
+  }, [columnOptions, filterColumnsObj]);
+  const [filter, setFilter] = useState<Filter>(initFilter);
   const columnRef = useRef<HTMLSelectElement>(null);
   useLayoutEffect(() => {
     columnRef.current?.focus();
   }, []);
-  const filterOptions = filterColumnsObj[filter.column]?.filterOptions;
+  const filterOptions = filterColumnsObj[filter.columnId]?.filterOptions;
   const handleCreateFilter = useCallback(() => {
-    onCreateFilter({ ...filter, id: randomId() });
+    onCreateFilter(filter);
     setFilter(initFilter);
-  }, [filter, onCreateFilter]);
+  }, [filter, initFilter, onCreateFilter]);
   const handleChangeColumn: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => {
       setFilter((f) => {
-        const newFilter: InternalFilter = {
+        const newFilter: Filter = {
           ...filter,
-          column: e.target.value,
+          columnId: e.target.value,
         };
         const newComparators =
           filterColumnsObj[e.target.value]?.filterOptions?.comparators || [];
-        // if there is only 1 comparator for the column, pre-select it for user
-        if (!filter.comparator && newComparators.length === 1) {
-          newFilter.comparator = newComparators[0].value;
-        }
+        // select first comparator by default
+        newFilter.comparator = newComparators[0].value;
         return newFilter;
       });
     },
@@ -71,16 +69,16 @@ export function NewFilterRow({
         labelHidden
         onChange={handleChangeColumn}
         placeholder="Column"
-        value={filter.column}
+        value={filter.columnId}
       >
         {columnOptions.map((n) => (
-          <option key={n.accessor} value={n.accessor}>
-            {n.name}
+          <option key={n.id} value={n.id}>
+            {n.headerName}
           </option>
         ))}
       </SelectField>
       <SelectField
-        disabled={!filter.column}
+        disabled={!filter.columnId}
         label="Comparator"
         labelHidden
         onChange={(e: ChangeEvent<HTMLSelectElement>) =>

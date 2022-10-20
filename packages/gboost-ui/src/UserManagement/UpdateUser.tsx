@@ -13,16 +13,15 @@ import {
   SmartMultiSelectField,
   StyledButton,
   useNotifications,
-  useBps,
 } from "../index.js";
 import { getUser, listGroupsForUser, updateUser } from "./gql.js";
 import {
   baseUserSchema,
   BackIcon,
   Container,
-  getFormGridCols,
-  getTitleSize,
   Title,
+  useFormGridCols,
+  useTitleSize,
 } from "./common.js";
 
 interface ListGroupsForUserResponse {
@@ -40,9 +39,8 @@ interface UpdateUserProps {
 
 export function UpdateUser(props: UpdateUserProps): ReactElement {
   const { groupNameOptions, users } = props;
-  const bps = useBps();
-  const formGridCols = getFormGridCols(bps);
-  const titleSize = getTitleSize(bps);
+  const formGridCols = useFormGridCols();
+  const titleSize = useTitleSize();
   const { control, handleSubmit, reset, setValue } = useForm<Schema>({
     resolver: zodResolver(baseUserSchema),
     defaultValues: new CreateCognitoUser(),

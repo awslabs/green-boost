@@ -10,9 +10,10 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 
-export type SmartCheckboxFieldProps<T> = ExternalBaseSmartFieldProps &
-  ControlProps<T> &
-  Omit<CheckboxFieldProps, "name" | "children">;
+export type SmartCheckboxFieldProps<T extends FieldValues> =
+  ExternalBaseSmartFieldProps &
+    ControlProps<T> &
+    Omit<CheckboxFieldProps, "name" | "children">;
 
 export function SmartCheckboxField<T extends FieldValues>(
   props: SmartCheckboxFieldProps<T>

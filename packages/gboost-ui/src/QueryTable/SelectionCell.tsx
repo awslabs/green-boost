@@ -2,8 +2,9 @@ import { ReactElement } from "react";
 import { Icon } from "@aws-amplify/ui-react";
 import { MdRadioButtonChecked, MdRadioButtonUnchecked } from "react-icons/md";
 import { styled } from "../stitches.config.js";
-import { StyledTableCell } from "./QueryTable.js";
+import { StyledTableCell } from "./StyledTableCell.js";
 import { CheckBox, CheckBoxBlank, iconSize } from "./SelectionHeader.js";
+import { Row } from "./types/row.js";
 
 export const RadioChecked = styled(MdRadioButtonChecked, {
   cursor: "pointer",
@@ -16,7 +17,7 @@ export const RadioUnchecked = styled(MdRadioButtonUnchecked, {
   height: iconSize,
 });
 
-interface SelectionCellProps<T> {
+interface SelectionCellProps<T extends Row> {
   enableSingleSelect: boolean;
   onSelect: (row: T) => void;
   onUnselect: (row: T) => void;
@@ -25,55 +26,34 @@ interface SelectionCellProps<T> {
   selected: boolean;
 }
 
-export function SelectionCell<T>(props: SelectionCellProps<T>): ReactElement {
-  const {
-    padding,
-    enableSingleSelect,
-    onSelect: handleSelect,
-    onUnselect: handleUnselect,
-    row,
-    selected,
-  } = props;
+export function SelectionCell<T extends Row>(
+  props: SelectionCellProps<T>
+): ReactElement {
+  const { enableSingleSelect, padding, onSelect, onUnselect, row, selected } =
+    props;
   let selectEl;
-  if (enableSingleSelect) {
-    if (selected) {
-      selectEl = (
-        <Icon
-          as={RadioChecked}
-          ariaLabel="radio checked"
-          onClick={() => handleSelect(row)}
-        />
-      );
-    } else {
-      selectEl = (
-        <Icon
-          as={RadioUnchecked}
-          ariaLabel="radio unchecked"
-          onClick={() => handleSelect(row)}
-        />
-      );
-    }
+  if (selected) {
+    selectEl = (
+      <Icon
+        as={enableSingleSelect ? RadioChecked : CheckBox}
+        ariaLabel={enableSingleSelect ? "radio checked" : "checkbox"}
+        onClick={() => onUnselect(row)}
+      />
+    );
   } else {
-    if (selected) {
-      selectEl = (
-        <Icon
-          as={CheckBox}
-          ariaLabel="checkbox"
-          onClick={() => handleUnselect(row)}
-        />
-      );
-    } else {
-      selectEl = (
-        <Icon
-          as={CheckBoxBlank}
-          ariaLabel="blank checkbox"
-          onClick={() => handleSelect(row)}
-        />
-      );
-    }
+    selectEl = (
+      <Icon
+        as={enableSingleSelect ? RadioUnchecked : CheckBoxBlank}
+        ariaLabel={enableSingleSelect ? "radio unchecked" : "blank checkbox"}
+        onClick={() => onSelect(row)}
+      />
+    );
   }
   return (
-    <StyledTableCell css={{ padding, textOverflow: "clip" }}>
+    <StyledTableCell
+      css={{ padding, textOverflow: "clip" }}
+      className="amplify-table__td"
+    >
       {selectEl}
     </StyledTableCell>
   );

@@ -1,17 +1,17 @@
 import { ReactElement, useMemo } from "react";
 import { listGroups } from "./gql.js";
 import { CognitoGroup } from "gboost-common";
-import { Link } from "@aws-amplify/ui-react";
+import { Link, useTheme } from "@aws-amplify/ui-react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Column,
-  gQuery,
   QueryTable,
   OnQueryParams,
   OnQueryReturnValue,
-  useBps,
-} from "../index.js";
+} from "../OldQueryTable/QueryTable.js";
+import { gQuery } from "../index.js";
 import { renderDate } from "./common.js";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface ListGroupsResponse {
   listGroups: {
@@ -34,7 +34,10 @@ async function handleQuery(
 }
 
 export function GroupsTable(): ReactElement {
-  const bps = useBps();
+  const theme = useTheme();
+  const mqLg = useMediaQuery(
+    `(min-width: ${theme.breakpoints.values.large}px)`
+  );
   const columns: Column<CognitoGroup>[] = useMemo(
     () => [
       {
@@ -52,16 +55,16 @@ export function GroupsTable(): ReactElement {
         accessor: "createdAt",
         name: "Created At",
         renderCell: renderDate,
-        width: !bps.bp3 ? "0" : "2fr",
+        width: !mqLg ? "0" : "2fr",
       },
       {
         accessor: "updatedAt",
         name: "Updated At",
         renderCell: renderDate,
-        width: !bps.bp3 ? "0" : "2fr",
+        width: !mqLg ? "0" : "2fr",
       },
     ],
-    [bps]
+    [mqLg]
   );
   return (
     <QueryTable

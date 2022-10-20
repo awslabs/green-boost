@@ -1,60 +1,62 @@
-import { RefObject, ReactElement, useCallback, useMemo } from "react";
+import {
+  RefObject,
+  ReactElement,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
 import { Button, Icon } from "@aws-amplify/ui-react";
 import { MdFilterList } from "react-icons/md";
-import { Box, Dialog } from "../../../index.js";
-import { Column } from "../../QueryTable.js";
+import { Box, Dialog, Tooltip } from "../../../index.js";
+import { Column } from "../../types/column.js";
 import { FilterRow } from "./FilterRow.js";
 import { NewFilterRow } from "./NewFilterRow.js";
+import { ColumnOption, Filter, FilterOptions } from "../../types/filter.js";
+import { Row } from "../../types/row.js";
 
-export interface Filter {
-  column: string;
-  comparator: string;
-  value: string;
-}
-export interface InternalFilter extends Filter {
-  id: string;
-}
-export interface ColumnOption {
-  accessor: string;
-  name: string;
-}
-export type FilterValue =
-  | { type: "text" }
-  | { type: "select"; options: { value: string; name: string }[] };
-export type FilterColumnsObj = Record<
-  string,
-  { name: string; filterOptions?: FilterOptions }
->;
-type FilterComparator = {
-  value: string;
-  name: string;
-};
-export interface FilterOptions {
-  comparators: FilterComparator[];
-  value: FilterValue;
-}
-
-interface FilterActionProps<T> {
+interface FilterActionProps<T extends Row> {
   disableMultiFilter: boolean;
   filterColumns: Column<T>[];
-  filters: InternalFilter[];
+  filters?: Filter[];
   filterButtonRef: RefObject<HTMLButtonElement>;
-  onFilter: (filters: InternalFilter[]) => void;
+  onChangeFilters?: (filters: Filter[]) => void;
 }
 
-export function FilterAction<T>({
-  disableMultiFilter,
-  filterColumns,
-  filters,
-  filterButtonRef,
-  onFilter,
-}: FilterActionProps<T>): ReactElement {
+function serializeFilter(f: Filter): string {
+  return f.columnId + f.comparator + f.value;
+}
+
+export function FilterAction<T extends Row>(
+  props: FilterActionProps<T>
+): ReactElement {
+  const {
+    disableMultiFilter,
+    filterColumns,
+    filters: initFilters,
+    filterButtonRef,
+    onChangeFilters,
+  } = props;
+  useEffect(() => {
+    const filterColumnIds = filterColumns.map((f) => f.id).join(", ");
+    if (!initFilters) {
+      console.warn(
+        `filterOptions were set for column(s): ${filterColumnIds} but filter wasn't passed to QueryTable as a prop`
+      );
+    }
+    if (!onChangeFilters) {
+      console.warn(
+        `filterOptions were set for column(s): ${filterColumnIds} but onChangeFilter wasn't passed to QueryTable as a prop`
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const filters = useMemo(() => initFilters || [], [initFilters]);
   const filterColumnsObj = useMemo(
     () =>
       filterColumns.reduce((prev, cur) => {
-        prev[String(cur.accessor)] = {
+        prev[String(cur.id)] = {
           filterOptions: cur.filterOptions,
-          name: cur.name,
+          name: cur.headerName,
         };
         return prev;
       }, {} as Record<string, { filterOptions?: FilterOptions; name: string }>),
@@ -63,39 +65,45 @@ export function FilterAction<T>({
   const columnOptions: ColumnOption[] = useMemo(
     () =>
       Object.entries(filterColumnsObj).map(([k, v]) => ({
-        accessor: k,
-        name: v.name,
+        id: k,
+        headerName: v.name,
       })),
     [filterColumnsObj]
   );
   const handleCreateFilter = useCallback(
-    (filter: InternalFilter) => {
-      const newFilters = disableMultiFilter ? [] : [...filters];
-      newFilters.push(filter);
-      onFilter(newFilters);
+    (filter: Filter) => {
+      if (onChangeFilters) {
+        onChangeFilters(disableMultiFilter ? [filter] : [...filters, filter]);
+      }
     },
-    [disableMultiFilter, filters, onFilter]
+    [disableMultiFilter, filters, onChangeFilters]
   );
   const handleUpdateFilter = useCallback(
-    (id: string, filter: InternalFilter) => {
-      const newFilters: InternalFilter[] = [];
-      for (const f of filters) {
-        if (f.id === id) {
-          newFilters.push(filter);
-        } else {
-          newFilters.push(f);
+    (oldFilter: Filter, newFilter: Filter) => {
+      if (onChangeFilters) {
+        const newFilters: Filter[] = [];
+        for (const f of filters) {
+          if (serializeFilter(f) === serializeFilter(oldFilter)) {
+            newFilters.push(newFilter);
+          } else {
+            newFilters.push(f);
+          }
         }
+        onChangeFilters(newFilters);
       }
-      onFilter(newFilters);
     },
-    [filters, onFilter]
+    [filters, onChangeFilters]
   );
   const handleRemoveFilter = useCallback(
-    (id: string) => {
-      const newFilters = filters.filter((f) => f.id !== id);
-      onFilter(newFilters);
+    (filter: Filter) => {
+      if (onChangeFilters) {
+        const newFilters = filters.filter(
+          (f) => serializeFilter(f) !== serializeFilter(filter)
+        );
+        onChangeFilters(newFilters);
+      }
     },
-    [filters, onFilter]
+    [filters, onChangeFilters]
   );
   const showNewFilter =
     (disableMultiFilter && filters.length === 0) || !disableMultiFilter;
@@ -103,9 +111,15 @@ export function FilterAction<T>({
     <Dialog
       title={filters.length <= 1 ? "Filter" : "Filters"}
       trigger={
-        <Button ref={filterButtonRef} size="large">
-          <Icon ariaLabel="filter" as={MdFilterList} />
-        </Button>
+        <div>
+          <Tooltip content="Filters">
+            <span>
+              <Button ref={filterButtonRef} size="large">
+                <Icon ariaLabel="filter" as={MdFilterList} />
+              </Button>
+            </span>
+          </Tooltip>
+        </div>
       }
       maxWidth="700px"
     >
@@ -118,11 +132,10 @@ export function FilterAction<T>({
       >
         {[...filters].map((f) => (
           <FilterRow
-            key={f.id}
+            key={serializeFilter(f)}
             columnOptions={columnOptions}
             filterColumnsObj={filterColumnsObj}
             filter={f}
-            id={f.id}
             onUpdateFilter={handleUpdateFilter}
             onRemoveFilter={handleRemoveFilter}
           />

@@ -11,7 +11,7 @@ import { Box, CSS, Overlay } from "../index.js";
 
 interface DrawerProps {
   open: boolean;
-  children: ReactElement;
+  children?: ReactElement;
   onClose: MouseEventHandler | ((e: KeyboardEvent) => void);
   position?: "left" | "top" | "right" | "bottom";
   drawerLength?: number;

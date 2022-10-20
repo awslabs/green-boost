@@ -1,55 +1,45 @@
-import { MutableRefObject, ReactElement, RefObject, useMemo } from "react";
-import { Button, Heading, Icon } from "@aws-amplify/ui-react";
+import { ReactElement, RefObject, useMemo } from "react";
+import { Heading } from "@aws-amplify/ui-react";
 import { Box } from "../../index.js";
-import { Column } from "../QueryTable.js";
-import { DownloadAction } from "./DownloadAction.js";
-import { FilterAction, InternalFilter } from "./FilterAction/FilterAction.js";
+import { Column } from "../types/column.js";
+import { FilterAction } from "./FilterAction/FilterAction.js";
 import { ColumnVisibilityAction } from "./ColumnVisibilityAction.js";
 import { Density, DensityAction } from "./DensityAction.js";
-import { MdRefresh } from "react-icons/md";
+import { Filter } from "../types/filter.js";
+import { Row } from "../types/row.js";
 
-interface ActionBarProps<T> {
+interface ActionBarProps<T extends Row> {
   columns: Column<T>[];
   columnVisibility: Record<string, boolean>;
   density: Density;
   disableMultiFilter: boolean;
-  disableRefresh: boolean;
-  download: boolean;
-  downloadFileName: string;
-  filters: InternalFilter[];
+  filters?: Filter[];
   filterButtonRef: RefObject<HTMLButtonElement>;
   heading?: string;
   onChangeColumnVisibility: (columnVisibility: Record<string, boolean>) => void;
   onChangeDensity: (density: Density) => void;
-  onFilter: (filters: InternalFilter[]) => void;
-  onRefresh: () => void;
-  refreshRef?: MutableRefObject<HTMLButtonElement | null>;
-  rows: Record<string, string>[];
-  ActionMenu?: ReactElement;
+  onChangeFilters?: (filters: Filter[]) => void;
+  AdditionalActions?: ReactElement;
 }
 
 /**
- * @internal
+ * Bar of actions across top of table
  */
-export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
+export function ActionBar<T extends Row>(
+  props: ActionBarProps<T>
+): ReactElement {
   const {
     columns,
     columnVisibility,
     density,
     disableMultiFilter,
-    disableRefresh,
-    download,
-    downloadFileName,
     filters,
     filterButtonRef,
     heading,
     onChangeColumnVisibility: handleChangeColumnVisibility,
     onChangeDensity: handleChangeDensity,
-    onFilter,
-    onRefresh,
-    refreshRef,
-    rows,
-    ActionMenu,
+    onChangeFilters,
+    AdditionalActions,
   } = props;
   const filterColumns = useMemo(
     () => columns.filter((c) => c.filterOptions),
@@ -66,21 +56,17 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
     >
       {heading ? <Heading level={3}>{heading}</Heading> : <Heading />}
       <Box css={{ display: "flex", gap: "$2" }}>
-        {!disableRefresh && (
-          <Button ref={refreshRef} size="large" onClick={onRefresh}>
-            <Icon ariaLabel="columns" as={MdRefresh} />
-          </Button>
-        )}
         {filterColumns.length !== 0 && (
           <FilterAction
             disableMultiFilter={disableMultiFilter}
             filterColumns={filterColumns}
             filters={filters}
             filterButtonRef={filterButtonRef}
-            onFilter={onFilter}
+            onChangeFilters={onChangeFilters}
           />
         )}
         <ColumnVisibilityAction
+          columns={columns}
           columnVisibility={columnVisibility}
           onChangeColumnVisibility={handleChangeColumnVisibility}
         />
@@ -88,10 +74,7 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
           density={density}
           onChangeDensity={handleChangeDensity}
         />
-        {download && (
-          <DownloadAction downloadFileName={downloadFileName} rows={rows} />
-        )}
-        {ActionMenu}
+        {AdditionalActions}
       </Box>
     </Box>
   );
