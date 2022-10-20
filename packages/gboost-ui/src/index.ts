@@ -1,4 +1,3 @@
-export * from "./context/BreakpointsContext.js";
 export * from "./context/NotificationsContext.js";
 export * from "./Authenticator.js";
 export * from "./amplifyTheme.js";

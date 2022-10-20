@@ -1,7 +1,7 @@
 import { Heading, Icon, useTheme } from "@aws-amplify/ui-react";
 import * as z from "zod";
 import { Badge } from "@aws-amplify/ui-react";
-import { Breakpoints, styled } from "../index.js";
+import { styled } from "../index.js";
 import { CognitoUserStatus } from "gboost-common";
 import { useMediaQuery } from "@mantine/hooks";
 
@@ -40,28 +40,6 @@ export function useTitleSize() {
     titleSize = "$7";
   }
   if (mqLg) {
-    titleSize = "$8";
-  }
-  return titleSize;
-}
-
-export function getFormGridCols(bps: Breakpoints): number {
-  let formGridCols = 1;
-  if (bps.bp2) {
-    formGridCols = 2;
-  }
-  if (bps.bp3) {
-    formGridCols = 3;
-  }
-  return formGridCols;
-}
-
-export function getTitleSize(bps: Breakpoints): string {
-  let titleSize = "$6";
-  if (bps.bp2) {
-    titleSize = "$7";
-  }
-  if (bps.bp3) {
     titleSize = "$8";
   }
   return titleSize;
