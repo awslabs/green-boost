@@ -1,11 +1,11 @@
 export interface Filter {
-  columnId: string;
-  comparator: string;
-  value: string;
+  columnId: any;
+  comparator: any;
+  value: any;
 }
 export interface ColumnOption {
-  accessor: string;
-  name: string;
+  id: string;
+  headerName: string;
 }
 export type FilterValue =
   | { type: "text" }

@@ -73,6 +73,8 @@ export interface QueryTableProps<T extends Row> {
    * @default undefined
    */
   pagination?: Pagination;
+  onChangeFilters?: (filters: Filter[]) => void;
+  onChangePagination?: (pagination: Pagination) => void;
   /**
    * Function called upon update to selected rows
    * @param action determines whether user selected or unselected
@@ -80,8 +82,6 @@ export interface QueryTableProps<T extends Row> {
    * @param actionRow row user selected or unselected. `undefined` if selecting
    * or unselecting all rows
    */
-  onChangeFilters?: (filters: Filter[]) => void;
-  onChangePagination?: (pagination: Pagination) => void;
   onChangeSelected?: (selection: OnChangeSelectedParams<T>) => void;
   onChangeSorts?: (sorts: Sort[]) => void;
   /**

@@ -1,7 +1,13 @@
-import { RefObject, ReactElement, useCallback, useMemo } from "react";
+import {
+  RefObject,
+  ReactElement,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
 import { Button, Icon } from "@aws-amplify/ui-react";
 import { MdFilterList } from "react-icons/md";
-import { Box, Dialog } from "../../../index.js";
+import { Box, Dialog, Tooltip } from "../../../index.js";
 import { Column } from "../../types/column.js";
 import { FilterRow } from "./FilterRow.js";
 import { NewFilterRow } from "./NewFilterRow.js";
@@ -11,7 +17,7 @@ import { Row } from "../../types/row.js";
 interface FilterActionProps<T extends Row> {
   disableMultiFilter: boolean;
   filterColumns: Column<T>[];
-  filters: Filter[];
+  filters?: Filter[];
   filterButtonRef: RefObject<HTMLButtonElement>;
   onChangeFilters?: (filters: Filter[]) => void;
 }
@@ -26,10 +32,25 @@ export function FilterAction<T extends Row>(
   const {
     disableMultiFilter,
     filterColumns,
-    filters,
+    filters: initFilters,
     filterButtonRef,
     onChangeFilters,
   } = props;
+  useEffect(() => {
+    const filterColumnIds = filterColumns.map((f) => f.id).join(", ");
+    if (!initFilters) {
+      console.warn(
+        `filterOptions were set for column(s): ${filterColumnIds} but filter wasn't passed to QueryTable as a prop`
+      );
+    }
+    if (!onChangeFilters) {
+      console.warn(
+        `filterOptions were set for column(s): ${filterColumnIds} but onChangeFilter wasn't passed to QueryTable as a prop`
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const filters = useMemo(() => initFilters || [], [initFilters]);
   const filterColumnsObj = useMemo(
     () =>
       filterColumns.reduce((prev, cur) => {
@@ -44,8 +65,8 @@ export function FilterAction<T extends Row>(
   const columnOptions: ColumnOption[] = useMemo(
     () =>
       Object.entries(filterColumnsObj).map(([k, v]) => ({
-        accessor: k,
-        name: v.name,
+        id: k,
+        headerName: v.name,
       })),
     [filterColumnsObj]
   );
@@ -77,7 +98,7 @@ export function FilterAction<T extends Row>(
     (filter: Filter) => {
       if (onChangeFilters) {
         const newFilters = filters.filter(
-          (f) => serializeFilter(f) === serializeFilter(filter)
+          (f) => serializeFilter(f) !== serializeFilter(filter)
         );
         onChangeFilters(newFilters);
       }
@@ -90,9 +111,15 @@ export function FilterAction<T extends Row>(
     <Dialog
       title={filters.length <= 1 ? "Filter" : "Filters"}
       trigger={
-        <Button ref={filterButtonRef} size="large">
-          <Icon ariaLabel="filter" as={MdFilterList} />
-        </Button>
+        <div>
+          <Tooltip content="Filters">
+            <span>
+              <Button ref={filterButtonRef} size="large">
+                <Icon ariaLabel="filter" as={MdFilterList} />
+              </Button>
+            </span>
+          </Tooltip>
+        </div>
       }
       maxWidth="700px"
     >

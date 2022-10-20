@@ -94,8 +94,8 @@ export function FilterRow({
         value={filter.columnId}
       >
         {columnOptions.map((n) => (
-          <option key={n.accessor} value={n.accessor}>
-            {n.name}
+          <option key={n.id} value={n.id}>
+            {n.headerName}
           </option>
         ))}
       </SelectField>

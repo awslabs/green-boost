@@ -4,6 +4,7 @@ import {
   ReactElement,
   useCallback,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -11,12 +12,6 @@ import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
 import { MdCheck } from "react-icons/md";
 import { FilterValue as FilterValueComponent } from "./FilterValue.js";
 import { ColumnOption, Filter, FilterColumnsObj } from "../../types/filter.js";
-
-const initFilter: Filter = {
-  columnId: "",
-  comparator: "",
-  value: "",
-};
 
 interface NewFilterProps {
   columnOptions: ColumnOption[];
@@ -29,6 +24,17 @@ export function NewFilterRow({
   filterColumnsObj,
   onCreateFilter,
 }: NewFilterProps): ReactElement {
+  const initFilter = useMemo<Filter>(() => {
+    // select first comparator by default
+    const firstColumnId = columnOptions[0].id;
+    const firstComparator =
+      filterColumnsObj[firstColumnId]?.filterOptions?.comparators[0]?.value;
+    return {
+      columnId: firstColumnId || "",
+      comparator: firstComparator || "",
+      value: "",
+    };
+  }, [columnOptions, filterColumnsObj]);
   const [filter, setFilter] = useState<Filter>(initFilter);
   const columnRef = useRef<HTMLSelectElement>(null);
   useLayoutEffect(() => {
@@ -38,7 +44,7 @@ export function NewFilterRow({
   const handleCreateFilter = useCallback(() => {
     onCreateFilter(filter);
     setFilter(initFilter);
-  }, [filter, onCreateFilter]);
+  }, [filter, initFilter, onCreateFilter]);
   const handleChangeColumn: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => {
       setFilter((f) => {
@@ -48,10 +54,8 @@ export function NewFilterRow({
         };
         const newComparators =
           filterColumnsObj[e.target.value]?.filterOptions?.comparators || [];
-        // if there is only 1 comparator for the column, pre-select it for user
-        if (!filter.comparator && newComparators.length === 1) {
-          newFilter.comparator = newComparators[0].value;
-        }
+        // select first comparator by default
+        newFilter.comparator = newComparators[0].value;
         return newFilter;
       });
     },
@@ -68,8 +72,8 @@ export function NewFilterRow({
         value={filter.columnId}
       >
         {columnOptions.map((n) => (
-          <option key={n.accessor} value={n.accessor}>
-            {n.name}
+          <option key={n.id} value={n.id}>
+            {n.headerName}
           </option>
         ))}
       </SelectField>

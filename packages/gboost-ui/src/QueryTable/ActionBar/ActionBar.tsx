@@ -33,7 +33,7 @@ export function ActionBar<T extends Row>(
     columnVisibility,
     density,
     disableMultiFilter,
-    filters = [],
+    filters,
     filterButtonRef,
     heading,
     onChangeColumnVisibility: handleChangeColumnVisibility,
