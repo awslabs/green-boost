@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install
         uses: ./.github/actions/install
       - name: Audit Dependencies
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install
         uses: ./.github/actions/install
       - name: Compile TypeScript
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install
         uses: ./.github/actions/install
       - name: Lint
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install
         uses: ./.github/actions/install
       - name: Test
@@ -63,7 +63,7 @@ jobs:
   #     contents: read
   #   steps:
   #     - name: Checkout Repo
-  #       uses: actions/checkout@v2
+  #       uses: actions/checkout@v3
   #     - name: Install
   #       uses: ./.github/actions/install
   #     - name: Configure AWS credentials
@@ -85,7 +85,7 @@ jobs:
   #     contents: read
   #   steps:
   #     - name: Checkout Repo
-  #       uses: actions/checkout@v2
+  #       uses: actions/checkout@v3
   #     - name: Install
   #       uses: ./.github/actions/install
   #     - name: Configure AWS credentials
