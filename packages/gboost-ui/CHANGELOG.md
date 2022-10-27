@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.28.1
+
+### Patch Changes
+
+- [#141](https://github.com/awslabs/green-boost/pull/141) [`d68f6f5`](https://github.com/awslabs/green-boost/commit/d68f6f5f610ec516a299de44a9ba5a201f194c29) Thanks [@bestickley](https://github.com/bestickley)! - QueryTable's Flex now has width 100%. Make QueryTable's filters and sorts props more flexibly typed for requiring literals on server (tRPC)
+
 ## 0.28.0
 
 ### Minor Changes
