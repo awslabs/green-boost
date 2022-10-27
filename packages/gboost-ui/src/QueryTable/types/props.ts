@@ -55,7 +55,7 @@ export interface QueryTableProps<T extends Row> {
   heading?: string;
   /**
    * Record with keys being column ids. Default show all columns
-   * @default columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})
+   * @default `columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})`
    */
   initColumnVisibility?: Record<string, boolean>;
   /**
