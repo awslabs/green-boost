@@ -1,7 +1,7 @@
 export interface Filter {
-  columnId: any;
-  comparator: any;
-  value: any;
+  columnId: any; // allows literal string typing by tRPC schema
+  comparator: any; // allows literal string typing by tRPC schema
+  value: any; // allows literal string typing by tRPC schema
 }
 export interface ColumnOption {
   id: string;
