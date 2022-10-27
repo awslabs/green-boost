@@ -40,12 +40,12 @@ export function FilterAction<T extends Row>(
     const filterColumnIds = filterColumns.map((f) => f.id).join(", ");
     if (!initFilters) {
       console.warn(
-        `filterOptions were set for column(s): ${filterColumnIds} but filter wasn't passed to QueryTable as a prop`
+        `filterOptions were set for column(s): ${filterColumnIds} but filters wasn't passed to QueryTable as a prop`
       );
     }
     if (!onChangeFilters) {
       console.warn(
-        `filterOptions were set for column(s): ${filterColumnIds} but onChangeFilter wasn't passed to QueryTable as a prop`
+        `filterOptions were set for column(s): ${filterColumnIds} but onChangeFilters wasn't passed to QueryTable as a prop`
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

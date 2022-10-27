@@ -1,4 +1,4 @@
-import { RefObject, ReactElement, useCallback } from "react";
+import { RefObject, ReactElement, useCallback, useEffect } from "react";
 import { TableHeaderCell } from "./TableHeaderCell.js";
 import { SelectionHeader } from "./SelectionHeader.js";
 import { styled } from "../stitches.config.js";
@@ -46,6 +46,25 @@ export function TableHeader<T extends Row>(
     sorts,
     visibleColumns,
   } = props;
+  useEffect(() => {
+    const sortColumnIds = visibleColumns
+      .filter((c) => c.sortable)
+      .map((c) => c.id)
+      .join(",");
+    if (sortColumnIds) {
+      if (!sorts) {
+        console.warn(
+          `sortable was set to true for column(s): ${sortColumnIds} but sorts wasn't passed to QueryTable as a prop`
+        );
+      }
+      if (!onChangeSorts) {
+        console.warn(
+          `sortable was set to true for column(s): ${sortColumnIds} but onChangeSorts wasn't passed to QueryTable as a prop`
+        );
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const handleSelectAll = useCallback(() => {
     if (onChangeSelected && selected) {
       onChangeSelected({

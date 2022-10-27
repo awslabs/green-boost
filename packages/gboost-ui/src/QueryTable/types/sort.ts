@@ -1,6 +1,6 @@
 export type SortDirection = "asc" | "desc";
 
 export interface Sort {
-  columnId: string;
+  columnId: any; // allows literal string typing by tRPC schema
   direction: SortDirection;
 }

@@ -129,7 +129,7 @@ export function QueryTable<T extends Row>(
     );
   }
   return (
-    <Flex direction="column" gap="small" position="relative">
+    <Flex direction="column" gap="small" position="relative" width="100%">
       {bgLoading && <BgLoading />}
       {ActionBar}
       <StyledTable
