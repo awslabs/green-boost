@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { StringWithAutocomplete } from "../../types/string-with-autocomplete.js";
 import { FilterOptions } from "./filter.js";
 import { Row } from "./row.js";
 
@@ -8,7 +9,7 @@ export interface Column<T extends Row> {
    * value or can be any unique string as a display column. If `id` is not a
    * key of your row's object, then you need to provide `renderCell`.
    */
-  id: keyof T | string;
+  id: StringWithAutocomplete<keyof T>;
   filterOptions?: FilterOptions;
   /**
    * Display header name per column
