@@ -40,7 +40,9 @@ export class Bucket extends CdkBucket {
     ) {
       const serverAccessLogsBucket = new CdkBucket(
         scope,
-        "ServerAccessLogsBucket",
+        // access logs bucket id should be based on bucket name so that dev
+        // can instantiate multiple buckets within same stack/construct
+        id + "AccessLogsBucket",
         {
           blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
           enforceSSL: true,
