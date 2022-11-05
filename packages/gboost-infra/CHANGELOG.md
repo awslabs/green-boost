@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.11.1
+
+### Patch Changes
+
+- [#143](https://github.com/awslabs/green-boost/pull/143) [`03d145c`](https://github.com/awslabs/green-boost/commit/03d145ca43e47c9d47701fecb96c92069fe8ea9c) Thanks [@bestickley](https://github.com/bestickley)! - Enable instantiation of multiple buckets in same construct by making access logs bucket's id based on parent bucket
+
 ## 0.11.0
 
 ### Minor Changes
