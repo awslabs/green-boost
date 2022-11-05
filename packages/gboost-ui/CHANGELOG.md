@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.28.2
+
+### Patch Changes
+
+- [#143](https://github.com/awslabs/green-boost/pull/143) [`03d145c`](https://github.com/awslabs/green-boost/commit/03d145ca43e47c9d47701fecb96c92069fe8ea9c) Thanks [@bestickley](https://github.com/bestickley)! - Add ts intellisense to columnId on QueryTable Column props
+
 ## 0.28.1
 
 ### Patch Changes
