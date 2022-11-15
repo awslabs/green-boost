@@ -5,7 +5,6 @@
     "node": ">=16"
   },
   "type": "module",
-  "packageManager": "pnpm@6.31.0",
   "scripts": {
     "build": "pnpm --recursive --filter \"./packages/**\" --parallel build",
     "lint": "pnpm --recursive --filter \"./packages/**\" --parallel lint",
