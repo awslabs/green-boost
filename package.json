@@ -5,9 +5,7 @@
     "node": ">=16"
   },
   "type": "module",
-  "packageManager": "pnpm@6.31.0",
   "scripts": {
-    "audit-gb": "ts-node --esm scripts/audit-gb.ts",
     "build": "pnpm --recursive --filter \"./packages/**\" --parallel build",
     "lint": "pnpm --recursive --filter \"./packages/**\" --parallel lint",
     "typecheck": "pnpm --recursive --filter \"./packages/**\" --parallel typecheck",
@@ -30,6 +28,9 @@
   },
   "license": "Apache-2.0",
   "pnpm": {
+    "auditConfig": {
+      "ignoreCvs": []
+    },
     "overrides": {
       "trim@<0.0.3": ">=0.0.3",
       "got@<11.8.5": ">=11.8.5",

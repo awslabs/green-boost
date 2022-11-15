@@ -1,0 +1,58 @@
+{
+  "name": "gboost-node",
+  "version": "0.1.0",
+  "description": "Green Boost UI Library of Node.js Functions",
+  "type": "module",
+  "exports": "./src/index.ts",
+  "publishConfig": {
+    "exports": "./lib/index.js"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "build": "rimraf lib && tsc",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "gboost-common": "workspace:^0.8.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-define-config": "^1.11.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.8.4",
+    "vite": "^2.9.15",
+    "vitest": "^0.17.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awslabs/green-boost.git",
+    "directory": "packages/gboost-node"
+  },
+  "keywords": [
+    "aws",
+    "node",
+    "nodejs",
+    "lambda",
+    "green",
+    "boost",
+    "gboost"
+  ],
+  "author": "AWS Professional Services",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/awslabs/green-boost/issues"
+  },
+  "homepage": "https://awslabs.github.io/green-boost"
+}

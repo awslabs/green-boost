@@ -2,6 +2,7 @@ packages:
   - 'packages/gboost'
   - 'packages/gboost-common'
   - 'packages/gboost-infra'
+  - 'packages/gboost-node'
   - 'packages/gboost-ui'
   - 'docs'
   - 'docs/demos/**'
