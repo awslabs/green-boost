@@ -15,7 +15,9 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
       - name: Audit Dependencies
-        run: pnpm audit-gb
+        # when a CVE fails the build, if identified as harmless, you can add to
+        # package.json#pnpm.auditConfig.ignoreCves
+        run: pnpm audit --audit-level moderate --json
 
   build:
     name: Build
