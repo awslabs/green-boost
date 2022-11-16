@@ -4,7 +4,7 @@ overrides:
   trim@<0.0.3: '>=0.0.3'
   got@<11.8.5: '>=11.8.5'
   minimatch@<3.0.5: '>=3.1.2'
-  loader-utils: '>=2.0.3'
+  loader-utils: '>=3.2.1'
   terser: '>=5.14.2'
 
 importers:
@@ -9475,7 +9475,7 @@ packages:
     dependencies:
       '@babel/core': 7.20.2
       find-cache-dir: 3.3.2
-      loader-utils: 3.2.0
+      loader-utils: 3.2.1
       make-dir: 3.1.0
       schema-utils: 2.7.1
       webpack: 5.73.0
@@ -11700,7 +11700,7 @@ packages:
     peerDependencies:
       webpack: ^4.0.0 || ^5.0.0
     dependencies:
-      loader-utils: 3.2.0
+      loader-utils: 3.2.1
       schema-utils: 3.1.1
       webpack: 5.73.0
 
@@ -13046,8 +13046,8 @@ packages:
     resolution: {integrity: sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==}
     engines: {node: '>=6.11.5'}
 
-  /loader-utils/3.2.0:
-    resolution: {integrity: sha512-HVl9ZqccQihZ7JM85dco1MvO9G+ONvxoGa9rkhzFsneGLKSUg1gJf9bWzhRhcvm2qChhWpebQhP44qxjKIUCaQ==}
+  /loader-utils/3.2.1:
+    resolution: {integrity: sha512-ZvFw1KWS3GVyYBYb7qkmRM/WwL2TQQBxgCK62rlvm4WpVQ23Nb4tYjApUlfjrEGvOs7KHEsmyUn75OHZrJMWPw==}
     engines: {node: '>= 12.13.0'}
 
   /local-pkg/0.4.1:
@@ -14597,7 +14597,7 @@ packages:
       gzip-size: 6.0.0
       immer: 9.0.15
       is-root: 2.1.0
-      loader-utils: 3.2.0
+      loader-utils: 3.2.1
       open: 8.4.0
       pkg-up: 3.1.0
       prompts: 2.4.2
@@ -16402,7 +16402,7 @@ packages:
         optional: true
     dependencies:
       file-loader: 6.2.0_webpack@5.73.0
-      loader-utils: 3.2.0
+      loader-utils: 3.2.1
       mime-types: 2.1.35
       schema-utils: 3.1.1
       webpack: 5.73.0

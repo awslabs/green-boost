@@ -15,9 +15,10 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
       - name: Audit Dependencies
-        # when a CVE fails the build, if identified as harmless, you can add to
-        # package.json#pnpm.auditConfig.ignoreCves
-        run: pnpm audit --audit-level moderate --json
+        # when a vulnerability is found that fails the build, first try to use
+        # package.json#pnpm.overrides to use patched version. Second, use
+        # package.json#pnpm.auditConfig.ignoreCves if harmless
+        run: pnpm audit --audit-level moderate
 
   build:
     name: Build
