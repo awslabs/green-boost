@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.28.3
+
+### Patch Changes
+
+- [#149](https://github.com/awslabs/green-boost/pull/149) [`2b9e165`](https://github.com/awslabs/green-boost/commit/2b9e165bdb4564266e99fd7e9343a115e9240533) Thanks [@bestickley](https://github.com/bestickley)! - Fix MultiCheckboxField so user can deselect
+
 ## 0.28.2
 
 ### Patch Changes
