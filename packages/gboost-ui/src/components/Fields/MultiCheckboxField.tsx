@@ -1,4 +1,4 @@
-import { ReactElement, useState, ChangeEvent } from "react";
+import { ReactElement, useState, useCallback, ChangeEventHandler } from "react";
 import { CheckboxField, CheckboxFieldProps, Text } from "@aws-amplify/ui-react";
 import type { CSS } from "../../index.js";
 import { ErrorMessage, styled } from "../../index.js";
@@ -45,6 +45,16 @@ export function MultiCheckboxField(
   const [uncontrolledValue, setUncontrolledValue] = useState<string[]>([]);
   const value = controlledValue || uncontrolledValue;
   const setValue = onChange || setUncontrolledValue;
+  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        setValue((v) => [...v, e.target.value]);
+      } else {
+        setValue((v) => v.filter((el) => el !== e.target.value));
+      }
+    },
+    [setValue]
+  );
   return (
     <Container aria-invalid={hasError} css={css}>
       <label
@@ -66,9 +76,7 @@ export function MultiCheckboxField(
               name={o.value}
               value={o.value}
               checked={value.includes(o.value)}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setValue([...value, e.target.value])
-              }
+              onChange={handleChange}
             />
             {o.labelEnd}
           </CheckboxContainer>
