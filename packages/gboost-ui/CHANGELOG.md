@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.28.4
+
+### Patch Changes
+
+- [#153](https://github.com/awslabs/green-boost/pull/153) [`ef59fd2`](https://github.com/awslabs/green-boost/commit/ef59fd2ee31f6f09d86bcfb0fec1d912c77ea489) Thanks [@bestickley](https://github.com/bestickley)! - Update visible columns when columns prop changes in QueryTable and add warning for bad row key ids"
+
 ## 0.28.3
 
 ### Patch Changes
