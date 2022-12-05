@@ -22,11 +22,11 @@ export interface Column<T extends Row> {
    */
   sortable?: boolean;
   /**
-   * Defines max argument in grid-template-columns property
-   * minmax(150px, insert-width)
-   * @example "0px"
+   * Defines width in grid-template-columns property
+   * @example "0px" // hidden
    * @example "20%"
    * @example "400px"
+   * @example "1fr"
    * @default "minmax(150px, 1fr)"
    */
   width?: string;
