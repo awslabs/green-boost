@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useMemo } from "react";
+import { ReactElement, useCallback, useEffect, useMemo } from "react";
 import { Placeholder } from "@aws-amplify/ui-react";
 import { Box, styled } from "../index";
 import { SelectionCell } from "./SelectionCell.js";
@@ -44,6 +44,14 @@ export function TableBody<T extends Row>(
     selected,
     visibleColumns,
   } = props;
+  const rowsFirstElement = rows[0];
+  useEffect(() => {
+    if (rowsFirstElement && !getRowId(rowsFirstElement)) {
+      console.warn(
+        "QueryTable: Either 'id' is not a key in rows[0] or getRowId(rows[0]) is returning undefined. Please fix so that each row has a unique identifier."
+      );
+    }
+  }, [getRowId, rowsFirstElement]);
   const selectedMap: Record<string, boolean> = useMemo(() => {
     if (selected) {
       return selected.reduce(
