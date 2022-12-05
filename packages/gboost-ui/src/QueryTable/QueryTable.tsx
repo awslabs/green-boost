@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useRef, useState } from "react";
+import { ReactElement, useEffect, useMemo, useRef, useState } from "react";
 import { styled } from "../index.js";
 import { Pagination as DefaultPagination } from "./Pagination.js";
 import { ActionBar as DefaultActionBar } from "./ActionBar/ActionBar.js";
@@ -71,9 +71,17 @@ export function QueryTable<T extends Row>(
   const [columnVisibility, setColumnVisibility] = useState<
     Record<string, boolean>
   >(
-    !initColumnVisibility
-      ? columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})
-      : initColumnVisibility
+    initColumnVisibility ??
+      columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})
+  );
+  // allow changing columns prop to affect column visibility
+  useEffect(
+    () =>
+      setColumnVisibility(
+        initColumnVisibility ??
+          columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})
+      ),
+    [initColumnVisibility, columns]
   );
   const [density, setDensity] = useState<Density>(initDensity);
   const visibleColumns = useMemo(
