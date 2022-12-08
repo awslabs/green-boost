@@ -1,5 +1,15 @@
 # gboost-ui
 
+## 0.29.0
+
+### Minor Changes
+
+- [#155](https://github.com/awslabs/green-boost/pull/155) [`5b93f1f`](https://github.com/awslabs/green-boost/commit/5b93f1f06eac95010abe1ca0081257be5aff0d6a) Thanks [@bestickley](https://github.com/bestickley)! - Update @aws-amplify/ui-react and aws-amplify to latest
+
+### Patch Changes
+
+- [#155](https://github.com/awslabs/green-boost/pull/155) [`5b93f1f`](https://github.com/awslabs/green-boost/commit/5b93f1f06eac95010abe1ca0081257be5aff0d6a) Thanks [@bestickley](https://github.com/bestickley)! - Fix MultiCheckbox controlled onChange
+
 ## 0.28.4
 
 ### Patch Changes
