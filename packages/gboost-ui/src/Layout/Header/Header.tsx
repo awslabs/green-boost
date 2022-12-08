@@ -33,7 +33,7 @@ export function Header(props: HeaderProps): ReactElement {
   const [leftOpen, setLeftOpen] = useState(false);
   const theme = useTheme();
   const mqLg = useMediaQuery(
-    `(min-width: ${theme.breakpoints.values.large}px)`
+    `(min-width: ${theme.breakpoints?.values?.large}px)`
   );
   const handleClick = mqLg ? undefined : () => setLeftOpen(true);
   return (

@@ -36,7 +36,7 @@ async function handleQuery(
 export function GroupsTable(): ReactElement {
   const theme = useTheme();
   const mqLg = useMediaQuery(
-    `(min-width: ${theme.breakpoints.values.large}px)`
+    `(min-width: ${theme.breakpoints?.values?.large}px)`
   );
   const columns: Column<CognitoGroup>[] = useMemo(
     () => [

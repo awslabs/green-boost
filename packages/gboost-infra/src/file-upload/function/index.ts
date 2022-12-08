@@ -1,18 +1,16 @@
-import { AppSyncResolverEvent } from "aws-lambda";
+import { AppSyncResolverHandler } from "aws-lambda";
 import { abortUpload } from "./abortUpload.js";
 import { completeUpload } from "./completeUpload.js";
 import { getUploadId } from "./getUploadId.js";
 import { getUploadPartURL } from "./getUploadPartURL.js";
 import { getUploadURL } from "./getUploadURL.js";
-import { injectLambdaContext, Logger } from "@aws-lambda-powertools/logger";
-import middy from "@middy/core";
+import { Logger } from "@aws-lambda-powertools/logger";
 
 const logger = new Logger({ serviceName: "greenBoostFileUpload" });
 
-async function lambdaHandler(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  event: AppSyncResolverEvent<any>
-): Promise<unknown> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const handler: AppSyncResolverHandler<any, any> = (event, context) => {
+  logger.addContext(context);
   const params = {
     event,
     logger,
@@ -38,8 +36,4 @@ async function lambdaHandler(
   } catch (error) {
     console.error(error);
   }
-}
-
-export const handler = middy(lambdaHandler).use(
-  injectLambdaContext(logger, { logEvent: true })
-);
+};

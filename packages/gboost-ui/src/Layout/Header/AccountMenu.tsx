@@ -22,10 +22,10 @@ export function AccountMenu(props: AccountMenuProps): ReactElement {
   const { email, fullName, signOut, username } = props;
   const theme = useTheme();
   const mqLg = useMediaQuery(
-    `(min-width: ${theme.breakpoints.values.large}px)`
+    `(min-width: ${theme.breakpoints?.values?.large}px)`
   );
   const mqSm = useMediaQuery(
-    `(min-width: ${theme.breakpoints.values.small}px)`
+    `(min-width: ${theme.breakpoints?.values?.small}px)`
   );
   if (mqLg) {
     return (

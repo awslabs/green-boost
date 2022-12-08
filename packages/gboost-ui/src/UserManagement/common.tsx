@@ -12,10 +12,10 @@ export const Title = styled(Heading, { textAlign: "center" });
 export function useFormGridCols() {
   const theme = useTheme();
   const mqMd = useMediaQuery(
-    `(min-width: ${theme.breakpoints.values.medium}px)`
+    `(min-width: ${theme.breakpoints?.values?.medium}px)`
   );
   const mqLg = useMediaQuery(
-    `(min-width: ${theme.breakpoints.values.large}px)`
+    `(min-width: ${theme.breakpoints?.values?.large}px)`
   );
   let formGridCols = 1;
   if (mqMd) {
@@ -30,10 +30,10 @@ export function useFormGridCols() {
 export function useTitleSize() {
   const theme = useTheme();
   const mqMd = useMediaQuery(
-    `(min-width: ${theme.breakpoints.values.medium}px)`
+    `(min-width: ${theme.breakpoints?.values?.medium}px)`
   );
   const mqLg = useMediaQuery(
-    `(min-width: ${theme.breakpoints.values.large}px)`
+    `(min-width: ${theme.breakpoints?.values?.large}px)`
   );
   let titleSize = "$6";
   if (mqMd) {

@@ -91,9 +91,9 @@ export function UsersTable(props: UsersTableProps): ReactElement {
   );
   const theme = useTheme();
   const mqLg = useMediaQuery(
-    `(min-width: ${theme.breakpoints.values.large}px)`
+    `(min-width: ${theme.breakpoints?.values?.large}px)`
   );
-  const mqXl = useMediaQuery(`(min-width: ${theme.breakpoints.values.xl}px)`);
+  const mqXl = useMediaQuery(`(min-width: ${theme.breakpoints?.values?.xl}px)`);
   const columns: Column<CognitoUser>[] = useMemo(
     () => [
       {
