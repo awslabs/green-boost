@@ -48,12 +48,12 @@ export function MultiCheckboxField(
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       if (e.target.checked) {
-        setValue((v) => [...v, e.target.value]);
+        setValue([...value, e.target.value]);
       } else {
-        setValue((v) => v.filter((el) => el !== e.target.value));
+        setValue(value.filter((el) => el !== e.target.value));
       }
     },
-    [setValue]
+    [setValue, value]
   );
   return (
     <Container aria-invalid={hasError} css={css}>

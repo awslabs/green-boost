@@ -31,9 +31,9 @@ interface ListUsersInGroupResponse {
 export function UsersInGroupTable(): ReactElement {
   const theme = useTheme();
   const mqLg = useMediaQuery(
-    `(min-width: ${theme.breakpoints.values.large}px)`
+    `(min-width: ${theme.breakpoints?.values?.large}px)`
   );
-  const mqXl = useMediaQuery(`(min-width: ${theme.breakpoints.values.xl}px)`);
+  const mqXl = useMediaQuery(`(min-width: ${theme.breakpoints?.values?.xl}px)`);
   const { groupName } = useParams();
   const titleSize = useTitleSize();
   const handleQuery = useCallback(

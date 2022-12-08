@@ -53,7 +53,6 @@
     "@aws-lambda-powertools/logger": "^1.4.0",
     "@aws-sdk/client-s3": "^3.204.0",
     "@aws-sdk/s3-request-presigner": "^3.204.0",
-    "@middy/core": "^3.6.2",
     "@types/aws-lambda": "^8.10.108",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.18.3",
