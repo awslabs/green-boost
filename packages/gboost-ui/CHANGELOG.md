@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.29.2
+
+### Patch Changes
+
+- [#160](https://github.com/awslabs/green-boost/pull/160) [`172e44d`](https://github.com/awslabs/green-boost/commit/172e44de2bf920efe5b83501dcb522b984ecb48e) Thanks [@bestickley](https://github.com/bestickley)! - Make FileUploadProps.value optional
+
 ## 0.29.1
 
 ### Patch Changes
