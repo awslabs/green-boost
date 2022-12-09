@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.29.1
+
+### Patch Changes
+
+- [#157](https://github.com/awslabs/green-boost/pull/157) [`3772f22`](https://github.com/awslabs/green-boost/commit/3772f22b74e844592a1538db2fd6dfcb70492719) Thanks [@bestickley](https://github.com/bestickley)! - Fix TextField related Field's prop types
+
 ## 0.29.0
 
 ### Minor Changes
