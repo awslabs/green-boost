@@ -2,4 +2,4 @@
 "gboost-ui": patch
 ---
 
-Make FileUploadProps.value optional
+Make FileUploadProps.value optional.
