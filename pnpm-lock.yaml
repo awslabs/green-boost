@@ -281,7 +281,7 @@ importers:
       prettier: ^2.7.1
       react: ^17.0.2
       react-dom: ^17.0.2
-      react-hook-form: ^7.39.1
+      react-hook-form: ^7.40.0
       react-icons: ^4.6.0
       react-router-dom: ^6.4.3
       react-transition-group: ^4.4.5
@@ -292,7 +292,7 @@ importers:
       zod: ^3.19.1
     dependencies:
       '@aws-amplify/ui-react': 4.2.0_sco5hk52ojmrrfke2wkybh3qty
-      '@hookform/resolvers': 2.9.10_react-hook-form@7.39.1
+      '@hookform/resolvers': 2.9.10_react-hook-form@7.40.0
       '@mantine/hooks': 3.6.14_react@17.0.2
       '@radix-ui/colors': 0.1.8
       '@radix-ui/react-dialog': 0.1.7_gzv7pa6nrbev3fs6gyzn7sadkq
@@ -304,7 +304,7 @@ importers:
       graphql-tag: 2.12.6_graphql@15.8.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-hook-form: 7.39.1_react@17.0.2
+      react-hook-form: 7.40.0_react@17.0.2
       react-icons: 4.6.0_react@17.0.2
       react-transition-group: 4.4.5_sfoxds7t5ydpegc3knd667wn6m
       zod: 3.19.1
@@ -7347,12 +7347,12 @@ packages:
     dependencies:
       '@hapi/hoek': 9.3.0
 
-  /@hookform/resolvers/2.9.10_react-hook-form@7.39.1:
+  /@hookform/resolvers/2.9.10_react-hook-form@7.40.0:
     resolution: {integrity: sha512-JIL1DgJIlH9yuxcNGtyhsWX/PgNltz+5Gr6+8SX9fhXc/hPbEIk6wPI82nhgvp3uUb6ZfAM5mqg/x7KR7NAb+A==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
-      react-hook-form: 7.39.1_react@17.0.2
+      react-hook-form: 7.40.0_react@17.0.2
     dev: false
 
   /@humanwhocodes/config-array/0.11.7:
@@ -14976,8 +14976,8 @@ packages:
       react-fast-compare: 3.2.0
       shallowequal: 1.1.0
 
-  /react-hook-form/7.39.1_react@17.0.2:
-    resolution: {integrity: sha512-MiF9PCILN5KulhSGbnjohMiTOrB47GerDTichMNP0y2cPUu1GTRFqbunOxCE9N1499YTLMV/ne4gFzqCp1rxrQ==}
+  /react-hook-form/7.40.0_react@17.0.2:
+    resolution: {integrity: sha512-0rokdxMPJs0k9bvFtY6dbcSydyNhnZNXCR49jgDr/aR03FDHFOK6gfh8ccqB3fl696Mk7lqh04xdm+agqWXKSw==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18

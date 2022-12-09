@@ -9,6 +9,7 @@ import {
   ChangeEventHandler,
   ForwardedRef,
   forwardRef,
+  InputHTMLAttributes,
   KeyboardEventHandler,
   ReactElement,
   RefObject,
@@ -27,14 +28,10 @@ const UploadIcon = styled(Icon, {
   fontSize: "$6",
 });
 
-export interface FileUploadFieldProps extends Omit<TextFieldProps, "value"> {
-  accept?: string;
-  capture?: "user" | "environment";
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  id?: string;
-  multiple?: boolean;
-  value?: FileList | null;
-}
+export type FileUploadFieldProps = Omit<TextFieldProps, "value"> &
+  Omit<InputHTMLAttributes<HTMLInputElement>, "value"> & {
+    value: FileList | null;
+  };
 
 export function _FileUploadField(
   props: FileUploadFieldProps,

@@ -1,17 +1,15 @@
 import { TextField, TextFieldProps } from "@aws-amplify/ui-react";
 import {
-  ChangeEventHandler,
   ForwardedRef,
   forwardRef,
+  InputHTMLAttributes,
   ReactElement,
 } from "react";
 
-export interface DateTimeFieldProps extends TextFieldProps {
-  type?: "datetime-local" | "date" | "time";
-  max?: string;
-  min?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-}
+export type DateTimeFieldProps = TextFieldProps &
+  InputHTMLAttributes<HTMLInputElement> & {
+    type?: "datetime-local" | "date" | "time";
+  };
 
 /**
  * DateTimeField uses the nativve input element to display datetime, date, or time
