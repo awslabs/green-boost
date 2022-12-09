@@ -30,7 +30,7 @@ const UploadIcon = styled(Icon, {
 
 export type FileUploadFieldProps = Omit<TextFieldProps, "value"> &
   Omit<InputHTMLAttributes<HTMLInputElement>, "value"> & {
-    value: FileList | null;
+    value?: FileList | null;
   };
 
 export function _FileUploadField(
