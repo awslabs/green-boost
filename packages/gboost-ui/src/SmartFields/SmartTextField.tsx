@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement } from "react";
+import { ChangeEvent, InputHTMLAttributes, ReactElement } from "react";
 import { TextField, TextFieldProps } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
@@ -11,7 +11,10 @@ import {
 import { useId } from "@mantine/hooks";
 
 export type SmartTextFieldProps<T extends FieldValues> =
-  ExternalBaseSmartFieldProps & ControlProps<T> & Omit<TextFieldProps, "name">;
+  ExternalBaseSmartFieldProps &
+    ControlProps<T> &
+    Omit<TextFieldProps, "name"> &
+    InputHTMLAttributes<HTMLInputElement>;
 
 export function SmartTextField<T extends FieldValues>(
   props: SmartTextFieldProps<T>
