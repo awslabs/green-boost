@@ -11,9 +11,12 @@ export async function create() {
   execSync("git init", { cwd: answers.repoName });
   console.log(`\n📦 Installing dependencies with: ${kleur.yellow("pnpm i")}\n`);
   execSync("pnpm i", { stdio: "inherit", cwd: answers.repoName });
-  execSync('pnpm -r exec eslint --fix "src/**/*.{ts,tsx}"', {
-    cwd: answers.repoName,
-  });
+  execSync(
+    'pnpm -r exec eslint --fix "**/src/**/*.{ts,tsx}" --ignore-pattern "node_modules/**"',
+    {
+      cwd: answers.repoName,
+    }
+  );
   console.log(
     "\n",
     `✅  Done! Change directory into your new repo: ${kleur.yellow(
