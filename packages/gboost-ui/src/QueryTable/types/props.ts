@@ -97,6 +97,11 @@ export interface QueryTableProps<T extends Row> {
    */
   pageSizeOptions?: number[];
   /**
+   * If supplied, will show refresh button in ActionBar which when clicked will
+   * call this function
+   */
+  refreshFn?: () => unknown;
+  /**
    * Rows of table. If undefined and you'd like to display a "no data" message,
    * use `AlertMessage` prop
    */

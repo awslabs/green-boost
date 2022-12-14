@@ -58,6 +58,7 @@ export function QueryTable<T extends Row>(
     onChangePagination,
     onChangeSelected,
     onChangeSorts,
+    refreshFn,
     rows = [],
     selected,
     sorts,
@@ -116,6 +117,7 @@ export function QueryTable<T extends Row>(
     onChangeColumnVisibility: (v) => setColumnVisibility(v),
     onChangeDensity: (v) => setDensity(v),
     onChangeFilters,
+    refreshFn,
     AdditionalActions,
   };
   if (CustomActionBar) {

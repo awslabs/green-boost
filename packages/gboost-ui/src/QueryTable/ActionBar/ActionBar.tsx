@@ -7,6 +7,7 @@ import { ColumnVisibilityAction } from "./ColumnVisibilityAction.js";
 import { Density, DensityAction } from "./DensityAction.js";
 import { Filter } from "../types/filter.js";
 import { Row } from "../types/row.js";
+import { RefreshAction } from "./RefreshAction.js";
 
 interface ActionBarProps<T extends Row> {
   columns: Column<T>[];
@@ -19,6 +20,7 @@ interface ActionBarProps<T extends Row> {
   onChangeColumnVisibility: (columnVisibility: Record<string, boolean>) => void;
   onChangeDensity: (density: Density) => void;
   onChangeFilters?: (filters: Filter[]) => void;
+  refreshFn?: () => unknown;
   AdditionalActions?: ReactElement;
 }
 
@@ -39,6 +41,7 @@ export function ActionBar<T extends Row>(
     onChangeColumnVisibility: handleChangeColumnVisibility,
     onChangeDensity: handleChangeDensity,
     onChangeFilters,
+    refreshFn,
     AdditionalActions,
   } = props;
   const filterColumns = useMemo(
@@ -56,6 +59,7 @@ export function ActionBar<T extends Row>(
     >
       {heading ? <Heading level={3}>{heading}</Heading> : <Heading />}
       <Box css={{ display: "flex", gap: "$2" }}>
+        {refreshFn && <RefreshAction refreshFn={refreshFn} />}
         {filterColumns.length !== 0 && (
           <FilterAction
             disableMultiFilter={disableMultiFilter}
