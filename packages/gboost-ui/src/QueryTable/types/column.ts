@@ -15,6 +15,11 @@ export interface Column<T extends Row> {
    * Display header name per column
    */
   headerName: string;
+  /**
+   * If `true`, hides column. Helpful when you want to filter on a column you
+   * don't want to show
+   */
+  hide?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderCell?: (value: any, row: T) => ReactElement | string;
   /**

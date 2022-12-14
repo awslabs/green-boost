@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import type { ReactElement, ReactNode } from "react";
 import type { TableProps } from "@aws-amplify/ui-react";
 import { Filter } from "./filter.js";
 import type { Density } from "../ActionBar/DensityAction.js";
@@ -52,7 +52,7 @@ export interface QueryTableProps<T extends Row> {
   /**
    * Title of table
    */
-  heading?: string;
+  heading?: ReactNode;
   /**
    * Record with keys being column ids. Default show all columns
    * @default `columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})`
@@ -96,6 +96,11 @@ export interface QueryTableProps<T extends Row> {
    * @default [10, 20, 50]
    */
   pageSizeOptions?: number[];
+  /**
+   * If supplied, will show refresh button in ActionBar which when clicked will
+   * call this function
+   */
+  refreshFn?: () => unknown;
   /**
    * Rows of table. If undefined and you'd like to display a "no data" message,
    * use `AlertMessage` prop

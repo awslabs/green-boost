@@ -1,4 +1,4 @@
-import { ReactElement, RefObject, useMemo } from "react";
+import { ReactElement, ReactNode, RefObject, useMemo } from "react";
 import { Heading } from "@aws-amplify/ui-react";
 import { Box } from "../../index.js";
 import { Column } from "../types/column.js";
@@ -7,6 +7,7 @@ import { ColumnVisibilityAction } from "./ColumnVisibilityAction.js";
 import { Density, DensityAction } from "./DensityAction.js";
 import { Filter } from "../types/filter.js";
 import { Row } from "../types/row.js";
+import { RefreshAction } from "./RefreshAction.js";
 
 interface ActionBarProps<T extends Row> {
   columns: Column<T>[];
@@ -15,10 +16,11 @@ interface ActionBarProps<T extends Row> {
   disableMultiFilter: boolean;
   filters?: Filter[];
   filterButtonRef: RefObject<HTMLButtonElement>;
-  heading?: string;
+  heading?: ReactNode;
   onChangeColumnVisibility: (columnVisibility: Record<string, boolean>) => void;
   onChangeDensity: (density: Density) => void;
   onChangeFilters?: (filters: Filter[]) => void;
+  refreshFn?: () => unknown;
   AdditionalActions?: ReactElement;
 }
 
@@ -39,12 +41,21 @@ export function ActionBar<T extends Row>(
     onChangeColumnVisibility: handleChangeColumnVisibility,
     onChangeDensity: handleChangeDensity,
     onChangeFilters,
+    refreshFn,
     AdditionalActions,
   } = props;
   const filterColumns = useMemo(
     () => columns.filter((c) => c.filterOptions),
     [columns]
   );
+  let finalHeading: ReactNode;
+  if (typeof heading === "string") {
+    finalHeading = <Heading level={3}>{heading}</Heading>;
+  } else if (heading) {
+    finalHeading = heading;
+  } else {
+    finalHeading = <Heading />;
+  }
   return (
     <Box
       css={{
@@ -54,8 +65,9 @@ export function ActionBar<T extends Row>(
         ml: "$1",
       }}
     >
-      {heading ? <Heading level={3}>{heading}</Heading> : <Heading />}
+      {finalHeading}
       <Box css={{ display: "flex", gap: "$2" }}>
+        {refreshFn && <RefreshAction refreshFn={refreshFn} />}
         {filterColumns.length !== 0 && (
           <FilterAction
             disableMultiFilter={disableMultiFilter}

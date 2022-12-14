@@ -58,6 +58,7 @@ export function QueryTable<T extends Row>(
     onChangePagination,
     onChangeSelected,
     onChangeSorts,
+    refreshFn,
     rows = [],
     selected,
     sorts,
@@ -72,16 +73,16 @@ export function QueryTable<T extends Row>(
     Record<string, boolean>
   >(
     initColumnVisibility ??
-      columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})
+      columns.reduce((prev, cur) => ({ ...prev, [cur.id]: !cur.hide }), {})
   );
-  // allow changing columns prop to affect column visibility
+  // allow changing columns prop to affect column visibility - helpful when
+  // dynamically adding columns
   useEffect(
     () =>
       setColumnVisibility(
-        initColumnVisibility ??
-          columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})
+        columns.reduce((prev, cur) => ({ ...prev, [cur.id]: !cur.hide }), {})
       ),
-    [initColumnVisibility, columns]
+    [columns]
   );
   const [density, setDensity] = useState<Density>(initDensity);
   const visibleColumns = useMemo(
@@ -116,6 +117,7 @@ export function QueryTable<T extends Row>(
     onChangeColumnVisibility: (v) => setColumnVisibility(v),
     onChangeDensity: (v) => setDensity(v),
     onChangeFilters,
+    refreshFn,
     AdditionalActions,
   };
   if (CustomActionBar) {
