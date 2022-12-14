@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import type { ReactElement, ReactNode } from "react";
 import type { TableProps } from "@aws-amplify/ui-react";
 import { Filter } from "./filter.js";
 import type { Density } from "../ActionBar/DensityAction.js";
@@ -52,7 +52,7 @@ export interface QueryTableProps<T extends Row> {
   /**
    * Title of table
    */
-  heading?: string;
+  heading?: ReactNode;
   /**
    * Record with keys being column ids. Default show all columns
    * @default `columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})`
