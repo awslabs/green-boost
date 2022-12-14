@@ -72,16 +72,16 @@ export function QueryTable<T extends Row>(
     Record<string, boolean>
   >(
     initColumnVisibility ??
-      columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})
+      columns.reduce((prev, cur) => ({ ...prev, [cur.id]: !cur.hide }), {})
   );
-  // allow changing columns prop to affect column visibility
+  // allow changing columns prop to affect column visibility - helpful when
+  // dynamically adding columns
   useEffect(
     () =>
       setColumnVisibility(
-        initColumnVisibility ??
-          columns.reduce((prev, cur) => ({ ...prev, [cur.id]: true }), {})
+        columns.reduce((prev, cur) => ({ ...prev, [cur.id]: !cur.hide }), {})
       ),
-    [initColumnVisibility, columns]
+    [columns]
   );
   const [density, setDensity] = useState<Density>(initDensity);
   const visibleColumns = useMemo(
