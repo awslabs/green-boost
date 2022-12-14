@@ -1,5 +1,15 @@
 # gboost-ui
 
+## 0.30.0
+
+### Minor Changes
+
+- [#163](https://github.com/awslabs/green-boost/pull/163) [`f8ac7ac`](https://github.com/awslabs/green-boost/commit/f8ac7ac4497be07189141609959028ba06a5f915) Thanks [@bestickley](https://github.com/bestickley)! - Enable hiding columns
+
+- [#163](https://github.com/awslabs/green-boost/pull/163) [`f8ac7ac`](https://github.com/awslabs/green-boost/commit/f8ac7ac4497be07189141609959028ba06a5f915) Thanks [@bestickley](https://github.com/bestickley)! - Add refresh action bar prop
+
+- [#163](https://github.com/awslabs/green-boost/pull/163) [`f8ac7ac`](https://github.com/awslabs/green-boost/commit/f8ac7ac4497be07189141609959028ba06a5f915) Thanks [@bestickley](https://github.com/bestickley)! - Add ability to pass ReactNode as heading instead of just string
+
 ## 0.29.2
 
 ### Patch Changes
