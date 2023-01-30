@@ -1,8 +1,8 @@
 import { execSync } from "node:child_process";
-import log from "loglevel";
 import { injectFnConfig } from "./inject-fn-config.js";
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
+import { logger } from "../utils/logger.js";
 
 interface RunFnParams {
   event?: string;
@@ -36,8 +36,8 @@ export async function setupFn(params: RunFnParams) {
       // injects fn config into process.env and dummyContext
       await injectFnConfig({ dummyContext, functionArn });
     } catch (err) {
-      log.error(`Failed to fetch function configuration for ${functionArn}`);
-      log.error(err);
+      logger.error(`Failed to fetch function configuration for ${functionArn}`);
+      logger.error(err);
       return;
     }
   }
@@ -53,16 +53,16 @@ export async function setupFn(params: RunFnParams) {
   )} `;
   if (event) {
     if (event[0] === "{") {
-      log.debug("Assuming event is a string object");
+      logger.debug("Assuming event is a string object");
       command += `-e '${event}'`;
     } else {
-      log.debug("Assuming event is a file path");
+      logger.debug("Assuming event is a file path");
       try {
         const eventStr = readFileSync(event, { encoding: "utf-8" });
         command += `e '${eventStr}'`;
       } catch (err) {
-        log.debug(err);
-        log.error(`File does not exist at path ${event}`);
+        logger.debug(err);
+        logger.error(`File does not exist at path ${event}`);
       }
     }
   }
@@ -73,6 +73,6 @@ export async function setupFn(params: RunFnParams) {
       encoding: "utf-8",
     });
   } catch (err) {
-    log.error(err);
+    logger.error(err);
   }
 }

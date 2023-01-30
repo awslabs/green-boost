@@ -3,5 +3,5 @@
   "compilerOptions": {
     "outDir": "lib",
   },
-  "exclude": ["_templates/**/*", "**/*.test.ts", "lib", "tests"]
+  "exclude": ["_templates/**/*", "templates/**/*", "**/*.test.ts", "lib", "tests"]
 }

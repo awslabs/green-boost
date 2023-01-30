@@ -1,0 +1,48 @@
+{
+  "name": "@{{GB_APP_SCOPE}}/monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "pnpm --recursive --parallel build",
+    "lint": "pnpm --recursive --parallel lint",
+    "test": "pnpm --recursive --parallel test",
+    "typecheck": "pnpm --recursive --parallel typecheck",
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "eslint": "^8.29.0",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "esbuild": "^0.17.4",
+    "tsx": "^3.12.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "xstate": "^4.33.6"
+    },
+    "patchedDependencies": {
+      "@hookform/resolvers@2.9.10": "patches/@hookform__resolvers@2.9.10.patch"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "18"
+      },
+      "ignoreMissing": [
+        "@aws-amplify/geo",
+        "@aws-amplify/core",
+        "@babel/plugin-syntax-flow",
+        "@babel/plugin-transform-react-jsx",
+        "react-native"
+      ]
+    }
+  }
+}

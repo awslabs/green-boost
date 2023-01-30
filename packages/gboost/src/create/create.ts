@@ -1,35 +1,36 @@
 import kleur from "kleur";
-import { execSync } from "node:child_process";
-import log from "loglevel";
+import { chdir } from "process";
+import { logger } from "../utils/logger.js";
 import { ask } from "./ask.js";
-import { render } from "./render.js";
+import { executeOperations } from "./execute-operations.js";
+import { getOperations } from "./get-operations.js";
 
+/**
+ * Creates a Green Boost app based on a given template
+ */
 export async function create() {
   const answers = await ask();
-  await render(answers);
-  log.info("Linting repo to clean up whitespace and new lines");
-  execSync("git init", { cwd: answers.repoName });
-  console.log(`\n📦 Installing dependencies with: ${kleur.yellow("pnpm i")}\n`);
-  execSync("pnpm i", { stdio: "inherit", cwd: answers.repoName });
-  execSync('pnpm -r exec eslint --fix "src/**/*.{ts,tsx}"', {
-    cwd: answers.repoName,
+  const operations = getOperations({
+    template: answers.template,
+    destination: answers.directory,
+    scope: answers.scope,
   });
-  console.log(
-    "\n",
-    `✅  Done! Change directory into your new repo: ${kleur.yellow(
-      `cd ${answers.repoName}`
-    )}\n\n`,
-    "Quick Guide:\n",
-    `✈️   Deploy the development environment: ${kleur.yellow(
-      "gboost deploy-dev"
-    )}\n`,
-    `💻  Develop the front end: ${kleur.yellow(
-      "cd ui && pnpm dev"
-    )} or develop the back end: ${kleur.yellow(
-      "cd infra && cdk deploy <stack-name> --hotswap"
-    )}\n`,
-    `🚀  Deploy CI/CD pipeline for dev/test/prod environments: ${kleur.yellow(
-      "cdk deploy\n\n"
-    )}`
-  );
+  executeOperations(operations);
+  chdir(answers.directory);
+  const message =
+    "\n\n" +
+    `✅ Done!` +
+    "\n" +
+    `📦 Install dependencies with ${kleur.yellow("pnpm i")}` +
+    "\n\n" +
+    `Quick Guide:` +
+    "\n" +
+    `💻 Develop the backend: ${kleur.yellow(
+      "pnpm dev infra"
+    )} and the frontend with ${kleur.yellow("pnpm dev ui")}` +
+    "\n" +
+    `🚀 When you're ready for production, deploy your CI/CD pipeline for dev/test/prod environments: ${kleur.yellow(
+      "pnpm deploy pipeline"
+    )}`;
+  logger.log(message);
 }

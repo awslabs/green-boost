@@ -1,0 +1,3 @@
+{
+  "extends": "@{{GB_APP_SCOPE}}/tsconfig/tsconfig.node.json",
+}
