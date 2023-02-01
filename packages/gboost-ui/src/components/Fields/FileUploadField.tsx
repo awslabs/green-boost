@@ -78,6 +78,7 @@ export function _FileUploadField(
         style={{ display: "none" }}
         type="file"
         onChange={onChange || uncontrolledOnChange}
+        onClick={(e) => (e.currentTarget.value = "")}
       />
       <TextField
         {...textFieldProps}
