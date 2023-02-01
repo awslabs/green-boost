@@ -41,8 +41,8 @@ export function Pagination(props: PaginationProps): ReactElement {
     }
   }, [pageSize, pageSizeOptions]);
   const onChange = useCallback(
-    (newPageIndex: number) => {
-      if (onChangePagination) {
+    (newPageIndex?: number) => {
+      if (newPageIndex && onChangePagination) {
         onChangePagination({
           currentPage: newPageIndex,
           pageSize,
