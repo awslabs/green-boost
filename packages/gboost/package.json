@@ -28,11 +28,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-lambda": "^3.204.0",
+    "@aws-sdk/client-lambda": "^3.262.0",
     "ejs": "^3.1.8",
     "gboost-common": "workspace:^0.8.0",
     "kleur": "^4.1.5",
-    "loglevel": "^1.8.0",
+    "loglevel": "^1.8.1",
     "minimist": "^1.2.7",
     "prompts": "^2.4.2",
     "vite": "^2.9.15",
@@ -42,18 +42,18 @@
   "devDependencies": {
     "@types/ejs": "^3.1.1",
     "@types/minimist": "^1.2.2",
-    "@types/node": "^16.18.3",
-    "@types/prompts": "^2.4.1",
-    "@typescript-eslint/eslint-plugin": "^5.42.0",
-    "@typescript-eslint/parser": "^5.42.0",
-    "eslint": "^8.26.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-define-config": "^1.11.0",
+    "@types/node": "^16.18.11",
+    "@types/prompts": "^2.4.2",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
+    "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-define-config": "^1.15.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.3",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.5"
   },
   "repository": {
     "type": "git",
