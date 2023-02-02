@@ -13,7 +13,7 @@ export const userAttrNames = [
   "given_name",
   "family_name",
 ] as const;
-type UserAttrName = typeof userAttrNames[number];
+type UserAttrName = (typeof userAttrNames)[number];
 
 export function transformUser(
   // UserType is returned by List commands and

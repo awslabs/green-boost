@@ -78,6 +78,13 @@ export function _FileUploadField(
         style={{ display: "none" }}
         type="file"
         onChange={onChange || uncontrolledOnChange}
+        /* 
+        The browser natively does not trigger an onchange event
+        when the same file name is uploaded multiple times, so
+        this workaround forces the onchange event to always trigger.
+        https://stackoverflow.com/questions/4109276/how-to-detect-input-type-file-change-for-the-same-file
+        */
+        onClick={(e) => (e.currentTarget.value = "")}
       />
       <TextField
         {...textFieldProps}

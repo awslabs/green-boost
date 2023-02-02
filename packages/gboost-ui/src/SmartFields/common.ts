@@ -22,10 +22,10 @@ const customProps = [
  */
 export function normalizeProps<T extends Record<string, any>>(
   props: T
-): Omit<T, typeof customProps[number]> {
+): Omit<T, (typeof customProps)[number]> {
   const _props: Record<string, any> = {};
   for (const p of Object.keys(props)) {
-    if (!customProps.includes(p as typeof customProps[number])) {
+    if (!customProps.includes(p as (typeof customProps)[number])) {
       _props[p] = props[p];
     }
   }
