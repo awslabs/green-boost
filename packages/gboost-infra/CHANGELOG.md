@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.11.2
+
+### Patch Changes
+
+- [#170](https://github.com/awslabs/green-boost/pull/170) [`fe5b59a`](https://github.com/awslabs/green-boost/commit/fe5b59ac9ede4f1ae524d6c64906dc6235079e45) Thanks [@tom-dennis-aws](https://github.com/tom-dennis-aws)! - fixed build/lint issues
+
 ## 0.11.1
 
 ### Patch Changes
