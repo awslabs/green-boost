@@ -1,5 +1,13 @@
 # gboost-ui
 
+## 0.30.1
+
+### Patch Changes
+
+- [#170](https://github.com/awslabs/green-boost/pull/170) [`fe5b59a`](https://github.com/awslabs/green-boost/commit/fe5b59ac9ede4f1ae524d6c64906dc6235079e45) Thanks [@tom-dennis-aws](https://github.com/tom-dennis-aws)! - fixed build/lint issues
+
+- [#170](https://github.com/awslabs/green-boost/pull/170) [`fe5b59a`](https://github.com/awslabs/green-boost/commit/fe5b59ac9ede4f1ae524d6c64906dc6235079e45) Thanks [@tom-dennis-aws](https://github.com/tom-dennis-aws)! - allow file uploads to use same file name with updated data
+
 ## 0.30.0
 
 ### Minor Changes
