@@ -21,10 +21,10 @@ Code architecture when clean and simple can increase developer productivity. Thi
   - migrations/
   - seed/
 - infra/
-  - /api-stack
-  - /db-stack
-  - /job-stack
-  - /ui-stack
+  - api-stack/
+  - db-stack/
+  - job-stack/
+  - ui-stack/
 - packages/
 - ui/
   - components/
@@ -33,7 +33,10 @@ Code architecture when clean and simple can increase developer productivity. Thi
   - pages/
 
 ## Core
-Center of your application. Inspired by hexagonal architecture and domain drive design principles. Primarily includes backend functionality. Additionally includes common code shared between db, infra, and ui folders.
+- Center of your application.
+- Subfolder structure inspired by hexagonal architecture and domain driven design principles.
+- Primarily includes backend functionality.
+- Additionally includes common code shared between db, infra, and ui folders.
 ### Adapters
 - Translate communication between the domain and the outside world.
 - Based on hexagonal architecture, these are only secondary adapters as primary adapters live in entrypoints.
@@ -47,11 +50,13 @@ Center of your application. Inspired by hexagonal architecture and domain drive 
 - Don't depend upon adapters or services.
 - Oblivous to infrastructure.
 #### Events
-- Classes of events passed throughout the app
-- Events should be emitted by domain models and consumed by event handlers via a message bus
+- Classes of events passed throughout the app.
+- Events should be emitted by domain models and consumed by event handlers via a message bus.
 #### Errors
-- Enums of error messages or codes
-- Can be referenced in frontend and backend.
+- Classes of errors that can be thrown.
+- Can be referenced in frontend and backend for user messages.
+- Recommend extending backend framework error classes (like tRPC) and not throwing them directly. This offers greater customization of the error.
+- Within error constructor, can CloudWatch metrics (EMF) can be added so high profile errors can be quickly addressed by administrators
 #### Models
 - Classes of the entites or business objects within your app.
 - Home of business logic.
@@ -74,10 +79,11 @@ Center of your application. Inspired by hexagonal architecture and domain drive 
 - [Serverless Clean Architecture & Code with Domain-Driven Design](https://leejamesgilmore.medium.com/serverless-clean-architecture-code-with-domain-driven-design-852796846d28)
 - [AWS Prescriptive Guidance: Building hexagonal achitectures on AWS](https://docs.aws.amazon.com/pdfs/prescriptive-guidance/latest/hexagonal-architectures/hexagonal-architectures.pdf)
 ## DB
+- Utility scripts which aid in development with your database.
 ### Migrations
-Scripts responsible for updating the schemas of your database. More frequently used within SQL DB's, but can be needed within noSQL DB's to update entities based on changing requirements
+- Scripts responsible for updating the schemas of your database. More frequently used within SQL DB's, but can be needed within noSQL DB's to update entities based on changing requirements.
 ### Seed
-Scripts to fill databases with required information for the application to run or setup a test environment.
+- Scripts to fill databases with required information for the application to run or setup a test environment.
 ## Infra
 - AWS Cloud Development Kit (CDK) source code for defining [stacks](https://docs.aws.amazon.com/cdk/v2/guide/stacks.html).
 - Examples include API, DB, Job, and UI stacks.
@@ -86,6 +92,7 @@ Scripts to fill databases with required information for the application to run o
 - Reusable modules across workspaces.
 - Examples include TypeScript configuration and ESLint configuration.
 ## UI
+- Web user interface code including components and pages.
 ### Components
 - Reusable components found across pages.
 - Don't add components here that are only used within a single page.

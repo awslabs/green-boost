@@ -5,7 +5,8 @@ import {
   Operation,
   OperationType,
   replace,
-} from "./operations.js";
+  updateFileNames,
+} from "./operations/operations.js";
 
 /**
  * Executes all operations upon destination directory
@@ -20,8 +21,11 @@ export function executeOperations(operations: Operation[]): void {
       case OperationType.Replace:
         replace(operation);
         break;
-      case OperationType.AddDependencies:
+      case OperationType.UpdatePackageJson:
         updatePackageJson(operation);
+        break;
+      case OperationType.UpdateFileNames:
+        updateFileNames(operation);
         break;
     }
   }

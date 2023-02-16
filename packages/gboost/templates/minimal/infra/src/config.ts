@@ -1,28 +1,26 @@
+import { userInfo } from "node:os";
+
 export const config = {
   appId: "gb",
   /**
    * Can either be pipeline stage such as dev, test, or prod or a developer's
    * alias for local development
    */
-  get stage(): string {
-    const stage = process.env["STAGE"];
-    if (!stage) {
-      throw new Error(
-        "process.env.STAGE is undefined. Stage is required for deployments"
-      );
-    } else {
-      return stage;
-    }
-  },
-  region: "us-east-1", // stage agnostic
+  stage: process.env["STAGE"] || userInfo().username,
+  // TODO: update to specific region
+  region: String(process.env["CDK_DEFAULT_REGION"]),
   get account(): string {
-    // stage specific
-    const accounts: Record<string, string> = {
-      [PipelineStage.dev]: "1234567890",
-      [PipelineStage.test]: "2234567890",
-      [PipelineStage.prod]: "3234567890",
+    // TODO: update to specific aws account numbers
+    const accounts: Record<PipelineStage, string> = {
+      [PipelineStage.dev]: String(process.env["CDK_DEFAULT_ACCOUNT"]),
+      [PipelineStage.test]: String(process.env["CDK_DEFAULT_ACCOUNT"]),
+      [PipelineStage.prod]: String(process.env["CDK_DEFAULT_ACCOUNT"]),
     };
-    return accounts[this.stage];
+    if (this.isPipelineStage) {
+      return accounts[this.stage as PipelineStage];
+    } else {
+      return accounts[PipelineStage.dev]; // default to dev if stage is non-pipeline stage
+    }
   },
   /**
    * Utility function to determine whether cdk app is being deployed in a

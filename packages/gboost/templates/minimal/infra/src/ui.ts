@@ -1,27 +1,16 @@
-import type { HttpApi } from "@aws-cdk/aws-apigatewayv2-alpha";
 import { Stack, StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
 import { StaticSite } from "gboost-infra";
 
-interface UiProps extends StackProps {
-  api: HttpApi;
-}
-
-interface GetStaticSiteProps {
-  api: HttpApi;
-}
-
 export class Ui extends Stack {
-  constructor(scope: Construct, id: string, props: UiProps) {
-    super(scope, id);
-    const { api } = props;
-    this.getStaticSite({ api });
+  constructor(scope: Construct, id: string, props: StackProps) {
+    super(scope, id, props);
+    this.getStaticSite();
   }
 
-  getStaticSite({ api }: GetStaticSiteProps) {
-    api.apiEndpoint;
+  getStaticSite() {
     return new StaticSite(this, "StaticSite", {
-      webAssetsPath: "../../ui-student",
+      webAssetsPath: "../../ui",
       // TODO: update StaticSite to accept these
       // buildCommand: "pnpm build",
       // buildOutput: "dist",

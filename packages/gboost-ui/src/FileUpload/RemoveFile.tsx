@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
+import { MouseEvent, ReactElement } from "react";
 import { Box } from "../index.js";
 
 interface RemoveFileProps {
-  onClick: (fileName: string, event: React.MouseEvent) => void;
+  onClick: (fileName: string, event: MouseEvent) => void;
   fileName: string;
 }
 
@@ -22,7 +22,7 @@ export function RemoveFile(props: RemoveFileProps): ReactElement {
         right: "0",
         bottom: "0",
       }}
-      onClick={(event) => {
+      onClick={(event: MouseEvent) => {
         onClick(fileName, event);
       }}
     >

@@ -51,7 +51,7 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
       - name: Test
-        run: pnpm unit-test
+        run: pnpm test
 
   # TODO: only run on infra change
   # gboost-create-tests:

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Stack, StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
 import { Function, Table } from "gboost-infra";

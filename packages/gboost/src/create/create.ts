@@ -18,19 +18,21 @@ export async function create() {
   executeOperations(operations);
   chdir(answers.directory);
   const message =
-    "\n\n" +
-    `✅ Done!` +
+    "\n" +
+    `✅ Done! Change directory into your new repo: ${kleur.yellow(
+      `cd ${answers.directory}`
+    )}` +
     "\n" +
     `📦 Install dependencies with ${kleur.yellow("pnpm i")}` +
     "\n\n" +
     `Quick Guide:` +
     "\n" +
-    `💻 Develop the backend: ${kleur.yellow(
-      "pnpm dev infra"
-    )} and the frontend with ${kleur.yellow("pnpm dev ui")}` +
+    `🚀 Deploy your web app: ${kleur.yellow("cd infra")} then ${kleur.yellow(
+      'cdk deploy "*"'
+    )}` +
     "\n" +
-    `🚀 When you're ready for production, deploy your CI/CD pipeline for dev/test/prod environments: ${kleur.yellow(
-      "pnpm deploy pipeline"
-    )}`;
+    `💻 Locally develop your frontend: ${kleur.yellow(
+      "cd ui"
+    )} then ${kleur.yellow("pnpm dev")}`;
   logger.log(message);
 }

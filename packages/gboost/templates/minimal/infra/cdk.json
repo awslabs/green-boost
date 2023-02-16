@@ -1,5 +1,5 @@
 {
-  "app": "tsx src/app.ts",
+  "app": "./node_modules/.bin/vite-node src/app.ts",
   "watch": {
     "include": [
       "src/**/*"
@@ -10,7 +10,6 @@
     "@aws-cdk/core:stackRelativeExports": true,
     "@aws-cdk/aws-rds:lowercaseDbIdentifier": true,
     "@aws-cdk/aws-lambda:recognizeVersionProps": true,
-    "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": true,
-    "devPrefix": "cosmos"
+    "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": true
   }
 }

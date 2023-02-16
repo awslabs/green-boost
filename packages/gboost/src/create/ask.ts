@@ -114,6 +114,9 @@ async function ensureEmptyDirectory(directory: string): Promise<void> {
       console.log("Overwriting.");
       logger.debug("User wants to remove old directory. Removing");
       await rm(directory, { recursive: true });
+    } else {
+      logger.log("Cannot overwrite destination directory. Stopping.");
+      process.exit(0);
     }
   }
 }

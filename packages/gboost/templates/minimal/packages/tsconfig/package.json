@@ -5,9 +5,6 @@
   "exports": {
     "./*": "./*"
   },
-  "engines": {
-    "node": ">=16"
-  },
   "devDependencies": {
     "@tsconfig/node16-strictest-esm": "^1.0.3",
     "@tsconfig/vite-react": "^1.0.1"
