@@ -3,14 +3,14 @@ import { chdir } from "process";
 import { logger } from "../utils/logger.js";
 import { ask } from "./ask.js";
 import { executeOperations } from "./execute-operations.js";
-import { getOperations } from "./get-operations.js";
+import { getTemplateOperations } from "./get-template-operations/get-template-operations.js";
 
 /**
  * Creates a Green Boost app based on a given template
  */
 export async function create() {
   const answers = await ask();
-  const operations = getOperations({
+  const operations = getTemplateOperations({
     template: answers.template,
     destination: answers.directory,
     scope: answers.scope,

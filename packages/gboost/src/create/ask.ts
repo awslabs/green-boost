@@ -21,8 +21,8 @@ export async function ask(): Promise<Answers> {
 
 export enum Template {
   Minimal = "Minimal",
-  Basic = "Basic",
-  ToDo = "ToDo",
+  ToDoDynamo = "ToDoDynamo",
+  ToDoPostgres = "ToDoPostgres",
   Dashboard = "Dashboard",
   KitchenSink = "KitchenSink",
 }
@@ -36,26 +36,26 @@ const questions: PromptObject[] = [
       {
         title: "Minimal",
         description:
-          "Monorepo boilerplate code + React 'Hello, World' example with React and CDK. API and Data layer not defined.",
+          "Monorepo boilerplate code, 'Hello, World' web app built with React, and CDK infrastructure",
         value: Template.Minimal,
       },
       {
-        title: "Basic",
+        title: "To Do App with DynamoDB",
         description:
-          "Simple CRUD app with React, CDK, tRPC via API Gateway and DynamoDB",
-        value: Template.Basic,
+          "To-Do App with minimal template + tRPC via API Gateway and DynamoDB",
+        value: Template.ToDoDynamo,
       },
       {
-        title: "To-Do App",
+        title: "To-Do App with Aurora Serverless Postgres",
         description:
-          "To-Do App with React, CDK, tRPC via API Gateway and DynamoDB",
-        value: Template.ToDo,
+          "To-Do App with minimal template + tRPC via API Gateway and Aurora Serverless Postgres",
+        value: Template.ToDoPostgres,
         disabled: true,
       },
       {
         title: "Dashboard",
         description:
-          "Dashboard with React, CDK, tRPC via API Gateway and Aurora PostgreSQL",
+          "Dashboard with minimal template + tRPC via API Gateway and Aurora PostgreSQL",
         value: Template.Dashboard,
         disabled: true,
       },

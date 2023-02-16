@@ -1,3 +1,4 @@
+// @ts-nocheck
 import "@aws-amplify/ui-react/styles.css";
 import "@fontsource/inter/variable.css";
 import { globalStyles, Layout, theme as stitchesTheme } from "gboost-ui";
