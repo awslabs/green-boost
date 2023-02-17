@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { App, Aspects, Environment, Tags } from "aws-cdk-lib";
 import { AwsSolutionsChecks } from "cdk-nag";
+import { SuppressOkNags } from "gboost-infra";
 import { Api } from "./api.js";
 import { config } from "./config.js";
 import { Data } from "./data.js";
@@ -20,4 +21,5 @@ const apiStack = new Api(app, config.getStackId("api"), {
 new Ui(app, config.getStackId("ui"), { env, api: apiStack.api });
 
 Tags.of(app).add("appId", config.appId);
+Aspects.of(app).add(new SuppressOkNags());
 Aspects.of(app).add(new AwsSolutionsChecks());

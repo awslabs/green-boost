@@ -1,3 +1,4 @@
 {
-  "extends": "@{{GB_APP_SCOPE}}/tsconfig/tsconfig.node.json"
+  "extends": "@{{GB_APP_SCOPE}}/tsconfig/tsconfig.node.json",
+  "exclude": ["cdk.out"],
 }

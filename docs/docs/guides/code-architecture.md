@@ -37,9 +37,10 @@ Code architecture when clean and simple can increase developer productivity. Thi
 - Subfolder structure inspired by hexagonal architecture and domain driven design principles.
 - Primarily includes backend functionality.
 - Additionally includes common code shared between db, infra, and ui folders.
+- Typical API Requests follows the path: User => Entrypoints => Services => Domain => Adapters => Domain => Services => Entrypoints => User
 ### Adapters
 - Translate communication between the domain and the outside world.
-- Based on hexagonal architecture, these are only secondary adapters as primary adapters live in entrypoints.
+- Based on hexagonal architecture, these are secondary adapters.
 - Examples include a database repository, cache client, or email client.
 - Don't contain business logic.
 - Driven by domain.
@@ -56,7 +57,7 @@ Code architecture when clean and simple can increase developer productivity. Thi
 - Classes of errors that can be thrown.
 - Can be referenced in frontend and backend for user messages.
 - Recommend extending backend framework error classes (like tRPC) and not throwing them directly. This offers greater customization of the error.
-- Within error constructor, can CloudWatch metrics (EMF) can be added so high profile errors can be quickly addressed by administrators
+- Within error constructor, CloudWatch metrics (EMF) can be added so high profile errors can be quickly addressed by administrators
 #### Models
 - Classes of the entites or business objects within your app.
 - Home of business logic.

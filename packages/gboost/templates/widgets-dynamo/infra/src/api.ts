@@ -14,6 +14,9 @@ import {
 import { fileURLToPath } from "node:url";
 import { config } from "./config.js";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
+import { NagSuppressions } from "cdk-nag";
+import { CfnWebACL, CfnWebACLAssociation } from "aws-cdk-lib/aws-wafv2";
+import { Runtime } from "aws-cdk-lib/aws-lambda";
 
 interface ApiProps extends StackProps {
   table: Table;
@@ -30,6 +33,7 @@ export class Api extends Stack {
     const fnIntegration = new LambdaIntegration(fn);
     trpcProxy.addMethod("GET", fnIntegration);
     trpcProxy.addMethod("POST", fnIntegration);
+    this.suppressApiNags(this.api);
   }
 
   getApi(): RestApi {
@@ -53,6 +57,29 @@ export class Api extends Stack {
         "Access-Control-Allow-Headers": "'*'",
       },
     });
+    NagSuppressions.addResourceSuppressions(
+      api,
+      [
+        {
+          id: "AwsSolutions-APIG2",
+          reason: "Request validation is performed within lambda",
+        },
+        {
+          id: "AwsSolutions-IAM4",
+          reason:
+            "AmazonAPIGatewayPushToCloudWatchLogs is not overly permissive",
+          appliesTo: [
+            "Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+          ],
+        },
+        {
+          id: "AwsSolutions-APIG6",
+          reason:
+            "CloudWatch logging is too expensive to enable for all methods",
+        },
+      ],
+      true
+    );
     return api;
   }
 
@@ -81,10 +108,103 @@ export class Api extends Stack {
       entry: fileURLToPath(
         new URL("../../core/src/entrypoints/api/handler.ts", import.meta.url)
       ),
+      runtime: Runtime.NODEJS_18_X,
       environment: {
         TABLE_NAME: table.tableName,
+        POWERTOOLS_SERVICE_NAME: "WidgetsApi",
       },
     });
     return fn;
+  }
+
+  suppressApiNags(api: RestApi) {
+    NagSuppressions.addResourceSuppressions(
+      api,
+      [
+        {
+          id: "AwsSolutions-APIG4",
+          reason: "Authorization is not required for this template",
+        },
+        {
+          id: "AwsSolutions-COG4",
+          reason: "Cognito is not used for authorization",
+        },
+      ],
+      true
+    );
+  }
+
+  associateWaf(api: RestApi): void {
+    const webACL = new CfnWebACL(this, "WebACL", {
+      defaultAction: {
+        allow: {},
+      },
+      scope: "REGIONAL",
+      visibilityConfig: {
+        cloudWatchMetricsEnabled: true,
+        metricName: "webACL",
+        sampledRequestsEnabled: true,
+      },
+      rules: this.getWafRules(),
+    });
+
+    new CfnWebACLAssociation(this, "WebACLAssociation", {
+      webAclArn: webACL.attrArn,
+      resourceArn: api.deploymentStage.stageArn,
+    });
+  }
+
+  getWafRules(): CfnWebACL.RuleProperty[] {
+    let priority = 0;
+    return [
+      {
+        overrideAction: { none: {} },
+        name: "AmazonIP",
+        statement: {
+          managedRuleGroupStatement: {
+            vendorName: "AWS",
+            name: "AWSManagedRulesAmazonIpReputationList",
+          },
+        },
+        priority: priority++,
+        visibilityConfig: {
+          cloudWatchMetricsEnabled: true,
+          metricName: "AmazonIPMetric",
+          sampledRequestsEnabled: true,
+        },
+      },
+      {
+        overrideAction: { none: {} },
+        name: "AnonymousIP",
+        statement: {
+          managedRuleGroupStatement: {
+            vendorName: "AWS",
+            name: "AWSManagedRulesAnonymousIpList",
+          },
+        },
+        priority: priority++,
+        visibilityConfig: {
+          cloudWatchMetricsEnabled: true,
+          metricName: "AnonymousIPMetric",
+          sampledRequestsEnabled: true,
+        },
+      },
+      {
+        overrideAction: { none: {} },
+        name: "CoreRuleSet",
+        statement: {
+          managedRuleGroupStatement: {
+            vendorName: "AWS",
+            name: "AWSManagedRulesCommonRuleSet",
+          },
+        },
+        priority: priority++,
+        visibilityConfig: {
+          cloudWatchMetricsEnabled: true,
+          metricName: "CoreRuleSetMetric",
+          sampledRequestsEnabled: true,
+        },
+      },
+    ];
   }
 }

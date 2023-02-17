@@ -34,6 +34,7 @@ export class Function extends NodejsFunction {
     if (!newProps.environment) {
       newProps.environment = {};
     }
+    // const fileStr = readFileSync("./config/${stage}");
     const stageLogLevel: Record<Stage, string> = {
       [Stage.Dev]: "debug",
       [Stage.Test]: "debug",
@@ -58,7 +59,7 @@ export class Function extends NodejsFunction {
       newProps.architecture = Architecture.ARM_64;
     }
     if (!newProps.runtime) {
-      newProps.runtime = Runtime.NODEJS_16_X;
+      newProps.runtime = Runtime.NODEJS_18_X;
     }
     super(scope, id, newProps);
     NagSuppressions.addResourceSuppressions(

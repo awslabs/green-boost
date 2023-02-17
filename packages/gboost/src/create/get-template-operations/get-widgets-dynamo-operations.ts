@@ -31,6 +31,16 @@ export function getWidgetsDynamoOperations(
         "@trpc/server": "^10.11.1",
       },
     },
+    {
+      name: "UpdateCoreDependencies",
+      type: OperationType.UpdatePackageJson,
+      sourcePath: resolve(destinationPath, "ui/package.json"),
+      dependencies: {
+        "@aws-lambda-powertools/logger": "^1.5.1",
+        "@trpc/server": "^10.11.1",
+        zod: "^3.20.6",
+      },
+    },
     // {
     //   name: "UpdatePnpmPatchedDependencies",
     //   type: OperationType.UpdatePackageJson,

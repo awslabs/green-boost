@@ -4,6 +4,7 @@ import { userInfo } from "node:os";
 import prompts, { PromptObject } from "prompts";
 import { pascalToKebabCase } from "../utils/format-case.js";
 import { logger } from "../utils/logger.js";
+import { Template, templateChoices } from "./templates.js";
 
 export interface Answers {
   template: Template;
@@ -20,54 +21,12 @@ export async function ask(): Promise<Answers> {
   return answers;
 }
 
-export enum Template {
-  Minimal = "Minimal",
-  WidgetsDynamo = "WidgetsDynamo",
-  WidgetsPostgres = "WidgetsPostgres",
-  WebPortal = "WebPortal",
-  KitchenSink = "KitchenSink",
-}
-
 const questions: PromptObject[] = [
   {
     name: "template",
     type: "select",
     message: "Template:",
-    choices: [
-      {
-        title: "Minimal",
-        description:
-          "Monorepo boilerplate code, 'Hello, World' web app built with React, and CDK infrastructure",
-        value: Template.Minimal,
-      },
-      {
-        title: "Widgets App with DynamoDB",
-        description:
-          "Widgets App based on minimal template + tRPC via API Gateway and DynamoDB",
-        value: Template.WidgetsDynamo,
-      },
-      {
-        title: "Widgets App with Aurora Serverless Postgres",
-        description:
-          "Widgets App based on Widgets App with Dynamo replacing DynamoDB with Aurora Serverless Postgres",
-        value: Template.WidgetsPostgres,
-        disabled: true,
-      },
-      {
-        title: "Dashboard",
-        description:
-          "Web Portal based on Widgets App with Aurora Serverless Postgres + Cognito Authentication and user management",
-        value: Template.WebPortal,
-        disabled: true,
-      },
-      {
-        title: "Kitchen Sink",
-        description: "Showcase of all Green Boost's E2E Features",
-        value: Template.KitchenSink,
-        disabled: true,
-      },
-      // TODO: add template for large app like COSMOS with landing, register, and app
-    ],
+    choices: templateChoices,
     onState: handleAbort,
   },
   {

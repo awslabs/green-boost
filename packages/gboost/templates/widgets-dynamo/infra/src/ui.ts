@@ -22,7 +22,7 @@ export class Ui extends Stack {
   getStaticSite({ api }: GetStaticSiteProps) {
     api.url;
     return new StaticSite(this, "StaticSite", {
-      webAssetsPath: "../../ui-student",
+      webAssetsPath: "../../ui/dist",
       // TODO: update StaticSite to accept these
       // buildCommand: "pnpm build",
       // buildOutput: "dist",

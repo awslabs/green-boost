@@ -1,4 +1,4 @@
-import { Template } from "../ask.js";
+import { Template } from "../templates.js";
 import { Operation } from "../operations/operations.js";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";

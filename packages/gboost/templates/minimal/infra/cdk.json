@@ -2,7 +2,13 @@
   "app": "./node_modules/.bin/vite-node src/app.ts",
   "watch": {
     "include": [
-      "src/**/*"
+      "src/**",
+      "../core/**"
+    ],
+    "exclude": [
+      "node_modules",
+      "cdk.out",
+      "../core/node_modules"
     ]
   },
   "context": {
