@@ -3,7 +3,7 @@ import { Operation, OperationType } from "../operations/operations.js";
 import { GetOperationsParams } from "./common.js";
 
 export function getMinimalOperations(params: GetOperationsParams): Operation[] {
-  const { destinationPath, scope, templatesDirPath } = params;
+  const { destinationPath, templatesDirPath } = params;
   return [
     {
       type: OperationType.Copy,
@@ -23,6 +23,10 @@ export function getMinimalOperations(params: GetOperationsParams): Operation[] {
       // .txt files are used to reduce IDE error messages so we
       // need to switch back the file extensions when creating repos
       updates: [
+        {
+          source: resolve(destinationPath, "package.txt"),
+          newName: "package.json",
+        },
         ...getConfigFileNameUpdates(destinationPath, "core"),
         ...getConfigFileNameUpdates(destinationPath, "db"),
         ...getConfigFileNameUpdates(destinationPath, "infra"),
@@ -40,7 +44,7 @@ function getConfigFileNameUpdates(destinationPath: string, dir: string) {
     },
     {
       source: resolve(destinationPath, `${dir}/.eslintrc.txt`),
-      newName: ".eslintrc.js",
+      newName: ".eslintrc.cjs",
     },
     {
       source: resolve(destinationPath, `${dir}/package.txt`),

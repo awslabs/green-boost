@@ -3,7 +3,7 @@ import { Operation, OperationType } from "../operations/operations.js";
 import { GetOperationsParams } from "./common.js";
 import { getMinimalOperations } from "./get-minimal-operations.js";
 
-export function getToDoPostgresOperations(
+export function getWidgetsDynamoOperations(
   params: GetOperationsParams
 ): Operation[] {
   const { destinationPath, scope, templatesDirPath } = params;
@@ -16,7 +16,7 @@ export function getToDoPostgresOperations(
     {
       name: "CopyBasicTemplate",
       type: OperationType.Copy,
-      sourcePath: resolve(templatesDirPath, "to-do-postgres"),
+      sourcePath: resolve(templatesDirPath, "widgets-dynamo"),
       destinationPath,
     },
     {
@@ -31,15 +31,16 @@ export function getToDoPostgresOperations(
         "@trpc/server": "^10.11.1",
       },
     },
-    {
-      name: "UpdatePnpmPatchedDependencies",
-      type: OperationType.UpdatePackageJson,
-      sourcePath: resolve(destinationPath, "package.json"),
-      update(packageJson) {
-        packageJson.pnpm.patchedDependencies["@hookform/resolvers@2.9.10"] =
-          "patches/@hookform__resolvers@2.9.10.patch";
-        return packageJson;
-      },
-    },
+    // {
+    //   name: "UpdatePnpmPatchedDependencies",
+    //   type: OperationType.UpdatePackageJson,
+    //   sourcePath: resolve(destinationPath, "package.json"),
+    //   update(packageJson) {
+    //     packageJson.pnpm.patchedDependencies = {
+    //       "@hookform/resolvers@2.9.10": "patches/@hookform__resolvers@2.9.10.patch"
+    //     }
+    //     return packageJson;
+    //   },
+    // },
   ];
 }

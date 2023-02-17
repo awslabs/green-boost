@@ -1,15 +1,15 @@
 // @ts-nocheck
-import type { HttpApi } from "@aws-cdk/aws-apigatewayv2-alpha";
 import { Stack, StackProps } from "aws-cdk-lib";
+import type { RestApi } from "aws-cdk-lib/aws-apigateway";
 import type { Construct } from "constructs";
 import { StaticSite } from "gboost-infra";
 
 interface UiProps extends StackProps {
-  api: HttpApi;
+  api: RestApi;
 }
 
 interface GetStaticSiteProps {
-  api: HttpApi;
+  api: RestApi;
 }
 
 export class Ui extends Stack {
@@ -20,7 +20,7 @@ export class Ui extends Stack {
   }
 
   getStaticSite({ api }: GetStaticSiteProps) {
-    api.apiEndpoint;
+    api.url;
     return new StaticSite(this, "StaticSite", {
       webAssetsPath: "../../ui-student",
       // TODO: update StaticSite to accept these

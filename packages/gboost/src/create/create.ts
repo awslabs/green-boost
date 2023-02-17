@@ -1,5 +1,4 @@
 import kleur from "kleur";
-import { chdir } from "process";
 import { logger } from "../utils/logger.js";
 import { ask } from "./ask.js";
 import { executeOperations } from "./execute-operations.js";
@@ -16,7 +15,6 @@ export async function create() {
     scope: answers.scope,
   });
   executeOperations(operations);
-  chdir(answers.directory);
   const message =
     "\n" +
     `✅ Done! Change directory into your new repo: ${kleur.yellow(

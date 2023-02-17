@@ -13,5 +13,5 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
       ],
       sourcePath: destinationPath,
     },
-  ]
+  ];
 }

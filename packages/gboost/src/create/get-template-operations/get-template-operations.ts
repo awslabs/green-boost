@@ -1,10 +1,10 @@
 import { Template } from "../ask.js";
-import { Operation, OperationType } from "../operations/operations.js";
+import { Operation } from "../operations/operations.js";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { getMinimalOperations } from "./get-minimal-operations.js";
-import { getToDoDynamoOperations } from "./get-to-do-dynamo-operations.js";
-import { getToDoPostgresOperations } from "./get-to-do-postgres-operations.js";
+import { getWidgetsDynamoOperations } from "./get-widgets-dynamo-operations.js";
+import { getWidgetsPostgresOperations } from "./get-widgets-postgres-operations.js";
 import { getCommonOperations } from "./get-common-operations.js";
 
 export interface GetTemplateOperations {
@@ -33,10 +33,19 @@ export function getTemplateOperations(
     templatesDirPath,
   };
   const operations: Record<Template, Operation[]> = {
-    [Template.Minimal]: [...getMinimalOperations(commonParams), ...getCommonOperations(commonParams)],
-    [Template.ToDoDynamo]: [...getToDoDynamoOperations(commonParams), ...getCommonOperations(commonParams)],
-    [Template.ToDoPostgres]: [...getToDoPostgresOperations(commonParams), ...getCommonOperations(commonParams)],
-    [Template.Dashboard]: [], // TODO
+    [Template.Minimal]: [
+      ...getMinimalOperations(commonParams),
+      ...getCommonOperations(commonParams),
+    ],
+    [Template.WidgetsDynamo]: [
+      ...getWidgetsDynamoOperations(commonParams),
+      ...getCommonOperations(commonParams),
+    ],
+    [Template.WidgetsPostgres]: [
+      ...getWidgetsPostgresOperations(commonParams),
+      ...getCommonOperations(commonParams),
+    ],
+    [Template.WebPortal]: [], // TODO
     [Template.KitchenSink]: [], // TODO
   };
   return operations[template];
