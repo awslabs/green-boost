@@ -1,5 +1,4 @@
 export * from "./bucket.js";
-export * from "./common-props.js";
 export * from "./function.js";
 export * from "./graphql-api.js";
 export * from "./static-site/index.js";

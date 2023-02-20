@@ -1,17 +1,17 @@
-import { Arn, Duration, RemovalPolicy, Stack } from "aws-cdk-lib";
+import { Arn, Duration, Stack } from "aws-cdk-lib";
 import { Mfa, UserPool, UserPoolClient } from "aws-cdk-lib/aws-cognito";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { NagSuppressions } from "cdk-nag";
 import { Construct } from "constructs";
 import { fileURLToPath } from "node:url";
-import { CommonProps, Stage, Function } from "../index.js";
+import { Function } from "../index.js";
 import {
   CommonUserBaseProps,
   createUserPoolGroups,
   defaultPasswordPolicy,
 } from "./common.js";
 
-export interface UserBaseProps extends CommonProps, CommonUserBaseProps {
+export interface UserBaseProps extends CommonUserBaseProps {
   sesEmail?: string;
   defaultGroupName: string;
 }
@@ -26,14 +26,8 @@ export class UserBase extends Construct {
 
   constructor(scope: Construct, id: string, props: UserBaseProps) {
     super(scope, id);
-    const {
-      defaultGroupName,
-      groups,
-      stage = Stage.Dev,
-      userPoolProps,
-      userPoolClientProps,
-    } = props;
-    const isProd = stage === Stage.Prod;
+    const { defaultGroupName, groups, userPoolProps, userPoolClientProps } =
+      props;
 
     const fileExt = import.meta.url.slice(-2);
     const entry = fileURLToPath(
@@ -58,11 +52,9 @@ export class UserBase extends Construct {
       ],
       memorySize: 256,
       timeout: Duration.seconds(5),
-      stage,
     });
 
     this.userPool = new UserPool(this, "UserPool", {
-      removalPolicy: isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
       autoVerify: {
         // require user to enter email confirmation code

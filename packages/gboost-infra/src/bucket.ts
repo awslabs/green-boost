@@ -1,6 +1,5 @@
 import { Duration } from "aws-cdk-lib";
 import {
-  BlockPublicAccess,
   Bucket as CdkBucket,
   BucketEncryption,
   BucketProps as CdkBucketProps,
@@ -8,11 +7,14 @@ import {
 } from "aws-cdk-lib/aws-s3";
 import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
-import { CommonProps } from "./common-props.js";
+import { deepmerge } from "deepmerge-ts";
 
-interface BucketProps extends CommonProps, CdkBucketProps {
-  disableServerAccessLogsBucket?: boolean;
-}
+export type BucketProps = CdkBucketProps;
+
+const defaultBucketProps: BucketProps = {
+  encryption: BucketEncryption.S3_MANAGED,
+  enforceSSL: true,
+};
 
 /**
  * S3 Bucket with default managed encryption, enforced SSL and blocked public
@@ -20,55 +22,46 @@ interface BucketProps extends CommonProps, CdkBucketProps {
  * Also adds a server access logs bucket following AWS best practices
  */
 export class Bucket extends CdkBucket {
+  #scope: Construct;
+  #id: string;
   constructor(scope: Construct, id: string, props?: BucketProps) {
-    const { ...newProps } = props;
-    if (newProps.encryption === undefined) {
-      newProps.encryption = BucketEncryption.S3_MANAGED;
-    }
-    if (newProps.enforceSSL === undefined) {
-      newProps.enforceSSL = true;
-    }
-    if (newProps.publicReadAccess === undefined) {
-      newProps.publicReadAccess = false;
-    }
-    if (newProps.blockPublicAccess === undefined) {
-      newProps.blockPublicAccess = BlockPublicAccess.BLOCK_ALL;
-    }
-    if (
-      !newProps.disableServerAccessLogsBucket &&
-      !newProps.serverAccessLogsBucket
-    ) {
-      const serverAccessLogsBucket = new CdkBucket(
-        scope,
-        // access logs bucket id should be based on bucket name so that dev
-        // can instantiate multiple buckets within same stack/construct
-        id + "AccessLogsBucket",
-        {
-          blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
-          enforceSSL: true,
-          encryption: BucketEncryption.S3_MANAGED,
-          lifecycleRules: [
-            {
-              transitions: [
-                {
-                  storageClass: StorageClass.INTELLIGENT_TIERING,
-                  transitionAfter: Duration.days(0),
-                },
-              ],
-            },
-          ],
-          publicReadAccess: false,
-        }
-      );
-      NagSuppressions.addResourceSuppressions(serverAccessLogsBucket, [
-        {
-          id: "AwsSolutions-S1",
-          reason:
-            "Server Access Logs Bucket doesn't need a Server Access Logs Bucket",
-        },
-      ]);
-      newProps.serverAccessLogsBucket = serverAccessLogsBucket;
-    }
+    const newProps = deepmerge(defaultBucketProps, props);
     super(scope, id, newProps);
+    this.#id = id;
+    this.#scope = scope;
+  }
+
+  /**
+   * Adds server access logs bucket with SSL enforced, S3 Managed encryption,
+   * and intelligent tiering
+   */
+  addServerAccessLogsBucket() {
+    const serverAccessLogsBucket = new CdkBucket(
+      this.#scope,
+      // access logs bucket id should be based on bucket name so that dev
+      // can instantiate multiple buckets within same stack/construct
+      this.#id + "AccessLogsBucket",
+      {
+        enforceSSL: true,
+        encryption: BucketEncryption.S3_MANAGED,
+        lifecycleRules: [
+          {
+            transitions: [
+              {
+                storageClass: StorageClass.INTELLIGENT_TIERING,
+                transitionAfter: Duration.days(0),
+              },
+            ],
+          },
+        ],
+      }
+    );
+    NagSuppressions.addResourceSuppressions(serverAccessLogsBucket, [
+      {
+        id: "AwsSolutions-S1",
+        reason:
+          "Server Access Logs Bucket doesn't need a Server Access Logs Bucket",
+      },
+    ]);
   }
 }

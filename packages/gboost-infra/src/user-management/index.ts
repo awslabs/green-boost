@@ -4,10 +4,9 @@ import { Construct } from "constructs";
 import { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
 import { Function } from "../function.js";
 import { createSchema } from "./createSchema.js";
-import { CommonProps, Stage } from "../common-props.js";
 import { fileURLToPath } from "node:url";
 
-export interface UserManagementProps extends CommonProps {
+export interface UserManagementProps {
   api: GraphqlApi;
   userPoolId: string;
   groupNames: string[];
@@ -23,13 +22,7 @@ export interface UserManagementProps extends CommonProps {
 export class UserManagement extends Construct {
   constructor(scope: Construct, id: string, props: UserManagementProps) {
     super(scope, id);
-    const {
-      api,
-      groupNames,
-      adminGroupNames,
-      userPoolId,
-      stage = Stage.Dev,
-    } = props;
+    const { api, groupNames, adminGroupNames, userPoolId } = props;
 
     const fileExt = import.meta.url.slice(-2);
     const entry = fileURLToPath(
@@ -72,7 +65,6 @@ export class UserManagement extends Construct {
         }),
       ],
       memorySize: 512,
-      stage,
     });
 
     const userDs = api.addLambdaDataSource("UserFn", userFn);

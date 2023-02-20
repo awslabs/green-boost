@@ -39,5 +39,6 @@ export const templateChoices: prompts.Choice[] = [
     title: "Kitchen Sink",
     description: "Showcase of all Green Boost's E2E Features",
     value: Template.KitchenSink,
+    disabled: true,
   },
 ];

@@ -43,7 +43,8 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.272.0",
     "aws-cdk-lib": "^2.65.0",
     "cdk-nag": "^2.22.8",
-    "constructs": "^10.1.252",
+    "constructs": "^10.1.255",
+    "deepmerge-ts": "^4.3.0",
     "gboost-common": "workspace:^0.8.0"
   },
   "devDependencies": {

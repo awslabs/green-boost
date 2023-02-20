@@ -81,7 +81,9 @@ interface SecurityHeaders {
    * {
    *    defaultSrc: ["self"],
    *    formAction: ["none"],
+   *    navigateTo: ["none"],
    *    objectSrc: ["none"],
+   *    styleSrc: ["unsafe-inline"], // required for styling libraries
    *  }
    * ```
    * @link https://developers.google.com/web/fundamentals/security/csp
@@ -424,6 +426,7 @@ export const defaultCsp: Partial<
   formAction: ["none"],
   navigateTo: ["none"],
   objectSrc: ["none"],
+  styleSrc: ["unsafe-inline"],
 };
 
 export function getCsp(csp: ContentSecurityPolicy = {}): string {

@@ -2,7 +2,6 @@ import { Construct } from "constructs";
 import { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
 import { Function } from "../function.js";
 import { createSchema } from "./createSchema.js";
-import { CommonProps, Stage } from "../common-props.js";
 import { Duration, Stack } from "aws-cdk-lib";
 import { Bucket } from "../bucket.js";
 import { NagSuppressions } from "cdk-nag";
@@ -13,7 +12,7 @@ interface FileUploadBucket {
   baseKey: string;
 }
 
-export interface FileUploadProps extends CommonProps {
+export interface FileUploadProps {
   api: GraphqlApi;
   /**
    * Maps bucket keys to bucket names
@@ -36,7 +35,7 @@ export interface FileUploadProps extends CommonProps {
 export class FileUpload extends Construct {
   constructor(scope: Construct, id: string, props: FileUploadProps) {
     super(scope, id);
-    const { api, stage = Stage.Dev, buckets, region } = props;
+    const { api, buckets, region } = props;
 
     const fileExt = import.meta.url.slice(-2);
 
@@ -57,7 +56,6 @@ export class FileUpload extends Construct {
       },
       memorySize: 512,
       timeout: Duration.seconds(10),
-      stage,
     });
 
     for (let i = 0; i < buckets.length; i++) {

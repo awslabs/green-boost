@@ -4,64 +4,40 @@ import {
   NodejsFunctionProps,
   OutputFormat,
 } from "aws-cdk-lib/aws-lambda-nodejs";
-import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
-import { CommonProps, Stage } from "./common-props.js";
+import { deepmerge } from "deepmerge-ts";
 
-export interface FunctionProps extends CommonProps, NodejsFunctionProps {}
+export interface FunctionProps extends NodejsFunctionProps {
+  entry: string;
+}
+
+const defaultFunctionProps: NodejsFunctionProps = {
+  architecture: Architecture.ARM_64,
+  bundling: {
+    format: OutputFormat.ESM,
+    minify: true,
+    sourceMap: true,
+  },
+  environment: {
+    NODE_OPTIONS: "--enable-source-maps",
+  },
+  runtime: Runtime.NODEJS_18_X,
+};
 
 /**
- * Node.js Lambda Function with default log retention set based on stage,
- * bundling with source maps and minification enabled, and ARM_64 architecture
+ * Node.js Lambda Function with default source maps and minification enabled,
+ * and ARM_64 architecture, and ESM format.
  */
 export class Function extends NodejsFunction {
   constructor(scope: Construct, id: string, props: FunctionProps) {
-    const { stage = Stage.Dev, ...newProps } = props;
-    if (!newProps.logRetention) {
-      if (stage === Stage.Prod) {
-        newProps.logRetention = RetentionDays.SIX_MONTHS;
-      } else {
-        newProps.logRetention = RetentionDays.ONE_MONTH;
-      }
-    }
-    newProps.bundling = {
-      sourceMap: true,
-      minify: true,
-      format: OutputFormat.ESM,
-      ...newProps.bundling,
-    };
-    if (!newProps.environment) {
-      newProps.environment = {};
-    }
-    // const fileStr = readFileSync("./config/${stage}");
-    const stageLogLevel: Record<Stage, string> = {
-      [Stage.Dev]: "debug",
-      [Stage.Test]: "debug",
-      [Stage.Prod]: "error",
-    };
-    newProps.environment = {
-      NODE_OPTIONS: "--enable-source-maps",
-      LOG_LEVEL: stageLogLevel[stage],
-      ...newProps.environment,
-    };
-    if (!newProps.environment.POWERTOOLS_LOGGER_LOG_EVENT) {
-      if (stage === Stage.Dev) {
-        newProps.environment.POWERTOOLS_LOGGER_LOG_EVENT = "true";
-      }
-    }
-    if (!newProps.environment.POWERTOOLS_LOGGER_SAMPLE_RATE) {
-      if (stage === Stage.Prod) {
-        newProps.environment.POWERTOOLS_LOGGER_SAMPLE_RATE = "0.2";
-      }
-    }
-    if (!newProps.architecture) {
-      newProps.architecture = Architecture.ARM_64;
-    }
-    if (!newProps.runtime) {
-      newProps.runtime = Runtime.NODEJS_18_X;
-    }
+    const newProps = deepmerge(defaultFunctionProps, props);
     super(scope, id, newProps);
+    this.#suppressOkNags();
+    this._functionNode().addMetadata("gboost:function-entrypoint", props.entry);
+  }
+
+  #suppressOkNags() {
     NagSuppressions.addResourceSuppressions(
       this,
       [
