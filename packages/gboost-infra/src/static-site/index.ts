@@ -1,4 +1,3 @@
-import { existsSync } from "node:fs";
 import { Construct } from "constructs";
 import {
   Distribution,
@@ -18,40 +17,16 @@ import { getResponseHeadersPolicyProps } from "./responseHeaders.js";
 import { NagSuppressions } from "cdk-nag";
 import { fileURLToPath } from "node:url";
 import { StaticSiteWebAcl } from "./web-acl.js";
-import { execSync } from "node:child_process";
 import { resolve } from "node:path";
-import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
+import { RemovalPolicy } from "aws-cdk-lib";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 
 export interface StaticSiteProps {
   /**
-   * Custom bucket
+   * Override bucket
    */
   bucket?: Bucket;
-  /**
-   * Build command to run in `buildDirectory`
-   * @default "pnpm build"
-   */
-  buildCommand?: string;
-  /**
-   * Build directory to run `buildCommand` in
-   */
-  buildDirectory?: string;
-  /**
-   * Environment variables that will be set before your build command runs.
-   * Unresolved values will be replaced in a custom resource
-   * @example
-   * ```ts
-   * { VITE_API_URL: api.url }
-   * ```
-   */
-  buildEnvVars?: Record<string, string>;
-  /**
-   * Build output directory resulting from `buildCommand` running in `buildDirectory`
-   * @default "dist"
-   */
-  buildOutputDirectory?: string;
   /**
    * Certificate for CloudFront for custom domain. If using custom domain, `domainNames`
    * is also required.
@@ -62,6 +37,9 @@ export interface StaticSiteProps {
    * a custom domain, `certificate` is also required.
    */
   domainNames?: string[];
+  /**
+   * Override distribution
+   */
   distribution?: Distribution;
   /**
    * @default false
@@ -73,26 +51,28 @@ export interface StaticSiteProps {
    */
   responseHeaders?: ResponseHeaders;
   /**
-   * Custom WebACL
+   * Override WebACL
    */
   webAcl?: CfnWebACL;
 }
 
 /**
  * StaticSite Construct
- * Creates an S3 Bucket, Origin Access Identity, CloudFront Web Distribution,
- * and builds Static Site with environment variables that resolved or unresolved
+ * Creates an S3 Bucket, Origin Access Identity, CloudFront Web Distribution.
+ *
+ * By default, the S3 Bucket's retainment policy is DESTROY where all objects
+ * are auto-deleted when resource is removed. You can override this behavior by
+ * providing your own bucket.
  */
 export class StaticSite extends Construct {
   bucket: Bucket;
   distribution: Distribution;
   fullDomainName?: string;
 
-  constructor(scope: Construct, id: string, props: StaticSiteProps) {
+  constructor(scope: Construct, id: string, props: StaticSiteProps = {}) {
     super(scope, id);
     const {
       bucket,
-      buildDirectory,
       distribution,
       enableWaf = true,
       webAcl: overrideWebAcl,
@@ -102,8 +82,17 @@ export class StaticSite extends Construct {
     if (bucket) {
       this.bucket = bucket;
     } else {
-      this.bucket = new Bucket(this, "StaticSiteBucket");
-      this.bucket.addServerAccessLogsBucket();
+      this.bucket = new Bucket(this, "StaticSiteBucket", {
+        autoDeleteObjects: true,
+        removalPolicy: RemovalPolicy.DESTROY,
+      });
+      NagSuppressions.addResourceSuppressions(this.bucket, [
+        {
+          id: "AwsSolutions-S1",
+          reason:
+            "StaticSite S3 Bucket doesn't need a server access logs bucket b/c CloudFront logs document access",
+        },
+      ]);
     }
 
     // WAF
@@ -121,10 +110,6 @@ export class StaticSite extends Construct {
       this.distribution = distribution;
     } else {
       this.distribution = this.#getDistribution({ ...props, webAcl });
-    }
-
-    if (buildDirectory) {
-      this.#buildSite({ ...props, buildDirectory });
     }
   }
 
@@ -178,45 +163,6 @@ export class StaticSite extends Construct {
     ]);
     return distribution;
   }
-
-  #buildSite(params: BuildSiteParams): void {
-    const {
-      buildCommand = "pnpm build",
-      buildDirectory,
-      buildOutputDirectory = "dist",
-      buildEnvVars,
-    } = params;
-    if (buildDirectory && existsSync(buildDirectory)) {
-      // TODO: implement cache so we only build site when needed. Will need to
-      // create hash of buildDirectory AND any workspace dependencies - can
-      // loop over package.json to find those
-      const env = { ...process.env, ...buildEnvVars };
-      console.log({ env });
-      execSync(buildCommand, { cwd: buildDirectory, env, stdio: "inherit" });
-      const buildOutputPath = resolve(buildDirectory, buildOutputDirectory);
-      if (existsSync(buildOutputPath)) {
-        // const unreplacedAsset = new Asset(this, "OriginalWebAssets", {
-        //   path: buildOutputDirectory,
-        // });
-        // unreplacedAsset.s3ObjectUrl;
-        // create singleton CR deployment function that can find and replace values
-        // that were unresolved. in CR fn, invalidate distribution
-        new BucketDeployment(this, "BucketDeployment", {
-          destinationBucket: this.bucket,
-          sources: [Source.asset(buildOutputPath)],
-          distribution: this.distribution,
-          retainOnDelete: false,
-          memoryLimit: 512,
-        });
-      } else {
-        throw new Error(
-          `buildOutputDirectory: ${buildOutputDirectory} does not exist in buildDirectory: ${buildDirectory}`
-        );
-      }
-    } else {
-      throw new Error(`buildDirectory: ${buildDirectory} does not exist`);
-    }
-  }
 }
 
 interface GetDistributionParams
@@ -225,12 +171,4 @@ interface GetDistributionParams
     "certificate" | "domainNames" | "enableWaf" | "responseHeaders"
   > {
   webAcl?: CfnWebACL;
-}
-
-interface BuildSiteParams
-  extends Pick<
-    StaticSiteProps,
-    "buildCommand" | "buildEnvVars" | "buildOutputDirectory"
-  > {
-  buildDirectory: string;
 }

@@ -426,7 +426,7 @@ export const defaultCsp: Partial<
   formAction: ["none"],
   navigateTo: ["none"],
   objectSrc: ["none"],
-  styleSrc: ["unsafe-inline"],
+  styleSrc: ["self", "unsafe-inline"],
 };
 
 export function getCsp(csp: ContentSecurityPolicy = {}): string {

@@ -7,3 +7,4 @@ export * from "./table.js";
 export * from "./user-management/index.js";
 export * from "./user-base/index.js";
 export * from "./file-upload/index.js";
+export * from "./web-deployment/web-deployment.js";
