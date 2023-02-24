@@ -34,7 +34,7 @@ export function getWidgetsDynamoOperations(
     {
       name: "UpdateCoreDependencies",
       type: OperationType.UpdatePackageJson,
-      sourcePath: resolve(destinationPath, "ui/package.json"),
+      sourcePath: resolve(destinationPath, "core/package.json"),
       dependencies: {
         "@aws-lambda-powertools/logger": "^1.5.1",
         "@trpc/server": "^10.11.1",

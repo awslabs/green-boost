@@ -3,7 +3,7 @@ import { Operation, OperationType } from "../operations/operations.js";
 import { GetOperationsParams } from "./common.js";
 
 export function getMinimalOperations(params: GetOperationsParams): Operation[] {
-  const { destinationPath, templatesDirPath } = params;
+  const { destinationPath, templatesDirPath, scope } = params;
   return [
     {
       type: OperationType.Copy,
@@ -32,6 +32,46 @@ export function getMinimalOperations(params: GetOperationsParams): Operation[] {
         ...getConfigFileNameUpdates(destinationPath, "infra"),
         ...getConfigFileNameUpdates(destinationPath, "ui"),
       ],
+    },
+    {
+      name: "UpdateCoreDependencies",
+      type: OperationType.UpdatePackageJson,
+      sourcePath: resolve(destinationPath, "core/package.json"),
+      devDependencies: {
+        [`@${scope}/eslint-config-node`]: "workspace:^0.1.0",
+        [`@${scope}/tsconfig`]: "workspace:^0.1.0",
+        [`@${scope}/utils`]: "workspace:^0.1.0",
+      },
+    },
+    {
+      name: "UpdateDbDependencies",
+      type: OperationType.UpdatePackageJson,
+      sourcePath: resolve(destinationPath, "db/package.json"),
+      devDependencies: {
+        [`@${scope}/eslint-config-node`]: "workspace:^0.1.0",
+        [`@${scope}/tsconfig`]: "workspace:^0.1.0",
+        [`@${scope}/utils`]: "workspace:^0.1.0",
+      },
+    },
+    {
+      name: "UpdateInfraDependencies",
+      type: OperationType.UpdatePackageJson,
+      sourcePath: resolve(destinationPath, "infra/package.json"),
+      devDependencies: {
+        [`@${scope}/eslint-config-node`]: "workspace:^0.1.0",
+        [`@${scope}/tsconfig`]: "workspace:^0.1.0",
+        [`@${scope}/utils`]: "workspace:^0.1.0",
+      },
+    },
+    {
+      name: "UpdateUiDependencies",
+      type: OperationType.UpdatePackageJson,
+      sourcePath: resolve(destinationPath, "ui/package.json"),
+      devDependencies: {
+        [`@${scope}/eslint-config-react`]: "workspace:^0.1.0",
+        [`@${scope}/tsconfig`]: "workspace:^0.1.0",
+        [`@${scope}/utils`]: "workspace:^0.1.0",
+      },
     },
   ];
 }

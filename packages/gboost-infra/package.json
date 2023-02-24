@@ -33,13 +33,13 @@
     "lib/**/*"
   ],
   "scripts": {
-    "build": "ts-node --esm scripts/build.ts",
+    "build": "ts-node scripts/build.ts",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-cdk/aws-appsync-alpha": "2.59.0-alpha.0",
+    "@aws-cdk/aws-appsync-alpha": "2.54.0-alpha.0",
     "@aws-sdk/client-cloudfront": "^3.277.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.272.0",
     "adm-zip": "^0.5.10",

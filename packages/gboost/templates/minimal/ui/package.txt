@@ -25,9 +25,6 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@{{GB_APP_SCOPE}}/eslint-config-react": "workspace:^0.1.0",
-    "@{{GB_APP_SCOPE}}/tsconfig": "workspace:^0.1.0",
-    "@{{GB_APP_SCOPE}}/utils": "workspace:^0.1.0",
     "aws-amplify": "5.0.15",
     "@trpc/server": "10.9.1",
     "@types/react": "^18.0.26",

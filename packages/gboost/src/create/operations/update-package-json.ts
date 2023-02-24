@@ -1,12 +1,10 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { BaseOperation, OperationType } from "./common.js";
 
-type PackageVersion = `${"^" | "~"}${number}.${number}.${number}`;
-
 export interface UpdatePackageJsonOperation extends BaseOperation {
   type: OperationType.UpdatePackageJson;
-  dependencies?: Record<string, PackageVersion>;
-  devDependencies?: Record<string, PackageVersion>;
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   update?: (packageJson: Record<string, any>) => Record<string, any>;
   /**

@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["./src/web-deployment/custom-resource-handler/**"]
+}

@@ -165,7 +165,7 @@ importers:
 
   packages/gboost-infra:
     specifiers:
-      '@aws-cdk/aws-appsync-alpha': 2.59.0-alpha.0
+      '@aws-cdk/aws-appsync-alpha': 2.54.0-alpha.0
       '@aws-lambda-powertools/logger': ^1.5.1
       '@aws-sdk/client-cloudfront': ^3.277.0
       '@aws-sdk/client-cognito-identity-provider': ^3.272.0
@@ -196,7 +196,7 @@ importers:
       vite: ^4.1.1
       vitest: ^0.28.5
     dependencies:
-      '@aws-cdk/aws-appsync-alpha': 2.59.0-alpha.0_pqgwqugbkzwsywk4b2uka2py4e
+      '@aws-cdk/aws-appsync-alpha': 2.54.0-alpha.0_pqgwqugbkzwsywk4b2uka2py4e
       '@aws-sdk/client-cloudfront': 3.277.0
       '@aws-sdk/client-cognito-identity-provider': 3.272.0
       adm-zip: 0.5.10
@@ -758,11 +758,11 @@ packages:
     resolution: {integrity: sha512-7BTzPo1tBw1tTYEmWNO0nS+bTJ/Ikg2qpFQZBb0GedEJ1v713IyRoySlKADAXAaMPJU9Gg05LCuJy+cs7RUDMQ==}
     dev: false
 
-  /@aws-cdk/aws-appsync-alpha/2.59.0-alpha.0_pqgwqugbkzwsywk4b2uka2py4e:
-    resolution: {integrity: sha512-6Q1SpTw7F3TTrip7h7DHOqeCCPBeg0YveZZoWElHgYyi1LyVdMOvK8f2gxmrG9Z0mUpSeo2/FKkxUUC/+SJCLw==}
+  /@aws-cdk/aws-appsync-alpha/2.54.0-alpha.0_pqgwqugbkzwsywk4b2uka2py4e:
+    resolution: {integrity: sha512-90qjXoBpnqY2QdLO9VqryIHNb2ZcLGbs40QKQPVeULomC/fB26SxjLMj1wcYvS7Ykzkro7Oy9vVVC0qEwh+TjQ==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
-      aws-cdk-lib: ^2.59.0
+      aws-cdk-lib: ^2.54.0
       constructs: ^10.0.0
     dependencies:
       aws-cdk-lib: 2.65.0_constructs@10.1.255

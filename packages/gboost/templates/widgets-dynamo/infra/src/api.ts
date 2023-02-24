@@ -24,6 +24,7 @@ interface ApiProps extends StackProps {
 
 export class Api extends Stack {
   api: RestApi;
+
   constructor(scope: Construct, id: string, props: ApiProps) {
     super(scope, id, props);
     this.api = this.getApi();
