@@ -1,4 +1,10 @@
-import { CustomResource, Duration, Token } from "aws-cdk-lib";
+import {
+  AssetHashType,
+  CustomResource,
+  DockerImage,
+  Duration,
+  Token,
+} from "aws-cdk-lib";
 import { Distribution } from "aws-cdk-lib/aws-cloudfront";
 import {
   Architecture,
@@ -11,7 +17,7 @@ import { Asset } from "aws-cdk-lib/aws-s3-assets";
 import { Provider } from "aws-cdk-lib/custom-resources";
 import { Construct } from "constructs";
 import { execSync } from "node:child_process";
-import { existsSync } from "node:fs";
+import { cpSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Bucket } from "../bucket.js";
@@ -23,7 +29,7 @@ interface BuildConfigProps {
   /**
    * Build command to run in `workingDirectory`
    */
-  command?: string;
+  command: string;
   /**
    * Environment variables to inject into process where `buildCommand` is run.
    * For values where `Token.isUnresolved` is true (i.e. `api.url`), temporary
@@ -95,7 +101,14 @@ export class WebDeployment extends Construct {
   constructor(scope: Construct, id: string, props: WebDeploymentProps) {
     super(scope, id);
     const buildConfig = props.buildConfig;
+    /**
+     * Unresolved environment variables for custom resource
+     */
     let customResourceEnv: Record<string, string> = {};
+    /**
+     * All environment variables for local bundling
+     */
+    let localEnv: Record<string, string> = {};
     if (buildConfig) {
       if (!existsSync(buildConfig.workingDirectory)) {
         throw new Error(
@@ -104,17 +117,13 @@ export class WebDeployment extends Construct {
       }
       const envs = this.#getEnv(buildConfig.environment);
       customResourceEnv = envs.customResourceEnv; // used in custom resource
-      if (buildConfig.command) {
-        execSync(buildConfig.command, {
-          cwd: buildConfig.workingDirectory,
-          env: { ...process.env, ...envs.localEnv },
-          stdio: "inherit",
-        });
-      }
+      localEnv = envs.localEnv;
     }
     const fn = this.#getFunction(props.memoryLimit);
-    const asset = new Asset(this, "Asset", {
-      path: props.sourcePath,
+    const asset = this.#getAsset({
+      localEnv,
+      sourcePath: props.sourcePath,
+      buildConfig: props.buildConfig,
     });
 
     asset.grantRead(fn);
@@ -134,7 +143,7 @@ export class WebDeployment extends Construct {
       prune: props.prune || true,
     };
 
-    this.#getCustomResource(fn, properties);
+    this.#getCustomResource({ fn, properties });
   }
 
   /**
@@ -186,19 +195,58 @@ export class WebDeployment extends Construct {
     });
   }
 
-  #getCustomResource(
-    fn: SingletonFunction,
-    properties: InputResourceProperties
-  ) {
+  #getAsset(params: GetAssetParams) {
+    return new Asset(this, "Asset", {
+      path: params.sourcePath,
+      //https://dev.to/aws-builders/aws-cdk-fullstack-polyglot-with-asset-bundling-318h
+      assetHashType: AssetHashType.OUTPUT,
+      bundling: {
+        // image property is required even though we only want to do local bundling
+        image: DockerImage.fromRegistry("n/a"),
+        // command will run if local.tryBundle fails
+        command: ["echo", '"Docker build not supported"'],
+        local: {
+          tryBundle(outputDir) {
+            try {
+              const buildConfig = params.buildConfig;
+              if (buildConfig) {
+                execSync(buildConfig.command, {
+                  cwd: buildConfig.workingDirectory,
+                  env: { ...process.env, ...params.localEnv },
+                  stdio: "inherit",
+                });
+              }
+              cpSync(params.sourcePath, outputDir, { recursive: true });
+              return true;
+            } catch {
+              return false;
+            }
+          },
+        },
+      },
+    });
+  }
+
+  #getCustomResource(params: GetCustomResourceParams) {
     const provider = new Provider(this, "Provider", {
-      onEventHandler: fn,
+      onEventHandler: params.fn,
       logRetention: RetentionDays.ONE_DAY,
     });
 
     return new CustomResource(this, "CustomResource", {
       resourceType: "Custom::WebDeployment",
       serviceToken: provider.serviceToken,
-      properties,
+      properties: params.properties,
     });
   }
+}
+
+interface GetAssetParams
+  extends Pick<WebDeploymentProps, "buildConfig" | "sourcePath"> {
+  localEnv: Record<string, string>;
+}
+
+interface GetCustomResourceParams {
+  fn: SingletonFunction;
+  properties: InputResourceProperties;
 }
