@@ -1,5 +1,5 @@
 {
-  "name": "@{{GB_APP_SCOPE}}/infra",
+  "name": "@{{GB_APP_ID}}/infra",
   "version": "0.1.0",
   "private": true,
   "type": "module",

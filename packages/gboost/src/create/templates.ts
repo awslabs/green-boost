@@ -12,7 +12,7 @@ export const templateChoices: prompts.Choice[] = [
   {
     title: "Minimal",
     description:
-      "Monorepo boilerplate code, 'Hello, World' web app built with React, and CDK infrastructure",
+      "Monorepo boilerplate code, 'Hello, World' web app built with React and CDK infrastructure. No backend.",
     value: Template.Minimal,
   },
   {

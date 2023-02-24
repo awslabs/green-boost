@@ -6,11 +6,11 @@ import { getMinimalOperations } from "./get-minimal-operations.js";
 export function getWidgetsPostgresOperations(
   params: GetOperationsParams
 ): Operation[] {
-  const { destinationPath, scope, templatesDirPath } = params;
+  const { destinationPath, appId, templatesDirPath } = params;
   return [
     ...getMinimalOperations({
       destinationPath,
-      scope,
+      appId,
       templatesDirPath,
     }),
     {
@@ -22,7 +22,7 @@ export function getWidgetsPostgresOperations(
     {
       name: "UpdateUiDependencies",
       type: OperationType.UpdatePackageJson,
-      sourcePath: resolve(destinationPath, "ui/package.json"),
+      sourcePaths: [resolve(destinationPath, "ui/package.json")],
       dependencies: {
         "@trpc/client": "^10.11.1",
         "@trpc/react-query": "^10.11.1",
@@ -34,7 +34,7 @@ export function getWidgetsPostgresOperations(
     {
       name: "UpdatePnpmPatchedDependencies",
       type: OperationType.UpdatePackageJson,
-      sourcePath: resolve(destinationPath, "package.json"),
+      sourcePaths: [resolve(destinationPath, "package.json")],
       update(packageJson) {
         packageJson.pnpm.patchedDependencies["@hookform/resolvers@2.9.10"] =
           "patches/@hookform__resolvers@2.9.10.patch";

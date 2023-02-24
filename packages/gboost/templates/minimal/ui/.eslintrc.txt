@@ -3,5 +3,5 @@
 const { defineConfig } = require("eslint-define-config");
 
 module.exports = defineConfig({
-  extends: ["@{{GB_APP_SCOPE}}/eslint-config-react"],
+  extends: ["@{{GB_APP_ID}}/eslint-config-react"],
 });

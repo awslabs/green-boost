@@ -1,5 +1,5 @@
 {
-  "name": "@{{GB_APP_SCOPE}}/eslint-config-react",
+  "name": "@{{GB_APP_ID}}/eslint-config-react",
   "version": "0.1.0",
   "type": "module",
   "exports": "./.eslintrc.cjs",

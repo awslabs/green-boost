@@ -1,5 +1,5 @@
 {
-  "name": "@{{GB_APP_SCOPE}}/core",
+  "name": "@{{GB_APP_ID}}/core",
   "version": "0.1.0",
   "private": true,
   "type": "module",

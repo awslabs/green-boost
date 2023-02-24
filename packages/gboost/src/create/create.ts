@@ -9,11 +9,7 @@ import { getTemplateOperations } from "./get-template-operations/get-template-op
  */
 export async function create() {
   const answers = await ask();
-  const operations = getTemplateOperations({
-    template: answers.template,
-    destination: answers.directory,
-    scope: answers.scope,
-  });
+  const operations = getTemplateOperations(answers);
   executeOperations(operations);
   const message =
     "\n" +

@@ -1,7 +1,7 @@
 import { userInfo } from "node:os";
 
 export const config = {
-  appId: "{{GB_APP_SCOPE}}",
+  appId: "{{GB_APP_ID}}",
   /**
    * Can either be pipeline stage such as dev, test, or prod or a developer's
    * alias for local development

@@ -1,5 +1,5 @@
 export interface GetOperationsParams {
   destinationPath: string;
-  scope: string;
+  appId: string;
   templatesDirPath: string;
 }

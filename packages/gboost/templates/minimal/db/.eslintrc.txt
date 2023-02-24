@@ -3,7 +3,7 @@
 const { defineConfig } = require("eslint-define-config");
 
 module.exports = defineConfig({
-  extends: ["@{{GB_APP_SCOPE}}/eslint-config-node"],
+  extends: ["@{{GB_APP_ID}}/eslint-config-node"],
   rules: {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
   },

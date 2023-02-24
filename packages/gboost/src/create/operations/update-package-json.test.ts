@@ -27,7 +27,7 @@ describe("updatePackageJson", () => {
     updatePackageJson({
       name: "AddDependenciesTest",
       dependencies: newDependencies,
-      sourcePath: testFilePath,
+      sourcePaths: [testFilePath],
       type: OperationType.UpdatePackageJson,
     });
     const fileContents = readFileSync(testFilePath, { encoding: "utf-8" });

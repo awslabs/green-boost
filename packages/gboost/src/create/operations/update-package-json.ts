@@ -10,31 +10,33 @@ export interface UpdatePackageJsonOperation extends BaseOperation {
   /**
    * File of package.json to update
    */
-  sourcePath: string;
+  sourcePaths: string[];
 }
 
 export function updatePackageJson(params: UpdatePackageJsonOperation): void {
-  const ogPackageJsonStr = readFileSync(params.sourcePath, {
-    encoding: "utf-8",
-  });
-  const ogPackageJson: PackageJson = JSON.parse(ogPackageJsonStr);
-  let packageJson: PackageJson = { ...ogPackageJson };
-  if (params.dependencies) {
-    packageJson.dependencies = sortObjectByKeys({
-      ...packageJson.dependencies,
-      ...params.dependencies,
+  for (const sourcePath of params.sourcePaths) {
+    const ogPackageJsonStr = readFileSync(sourcePath, {
+      encoding: "utf-8",
     });
+    const ogPackageJson: PackageJson = JSON.parse(ogPackageJsonStr);
+    let packageJson: PackageJson = { ...ogPackageJson };
+    if (params.dependencies) {
+      packageJson.dependencies = sortObjectByKeys({
+        ...packageJson.dependencies,
+        ...params.dependencies,
+      });
+    }
+    if (params.devDependencies) {
+      packageJson.devDependencies = sortObjectByKeys({
+        ...packageJson.devDependencies,
+        ...params.devDependencies,
+      });
+    }
+    if (params.update) {
+      packageJson = params.update(packageJson);
+    }
+    writeFileSync(sourcePath, JSON.stringify(packageJson, null, 2));
   }
-  if (params.devDependencies) {
-    packageJson.devDependencies = sortObjectByKeys({
-      ...packageJson.devDependencies,
-      ...params.devDependencies,
-    });
-  }
-  if (params.update) {
-    packageJson = params.update(packageJson);
-  }
-  writeFileSync(params.sourcePath, JSON.stringify(packageJson, null, 2));
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

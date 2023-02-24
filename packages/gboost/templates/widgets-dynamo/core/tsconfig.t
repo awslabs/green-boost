@@ -1,5 +1,5 @@
 {
-  "extends": "@{{GB_APP_SCOPE}}/tsconfig/tsconfig.node.json",
+  "extends": "@{{GB_APP_ID}}/tsconfig/tsconfig.node.json",
   "compilerOptions": {
     "paths": {
       "@adapters/*": ["./src/adapters/*"],

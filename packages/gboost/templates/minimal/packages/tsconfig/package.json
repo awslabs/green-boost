@@ -1,5 +1,5 @@
 {
-  "name": "@{{GB_APP_SCOPE}}/tsconfig",
+  "name": "@{{GB_APP_ID}}/tsconfig",
   "version": "0.1.0",
   "type": "module",
   "exports": {

@@ -6,11 +6,11 @@ import { getMinimalOperations } from "./get-minimal-operations.js";
 export function getWidgetsDynamoOperations(
   params: GetOperationsParams
 ): Operation[] {
-  const { destinationPath, scope, templatesDirPath } = params;
+  const { destinationPath, appId, templatesDirPath } = params;
   return [
     ...getMinimalOperations({
       destinationPath,
-      scope,
+      appId,
       templatesDirPath,
     }),
     {
@@ -22,7 +22,7 @@ export function getWidgetsDynamoOperations(
     {
       name: "UpdateUiDependencies",
       type: OperationType.UpdatePackageJson,
-      sourcePath: resolve(destinationPath, "ui/package.json"),
+      sourcePaths: [resolve(destinationPath, "ui/package.json")],
       dependencies: {
         "@trpc/client": "^10.11.1",
         "@trpc/react-query": "^10.11.1",
@@ -34,7 +34,7 @@ export function getWidgetsDynamoOperations(
     {
       name: "UpdateCoreDependencies",
       type: OperationType.UpdatePackageJson,
-      sourcePath: resolve(destinationPath, "core/package.json"),
+      sourcePaths: [resolve(destinationPath, "core/package.json")],
       dependencies: {
         "@aws-lambda-powertools/logger": "^1.5.1",
         "@trpc/server": "^10.11.1",

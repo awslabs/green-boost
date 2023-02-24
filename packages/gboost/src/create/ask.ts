@@ -9,7 +9,7 @@ import { Template, templateChoices } from "./templates.js";
 export interface Answers {
   template: Template;
   directory: string;
-  scope: string;
+  appId: string;
 }
 
 export async function ask(): Promise<Answers> {
@@ -21,7 +21,7 @@ export async function ask(): Promise<Answers> {
   return answers;
 }
 
-const questions: PromptObject[] = [
+const questions: PromptObject<keyof Answers>[] = [
   {
     name: "template",
     type: "select",
@@ -38,15 +38,15 @@ const questions: PromptObject[] = [
     onState: handleAbort,
   },
   {
-    name: "scope",
+    name: "appId",
     type: "text",
-    message: "Package Scope (Short Name):",
-    hint: "Used to prefix all PNPM workspaces within monorepo. Must comply with NPM requirements",
-    initial: "gb",
+    message: "App ID (Short Name):",
+    hint: "Part of CDK Stack name and used as scope to prefix all PNPM workspaces within monorepo. Must be alphanumeric lowercase.",
+    initial: "myapp",
     validate(v) {
       // regex [^...] means nothing except what replaces ...
-      if (/[^a-z0-9-]/g.test(v)) {
-        return "Package Scope must be lowercase alphanumeric and can include dashes. See more here: https://docs.npmjs.com/cli/v9/using-npm/scope";
+      if (/[^a-z0-9]/g.test(v)) {
+        return "App ID must be alphanumeric lowercase.";
       } else {
         return true;
       }

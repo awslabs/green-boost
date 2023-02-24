@@ -1,5 +1,5 @@
 {
-  "name": "@{{GB_APP_SCOPE}}/db",
+  "name": "@{{GB_APP_ID}}/db",
   "version": "0.1.0",
   "private": true,
   "type": "module",

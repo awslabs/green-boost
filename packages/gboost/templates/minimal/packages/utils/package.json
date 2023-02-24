@@ -1,5 +1,5 @@
 {
-  "name": "@{{GB_APP_SCOPE}}/utils",
+  "name": "@{{GB_APP_ID}}/utils",
   "version": "0.1.0",
   "type": "module",
   "exports": {

@@ -3,7 +3,7 @@ import { Operation, OperationType } from "../operations/operations.js";
 import { GetOperationsParams } from "./common.js";
 
 export function getMinimalOperations(params: GetOperationsParams): Operation[] {
-  const { destinationPath, templatesDirPath, scope } = params;
+  const { destinationPath, templatesDirPath, appId } = params;
   return [
     {
       type: OperationType.Copy,
@@ -34,43 +34,18 @@ export function getMinimalOperations(params: GetOperationsParams): Operation[] {
       ],
     },
     {
-      name: "UpdateCoreDependencies",
+      name: "UpdateUtilDevDependencies",
       type: OperationType.UpdatePackageJson,
-      sourcePath: resolve(destinationPath, "core/package.json"),
+      sourcePaths: [
+        resolve(destinationPath, "core/package.json"),
+        resolve(destinationPath, "db/package.json"),
+        resolve(destinationPath, "infra/package.json"),
+        resolve(destinationPath, "ui/package.json"),
+      ],
       devDependencies: {
-        [`@${scope}/eslint-config-node`]: "workspace:^0.1.0",
-        [`@${scope}/tsconfig`]: "workspace:^0.1.0",
-        [`@${scope}/utils`]: "workspace:^0.1.0",
-      },
-    },
-    {
-      name: "UpdateDbDependencies",
-      type: OperationType.UpdatePackageJson,
-      sourcePath: resolve(destinationPath, "db/package.json"),
-      devDependencies: {
-        [`@${scope}/eslint-config-node`]: "workspace:^0.1.0",
-        [`@${scope}/tsconfig`]: "workspace:^0.1.0",
-        [`@${scope}/utils`]: "workspace:^0.1.0",
-      },
-    },
-    {
-      name: "UpdateInfraDependencies",
-      type: OperationType.UpdatePackageJson,
-      sourcePath: resolve(destinationPath, "infra/package.json"),
-      devDependencies: {
-        [`@${scope}/eslint-config-node`]: "workspace:^0.1.0",
-        [`@${scope}/tsconfig`]: "workspace:^0.1.0",
-        [`@${scope}/utils`]: "workspace:^0.1.0",
-      },
-    },
-    {
-      name: "UpdateUiDependencies",
-      type: OperationType.UpdatePackageJson,
-      sourcePath: resolve(destinationPath, "ui/package.json"),
-      devDependencies: {
-        [`@${scope}/eslint-config-react`]: "workspace:^0.1.0",
-        [`@${scope}/tsconfig`]: "workspace:^0.1.0",
-        [`@${scope}/utils`]: "workspace:^0.1.0",
+        [`@${appId}/eslint-config-node`]: "workspace:^0.1.0",
+        [`@${appId}/tsconfig`]: "workspace:^0.1.0",
+        [`@${appId}/utils`]: "workspace:^0.1.0",
       },
     },
   ];
