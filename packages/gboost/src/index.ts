@@ -2,7 +2,6 @@
 
 import parse from "minimist";
 import { getErrorMessage } from "gboost-common";
-import { execSync } from "node:child_process";
 import { create } from "./create/create.js";
 import { showHelp } from "./help.js";
 import { setupFn } from "./run-fn/setup-fn.js";
@@ -10,7 +9,6 @@ import { logger } from "./utils/logger.js";
 
 try {
   listenForSigInt();
-  ensurePnpm();
   const argv = parse(process.argv.slice(2));
   const command = argv._[0];
   switch (command) {
@@ -40,13 +38,4 @@ function listenForSigInt() {
     console.log("\nStopping. Goodbye 👋");
     process.exit();
   });
-}
-
-function ensurePnpm() {
-  try {
-    execSync("pnpm -v");
-  } catch (err) {
-    logger.error("Please install PNPM: https://pnpm.io/installation");
-    throw err;
-  }
 }

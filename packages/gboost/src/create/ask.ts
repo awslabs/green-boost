@@ -40,8 +40,8 @@ const questions: PromptObject<keyof Answers>[] = [
   {
     name: "appId",
     type: "text",
-    message: "App ID (Short Name):",
-    hint: "Part of CDK Stack name and used as scope to prefix all PNPM workspaces within monorepo. Must be alphanumeric lowercase.",
+    // Part of CDK Stack name and used as scope to prefix all PNPM workspaces within monorepo
+    message: "App ID (alphanumeric and lowercase):",
     initial: "myapp",
     validate(v) {
       // regex [^...] means nothing except what replaces ...

@@ -2,10 +2,9 @@
 import { Stack, StackProps } from "aws-cdk-lib";
 import type { RestApi } from "aws-cdk-lib/aws-apigateway";
 import type { Construct } from "constructs";
-import { StaticSite } from "gboost-infra";
+import { StaticSite, WebDeployment } from "gboost-infra";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { WebDeployment } from "gboost-infra";
 
 interface UiProps extends StackProps {
   api: RestApi;
@@ -25,8 +24,6 @@ export class Ui extends Stack {
         workingDirectory,
         environment: {
           VITE_API_URL: api.url,
-          VITE_APP_NAME: "Green Boost",
-          TEST6: api.url,
         },
       },
       destinationBucket: staticSite.bucket,

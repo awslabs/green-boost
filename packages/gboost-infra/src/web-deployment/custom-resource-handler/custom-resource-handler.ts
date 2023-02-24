@@ -65,7 +65,9 @@ export const handler: CdkCustomResourceHandler = async (event) => {
       console.log(
         "Replacing environment variables: " + JSON.stringify(environment)
       );
-      replaceEnvVars({ environment, filePaths });
+      if (Object.keys(environment)) {
+        replaceEnvVars({ environment, filePaths });
+      }
       if (prune) {
         console.log("Emptying/pruning bucket: " + destinationBucketName);
         await emptyBucket(destinationBucketName);

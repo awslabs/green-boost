@@ -34,7 +34,7 @@ export function getMinimalOperations(params: GetOperationsParams): Operation[] {
       ],
     },
     {
-      name: "UpdateUtilDevDependencies",
+      name: "UpdateNodeUtilDevDependencies",
       type: OperationType.UpdatePackageJson,
       sourcePaths: [
         resolve(destinationPath, "core/package.json"),
@@ -44,6 +44,16 @@ export function getMinimalOperations(params: GetOperationsParams): Operation[] {
       ],
       devDependencies: {
         [`@${appId}/eslint-config-node`]: "workspace:^0.1.0",
+        [`@${appId}/tsconfig`]: "workspace:^0.1.0",
+        [`@${appId}/utils`]: "workspace:^0.1.0",
+      },
+    },
+    {
+      name: "UpdateUiUtilDevDependencies",
+      type: OperationType.UpdatePackageJson,
+      sourcePaths: [resolve(destinationPath, "ui/package.json")],
+      devDependencies: {
+        [`@${appId}/eslint-config-react`]: "workspace:^0.1.0",
         [`@${appId}/tsconfig`]: "workspace:^0.1.0",
         [`@${appId}/utils`]: "workspace:^0.1.0",
       },

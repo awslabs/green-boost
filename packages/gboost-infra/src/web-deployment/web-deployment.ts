@@ -17,7 +17,7 @@ import { Asset } from "aws-cdk-lib/aws-s3-assets";
 import { Provider } from "aws-cdk-lib/custom-resources";
 import { Construct } from "constructs";
 import { execSync } from "node:child_process";
-import { cpSync, existsSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Bucket } from "../bucket.js";
@@ -196,6 +196,11 @@ export class WebDeployment extends Construct {
   }
 
   #getAsset(params: GetAssetParams) {
+    // Asset construct requires directory at source path exists even though
+    // we'll create it in local.tryBundle
+    if (!existsSync(params.sourcePath)) {
+      mkdirSync(params.sourcePath);
+    }
     return new Asset(this, "Asset", {
       path: params.sourcePath,
       //https://dev.to/aws-builders/aws-cdk-fullstack-polyglot-with-asset-bundling-318h
