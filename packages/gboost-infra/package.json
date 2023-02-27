@@ -43,7 +43,7 @@
     "@aws-sdk/client-cloudfront": "^3.277.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.272.0",
     "adm-zip": "^0.5.10",
-    "aws-cdk-lib": "^2.65.0",
+    "aws-cdk-lib": "^2.66.1",
     "cdk-nag": "^2.22.8",
     "constructs": "^10.1.262",
     "deepmerge-ts": "^4.3.0",

@@ -1,9 +1,8 @@
 // @ts-nocheck
-import { RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
+import { Stack, StackProps } from "aws-cdk-lib";
 import { Table } from "gboost-infra";
 import type { Construct } from "constructs";
 import { AttributeType } from "aws-cdk-lib/aws-dynamodb";
-import { config } from "./config.js";
 
 type DataProps = StackProps;
 
@@ -20,9 +19,7 @@ export class Data extends Stack {
     return new Table(this, "WidgetsTable", {
       partitionKey: { name: "PK", type: AttributeType.STRING },
       sortKey: { name: "SK", type: AttributeType.STRING },
-      removalPolicy: config.isPipelineStage
-        ? RemovalPolicy.RETAIN
-        : RemovalPolicy.DESTROY,
     });
   }
 }
+

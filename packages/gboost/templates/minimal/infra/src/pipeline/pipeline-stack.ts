@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { Stack, StackProps } from "aws-cdk-lib";
 import {
-  BuildSpec,
   ComputeType,
   LinuxBuildImage,
 } from "aws-cdk-lib/aws-codebuild";

@@ -17,7 +17,7 @@ export class Ui extends Stack {
     super(scope, id, props);
     const { api } = props;
     const staticSite = new StaticSite(this, "StaticSite");
-    const workingDirectory = resolve(thisFilePath, "../../../ui");
+    const workingDirectory = resolve(thisFilePath, "../../../../../ui");
     new WebDeployment(this, "WebDeployment", {
       buildConfig: {
         command: "pnpm build",

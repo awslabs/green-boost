@@ -12,14 +12,19 @@ import {
   StageOptions,
 } from "aws-cdk-lib/aws-apigateway";
 import { fileURLToPath } from "node:url";
-import { config } from "./config.js";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { NagSuppressions } from "cdk-nag";
 import { CfnWebACL, CfnWebACLAssociation } from "aws-cdk-lib/aws-wafv2";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
+import type { StageName } from "../../config/stage-name.js";
+import { resolve } from "node:path";
+
+const thisFilePath = fileURLToPath(import.meta.url);
 
 interface ApiProps extends StackProps {
   table: Table;
+  stageName: StageName;
+  isLocal: boolean;
 }
 
 export class Api extends Stack {
@@ -27,7 +32,7 @@ export class Api extends Stack {
 
   constructor(scope: Construct, id: string, props: ApiProps) {
     super(scope, id, props);
-    this.api = this.getApi();
+    this.api = this.getApi(props);
     const trpcResource = this.api.root.addResource("trpc");
     const trpcProxy = trpcResource.addResource("{proxy+}");
     const fn = this.getFunction(props.table);
@@ -37,11 +42,11 @@ export class Api extends Stack {
     this.suppressApiNags(this.api);
   }
 
-  getApi(): RestApi {
+  getApi(params: GetApiParams): RestApi {
     const api = new RestApi(this, "Api", {
-      defaultCorsPreflightOptions: this.getApiCorsOptions(),
-      deployOptions: this.getDeployOptions(),
-      description: "Widgets API for stage: " + config.stage,
+      defaultCorsPreflightOptions: this.getApiCorsOptions(params.isLocal),
+      deployOptions: this.getDeployOptions(params.isLocal),
+      description: "Widgets API for stage: " + params.stageName,
       endpointTypes: [EndpointType.REGIONAL],
     });
     api.addGatewayResponse("GatewayResponseDefault4XX", {
@@ -84,21 +89,18 @@ export class Api extends Stack {
     return api;
   }
 
-  getApiCorsOptions(): CorsOptions {
+  getApiCorsOptions(isLocal: boolean): CorsOptions {
     return {
-      allowOrigins: config.isPipelineStage
-        ? ["null"]
-        : ["http://localhost:5173"],
+      // TODO: replace * with CloudFront URL
+      allowOrigins: isLocal ? ["http://localhost:5173"] : ["*"],
     };
   }
 
-  getDeployOptions(): StageOptions {
+  getDeployOptions(isLocal: boolean): StageOptions {
     return {
       accessLogDestination: new LogGroupLogDestination(
-        new LogGroup(this, "ApiAccessLogGroup", {
-          removalPolicy: config.isPipelineStage
-            ? RemovalPolicy.RETAIN
-            : RemovalPolicy.DESTROY,
+        new LogGroup(this, "LogGroup", {
+          removalPolicy: isLocal ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
         })
       ),
     };
@@ -106,8 +108,9 @@ export class Api extends Stack {
 
   getFunction(table: Table) {
     const fn = new Function(this, "Function", {
-      entry: fileURLToPath(
-        new URL("../../core/src/entrypoints/api/handler.ts", import.meta.url)
+      entry: resolve(
+        thisFilePath,
+        "../../../../../core/src/entrypoints/api/handler.ts"
       ),
       runtime: Runtime.NODEJS_18_X,
       environment: {
@@ -208,4 +211,9 @@ export class Api extends Stack {
       },
     ];
   }
+}
+
+interface GetApiParams {
+  isLocal: boolean;
+  stageName: StageName;
 }

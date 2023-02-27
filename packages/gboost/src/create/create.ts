@@ -26,7 +26,7 @@ export async function create() {
     `Quick Guide:` +
     "\n" +
     `🚀 Deploy your web app: ${kleur.yellow("cd infra")} then ${kleur.yellow(
-      'cdk deploy "**"'
+      "pnpm deploy:local"
     )}` +
     "\n" +
     `💻 Locally develop your frontend: ${kleur.yellow(
@@ -34,7 +34,7 @@ export async function create() {
     )} then ${kleur.yellow("pnpm dev")}` +
     "\n" +
     `🧹 Clean up: ${kleur.yellow("cd infra")} then ${kleur.yellow(
-      'cdk deploy "**"'
+      'pnpm destroy:local "**"'
     )}`;
   logger.log(message);
 }

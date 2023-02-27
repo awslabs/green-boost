@@ -129,7 +129,7 @@ export class StaticSite extends Construct {
     const responseHeadersPolicyProps =
       getResponseHeadersPolicyProps(responseHeaders);
     const logBucket = new Bucket(this, "CloudFrontAccessLogsBucket", {
-      autoDeleteObjects: retainAccessLogs,
+      autoDeleteObjects: !retainAccessLogs,
       removalPolicy: retainAccessLogs
         ? RemovalPolicy.RETAIN
         : RemovalPolicy.DESTROY,
