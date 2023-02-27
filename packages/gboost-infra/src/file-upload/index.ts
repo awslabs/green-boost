@@ -1,11 +1,11 @@
 import { Construct } from "constructs";
-import { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
+import type { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
 import { Function } from "../function.js";
 import { createSchema } from "./createSchema.js";
 import { Duration, Stack } from "aws-cdk-lib";
-import { Bucket } from "../bucket.js";
+import type { Bucket } from "../bucket.js";
 import { NagSuppressions } from "cdk-nag";
-import { CfnBucket, CorsRule, HttpMethods } from "aws-cdk-lib/aws-s3/index.js";
+import type { CfnBucket, CorsRule, HttpMethods } from "aws-cdk-lib/aws-s3";
 
 interface FileUploadBucket {
   bucket: Bucket;
@@ -42,10 +42,14 @@ export class FileUpload extends Construct {
     //Convert buckets to bucket names to add to environment variable
     const environmentBuckets: { bucket: string; baseKey: string }[] = [];
     for (let i = 0; i < buckets.length; i++) {
-      environmentBuckets[i] = {
-        bucket: buckets[i].bucket.bucketName,
-        baseKey: buckets[i].baseKey,
-      };
+      const bucket = buckets[i]?.bucket.bucketName;
+      const baseKey = buckets[i]?.baseKey;
+      if (bucket && baseKey) {
+        environmentBuckets[i] = {
+          bucket,
+          baseKey,
+        };
+      }
     }
 
     const uploadFn = new Function(this, "UploadFunction", {
@@ -59,29 +63,29 @@ export class FileUpload extends Construct {
     });
 
     for (let i = 0; i < buckets.length; i++) {
-      buckets[i].bucket.grantDelete(uploadFn);
-      buckets[i].bucket.grantReadWrite(uploadFn);
+      buckets[i]?.bucket.grantDelete(uploadFn);
+      buckets[i]?.bucket.grantReadWrite(uploadFn);
 
-      const unknownBucket = buckets[i].bucket as unknown;
+      const unknownBucket = buckets[i]?.bucket as unknown;
       const corsSettings = (unknownBucket as { cors: CorsRule[] }).cors;
       if (corsSettings) {
         let allowedHeaderExist,
           allowedMethodsExists,
           exposedHeadersExist = false;
         for (let corsIndex = 0; corsIndex < corsSettings.length; corsIndex++) {
-          if ((corsSettings[corsIndex].allowedHeaders || []).length > 0) {
+          if ((corsSettings[corsIndex]?.allowedHeaders || []).length > 0) {
             allowedHeaderExist = true;
           }
 
           if (
-            corsSettings[corsIndex].allowedMethods.includes(
+            corsSettings[corsIndex]?.allowedMethods.includes(
               "PUT" as HttpMethods
             )
           ) {
             allowedMethodsExists = true;
           }
 
-          if (corsSettings[corsIndex].exposedHeaders?.includes("ETag")) {
+          if (corsSettings[corsIndex]?.exposedHeaders?.includes("ETag")) {
             exposedHeadersExist = true;
           }
         }
@@ -97,7 +101,7 @@ export class FileUpload extends Construct {
       }
 
       const bucketLogicalId = Stack.of(this).getLogicalId(
-        buckets[i].bucket.node.defaultChild as CfnBucket
+        buckets[i]?.bucket.node.defaultChild as CfnBucket
       );
       NagSuppressions.addResourceSuppressions(
         uploadFn,

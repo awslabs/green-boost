@@ -1,6 +1,6 @@
 import { renameSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { BaseOperation, OperationType } from "./common.js";
+import type { BaseOperation, OperationType } from "./common.js";
 
 interface FileNameUpdate {
   source: string;

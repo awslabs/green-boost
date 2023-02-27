@@ -13,7 +13,7 @@ const logLevelPriority: Record<LogLevel, number> = {
 
 export const logger = {
   get logLevel(): LogLevel {
-    const envVar = process.env.LOGLEVEL ?? LogLevel.ERROR;
+    const envVar = process.env["LOGLEVEL"] ?? LogLevel.ERROR;
     return envVar in LogLevel ? (envVar as LogLevel) : LogLevel.ERROR;
   },
   get logLevelPriority(): number {

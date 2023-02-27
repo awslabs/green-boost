@@ -23,7 +23,7 @@ export class StageConfig {
   constructDefaultProps: ConstructDefaultProps;
   isLocal: boolean;
   region = String(process.env["CDK_DEFAULT_REGION"]);
-  stagId: string;
+  stageId: string;
   stageName: StageName;
 
   constructor(params: StageConfigParams) {

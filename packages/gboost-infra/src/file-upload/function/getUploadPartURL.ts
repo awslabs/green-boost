@@ -1,7 +1,7 @@
-import { Logger } from "@aws-lambda-powertools/logger";
+import type { Logger } from "@aws-lambda-powertools/logger";
 import { S3Client, UploadPartCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { AppSyncResolverEvent } from "aws-lambda";
+import type { AppSyncResolverEvent } from "aws-lambda";
 import { findIndex } from "./findIndex.js";
 
 interface getUploadPartURLArgs {
@@ -18,7 +18,7 @@ interface getUploadPartURLParams {
   logger: Logger;
 }
 
-const client = new S3Client({ region: process.env.REGION });
+const client = new S3Client({ region: process.env["REGION"] });
 
 export async function getUploadPartURL(params: getUploadPartURLParams) {
   const {
@@ -26,19 +26,20 @@ export async function getUploadPartURL(params: getUploadPartURLParams) {
   } = params.event.arguments;
   const { logger } = params;
 
-  if (process.env.BUCKET_MAP) {
+  if (process.env["BUCKET_MAP"]) {
     const bucketMap: { bucket: string; baseKey: string }[] = JSON.parse(
-      process.env.BUCKET_MAP
+      process.env["BUCKET_MAP"]
     );
     const i = findIndex(bucketMap, bucket);
     if (i === -1) {
       logger.error(`Could not find bucket ${bucket}`);
+      return;
     } else {
       const urls: string[] = [];
       for (let urlIndex = 0; urlIndex < numberOfParts; urlIndex++) {
         const command = new UploadPartCommand({
           Bucket: bucket,
-          Key: bucketMap[i].baseKey + fileName,
+          Key: bucketMap[i]?.baseKey + fileName,
           PartNumber: urlIndex + 1,
           UploadId: uploadId,
         });

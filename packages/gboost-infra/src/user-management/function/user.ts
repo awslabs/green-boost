@@ -1,9 +1,9 @@
-import {
+import type {
   UserType,
   AdminGetUserCommandOutput,
   AttributeType,
 } from "@aws-sdk/client-cognito-identity-provider";
-import { CognitoUser, CognitoUserStatus } from "gboost-common";
+import type { CognitoUser, CognitoUserStatus } from "gboost-common";
 
 // values in Attributes array returned from Cognito
 // (not directly on user)
@@ -13,7 +13,7 @@ export const userAttrNames = [
   "given_name",
   "family_name",
 ] as const;
-type UserAttrName = typeof userAttrNames[number];
+type UserAttrName = (typeof userAttrNames)[number];
 
 export function transformUser(
   // UserType is returned by List commands and

@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { OperationType } from "./operations.js";
-import { BaseOperation } from "./common.js";
+import type { OperationType } from "./operations.js";
+import type { BaseOperation } from "./common.js";
 
 interface FindReplace {
   /**

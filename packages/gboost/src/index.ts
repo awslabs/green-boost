@@ -17,10 +17,10 @@ try {
       break;
     case "run-fn":
       await setupFn({
-        handlerPath: argv.h || argv.handler,
-        event: argv.e || argv.event,
-        functionArn: argv.a || argv.functionArn,
-        debug: argv.d || argv.debug,
+        handlerPath: argv["h"] || argv["handler"],
+        event: argv["e"] || argv["event"],
+        functionArn: argv["a"] || argv["functionArn"],
+        debug: argv["d"] || argv["debug"],
       });
       break;
     case "help":

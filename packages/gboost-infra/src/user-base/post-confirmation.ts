@@ -20,7 +20,7 @@ export const handler: PostConfirmationTriggerHandler = async (event) => {
 };
 
 function getDefaultGroupName(): string {
-  const defaultGroupName = process.env.DEFAULT_GROUP_NAME;
+  const defaultGroupName = process.env["DEFAULT_GROUP_NAME"];
   if (!defaultGroupName) {
     throw new Error("DEFAULT_GROUP_NAME env var is missing");
   }

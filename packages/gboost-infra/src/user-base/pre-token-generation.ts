@@ -1,12 +1,15 @@
 import type { PreTokenGenerationTriggerHandler } from "aws-lambda";
 
 export const handler: PreTokenGenerationTriggerHandler = async (event) => {
-  event.response = {
-    claimsOverrideDetails: {
-      groupOverrideDetails: {
-        groupsToOverride: [event.request.userAttributes["custom:groups"]],
+  const groups = event.request.userAttributes["custom:groups"];
+  if (groups) {
+    event.response = {
+      claimsOverrideDetails: {
+        groupOverrideDetails: {
+          groupsToOverride: [groups],
+        },
       },
-    },
-  };
+    };
+  }
   return event;
 };

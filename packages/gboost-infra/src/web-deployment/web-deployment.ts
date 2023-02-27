@@ -5,7 +5,7 @@ import {
   Duration,
   Token,
 } from "aws-cdk-lib";
-import { Distribution } from "aws-cdk-lib/aws-cloudfront";
+import type { Distribution } from "aws-cdk-lib/aws-cloudfront";
 import {
   Architecture,
   Code,
@@ -20,8 +20,8 @@ import { execSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { Bucket } from "../bucket.js";
-import { InputResourceProperties } from "./common.js";
+import type { Bucket } from "../bucket.js";
+import type { InputResourceProperties } from "./common.js";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 

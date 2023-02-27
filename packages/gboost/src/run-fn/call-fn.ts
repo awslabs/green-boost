@@ -4,9 +4,9 @@ import { logger } from "../utils/logger.js";
 
 const argv = parse(process.argv.slice(2));
 callFn({
-  event: argv.e,
-  handlerPath: argv.h,
-  dummyContext: argv.c,
+  event: argv["e"],
+  handlerPath: argv["h"],
+  dummyContext: argv["c"],
 });
 
 interface CallFnParams {

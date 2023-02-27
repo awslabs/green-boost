@@ -9,8 +9,8 @@ import {
   FunctionCode,
 } from "aws-cdk-lib/aws-cloudfront";
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
-import { CfnWebACL } from "aws-cdk-lib/aws-wafv2";
-import { ICertificate } from "aws-cdk-lib/aws-certificatemanager";
+import type { CfnWebACL } from "aws-cdk-lib/aws-wafv2";
+import type { ICertificate } from "aws-cdk-lib/aws-certificatemanager";
 import { Bucket } from "../bucket.js";
 import type { ResponseHeaders } from "./responseHeaders.js";
 import { getResponseHeadersPolicyProps } from "./responseHeaders.js";

@@ -6,7 +6,6 @@
   "main": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./OldQueryTable": "./src/OldQueryTable/QueryTable.ts",
     "./UserManagement": "./src/UserManagement/UserManagement.ts",
     "./FileUpload": "./src/FileUpload/FileUpload.ts"
   },
@@ -18,10 +17,6 @@
       ".": {
         "types": "./lib/index.d.ts",
         "import": "./lib/index.js"
-      },
-      "./OldQueryTable": {
-        "types": "./lib/OldQueryTable/QueryTable.d.ts",
-        "import": "./lib/OldQueryTable/QueryTable.js"
       },
       "./UserManagement": {
         "types": "./lib/UserManagement/UserManagement.d.ts",
@@ -64,6 +59,7 @@
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.272.0",
+    "@tsconfig/vite-react": "^1.0.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/react-transition-group": "^4.4.5",

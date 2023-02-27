@@ -5,7 +5,7 @@ const { defineConfig } = require("eslint-define-config");
 module.exports = defineConfig({
   root: true,
   env: {
-    es2023: true,
+    es2022: true,
     node: true,
   },
   extends: [

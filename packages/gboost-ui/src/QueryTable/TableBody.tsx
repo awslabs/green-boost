@@ -1,6 +1,6 @@
 import { ReactElement, useCallback, useEffect, useMemo } from "react";
 import { Placeholder } from "@aws-amplify/ui-react";
-import { Box, styled } from "../index";
+import { Box, styled } from "../index.js";
 import { SelectionCell } from "./SelectionCell.js";
 import type { Column } from "./types/column.js";
 import type { OnChangeSelectedParams } from "./types/selected.js";

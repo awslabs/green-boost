@@ -1,7 +1,7 @@
 import { deepmerge } from "deepmerge-ts";
-import { BucketProps } from "./bucket.js";
-import { FunctionProps } from "./function.js";
-import { TableProps } from "./table.js";
+import type { BucketProps } from "./bucket.js";
+import type { FunctionProps } from "./function.js";
+import type { TableProps } from "./table.js";
 
 /**
  * Default props for all constructs from gboost-infra

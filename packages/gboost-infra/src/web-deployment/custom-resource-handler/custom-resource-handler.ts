@@ -23,7 +23,7 @@ import {
   CreateInvalidationCommand,
 } from "@aws-sdk/client-cloudfront";
 import AdmZip from "adm-zip";
-import { ResourceProperties } from "../common.js";
+import type { ResourceProperties } from "../common.js";
 import { Readable } from "node:stream";
 import { relative, resolve } from "node:path";
 import { tmpdir } from "node:os";
@@ -153,10 +153,17 @@ function replaceEnvVars(params: ReplaceEnvVarsParams) {
   for (const filePath of filePaths) {
     if (filePath.endsWith(".js")) {
       const fileContents = readFileSync(filePath, { encoding: "utf8" });
-      const newFileContents = fileContents.replace(
-        findRegExp,
-        (matched) => environment[matched]
-      );
+      const newFileContents = fileContents.replace(findRegExp, (matched) => {
+        const matchedEnvVar = environment[matched];
+        if (matchedEnvVar) {
+          return matchedEnvVar;
+        } else {
+          console.warn(
+            `Could not find matched value: ${matched} in environment object. Returning ""`
+          );
+          return "";
+        }
+      });
       if (fileContents !== newFileContents) {
         writeFileSync(filePath, newFileContents);
       }

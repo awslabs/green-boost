@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
 import { Operation, OperationType } from "../operations/operations.js";
-import { GetOperationsParams } from "./common.js";
+import type { GetOperationsParams } from "./common.js";
 import { getMinimalOperations } from "./get-minimal-operations.js";
 
 export function getWidgetsPostgresOperations(
@@ -36,7 +36,7 @@ export function getWidgetsPostgresOperations(
       type: OperationType.UpdatePackageJson,
       sourcePaths: [resolve(destinationPath, "package.json")],
       update(packageJson) {
-        packageJson.pnpm.patchedDependencies["@hookform/resolvers@2.9.10"] =
+        packageJson["pnpm"].patchedDependencies["@hookform/resolvers@2.9.10"] =
           "patches/@hookform__resolvers@2.9.10.patch";
         return packageJson;
       },

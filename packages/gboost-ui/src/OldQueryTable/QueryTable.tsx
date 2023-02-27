@@ -474,7 +474,7 @@ export function QueryTable<T extends Record<string, any>>(
     dispatch({ type: "filter", filters: newFilters });
   }, []);
   const handleCreateSort = useCallback(
-    (sort) =>
+    (sort: Sort) =>
       dispatch({
         type: "sort",
         sorts: disableMultiSort ? [...sorts, sort] : [sort],

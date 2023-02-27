@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from "node:fs";
-import { BaseOperation, OperationType } from "./common.js";
+import type { BaseOperation, OperationType } from "./common.js";
 
 export interface UpdatePackageJsonOperation extends BaseOperation {
   type: OperationType.UpdatePackageJson;

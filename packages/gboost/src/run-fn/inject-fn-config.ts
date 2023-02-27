@@ -21,16 +21,16 @@ export async function injectFnConfig(params: InjectFnConfigParams) {
     ...process.env, // prioritize user defined env vars over lambda's
   };
   if (response.FunctionName) {
-    dummyContext.functionName = response.FunctionName;
+    dummyContext["functionName"] = response.FunctionName;
   }
   if (response.FunctionArn) {
-    dummyContext.invokedFunctionArn = response.FunctionArn;
+    dummyContext["invokedFunctionArn"] = response.FunctionArn;
   }
   if (response.MemorySize) {
-    dummyContext.memoryLimitInMB = response.MemorySize.toString();
+    dummyContext["memoryLimitInMB"] = response.MemorySize.toString();
   }
   if (response.Timeout) {
-    dummyContext.getRemainingTimeInMillis = () =>
+    dummyContext["getRemainingTimeInMillis"] = () =>
       (response.Timeout as number) * 1000;
   }
 }

@@ -1,5 +1,5 @@
 import { CfnIPSet, CfnWebACL } from "aws-cdk-lib/aws-wafv2";
-import { Construct } from "constructs";
+import type { Construct } from "constructs";
 
 interface StaticSiteWebAclProps {
   /**
@@ -131,7 +131,7 @@ export class StaticSiteWebAcl extends CfnWebACL {
     }
 
     // For CLOUDFRONT, you must create your WAFv2 resources in the US East (N. Virginia) Region, us-east-1.
-    super(scope, "WebACL", {
+    super(scope, id, {
       defaultAction,
       rules,
       scope: "CLOUDFRONT",

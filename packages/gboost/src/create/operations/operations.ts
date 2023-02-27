@@ -1,7 +1,7 @@
-import { CopyOperation } from "./copy.js";
-import { ReplaceOperation } from "./replace.js";
-import { UpdateFileNamesOperation } from "./update-file-names.js";
-import { UpdatePackageJsonOperation } from "./update-package-json.js";
+import type { CopyOperation } from "./copy.js";
+import type { ReplaceOperation } from "./replace.js";
+import type { UpdateFileNamesOperation } from "./update-file-names.js";
+import type { UpdatePackageJsonOperation } from "./update-package-json.js";
 
 export { OperationType } from "./common.js";
 export type Operation =

@@ -1,20 +1,17 @@
 {
+  "extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "declaration": true,
     "declarationMap": true,
+    "exactOptionalPropertyTypes": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "lib",
+    "skipLibCheck": true,
   },
   "include": ["src/**/*"], // overwrites base config file so we cannot extend
   "exclude": ["**/*.test.ts", "lib"],
   "ts-node": {
     "esm": true,
-    "swc": true,
   }
 }

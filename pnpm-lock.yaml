@@ -7,6 +7,11 @@ overrides:
   loader-utils: '>=3.2.1'
   terser: '>=5.14.2'
 
+patchedDependencies:
+  '@hookform/resolvers@2.9.11':
+    hash: cjy2iymqqmz6if5vz6nics7yxq
+    path: patches/@hookform__resolvers@2.9.11.patch
+
 importers:
 
   .:
@@ -90,6 +95,7 @@ importers:
     specifiers:
       '@aws-sdk/client-lambda': ^3.272.0
       '@swc/core': ^1.3.36
+      '@tsconfig/node18-strictest-esm': ^1.0.1
       '@types/minimist': ^1.2.2
       '@types/node': ^18.13.0
       '@types/prompts': ^2.4.2
@@ -119,6 +125,7 @@ importers:
       vite: 4.1.1_@types+node@18.13.0
       vitest: 0.28.5
     devDependencies:
+      '@tsconfig/node18-strictest-esm': 1.0.1
       '@types/minimist': 1.2.2
       '@types/node': 18.13.0
       '@types/prompts': 2.4.2
@@ -135,6 +142,7 @@ importers:
 
   packages/gboost-common:
     specifiers:
+      '@tsconfig/node18-strictest-esm': ^1.0.1
       '@types/node': ^18.13.0
       '@typescript-eslint/eslint-plugin': ^5.52.0
       '@typescript-eslint/parser': ^5.52.0
@@ -149,6 +157,7 @@ importers:
       vite: ^4.1.1
       vitest: ^0.28.5
     devDependencies:
+      '@tsconfig/node18-strictest-esm': 1.0.1
       '@types/node': 18.13.0
       '@typescript-eslint/eslint-plugin': 5.52.0_6cfvjsbua5ptj65675bqcn6oza
       '@typescript-eslint/parser': 5.52.0_7kw3g6rralp5ps6mg3uyzz6azm
@@ -171,6 +180,7 @@ importers:
       '@aws-sdk/client-cognito-identity-provider': ^3.272.0
       '@aws-sdk/client-s3': ^3.272.0
       '@aws-sdk/s3-request-presigner': ^3.272.0
+      '@tsconfig/node18-strictest-esm': ^1.0.1
       '@types/adm-zip': ^0.5.0
       '@types/aws-lambda': ^8.10.110
       '@types/mime-types': ^2.1.1
@@ -180,7 +190,7 @@ importers:
       adm-zip: ^0.5.10
       aws-cdk-lib: ^2.65.0
       cdk-nag: ^2.22.8
-      constructs: ^10.1.255
+      constructs: ^10.1.262
       deepmerge-ts: ^4.3.0
       esbuild: ^0.17.8
       eslint: ^8.34.0
@@ -196,13 +206,13 @@ importers:
       vite: ^4.1.1
       vitest: ^0.28.5
     dependencies:
-      '@aws-cdk/aws-appsync-alpha': 2.54.0-alpha.0_pqgwqugbkzwsywk4b2uka2py4e
+      '@aws-cdk/aws-appsync-alpha': 2.54.0-alpha.0_ikfdrs5bvnl7vur5wjlbzk4txy
       '@aws-sdk/client-cloudfront': 3.277.0
       '@aws-sdk/client-cognito-identity-provider': 3.272.0
       adm-zip: 0.5.10
-      aws-cdk-lib: 2.65.0_constructs@10.1.255
-      cdk-nag: 2.22.8_pqgwqugbkzwsywk4b2uka2py4e
-      constructs: 10.1.255
+      aws-cdk-lib: 2.65.0_constructs@10.1.262
+      cdk-nag: 2.22.8_ikfdrs5bvnl7vur5wjlbzk4txy
+      constructs: 10.1.262
       deepmerge-ts: 4.3.0
       gboost-common: link:../gboost-common
       mime-types: 2.1.35
@@ -210,6 +220,7 @@ importers:
       '@aws-lambda-powertools/logger': 1.5.1
       '@aws-sdk/client-s3': 3.272.0
       '@aws-sdk/s3-request-presigner': 3.272.0
+      '@tsconfig/node18-strictest-esm': 1.0.1
       '@types/adm-zip': 0.5.0
       '@types/aws-lambda': 8.10.110
       '@types/mime-types': 2.1.1
@@ -230,6 +241,7 @@ importers:
 
   packages/gboost-node:
     specifiers:
+      '@tsconfig/node18-strictest-esm': ^1.0.1
       '@typescript-eslint/eslint-plugin': ^5.52.0
       '@typescript-eslint/parser': ^5.52.0
       eslint: ^8.34.0
@@ -245,6 +257,7 @@ importers:
     dependencies:
       gboost-common: link:../gboost-common
     devDependencies:
+      '@tsconfig/node18-strictest-esm': 1.0.1
       '@typescript-eslint/eslint-plugin': 5.52.0_6cfvjsbua5ptj65675bqcn6oza
       '@typescript-eslint/parser': 5.52.0_7kw3g6rralp5ps6mg3uyzz6azm
       eslint: 8.34.0
@@ -268,6 +281,7 @@ importers:
       '@radix-ui/react-portal': ^1.0.1
       '@radix-ui/react-tooltip': ^1.0.3
       '@stitches/react': ^1.2.8
+      '@tsconfig/vite-react': ^1.0.1
       '@types/react': ^18.0.28
       '@types/react-dom': ^18.0.11
       '@types/react-transition-group': ^4.4.5
@@ -296,7 +310,7 @@ importers:
       zod: ^3.20.6
     dependencies:
       '@aws-amplify/ui-react': 4.3.8_pw7d4lrnv2nc7fhpu64lt4h5ae
-      '@hookform/resolvers': 2.9.11_react-hook-form@7.43.1
+      '@hookform/resolvers': 2.9.11_cjy2iymqqmz6if5vz6nics7yxq_react-hook-form@7.43.1
       '@mantine/hooks': 5.10.4_react@18.2.0
       '@radix-ui/colors': 0.1.8
       '@radix-ui/react-dialog': 1.0.2_zula6vjvt3wdocc4mwcxqa6nzi
@@ -314,6 +328,7 @@ importers:
       zod: 3.20.6
     devDependencies:
       '@aws-sdk/client-s3': 3.272.0
+      '@tsconfig/vite-react': 1.0.1
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
       '@types/react-transition-group': 4.4.5
@@ -758,15 +773,15 @@ packages:
     resolution: {integrity: sha512-7BTzPo1tBw1tTYEmWNO0nS+bTJ/Ikg2qpFQZBb0GedEJ1v713IyRoySlKADAXAaMPJU9Gg05LCuJy+cs7RUDMQ==}
     dev: false
 
-  /@aws-cdk/aws-appsync-alpha/2.54.0-alpha.0_pqgwqugbkzwsywk4b2uka2py4e:
+  /@aws-cdk/aws-appsync-alpha/2.54.0-alpha.0_ikfdrs5bvnl7vur5wjlbzk4txy:
     resolution: {integrity: sha512-90qjXoBpnqY2QdLO9VqryIHNb2ZcLGbs40QKQPVeULomC/fB26SxjLMj1wcYvS7Ykzkro7Oy9vVVC0qEwh+TjQ==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       aws-cdk-lib: ^2.54.0
       constructs: ^10.0.0
     dependencies:
-      aws-cdk-lib: 2.65.0_constructs@10.1.255
-      constructs: 10.1.255
+      aws-cdk-lib: 2.65.0_constructs@10.1.262
+      constructs: 10.1.262
     dev: false
 
   /@aws-crypto/crc32/1.2.2:
@@ -8024,13 +8039,14 @@ packages:
     dependencies:
       '@hapi/hoek': 9.3.0
 
-  /@hookform/resolvers/2.9.11_react-hook-form@7.43.1:
+  /@hookform/resolvers/2.9.11_cjy2iymqqmz6if5vz6nics7yxq_react-hook-form@7.43.1:
     resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
       react-hook-form: 7.43.1_react@18.2.0
     dev: false
+    patched: true
 
   /@humanwhocodes/config-array/0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
@@ -9374,6 +9390,14 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
+  /@tsconfig/node18-strictest-esm/1.0.1:
+    resolution: {integrity: sha512-cHzmAqw7CMbyqROWeBgVhard3F2V6zxOSJnQ4E6SJWruXD5ypuP9/QKekwBdfXQ4oUTaizIICKIwb+v3v33t0w==}
+    dev: true
+
+  /@tsconfig/vite-react/1.0.1:
+    resolution: {integrity: sha512-6Tv0UI88QPSkNobzoI8tMXjHX1j723yPBhrQ+z+gphvTIj7KcH0KF1MjUlPrIgh5TEpRMH8jF5ezZ5qQ0iHGvw==}
+    dev: true
+
   /@turf/along/6.5.0:
     resolution: {integrity: sha512-LLyWQ0AARqJCmMcIEAXF4GEu8usmd4Kbz3qk1Oy5HoRNpZX47+i5exQtmIWKdqJ1MMhW26fCTXgpsEs5zgJ5gw==}
     dependencies:
@@ -10514,7 +10538,7 @@ packages:
       - encoding
       - react-native
 
-  /aws-cdk-lib/2.65.0_constructs@10.1.255:
+  /aws-cdk-lib/2.65.0_constructs@10.1.262:
     resolution: {integrity: sha512-yTeBe9+Li8ZHZICJc0y1uarbSruc3KIXP1KC7tjVrkg+ye7EE8eJTZm7+PpJd6O0ciPinn/k/dE9gHwUImygGA==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
@@ -10525,7 +10549,7 @@ packages:
       '@aws-cdk/asset-node-proxy-agent-v5': 2.0.58
       '@balena/dockerignore': 1.0.2
       case: 1.6.3
-      constructs: 10.1.255
+      constructs: 10.1.262
       fs-extra: 9.1.0
       ignore: 5.2.4
       jsonschema: 1.4.1
@@ -10939,14 +10963,14 @@ packages:
   /ccount/1.1.0:
     resolution: {integrity: sha512-vlNK021QdI7PNeiUh/lKkC/mNHHfV0m/Ad5JoI0TYtlBnJAslM/JIkm/tGC88bkLIwO6OQ5uV6ztS6kVAtCDlg==}
 
-  /cdk-nag/2.22.8_pqgwqugbkzwsywk4b2uka2py4e:
+  /cdk-nag/2.22.8_ikfdrs5bvnl7vur5wjlbzk4txy:
     resolution: {integrity: sha512-KZYjABwogrVyPAfgOb3gMxd2xNa9I9xNydCNQCjyOTc0BpeJrxGfd01dypI6WjuQtK8bPmBeEzD9Qpo5zfFYNA==}
     peerDependencies:
       aws-cdk-lib: ^2.45.0
       constructs: ^10.0.5
     dependencies:
-      aws-cdk-lib: 2.65.0_constructs@10.1.255
-      constructs: 10.1.255
+      aws-cdk-lib: 2.65.0_constructs@10.1.262
+      constructs: 10.1.262
     dev: false
 
   /chai/4.3.7:
@@ -11255,8 +11279,8 @@ packages:
       upper-case: 2.0.2
     dev: false
 
-  /constructs/10.1.255:
-    resolution: {integrity: sha512-m7ddP9mF92096r4/2oqUg8sUYNdt7x2tjRSltnTtgvqiasBr0gSjzLkHqlGR0IrnvQWemv1kA1GESWxYAK20vw==}
+  /constructs/10.1.262:
+    resolution: {integrity: sha512-gVK1wapBFr2PhLz+b45n1WcpG3R7O4zFKyEiJnVLobFxCfmY8Gc3p8qyZZ7E8d6j5HMo9c7oFQmfLA8BVNm27g==}
     engines: {node: '>= 14.17.0'}
     dev: false
 

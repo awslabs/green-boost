@@ -18,5 +18,5 @@ export function camelToSnake(s: string): string {
  * lowercase to Pascalcase
  */
 export function lowerToPascal(s: string) {
-  return s[0].toUpperCase() + s.slice(1);
+  return s[0]?.toUpperCase() + s.slice(1);
 }

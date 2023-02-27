@@ -1,7 +1,7 @@
 import { Arn, Stack } from "aws-cdk-lib";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
-import { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
+import type { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
 import { Function } from "../function.js";
 import { createSchema } from "./createSchema.js";
 import { fileURLToPath } from "node:url";

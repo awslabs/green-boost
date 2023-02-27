@@ -8,8 +8,8 @@ import {
 } from "@aws-cdk/aws-appsync-alpha";
 import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
-import { IUserPool } from "aws-cdk-lib/aws-cognito";
-import { IFunction } from "aws-cdk-lib/aws-lambda";
+import type { IUserPool } from "aws-cdk-lib/aws-cognito";
+import type { IFunction } from "aws-cdk-lib/aws-lambda";
 
 interface GraphqlApiProps extends AwsGraphqlApiProps {
   userPool?: IUserPool;
@@ -51,7 +51,7 @@ export class GraphqlApi extends AwsGraphqlApi {
     );
   }
 
-  addLambdaDataSource(
+  override addLambdaDataSource(
     id: string,
     lambdaFunction: IFunction,
     options?: DataSourceOptions

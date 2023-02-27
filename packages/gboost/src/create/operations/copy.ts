@@ -6,7 +6,7 @@ import {
   statSync,
 } from "node:fs";
 import { basename, normalize } from "node:path";
-import { BaseOperation, OperationType } from "./common.js";
+import type { BaseOperation, OperationType } from "./common.js";
 
 export interface CopyOperation extends BaseOperation {
   type: OperationType.Copy;
@@ -34,7 +34,7 @@ export function copy(params: CopyOperation): void {
     };
     const filterFiles = params.filterFiles;
     if (filterFiles) {
-      options.filter = (source: string, destination: string) =>
+      options.filter = (_source: string, destination: string) =>
         filterFiles.test(destination);
     }
     // WARNING: experimental API, could be breaking changes, but it does so much

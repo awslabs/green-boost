@@ -1,4 +1,4 @@
-import { GroupType } from "@aws-sdk/client-cognito-identity-provider";
+import type { GroupType } from "@aws-sdk/client-cognito-identity-provider";
 
 export interface Group {
   createdAt: string;
@@ -33,10 +33,10 @@ function getArrayEnvVar(name: string): string[] {
   }
 }
 
-export const adminGroupNames = process.env.ADMIN_GROUP_NAMES
+export const adminGroupNames = process.env["ADMIN_GROUP_NAMES"]
   ? getArrayEnvVar("ADMIN_GROUP_NAMES")
   : ["Admin"];
 
-export const groupNames = process.env.GROUP_NAMES
+export const groupNames = process.env["GROUP_NAMES"]
   ? getArrayEnvVar("GROUP_NAMES")
   : ["Admin", "User", "UserReadOnly"];

@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
 import { Operation, OperationType } from "../operations/operations.js";
-import { GetOperationsParams } from "./common.js";
+import type { GetOperationsParams } from "./common.js";
 import { getMinimalOperations } from "./get-minimal-operations.js";
 
 export function getWidgetsDynamoOperations(

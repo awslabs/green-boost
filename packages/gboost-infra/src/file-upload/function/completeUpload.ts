@@ -1,10 +1,10 @@
-import { Logger } from "@aws-lambda-powertools/logger";
+import type { Logger } from "@aws-lambda-powertools/logger";
 import {
   CompletedPart,
   CompleteMultipartUploadCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
-import { AppSyncResolverEvent } from "aws-lambda";
+import type { AppSyncResolverEvent } from "aws-lambda";
 import { findIndex } from "./findIndex.js";
 
 interface completeUploadArgs {
@@ -21,7 +21,7 @@ interface completeUploadParams {
   logger: Logger;
 }
 
-const client = new S3Client({ region: process.env.REGION });
+const client = new S3Client({ region: process.env["REGION"] });
 
 export async function completeUpload(params: completeUploadParams) {
   const {
@@ -29,17 +29,18 @@ export async function completeUpload(params: completeUploadParams) {
   } = params.event.arguments;
   const { logger } = params;
 
-  if (process.env.BUCKET_MAP) {
+  if (process.env["BUCKET_MAP"]) {
     const bucketMap: { bucket: string; baseKey: string }[] = JSON.parse(
-      process.env.BUCKET_MAP
+      process.env["BUCKET_MAP"]
     );
     const i = findIndex(bucketMap, bucket);
     if (i === -1) {
       logger.error(`Could not find bucket ${bucket}`);
+      return;
     } else {
       const command = new CompleteMultipartUploadCommand({
         Bucket: bucket,
-        Key: bucketMap[i].baseKey + fileName,
+        Key: bucketMap[i]?.baseKey + fileName,
         UploadId: uploadId,
         MultipartUpload: {
           Parts: multipartUpload,

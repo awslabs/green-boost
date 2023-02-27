@@ -1,4 +1,4 @@
-import { AppSyncResolverHandler } from "aws-lambda";
+import type { AppSyncResolverHandler } from "aws-lambda";
 import { abortUpload } from "./abortUpload.js";
 import { completeUpload } from "./completeUpload.js";
 import { getUploadId } from "./getUploadId.js";
@@ -36,4 +36,5 @@ export const handler: AppSyncResolverHandler<any, any> = (event, context) => {
   } catch (error) {
     console.error(error);
   }
+  return;
 };

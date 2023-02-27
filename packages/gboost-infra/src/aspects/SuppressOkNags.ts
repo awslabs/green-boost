@@ -1,6 +1,6 @@
-import { IAspect } from "aws-cdk-lib";
+import type { IAspect } from "aws-cdk-lib";
 import { NagSuppressions } from "cdk-nag";
-import { IConstruct } from "constructs";
+import type { IConstruct } from "constructs";
 
 /**
  * Suppresses cdk-nag errors for AWS managed constructs regarding log

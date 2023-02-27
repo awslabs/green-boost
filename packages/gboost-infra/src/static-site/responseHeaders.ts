@@ -359,6 +359,8 @@ export function getCorsBehavior(
       originOverride: true,
       ...corsHeaders,
     };
+  } else {
+    return;
   }
 }
 
@@ -373,6 +375,8 @@ export function getCustomHeadersBehavior(
         override: true,
       })),
     };
+  } else {
+    return;
   }
 }
 

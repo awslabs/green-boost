@@ -1,5 +1,5 @@
 import { Operation, OperationType } from "../operations/operations.js";
-import { GetOperationsParams } from "./common.js";
+import type { GetOperationsParams } from "./common.js";
 
 export function getCommonOperations(params: GetOperationsParams): Operation[] {
   const { destinationPath, appId } = params;
