@@ -87,7 +87,7 @@ export class StaticSite extends Construct {
     if (bucket) {
       this.bucket = bucket;
     } else {
-      this.bucket = new Bucket(this, "StaticSiteBucket", {
+      this.bucket = new Bucket(this, "Bucket", {
         autoDeleteObjects: true,
         removalPolicy: RemovalPolicy.DESTROY,
       });

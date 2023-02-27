@@ -20,39 +20,33 @@ import { StageName } from "../config/stage-name.js";
 export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
-    const repo = Repository.fromRepositoryName(this, "CodeCommitRepo", "myapp");
+    const repo = Repository.fromRepositoryName(this, "CodeCommitRepo", "{{GB_APP_ID}}");
     const pipeline = new CodePipeline(this, "CdkPipeline", {
       // crossAccountKeys: true,
       selfMutation: true,
       synth: new ShellStep("ShellStep", {
         input: CodePipelineSource.codeCommit(repo, "main"),
         installCommands: [
-          "curl -fsSL https://get.pnpm.io/install.sh",
+          "curl -fsSL https://get.pnpm.io/install.sh | SHELL=`which bash` bash -",
+          ". /root/.bashrc",
+          "pnpm env use --global 18",
           "pnpm i -g aws-cdk",
-          "HUSKY=0 pnpm ci",
+          "HUSKY=0 pnpm i --frozen-lockfile",
         ],
         commands: [
           "pnpm lint",
           "pnpm typecheck",
           "pnpm test",
           "cd infra",
-          'cdk --app "./node_modules/.bin/vite-node src/pipeline-app.ts" synth ',
+          'cdk --app "./node_modules/.bin/vite-node src/pipeline-app.ts" synth',
         ],
         primaryOutputDirectory: "./infra/cdk.out",
       }),
       codeBuildDefaults: {
         buildEnvironment: {
-          buildImage: LinuxBuildImage.AMAZON_LINUX_2_4,
+          buildImage: LinuxBuildImage.STANDARD_6_0,
           computeType: ComputeType.MEDIUM,
         },
-        partialBuildSpec: BuildSpec.fromObject({
-          version: "0.2",
-          phases: {
-            install: {
-              "runtime-versions": { nodejs: "18" },
-            },
-          },
-        }),
       },
     });
 

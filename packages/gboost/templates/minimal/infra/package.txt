@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "deploy": "cdk deploy \"**\"",
+    "deploy:pipeline": "cdk --app \"./node_modules/.bin/vite-node src/pipeline/pipeline-app.ts\" deploy \"*\"",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "vitest run --passWithNoTests",
     "watch": "cdk --watch",
