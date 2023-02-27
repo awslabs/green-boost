@@ -214,7 +214,7 @@ export class WebDeployment extends Construct {
           tryBundle(outputDir) {
             try {
               const buildConfig = params.buildConfig;
-              if (buildConfig) {
+              if (buildConfig?.command) {
                 execSync(buildConfig.command, {
                   cwd: buildConfig.workingDirectory,
                   env: { ...process.env, ...params.localEnv },

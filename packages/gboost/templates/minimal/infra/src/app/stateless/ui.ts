@@ -10,7 +10,9 @@ const thisFilePath = fileURLToPath(import.meta.url);
 export class Ui extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
-    const staticSite = new StaticSite(this, "StaticSite");
+    const staticSite = new StaticSite(this, "StaticSite", {
+      retainAccessLogs: false,
+    });
     const workingDirectory = resolve(thisFilePath, "../../../../../ui");
     new WebDeployment(this, "WebDeployment", {
       buildConfig: {

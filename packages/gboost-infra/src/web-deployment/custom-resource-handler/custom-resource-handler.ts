@@ -62,10 +62,10 @@ export const handler: CdkCustomResourceHandler = async (event) => {
       console.log("Extracting zip");
       await extractZip({ zipFilePath, unzipDirPath });
       const filePaths = listFilePaths(unzipDirPath);
-      console.log(
-        "Replacing environment variables: " + JSON.stringify(environment)
-      );
-      if (Object.keys(environment)) {
+      if (Object.keys(environment).length) {
+        console.log(
+          "Replacing environment variables: " + JSON.stringify(environment)
+        );
         replaceEnvVars({ environment, filePaths });
       }
       if (prune) {

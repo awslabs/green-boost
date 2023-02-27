@@ -23,6 +23,7 @@ export class StageConfig {
   constructDefaultProps: ConstructDefaultProps;
   isLocal: boolean;
   region = String(process.env["CDK_DEFAULT_REGION"]);
+  stagId: string;
   stageName: StageName;
 
   constructor(params: StageConfigParams) {
@@ -54,17 +55,11 @@ export class StageConfig {
     } else {
       this.constructDefaultProps = baseConstructDefaultProps;
     }
-  }
-
-  /**
-   * Creates consistent stack name of format: "appId-stageName-stackId"
-   */
-  getStackName(stackName: string) {
     if (this.isLocal) {
       const localStageName = process.env["STAGE_NAME"] || userInfo().username;
-      return `${this.appId}-${localStageName}-${stackName}`;
+      this.stageId = this.appId + "-" + localStageName;
     } else {
-      return `${this.appId}-${this.stageName}-${stackName}`;
+      this.stageId = this.appId + "-" + this.stageName;
     }
   }
 }

@@ -4,4 +4,5 @@ import { AppStage } from "./app-stage.js";
 import { StageName } from "./config/stage-name.js";
 
 const app = new App();
-new AppStage(app, StageName.Local);
+const localConfig = configs[StageName.Local];
+new AppStage(app, localConfig.stageId, localConfig);

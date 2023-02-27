@@ -8,7 +8,7 @@
     "dev": "vite",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "watch": "tsc -w",
     "typecheck": "tsc --noEmit"
   },

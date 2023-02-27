@@ -31,7 +31,11 @@ export async function create() {
     "\n" +
     `💻 Locally develop your frontend: ${kleur.yellow(
       "cd ui"
-    )} then ${kleur.yellow("pnpm dev")}`;
+    )} then ${kleur.yellow("pnpm dev")}` +
+    "\n" +
+    `🧹 Clean up: ${kleur.yellow("cd infra")} then ${kleur.yellow(
+      'cdk deploy "**"'
+    )}`;
   logger.log(message);
 }
 

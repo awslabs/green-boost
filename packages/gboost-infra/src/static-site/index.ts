@@ -42,7 +42,7 @@ export interface StaticSiteProps {
    */
   distribution?: Distribution;
   /**
-   * @default false
+   * @default true
    */
   enableWaf?: boolean;
   /**
@@ -50,6 +50,11 @@ export interface StaticSiteProps {
    * @default ResponseHeaders
    */
   responseHeaders?: ResponseHeaders;
+  /**
+   * Retain CloudFront access logs in S3 Bucket
+   * @default true
+   */
+  retainAccessLogs?: boolean;
   /**
    * Override WebACL
    */
@@ -114,10 +119,21 @@ export class StaticSite extends Construct {
   }
 
   #getDistribution(params: GetDistributionParams): Distribution {
-    const { certificate, domainNames, responseHeaders, webAcl } = params;
+    const {
+      certificate,
+      domainNames,
+      responseHeaders,
+      retainAccessLogs = true,
+      webAcl,
+    } = params;
     const responseHeadersPolicyProps =
       getResponseHeadersPolicyProps(responseHeaders);
-    const logBucket = new Bucket(this, "StaticSiteServerAccessLogsBucket");
+    const logBucket = new Bucket(this, "CloudFrontAccessLogsBucket", {
+      autoDeleteObjects: retainAccessLogs,
+      removalPolicy: retainAccessLogs
+        ? RemovalPolicy.RETAIN
+        : RemovalPolicy.DESTROY,
+    });
     NagSuppressions.addResourceSuppressions(logBucket, [
       {
         id: "AwsSolutions-S1",
@@ -168,7 +184,11 @@ export class StaticSite extends Construct {
 interface GetDistributionParams
   extends Pick<
     StaticSiteProps,
-    "certificate" | "domainNames" | "enableWaf" | "responseHeaders"
+    | "certificate"
+    | "domainNames"
+    | "enableWaf"
+    | "responseHeaders"
+    | "retainAccessLogs"
   > {
   webAcl?: CfnWebACL;
 }
