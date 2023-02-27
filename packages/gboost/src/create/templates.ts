@@ -20,6 +20,7 @@ export const templateChoices: prompts.Choice[] = [
     description:
       "Widgets App based on minimal template + tRPC via API Gateway and DynamoDB",
     value: Template.WidgetsDynamo,
+    disabled: true,
   },
   {
     title: "Widgets App with Aurora Serverless Postgres",
