@@ -14,6 +14,7 @@ import {
 } from "aws-cdk-lib/pipelines";
 import type { Construct } from "constructs";
 import { AppStage } from "../app-stage.js";
+import { configs } from "../config/configs.js";
 import { StageName } from "../config/stage-name.js";
 
 export class PipelineStack extends Stack {
@@ -55,14 +56,17 @@ export class PipelineStack extends Stack {
       },
     });
 
-    const devStage = new AppStage(this, StageName.Dev);
-    pipeline.addStage(devStage); // TODO: add health check
+    const devConfig = configs[StageName.Dev];
+    const devStage = new AppStage(this, devConfig.stageId, devConfig);
+    pipeline.addStage(devStage);
 
-    const testStage = new AppStage(this, StageName.Test);
-    pipeline.addStage(testStage); // TODO: add health check
+    const testConfig = configs[StageName.Test];
+    const testStage = new AppStage(this, testConfig.stageId, testConfig);
+    pipeline.addStage(testStage);
 
-    const prodStage = new AppStage(this, StageName.Prod);
-    const prodDeployment = pipeline.addStage(prodStage); // TODO: add health check
+    const prodConfig = configs[StageName.Prod];
+    const prodStage = new AppStage(this, prodConfig.stageId, prodConfig);
+    const prodDeployment = pipeline.addStage(prodStage);
     prodDeployment.addPre(new ManualApprovalStep("ProductionApproval"));
   }
 }

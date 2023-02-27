@@ -9,5 +9,8 @@
     "outDir": "lib",
     "skipLibCheck": true,
   },
-  "exclude": ["_templates/**/*", "templates/**/*", "**/*.test.ts", "lib", "tests"]
+  "exclude": ["_templates/**/*", "templates/**/*", "**/*.test.ts", "lib", "tests"],
+  "ts-node": {
+    "esm": true,
+  }
 }

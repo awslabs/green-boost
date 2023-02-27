@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { App } from "aws-cdk-lib";
-import { configs } from "../config/config.js";
+import { configs } from "../config/configs.js";
 import { StageName } from "../config/stage-name.js";
 import { PipelineStack } from "./pipeline-stack.js";
 

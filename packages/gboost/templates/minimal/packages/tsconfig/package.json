@@ -6,7 +6,7 @@
     "./*": "./*"
   },
   "devDependencies": {
-    "@tsconfig/node16-strictest-esm": "^1.0.3",
+    "@tsconfig/node18-strictest-esm": "^1.0.1",
     "@tsconfig/vite-react": "^1.0.1"
   }
 }

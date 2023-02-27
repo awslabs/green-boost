@@ -1,5 +1,5 @@
 {
-  "app": "./node_modules/.bin/vite-node src/app.ts",
+  "app": "./node_modules/.bin/vite-node src/local-app.ts",
   "watch": {
     "include": [
       "src/**",
