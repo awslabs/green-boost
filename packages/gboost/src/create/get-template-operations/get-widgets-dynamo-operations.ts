@@ -41,6 +41,17 @@ export function getWidgetsDynamoOperations(
         zod: "^3.20.6",
       },
     },
+    {
+      name: "UpdateInfraDependencies",
+      type: OperationType.UpdatePackageJson,
+      sourcePaths: [resolve(destinationPath, "infra/package.json")],
+      dependencies: {
+        "@aws-cdk/aws-apigatewayv2-alpha": "^2.66.1-alpha.0",
+        "@aws-cdk/aws-redshift-alpha": "^2.66.1-alpha.0",
+        "@aws-cdk/aws-synthetics-alpha": "^2.66.1-alpha.0",
+        "cdk-monitoring-constructs": "^2.6.4",
+      },
+    },
     // {
     //   name: "UpdatePnpmPatchedDependencies",
     //   type: OperationType.UpdatePackageJson,

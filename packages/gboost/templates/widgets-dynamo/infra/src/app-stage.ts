@@ -5,6 +5,7 @@ import type { Construct } from "constructs";
 import { setConstructDefaultProps, SuppressOkNags } from "gboost-infra";
 import { Data } from "./app/stateful/data.js";
 import { Api } from "./app/stateless/api.js";
+import { Monitor } from "./app/stateless/monitor.js";
 import { Ui } from "./app/stateless/ui.js";
 import type { StageConfig } from "./config/stage-config.js";
 
@@ -21,9 +22,13 @@ export class AppStage extends Stage {
       stageName: config.stageName,
       table: dataStack.table,
     });
-    new Ui(this, "ui", {
+    const uiStack = new Ui(this, "ui", {
       env: config.env,
       api: apiStack.api,
+    });
+    new Monitor(this, "monitor", {
+      env: config.env,
+      stacks: [dataStack, apiStack, uiStack],
     });
 
     Tags.of(this).add("appId", config.appId);
