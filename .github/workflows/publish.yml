@@ -21,7 +21,7 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
-      - name: Compile TypeScript
+      - name: Build Packages
         run: pnpm build
 
       # This step will create or update the PR, "Package Versions". When that

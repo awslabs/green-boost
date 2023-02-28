@@ -6,8 +6,8 @@
   "scripts": {
     "deploy:local": "cdk deploy \"**\" --require-approval never",
     "deploy:pipeline": "cdk --app \"./node_modules/.bin/vite-node src/pipeline/pipeline-app.ts\" deploy \"*\"",
-    "destroy:local": "cdk destroy \"**\"",
-    "destroy:pipeline": "cdk --app \"./node_modules/.bin/vite-node src/pipeline/pipeline-app.ts\" destroy \"*\"",
+    "destroy:local": "cdk destroy --force \"**\"",
+    "destroy:pipeline": "cdk --app \"./node_modules/.bin/vite-node src/pipeline/pipeline-app.ts\" --force destroy \"*\"",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "vitest run --passWithNoTests",
     "watch": "cdk --watch",

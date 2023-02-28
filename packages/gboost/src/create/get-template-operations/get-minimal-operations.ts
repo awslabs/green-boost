@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
 import { Operation, OperationType } from "../operations/operations.js";
+import type { UpdateFileNamesOperation } from "../operations/update-file-names.js";
 import type { GetOperationsParams } from "./common.js";
 
 export function getMinimalOperations(params: GetOperationsParams): Operation[] {
@@ -31,6 +32,7 @@ export function getMinimalOperations(params: GetOperationsParams): Operation[] {
         ...getConfigFileNameUpdates(destinationPath, "db"),
         ...getConfigFileNameUpdates(destinationPath, "infra"),
         ...getConfigFileNameUpdates(destinationPath, "ui"),
+        ...getUtilConfigFileNameUpdates(destinationPath),
       ],
     },
     {
@@ -61,6 +63,11 @@ export function getMinimalOperations(params: GetOperationsParams): Operation[] {
   ];
 }
 
+/**
+ * For given directory, updates .lintstagedrc.txt => .lintstagedrc.js,
+ * .eslintrc.txt => .eslintrc.cjs, package.txt = > package.json,
+ * tsconfig.txt => tsconfig.json
+ */
 function getConfigFileNameUpdates(destinationPath: string, dir: string) {
   return [
     {
@@ -78,6 +85,43 @@ function getConfigFileNameUpdates(destinationPath: string, dir: string) {
     {
       source: resolve(destinationPath, `${dir}/tsconfig.txt`),
       newName: "tsconfig.json",
+    },
+  ];
+}
+
+type FileNameUpdate = UpdateFileNamesOperation["updates"][number];
+/**
+ * Updates util packages in packages/ directory
+ */
+function getUtilConfigFileNameUpdates(basePath: string): FileNameUpdate[] {
+  return [
+    {
+      source: resolve(basePath, "packages/eslint-config-node/package.txt"),
+      newName: "package.json",
+    },
+    {
+      source: resolve(basePath, "packages/eslint-config-node/.eslintrc.txt"),
+      newName: ".eslintrc.cjs",
+    },
+    {
+      source: resolve(basePath, "packages/eslint-config-react/package.txt"),
+      newName: "package.json",
+    },
+    {
+      source: resolve(basePath, "packages/eslint-config-react/.eslintrc.txt"),
+      newName: ".eslintrc.cjs",
+    },
+    {
+      source: resolve(basePath, "packages/tsconfig/package.txt"),
+      newName: "package.json",
+    },
+    {
+      source: resolve(basePath, "packages/tsconfig/tsconfig.node.txt"),
+      newName: "tsconfig.node.json",
+    },
+    {
+      source: resolve(basePath, "packages/tsconfig/tsconfig.ui.txt"),
+      newName: "tsconfig.ui.json",
     },
   ];
 }
