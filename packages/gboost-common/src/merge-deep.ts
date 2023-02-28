@@ -13,7 +13,10 @@ export function isObject(item: object | undefined): boolean | undefined {
  * @param ...sources
  * @link https://stackoverflow.com/a/34749873/9658768
  */
-export function mergeDeep(target: object, ...sources: object[]): object {
+export function mergeDeep(
+  target: object,
+  ...sources: (object | undefined)[]
+): object {
   if (!sources.length) return target;
   const source = sources.shift();
 

@@ -14,5 +14,6 @@
   "search.exclude": {
     "**/node_modules": true,
     "**/cdk.out": true,
+    "packages/*/lib": true,
   }
 }

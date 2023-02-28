@@ -6,7 +6,7 @@ import {
 } from "aws-cdk-lib/aws-lambda-nodejs";
 import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
-import { deepmerge } from "deepmerge-ts";
+import { mergeDeep } from "gboost-common";
 
 export interface FunctionProps extends NodejsFunctionProps {
   entry: string;
@@ -31,7 +31,7 @@ const defaultFunctionProps: NodejsFunctionProps = {
  */
 export class Function extends NodejsFunction {
   constructor(scope: Construct, id: string, props: FunctionProps) {
-    const newProps = deepmerge(defaultFunctionProps, props);
+    const newProps = mergeDeep(defaultFunctionProps, props);
     super(scope, id, newProps);
     this.#suppressOkNags();
     this._functionNode().addMetadata("gboost:function-entrypoint", props.entry);

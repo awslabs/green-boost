@@ -1,7 +1,7 @@
 // @ts-nocheck
 import type { Environment } from "aws-cdk-lib";
 import { BucketEncryption } from "aws-cdk-lib/aws-s3";
-import { deepmerge } from "deepmerge-ts";
+import { mergeDeep } from "gboost-common";
 import type { ConstructDefaultProps } from "gboost-infra";
 import { userInfo } from "node:os";
 import { StageName } from "./stage-name.js";
@@ -48,7 +48,7 @@ export class StageConfig {
       },
     };
     if (params.constructDefaultProps) {
-      this.constructDefaultProps = deepmerge(
+      this.constructDefaultProps = mergeDeep(
         baseConstructDefaultProps,
         params.constructDefaultProps
       );

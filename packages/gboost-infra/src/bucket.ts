@@ -7,7 +7,7 @@ import {
 } from "aws-cdk-lib/aws-s3";
 import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
-import { deepmerge } from "deepmerge-ts";
+import { mergeDeep } from "gboost-common";
 
 export type BucketProps = CdkBucketProps;
 
@@ -25,7 +25,7 @@ export class Bucket extends CdkBucket {
   #scope: Construct;
   #id: string;
   constructor(scope: Construct, id: string, props?: BucketProps) {
-    const newProps = deepmerge(defaultBucketProps, props);
+    const newProps = mergeDeep(defaultBucketProps, props);
     super(scope, id, newProps);
     this.#id = id;
     this.#scope = scope;

@@ -46,7 +46,6 @@
     "aws-cdk-lib": "^2.66.1",
     "cdk-nag": "^2.22.8",
     "constructs": "^10.1.262",
-    "deepmerge-ts": "^4.3.0",
     "gboost-common": "workspace:^0.8.0",
     "mime-types": "^2.1.35"
   },

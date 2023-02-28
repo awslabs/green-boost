@@ -1,4 +1,4 @@
-export * from "./convertCase.js";
+export * from "./convert-case.js";
 export * from "./user-management.js";
-export * from "./mergeDeep.js";
-export * from "./getErrorMessage.js";
+export * from "./merge-deep.js";
+export * from "./get-error-message.js";
