@@ -5,7 +5,7 @@ import {
   Operation,
   OperationType,
   replace,
-  updateFileNames,
+  renameFiles,
 } from "./operations/operations.js";
 
 /**
@@ -24,8 +24,8 @@ export function executeOperations(operations: Operation[]): void {
       case OperationType.UpdatePackageJson:
         updatePackageJson(operation);
         break;
-      case OperationType.UpdateFileNames:
-        updateFileNames(operation);
+      case OperationType.RenameFiles:
+        renameFiles(operation);
         break;
     }
   }

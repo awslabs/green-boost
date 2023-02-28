@@ -37,7 +37,7 @@ export class PipelineStack extends Stack {
           "pnpm typecheck",
           "pnpm test",
           "cd infra",
-          'cdk --app "./node_modules/.bin/vite-node src/pipeline-app.ts" synth',
+          'cdk --app "./node_modules/.bin/ts-node src/pipeline/pipeline-app.ts" synth',
         ],
         primaryOutputDirectory: "./infra/cdk.out",
       }),

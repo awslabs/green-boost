@@ -1,7 +1,6 @@
-import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { readFileSync, statSync, writeFileSync } from "node:fs";
 import type { OperationType } from "./operations.js";
-import type { BaseOperation } from "./common.js";
+import { BaseOperation, listFilePaths } from "./common.js";
 
 interface FindReplace {
   /**
@@ -48,21 +47,4 @@ export function replace(params: ReplaceOperation): void {
     }
     writeFileSync(sourceFile, fileContent);
   }
-}
-
-/**
- * Given path of directory, returns array of all file paths within directory
- */
-function listFilePaths(dirPath: string): string[] {
-  const filePaths: string[] = [];
-  const directory = readdirSync(dirPath, { withFileTypes: true });
-  for (const d of directory) {
-    const filePath = resolve(dirPath, d.name);
-    if (d.isDirectory()) {
-      filePaths.push(...listFilePaths(filePath));
-    } else {
-      filePaths.push(filePath);
-    }
-  }
-  return filePaths;
 }

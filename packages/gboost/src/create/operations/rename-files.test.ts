@@ -1,12 +1,12 @@
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { mkdirSync, rmSync, statSync, writeFileSync } from "node:fs";
-import { OperationType, updateFileNames } from "./operations.js";
+import { OperationType, renameFiles } from "./operations.js";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 
-describe("updateFileName", () => {
+describe("rename-files", () => {
   const testDirPath = resolve(thisFilePath, "../test-update-file-name");
   beforeEach(() => {
     mkdirSync(testDirPath);
@@ -15,13 +15,15 @@ describe("updateFileName", () => {
     rmSync(testDirPath, { recursive: true });
   });
 
-  test("update a file name", () => {
-    const testFilePath = resolve(testDirPath, "test.t");
+  test("rename file", () => {
+    const testFilePath = resolve(testDirPath, "test.ts.t");
     writeFileSync(testFilePath, "");
-    updateFileNames({
-      name: "TestUpdateFileNAme",
-      updates: [{ newName: "test.ts", source: testFilePath }],
-      type: OperationType.UpdateFileNames,
+    renameFiles({
+      directoryPath: resolve(testFilePath, ".."),
+      name: "TestRenameFile",
+      filePattern: /.+\.t$/,
+      type: OperationType.RenameFiles,
+      update: (oldFilePath) => oldFilePath.slice(0, -2),
     });
     const file = statSync(resolve(dirname(testFilePath), "test.ts"));
     expect(file.isFile()).toBe(true);

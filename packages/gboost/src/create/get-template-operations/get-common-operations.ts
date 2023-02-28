@@ -1,6 +1,9 @@
 import { Operation, OperationType } from "../operations/operations.js";
 import type { GetOperationsParams } from "./common.js";
 
+/**
+ * Common operations to run at END of specific template operations
+ */
 export function getCommonOperations(params: GetOperationsParams): Operation[] {
   const { destinationPath, appId } = params;
   return [
@@ -12,6 +15,13 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
         { find: "// @ts-nocheck\n", replace: "" },
       ],
       sourcePath: destinationPath,
+    },
+    {
+      name: "RenameDotTFiles",
+      type: OperationType.RenameFiles,
+      directoryPath: params.destinationPath,
+      filePattern: /.+\.t$/,
+      update: (oldFilePath) => oldFilePath.slice(0, -2),
     },
   ];
 }
