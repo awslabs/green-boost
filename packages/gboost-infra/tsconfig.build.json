@@ -1,4 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["./src/web-deployment/custom-resource-handler/**"]
+  "exclude": ["**/*.test.ts", "lib", "./src/web-deployment/custom-resource-handler/**"]
 }

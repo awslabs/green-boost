@@ -12,6 +12,17 @@ export class Ui extends Stack {
     super(scope, id, props);
     const staticSite = new StaticSite(this, "StaticSite", {
       retainAccessLogs: false,
+      responseHeaders: {
+        securityHeaders: {
+          contentSecurityPolicy: {
+            defaultSrc: ["self"],
+            formAction: ["none"],
+            navigateTo: ["none"],
+            objectSrc: ["none"],
+            styleSrc: ["self", "unsafe-inline"], // required for Amplify UI
+          },
+        },
+      },
     });
     const workingDirectory = resolve(thisFilePath, "../../../../../ui");
     new WebDeployment(this, "WebDeployment", {
