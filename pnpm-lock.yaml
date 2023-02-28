@@ -183,7 +183,7 @@ importers:
       '@aws-sdk/s3-request-presigner': ^3.272.0
       '@tsconfig/node18-strictest-esm': ^1.0.1
       '@types/adm-zip': ^0.5.0
-      '@types/aws-lambda': ^8.10.110
+      '@types/aws-lambda': ^8.10.111
       '@types/mime-types': ^2.1.1
       '@types/node': ^18.13.0
       '@typescript-eslint/eslint-plugin': ^5.52.0
@@ -221,7 +221,7 @@ importers:
       '@aws-sdk/s3-request-presigner': 3.279.0
       '@tsconfig/node18-strictest-esm': 1.0.1
       '@types/adm-zip': 0.5.0
-      '@types/aws-lambda': 8.10.110
+      '@types/aws-lambda': 8.10.111
       '@types/mime-types': 2.1.1
       '@types/node': 18.14.2
       '@typescript-eslint/eslint-plugin': 5.54.0_6mj2wypvdnknez7kws2nfdgupi
@@ -8280,8 +8280,8 @@ packages:
       '@types/node': 18.14.2
     dev: true
 
-  /@types/aws-lambda/8.10.110:
-    resolution: {integrity: sha512-r6egf2Cwv/JaFTTrF9OXFVUB3j/SXTgM9BwrlbBRjWAa2Tu6GWoDoLflppAZ8uSfbUJdXvC7Br3DjuN9pQ2NUQ==}
+  /@types/aws-lambda/8.10.111:
+    resolution: {integrity: sha512-8HR9UjIKmoemEzE2BviVtFkeenxfbizSu8raFjnT2VXxguZZ2JTlNww7INOH7IA0J/zRa3TjOftkYq6hVNkxDA==}
     dev: true
 
   /@types/body-parser/1.19.2:

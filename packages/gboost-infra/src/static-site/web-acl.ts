@@ -3,7 +3,8 @@ import type { Construct } from "constructs";
 
 interface StaticSiteWebAclProps {
   /**
-   * IPs that are allowed to view docs - uses WAF (CIDR notation)
+   * IPs that are allowed to view
+   * Note, CIDR notation is required
    * @default undefined
    */
   allowedIPs?: string[];

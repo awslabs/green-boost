@@ -106,7 +106,7 @@ export class StaticSite extends Construct {
       if (overrideWebAcl) {
         webAcl = overrideWebAcl;
       } else {
-        webAcl = new StaticSiteWebAcl(this, "StaticSiteWebAcl");
+        webAcl = new StaticSiteWebAcl(this, "WebAcl");
       }
     }
 

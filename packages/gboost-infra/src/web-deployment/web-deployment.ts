@@ -77,8 +77,8 @@ interface WebDeploymentProps {
 }
 
 /**
- * Like `BucketDeployment`, but enables replacing environment variables within
- * your static sites within a custom resource.
+ * Like `BucketDeployment`, but enables replacing unresolved environment variables
+ * with assets via a custom resource.
  * @example
  * ```ts
  * const workingDirectory = resolve(thisFilePath, "../../../ui");

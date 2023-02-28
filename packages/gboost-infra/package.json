@@ -55,7 +55,7 @@
     "@aws-sdk/s3-request-presigner": "^3.272.0",
     "@tsconfig/node18-strictest-esm": "^1.0.1",
     "@types/adm-zip": "^0.5.0",
-    "@types/aws-lambda": "^8.10.110",
+    "@types/aws-lambda": "^8.10.111",
     "@types/mime-types": "^2.1.1",
     "@types/node": "^18.13.0",
     "@typescript-eslint/eslint-plugin": "^5.52.0",

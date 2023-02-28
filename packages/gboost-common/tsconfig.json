@@ -9,5 +9,5 @@
     "outDir": "lib",
     "skipLibCheck": true,
   },
-  "exclude": ["**/*.test.ts", "lib"]
+  "exclude": ["lib"]
 }

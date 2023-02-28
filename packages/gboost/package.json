@@ -18,7 +18,7 @@
     }
   },
   "scripts": {
-    "build": "rimraf lib && tsc",
+    "build": "rimraf lib && tsc -p tsconfig.build.json",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "vitest run",
     "test:gboost-create": "tsx tests/test-scenarios.ts",
