@@ -1,4 +1,7 @@
 {
-  "extends": "tsconfig.build.json",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+  },
   "exclude": ["**/*.test.ts", "lib"],
 }
