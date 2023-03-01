@@ -18,8 +18,8 @@
     "aws-cdk-lib": "^2.61.0",
     "cdk-nag": "^2.21.67",
     "constructs": "^10.1.225",
-    "gboost-common": "^0.8.0",
-    "gboost-infra": "^0.11.2",
+    "gboost-common": "^0.9.0",
+    "gboost-infra": "^0.12.0",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {

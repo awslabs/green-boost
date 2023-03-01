@@ -1,5 +1,11 @@
 # gboost-docs
 
+## 0.3.0
+
+### Minor Changes
+
+- [#173](https://github.com/awslabs/green-boost/pull/173) [`3ca47ce`](https://github.com/awslabs/green-boost/commit/3ca47cec0b8e428782980f2dbba6cb02ac3b1314) Thanks [@bestickley](https://github.com/bestickley)! - Update packages to use Node.js native ESM and update dependencies
+
 ## 0.2.0
 
 ### Minor Changes
