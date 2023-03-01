@@ -1,5 +1,16 @@
 # gboost-ui
 
+## 0.31.0
+
+### Minor Changes
+
+- [#173](https://github.com/awslabs/green-boost/pull/173) [`3ca47ce`](https://github.com/awslabs/green-boost/commit/3ca47cec0b8e428782980f2dbba6cb02ac3b1314) Thanks [@bestickley](https://github.com/bestickley)! - Update packages to use Node.js native ESM and update dependencies
+
+### Patch Changes
+
+- Updated dependencies [[`3ca47ce`](https://github.com/awslabs/green-boost/commit/3ca47cec0b8e428782980f2dbba6cb02ac3b1314)]:
+  - gboost-common@0.9.0
+
 ## 0.30.1
 
 ### Patch Changes
