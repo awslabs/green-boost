@@ -58,6 +58,7 @@ function updateTemplatePackageVersions() {
   const pkgJsonPaths = templateFilePaths.filter((p) =>
     p.endsWith("package.txt")
   );
+  console.log({ templateFilePaths, pkgJsonPaths });
   for (const pkgJsonPath of pkgJsonPaths) {
     const pkgJson = readPkgJson(pkgJsonPath);
     const dependencies = pkgJson.dependencies;
@@ -92,6 +93,8 @@ function updateTemplatePackageVersions() {
         edited = true;
       }
       if (edited) {
+        console.log("Editing: " + pkgJsonPath);
+        console.log(pkgJson);
         writePkgJson(pkgJsonPath, pkgJson);
       }
     }
