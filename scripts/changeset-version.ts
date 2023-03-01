@@ -56,7 +56,7 @@ function updateTemplatePackageVersions() {
   );
   // package.txt is used instead of package.json to avoid IDE errors
   const pkgJsonPaths = templateFilePaths.filter((p) =>
-    p.endsWith("package.txt")
+    p.endsWith("package.json.t")
   );
   console.log({ templateFilePaths, pkgJsonPaths });
   for (const pkgJsonPath of pkgJsonPaths) {
