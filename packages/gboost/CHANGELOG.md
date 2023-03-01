@@ -1,5 +1,11 @@
 # gboost
 
+## 0.10.1
+
+### Patch Changes
+
+- [`40c676b`](https://github.com/awslabs/green-boost/commit/40c676b371b28656e4aa2088fd6fe07ff473ed1b) Thanks [@bestickley](https://github.com/bestickley)! - Fix gboost CLI to include necessary dependencies (@commander-js/extra-typings)
+
 ## 0.10.0
 
 ### Minor Changes
