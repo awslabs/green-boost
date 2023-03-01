@@ -1,9 +1,16 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
+    "exactOptionalPropertyTypes": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "lib",
+    "skipLibCheck": true,
   },
-  "exclude": ["**/*.test.ts", "lib"]
+  "exclude": ["lib"],
+  "ts-node": {
+    "esm": true,
+  },
 }

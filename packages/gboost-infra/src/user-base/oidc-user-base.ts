@@ -18,11 +18,9 @@ import {
   defaultPasswordPolicy,
   standardWriteAttributes,
 } from "./common.js";
-import { CommonProps, Stage } from "../index.js";
 import { NagSuppressions } from "cdk-nag";
-import { RemovalPolicy } from "aws-cdk-lib";
 
-interface OidcUserBaseProps extends CommonProps, Partial<CommonUserBaseProps> {
+interface OidcUserBaseProps extends Partial<CommonUserBaseProps> {
   attributeMapping: AttributeMapping;
   clientId: string;
   clientSecret: string;
@@ -61,16 +59,13 @@ export class OidcUserBase extends Construct {
       issuerUrl,
       oAuth,
       idpScopes = ["openid"],
-      stage = Stage.Dev,
       userPoolProps,
       userPoolClientProps,
       userPoolDomainProps,
       userPoolIdentityProviderOidcProps,
     } = props;
-    const isProd = stage === Stage.Prod;
 
     this.userPool = new UserPool(this, "UserPool", {
-      removalPolicy: isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
       // Cognito shouldn't send verification email - already handled by idP
       autoVerify: { email: false },
       signInAliases: { username: true, email: true },

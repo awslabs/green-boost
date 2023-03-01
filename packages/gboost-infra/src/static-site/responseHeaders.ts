@@ -81,6 +81,7 @@ interface SecurityHeaders {
    * {
    *    defaultSrc: ["self"],
    *    formAction: ["none"],
+   *    navigateTo: ["none"],
    *    objectSrc: ["none"],
    *  }
    * ```
@@ -357,6 +358,8 @@ export function getCorsBehavior(
       originOverride: true,
       ...corsHeaders,
     };
+  } else {
+    return;
   }
 }
 
@@ -371,6 +374,8 @@ export function getCustomHeadersBehavior(
         override: true,
       })),
     };
+  } else {
+    return;
   }
 }
 

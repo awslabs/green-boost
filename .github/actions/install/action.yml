@@ -4,14 +4,14 @@ runs:
   using: composite
   steps:
     - name: Install PNPM
-      uses: pnpm/action-setup@v2.2.2
+      uses: pnpm/action-setup@v2
       with:
         version: 7
 
     - name: Install Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
-        node-version: 16.x
+        node-version: 18.x
         cache: pnpm
 
     - name: Install dependencies

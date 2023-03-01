@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index a33e0e4c1b7f2b757e2bfc1ce6a0ea45e21303cd..9638c8f28ba8f3eca0d2fb48b16adc72c89e1599 100644
+--- a/package.json
++++ b/package.json
+@@ -15,6 +15,7 @@
+       "require": "./dist/resolvers.js"
+     },
+     "./zod": {
++      "types": "./zod/dist/index.d.ts",
+       "umd": "./zod/dist/zod.umd.js",
+       "import": "./zod/dist/zod.mjs",
+       "require": "./zod/dist/zod.js"

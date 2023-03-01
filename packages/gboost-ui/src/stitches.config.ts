@@ -1,5 +1,5 @@
 import { createStitches } from "@stitches/react";
-import type Stitches from "@stitches/react";
+import type { CSS as StitchesCSS, PropertyValue } from "@stitches/react";
 import {
   sage,
   red,
@@ -298,148 +298,148 @@ export const {
     light: "(prefers-color-scheme: light)",
   },
   utils: {
-    p: (value: Stitches.PropertyValue<"padding">) => ({
+    p: (value: PropertyValue<"padding">) => ({
       padding: value,
     }),
-    pt: (value: Stitches.PropertyValue<"paddingTop">) => ({
+    pt: (value: PropertyValue<"paddingTop">) => ({
       paddingTop: value,
     }),
-    pr: (value: Stitches.PropertyValue<"paddingRight">) => ({
+    pr: (value: PropertyValue<"paddingRight">) => ({
       paddingRight: value,
     }),
-    pb: (value: Stitches.PropertyValue<"paddingBottom">) => ({
+    pb: (value: PropertyValue<"paddingBottom">) => ({
       paddingBottom: value,
     }),
-    pl: (value: Stitches.PropertyValue<"paddingLeft">) => ({
+    pl: (value: PropertyValue<"paddingLeft">) => ({
       paddingLeft: value,
     }),
-    px: (value: Stitches.PropertyValue<"paddingLeft">) => ({
+    px: (value: PropertyValue<"paddingLeft">) => ({
       paddingLeft: value,
       paddingRight: value,
     }),
-    py: (value: Stitches.PropertyValue<"paddingTop">) => ({
+    py: (value: PropertyValue<"paddingTop">) => ({
       paddingTop: value,
       paddingBottom: value,
     }),
 
-    m: (value: Stitches.PropertyValue<"margin">) => ({
+    m: (value: PropertyValue<"margin">) => ({
       margin: value,
     }),
-    mt: (value: Stitches.PropertyValue<"marginTop">) => ({
+    mt: (value: PropertyValue<"marginTop">) => ({
       marginTop: value,
     }),
-    mr: (value: Stitches.PropertyValue<"marginRight">) => ({
+    mr: (value: PropertyValue<"marginRight">) => ({
       marginRight: value,
     }),
-    mb: (value: Stitches.PropertyValue<"marginBottom">) => ({
+    mb: (value: PropertyValue<"marginBottom">) => ({
       marginBottom: value,
     }),
-    ml: (value: Stitches.PropertyValue<"marginLeft">) => ({
+    ml: (value: PropertyValue<"marginLeft">) => ({
       marginLeft: value,
     }),
-    mx: (value: Stitches.PropertyValue<"marginLeft">) => ({
+    mx: (value: PropertyValue<"marginLeft">) => ({
       marginLeft: value,
       marginRight: value,
     }),
-    my: (value: Stitches.PropertyValue<"marginTop">) => ({
+    my: (value: PropertyValue<"marginTop">) => ({
       marginTop: value,
       marginBottom: value,
     }),
 
-    ta: (value: Stitches.PropertyValue<"textAlign">) => ({
+    ta: (value: PropertyValue<"textAlign">) => ({
       textAlign: value,
     }),
 
-    fd: (value: Stitches.PropertyValue<"flexDirection">) => ({
+    fd: (value: PropertyValue<"flexDirection">) => ({
       flexDirection: value,
     }),
-    fw: (value: Stitches.PropertyValue<"flexWrap">) => ({ flexWrap: value }),
+    fw: (value: PropertyValue<"flexWrap">) => ({ flexWrap: value }),
 
-    ai: (value: Stitches.PropertyValue<"alignItems">) => ({
+    ai: (value: PropertyValue<"alignItems">) => ({
       alignItems: value,
     }),
-    ac: (value: Stitches.PropertyValue<"alignContent">) => ({
+    ac: (value: PropertyValue<"alignContent">) => ({
       alignContent: value,
     }),
-    jc: (value: Stitches.PropertyValue<"justifyContent">) => ({
+    jc: (value: PropertyValue<"justifyContent">) => ({
       justifyContent: value,
     }),
-    as: (value: Stitches.PropertyValue<"alignSelf">) => ({
+    as: (value: PropertyValue<"alignSelf">) => ({
       alignSelf: value,
     }),
-    fg: (value: Stitches.PropertyValue<"flexGrow">) => ({ flexGrow: value }),
-    fs: (value: Stitches.PropertyValue<"flexShrink">) => ({
+    fg: (value: PropertyValue<"flexGrow">) => ({ flexGrow: value }),
+    fs: (value: PropertyValue<"flexShrink">) => ({
       flexShrink: value,
     }),
-    fb: (value: Stitches.PropertyValue<"flexBasis">) => ({
+    fb: (value: PropertyValue<"flexBasis">) => ({
       flexBasis: value,
     }),
 
-    bc: (value: Stitches.PropertyValue<"backgroundColor">) => ({
+    bc: (value: PropertyValue<"backgroundColor">) => ({
       backgroundColor: value,
     }),
 
-    br: (value: Stitches.PropertyValue<"borderRadius">) => ({
+    br: (value: PropertyValue<"borderRadius">) => ({
       borderRadius: value,
     }),
-    btrr: (value: Stitches.PropertyValue<"borderTopRightRadius">) => ({
+    btrr: (value: PropertyValue<"borderTopRightRadius">) => ({
       borderTopRightRadius: value,
     }),
-    bbrr: (value: Stitches.PropertyValue<"borderBottomRightRadius">) => ({
+    bbrr: (value: PropertyValue<"borderBottomRightRadius">) => ({
       borderBottomRightRadius: value,
     }),
-    bblr: (value: Stitches.PropertyValue<"borderBottomLeftRadius">) => ({
+    bblr: (value: PropertyValue<"borderBottomLeftRadius">) => ({
       borderBottomLeftRadius: value,
     }),
-    btlr: (value: Stitches.PropertyValue<"borderTopLeftRadius">) => ({
+    btlr: (value: PropertyValue<"borderTopLeftRadius">) => ({
       borderTopLeftRadius: value,
     }),
 
-    bs: (value: Stitches.PropertyValue<"boxShadow">) => ({
+    bs: (value: PropertyValue<"boxShadow">) => ({
       boxShadow: value,
     }),
 
-    lh: (value: Stitches.PropertyValue<"lineHeight">) => ({
+    lh: (value: PropertyValue<"lineHeight">) => ({
       lineHeight: value,
     }),
 
-    ox: (value: Stitches.PropertyValue<"overflowX">) => ({
+    ox: (value: PropertyValue<"overflowX">) => ({
       overflowX: value,
     }),
-    oy: (value: Stitches.PropertyValue<"overflowY">) => ({
+    oy: (value: PropertyValue<"overflowY">) => ({
       overflowY: value,
     }),
 
-    pe: (value: Stitches.PropertyValue<"pointerEvents">) => ({
+    pe: (value: PropertyValue<"pointerEvents">) => ({
       pointerEvents: value,
     }),
-    us: (value: Stitches.PropertyValue<"userSelect">) => ({
+    us: (value: PropertyValue<"userSelect">) => ({
       WebkitUserSelect: value,
       userSelect: value,
     }),
 
-    userSelect: (value: Stitches.PropertyValue<"userSelect">) => ({
+    userSelect: (value: PropertyValue<"userSelect">) => ({
       WebkitUserSelect: value,
       userSelect: value,
     }),
 
-    size: (value: Stitches.PropertyValue<"width">) => ({
+    size: (value: PropertyValue<"width">) => ({
       width: value,
       height: value,
     }),
 
-    appearance: (value: Stitches.PropertyValue<"appearance">) => ({
+    appearance: (value: PropertyValue<"appearance">) => ({
       WebkitAppearance: value,
       appearance: value,
     }),
-    backgroundClip: (value: Stitches.PropertyValue<"backgroundClip">) => ({
+    backgroundClip: (value: PropertyValue<"backgroundClip">) => ({
       WebkitBackgroundClip: value,
       backgroundClip: value,
     }),
   },
 });
 
-export type CSS = Stitches.CSS<typeof config>;
+export type CSS = StitchesCSS<typeof config>;
 
 export const darkTheme = createTheme("dark-theme", {
   colors: {

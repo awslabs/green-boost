@@ -6,7 +6,6 @@
   "main": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./OldQueryTable": "./src/OldQueryTable/QueryTable.ts",
     "./UserManagement": "./src/UserManagement/UserManagement.ts",
     "./FileUpload": "./src/FileUpload/FileUpload.ts"
   },
@@ -18,10 +17,6 @@
       ".": {
         "types": "./lib/index.d.ts",
         "import": "./lib/index.js"
-      },
-      "./OldQueryTable": {
-        "types": "./lib/OldQueryTable/QueryTable.d.ts",
-        "import": "./lib/OldQueryTable/QueryTable.js"
       },
       "./UserManagement": {
         "types": "./lib/UserManagement/UserManagement.d.ts",
@@ -37,53 +32,51 @@
   "files": [
     "lib/**/*"
   ],
-  "engines": {
-    "node": ">=16"
-  },
   "scripts": {
-    "build": "rimraf lib && tsc",
+    "build": "rimraf lib && tsc -p tsconfig.build.json",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^4.3.6",
-    "@hookform/resolvers": "^2.9.10",
-    "@mantine/hooks": "^3.6.14",
+    "@aws-amplify/ui-react": "^4.3.8",
+    "@hookform/resolvers": "^2.9.11",
+    "@mantine/hooks": "^5.10.4",
     "@radix-ui/colors": "^0.1.8",
-    "@radix-ui/react-dialog": "^0.1.7",
-    "@radix-ui/react-portal": "^0.1.4",
-    "@radix-ui/react-tooltip": "^0.1.7",
+    "@radix-ui/react-dialog": "^1.0.2",
+    "@radix-ui/react-portal": "^1.0.1",
+    "@radix-ui/react-tooltip": "^1.0.3",
     "@stitches/react": "^1.2.8",
     "gboost-common": "workspace:^0.8.0",
-    "graphql": "^15.8.0",
+    "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-hook-form": "^7.43.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.1",
     "react-icons": "^4.7.1",
     "react-transition-group": "^4.4.5",
-    "zod": "^3.20.2"
+    "zod": "^3.20.6"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.262.0",
-    "@types/react": "^17.0.53",
-    "@types/react-dom": "^17.0.18",
+    "@aws-sdk/client-s3": "^3.272.0",
+    "@tsconfig/vite-react": "^1.0.1",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
     "@types/react-transition-group": "^4.4.5",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
-    "aws-amplify": "^5.0.12",
-    "eslint": "^8.33.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "aws-amplify": "^5.0.14",
+    "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-define-config": "^1.15.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.3",
-    "react-router-dom": "^6.8.0",
-    "rimraf": "^3.0.2",
-    "typescript": "~4.7.4",
-    "vite": "^2.9.15",
-    "vitest": "^0.17.1"
+    "prettier": "^2.8.4",
+    "react-router-dom": "^6.8.1",
+    "rimraf": "^4.1.2",
+    "typescript": "~4.9.5",
+    "vite": "^4.1.1",
+    "vitest": "^0.29.2"
   },
   "repository": {
     "type": "git",

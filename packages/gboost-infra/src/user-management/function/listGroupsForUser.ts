@@ -4,7 +4,7 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { AppSyncResolverEvent } from "aws-lambda";
 import Joi from "joi";
-import { getCognitoIdentity } from "./getCognitoIdentity";
+import { getCognitoIdentity } from "./getCognitoIdentity.js";
 import { Group, transformGroup } from "./group.js";
 
 interface ListGroupsForUser {

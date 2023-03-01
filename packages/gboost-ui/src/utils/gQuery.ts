@@ -1,6 +1,5 @@
 import { API } from "aws-amplify";
-import { GraphQLError } from "graphql";
-import { DocumentNode } from "graphql/language/ast";
+import { DocumentNode, GraphQLError } from "graphql";
 
 enum GRAPHQL_AUTH_MODE {
   API_KEY = "API_KEY",
@@ -48,7 +47,7 @@ export async function gQuery<T>({
 }: GqlParams): Promise<T> {
   try {
     const res = await API.graphql({
-      query,
+      query: query as any,
       variables: vars,
       authMode,
     });

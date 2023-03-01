@@ -32,44 +32,45 @@
   "files": [
     "lib/**/*"
   ],
-  "engines": {
-    "node": ">=16"
-  },
   "scripts": {
-    "build": "ts-node --esm scripts/build.ts",
+    "build": "ts-node scripts/build.ts",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-cdk/aws-appsync-alpha": "2.29.0-alpha.0",
-    "@aws-sdk/client-cognito-identity-provider": "^3.262.0",
-    "aws-cdk-lib": "^2.63.0",
-    "cdk-nag": "^2.21.80",
-    "constructs": "^10.1.237",
-    "gboost-common": "workspace:^0.8.0"
+    "@aws-cdk/aws-appsync-alpha": "2.54.0-alpha.0",
+    "@aws-sdk/client-cloudfront": "^3.277.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.272.0",
+    "adm-zip": "^0.5.10",
+    "aws-cdk-lib": "^2.66.1",
+    "cdk-nag": "^2.22.8",
+    "constructs": "^10.1.262",
+    "gboost-common": "workspace:^0.8.0",
+    "mime-types": "^2.1.35"
   },
   "devDependencies": {
     "@aws-lambda-powertools/logger": "^1.5.1",
-    "@aws-sdk/client-s3": "^3.262.0",
-    "@aws-sdk/s3-request-presigner": "^3.262.0",
-    "@types/aws-lambda": "^8.10.110",
-    "@types/fs-extra": "^9.0.13",
-    "@types/node": "^16.18.11",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
-    "esbuild": "^0.14.54",
-    "eslint": "^8.33.0",
+    "@aws-sdk/client-s3": "^3.272.0",
+    "@aws-sdk/s3-request-presigner": "^3.272.0",
+    "@tsconfig/node18-strictest-esm": "^1.0.1",
+    "@types/adm-zip": "^0.5.0",
+    "@types/aws-lambda": "^8.10.111",
+    "@types/mime-types": "^2.1.1",
+    "@types/node": "^18.13.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "esbuild": "^0.17.8",
+    "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-define-config": "^1.15.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "fs-extra": "^10.1.0",
-    "joi": "^17.7.0",
-    "prettier": "^2.8.3",
+    "joi": "^17.7.1",
+    "prettier": "^2.8.4",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
-    "vite": "^2.9.15",
-    "vitest": "^0.17.1"
+    "vite": "^4.1.1",
+    "vitest": "^0.29.2"
   },
   "repository": {
     "type": "git",

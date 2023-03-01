@@ -11,7 +11,8 @@ describe("getCspSource", () => {
 
 describe("getCsp", () => {
   test("default csp", () => {
-    expect(getCsp({})).toBe(
+    const result = getCsp({});
+    expect(result).toBe(
       "default-src 'self'; form-action 'none'; navigate-to 'none'; object-src 'none';"
     );
   });

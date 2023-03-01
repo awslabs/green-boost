@@ -72,7 +72,7 @@ export function FilterRow({
     handleUpdateFilter(id, { ...filter, value });
     setDirty(false);
   }, [filter, handleUpdateFilter, id, value]);
-  const handleChangeTempValue = useCallback((value) => {
+  const handleChangeTempValue = useCallback((value: string) => {
     setDirty(true);
     setValue(value);
   }, []);

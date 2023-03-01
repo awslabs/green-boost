@@ -23,6 +23,7 @@ interface State {
 }
 interface Props {
   ErrorComponent?: ReactElement;
+  children: ReactElement;
 }
 
 export class ErrorBoundary extends Component<Props, State> {

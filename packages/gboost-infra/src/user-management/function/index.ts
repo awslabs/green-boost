@@ -13,7 +13,7 @@ import { listGroupsForUser } from "./listGroupsForUser.js";
 import { getUser } from "./getUser.js";
 
 const cognitoClient = new CognitoIdentityProviderClient({});
-const userPoolId = process.env.USER_POOL_ID as string;
+const userPoolId = process.env["USER_POOL_ID"] as string;
 
 export async function handler(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,4 +57,5 @@ export async function handler(
   } catch (e) {
     console.error(e);
   }
+  return;
 }

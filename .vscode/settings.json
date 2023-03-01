@@ -2,7 +2,18 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "eslint.workingDirectories": [
+    "./docs",
+    "./packages/gboost",
+    "./packages/gboost-infra",
+    "./packages/gboost-node",
+    "./packages/gboost-ui"
+  ],
   "typescript.preferences.importModuleSpecifierEnding": "js",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/cdk.out": true,
+    "packages/*/lib": true,
+  }
 }

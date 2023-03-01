@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "graphql-tag";
 
 export const getUploadURL = gql`
   query getUploadURL($input: getUploadURLInput) {

@@ -5,7 +5,7 @@ const { defineConfig } = require("eslint-define-config");
 module.exports = defineConfig({
   root: true,
   env: {
-    es2021: true,
+    es2022: true,
     node: true,
   },
   extends: [
@@ -15,7 +15,7 @@ module.exports = defineConfig({
   ignorePatterns: ["node_modules", "lib"],
   parser: "@typescript-eslint/parser", // This allows ESLint to understand TypeScript syntax
   parserOptions: {
-    ecmaVersion: 2021,
+    ecmaVersion: 2022,
     sourceType: "module",
   },
   rules: {

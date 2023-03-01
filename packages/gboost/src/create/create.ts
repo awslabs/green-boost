@@ -1,35 +1,66 @@
 import kleur from "kleur";
 import { execSync } from "node:child_process";
-import log from "loglevel";
+import { logger } from "../utils/logger.js";
 import { ask } from "./ask.js";
-import { render } from "./render.js";
+import { executeOperations } from "./execute-operations.js";
+import { getTemplateOperations } from "./get-template-operations/get-template-operations.js";
 
+/**
+ * Creates a Green Boost app based on a given template
+ */
 export async function create() {
+  ensurePnpm();
+  ensureGit();
   const answers = await ask();
-  await render(answers);
-  log.info("Linting repo to clean up whitespace and new lines");
-  execSync("git init", { cwd: answers.repoName });
-  console.log(`\n📦 Installing dependencies with: ${kleur.yellow("pnpm i")}\n`);
-  execSync("pnpm i", { stdio: "inherit", cwd: answers.repoName });
-  execSync('pnpm -r exec eslint --fix "src/**/*.{ts,tsx}"', {
-    cwd: answers.repoName,
-  });
-  console.log(
-    "\n",
-    `✅  Done! Change directory into your new repo: ${kleur.yellow(
-      `cd ${answers.repoName}`
-    )}\n\n`,
-    "Quick Guide:\n",
-    `✈️   Deploy the development environment: ${kleur.yellow(
-      "gboost deploy-dev"
-    )}\n`,
-    `💻  Develop the front end: ${kleur.yellow(
-      "cd ui && pnpm dev"
-    )} or develop the back end: ${kleur.yellow(
-      "cd infra && cdk deploy <stack-name> --hotswap"
-    )}\n`,
-    `🚀  Deploy CI/CD pipeline for dev/test/prod environments: ${kleur.yellow(
-      "cdk deploy\n\n"
-    )}`
-  );
+  const operations = getTemplateOperations(answers);
+  executeOperations(operations);
+  execSync("git init", { cwd: answers.directory });
+  const message =
+    "\n" +
+    `✅ Done! Change directory into your new repo: ${kleur.yellow(
+      `cd ${answers.directory}`
+    )}` +
+    "\n" +
+    `📦 Install dependencies with ${kleur.yellow("pnpm i")}` +
+    "\n\n" +
+    `Quick Guide:` +
+    "\n" +
+    `🚀 Deploy your web app: ${kleur.yellow("cd infra")} then ${kleur.yellow(
+      "pnpm deploy:local"
+    )}` +
+    "\n" +
+    `💻 Locally develop your frontend: ${kleur.yellow(
+      "cd ui"
+    )} then ${kleur.yellow("pnpm dev")}` +
+    "\n" +
+    `🧹 Clean up: ${kleur.yellow("cd infra")} then ${kleur.yellow(
+      "pnpm destroy:local"
+    )}`;
+  logger.log(message);
+}
+
+function ensurePnpm() {
+  try {
+    execSync("pnpm -v");
+  } catch (err) {
+    logger.error(
+      `Command not found: ${kleur.yellow(
+        "pnpm"
+      )}. Please install: https://pnpm.io/installation`
+    );
+    throw err;
+  }
+}
+
+function ensureGit() {
+  try {
+    execSync("git -v");
+  } catch (err) {
+    logger.error(
+      `Command not found: ${kleur.yellow(
+        "git"
+      )}. Please install: https://git-scm.com`
+    );
+    throw err;
+  }
 }
