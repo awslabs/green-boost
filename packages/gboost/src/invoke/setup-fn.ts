@@ -8,7 +8,6 @@ interface RunFnParams {
   event?: string;
   functionArn?: string;
   handlerPath: string;
-  debug?: boolean;
 }
 
 const dummyContext = {
@@ -28,7 +27,7 @@ const dummyContext = {
 };
 
 export async function setupFn(params: RunFnParams) {
-  const { handlerPath, event, functionArn, debug } = params;
+  const { handlerPath, event, functionArn } = params;
   // inject function config needs to run before handler is imported so any
   // logic outside handler has access to env vars retrieved via functionArn
   if (functionArn) {
@@ -41,10 +40,7 @@ export async function setupFn(params: RunFnParams) {
       return;
     }
   }
-  let command = "";
-  if (debug) {
-    command += 'NODE_OPTIONS="--inspect-brk" ';
-  }
+  let command = 'NODE_OPTIONS="--inspect-brk" ';
   const ext = import.meta.url.split(".").pop();
   const callFnPath = fileURLToPath(new URL("call-fn." + ext, import.meta.url));
   // --cwdMode look for tsconfig.json in developer's directory instead of node_modules

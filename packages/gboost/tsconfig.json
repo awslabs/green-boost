@@ -12,5 +12,6 @@
   "exclude": ["templates/**/*", "lib"],
   "ts-node": {
     "esm": true,
+    "swc": true,
   }
 }

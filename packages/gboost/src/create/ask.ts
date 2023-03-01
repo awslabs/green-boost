@@ -2,9 +2,10 @@ import { existsSync } from "node:fs";
 import { rm } from "node:fs/promises";
 import { userInfo } from "node:os";
 import prompts, { PromptObject } from "prompts";
-import { pascalToKebabCase } from "../utils/format-case.js";
+import { pascalToKebabCase } from "gboost-common";
 import { logger } from "../utils/logger.js";
 import { Template, templateChoices } from "./templates.js";
+import { handleAborted } from "../utils/handle-aborted.js";
 
 export interface Answers {
   template: Template;
@@ -27,7 +28,7 @@ const questions: PromptObject<keyof Answers>[] = [
     type: "select",
     message: "Template:",
     choices: templateChoices,
-    onState: handleAbort,
+    onState: handleAborted,
   },
   {
     name: "directory",
@@ -35,7 +36,7 @@ const questions: PromptObject<keyof Answers>[] = [
     message: "Directory:",
     initial: (prev: string) =>
       `${userInfo().username}-${pascalToKebabCase(prev)}`,
-    onState: handleAbort,
+    onState: handleAborted,
   },
   {
     name: "appId",
@@ -51,16 +52,9 @@ const questions: PromptObject<keyof Answers>[] = [
         return true;
       }
     },
-    onState: handleAbort,
+    onState: handleAborted,
   },
 ];
-
-// https://github.com/terkelg/prompts/issues/252#issuecomment-778683666
-function handleAbort({ abort }: { abort: boolean }) {
-  if (abort) {
-    process.nextTick(() => process.exit(0));
-  }
-}
 
 async function ensureEmptyDirectory(directory: string): Promise<void> {
   logger.debug("Ensuring directory repo is empty");

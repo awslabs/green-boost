@@ -1,9 +1,6 @@
 // @ts-nocheck
 import { Stack, StackProps } from "aws-cdk-lib";
-import {
-  ComputeType,
-  LinuxBuildImage,
-} from "aws-cdk-lib/aws-codebuild";
+import { ComputeType, LinuxBuildImage } from "aws-cdk-lib/aws-codebuild";
 import { Repository } from "aws-cdk-lib/aws-codecommit";
 import {
   CodePipeline,

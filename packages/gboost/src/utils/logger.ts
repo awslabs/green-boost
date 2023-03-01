@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-enum LogLevel {
+export enum LogLevel {
   DEBUG = "DEBUG",
   WARN = "WARN",
   ERROR = "ERROR",

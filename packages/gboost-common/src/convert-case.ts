@@ -20,3 +20,10 @@ export function camelToSnake(s: string): string {
 export function lowerToPascal(s: string) {
   return s[0]?.toUpperCase() + s.slice(1);
 }
+
+/**
+ * Converts WidgetsDynamo to widgets-dynamo
+ */
+export function pascalToKebabCase(pascal: string) {
+  return pascal.replace(/([a-z0–9])([A-Z])/g, "$1-$2").toLowerCase();
+}
