@@ -18,7 +18,7 @@
     "@stitches/react": "^1.2.8",
     "@tanstack/react-query": "^4.19.1",
     "@vanilla-extract/css": "^1.9.2",
-    "gboost-ui": "^0.31.0",
+    "gboost-ui": "^0.31.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

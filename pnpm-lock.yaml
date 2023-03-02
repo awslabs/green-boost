@@ -108,7 +108,7 @@ importers:
       eslint-config-prettier: ^8.6.0
       eslint-define-config: ^1.15.0
       eslint-plugin-prettier: ^4.2.1
-      gboost-common: workspace:^0.9.0
+      gboost-common: workspace:^0.10.0
       kleur: ^4.1.5
       minimist: ^1.2.8
       prettier: ^2.8.4
@@ -201,7 +201,7 @@ importers:
       eslint-config-prettier: ^8.6.0
       eslint-define-config: ^1.15.0
       eslint-plugin-prettier: ^4.2.1
-      gboost-common: workspace:^0.9.0
+      gboost-common: workspace:^0.10.0
       joi: ^17.7.1
       mime-types: ^2.1.35
       prettier: ^2.8.4
@@ -251,7 +251,7 @@ importers:
       eslint-config-prettier: ^8.6.0
       eslint-define-config: ^1.15.0
       eslint-plugin-prettier: ^4.2.1
-      gboost-common: workspace:^0.9.0
+      gboost-common: workspace:^0.10.0
       prettier: ^2.8.4
       rimraf: ^4.1.2
       typescript: ^4.9.5
@@ -296,7 +296,7 @@ importers:
       eslint-config-react-app: ^7.0.1
       eslint-define-config: ^1.15.0
       eslint-plugin-prettier: ^4.2.1
-      gboost-common: workspace:^0.9.0
+      gboost-common: workspace:^0.10.0
       graphql: ^16.6.0
       graphql-tag: ^2.12.6
       prettier: ^2.8.4
@@ -4965,6 +4965,10 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
+  /@balena/dockerignore/1.0.2:
+    resolution: {integrity: sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q==}
+    dev: false
+
   /@changesets/apply-release-plan/6.1.3:
     resolution: {integrity: sha512-ECDNeoc3nfeAe1jqJb5aFQX7CqzQhD2klXRez2JDb/aVpGUbX673HgKrnrgJRuQR/9f2TtLoYIzrGB9qwD77mg==}
     dependencies:
@@ -9320,7 +9324,16 @@ packages:
       '@aws-cdk/asset-awscli-v1': 2.2.85
       '@aws-cdk/asset-kubectl-v20': 2.1.1
       '@aws-cdk/asset-node-proxy-agent-v5': 2.0.71
+      '@balena/dockerignore': 1.0.2
+      case: 1.6.3
       constructs: 10.1.264
+      fs-extra: 9.1.0
+      ignore: 5.2.4
+      jsonschema: 1.4.1
+      minimatch: 3.1.2
+      punycode: 2.3.0
+      semver: 7.3.8
+      yaml: 1.10.2
     dev: false
     bundledDependencies:
       - '@balena/dockerignore'
@@ -9683,6 +9696,11 @@ packages:
       no-case: 3.0.4
       tslib: 2.5.0
       upper-case-first: 2.0.2
+    dev: false
+
+  /case/1.6.3:
+    resolution: {integrity: sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==}
+    engines: {node: '>= 0.8.0'}
     dev: false
 
   /ccount/1.1.0:
@@ -12766,6 +12784,10 @@ packages:
       universalify: 2.0.0
     optionalDependencies:
       graceful-fs: 4.2.10
+
+  /jsonschema/1.4.1:
+    resolution: {integrity: sha512-S6cATIPVv1z0IlxdN+zUk5EPjkGCdnhN4wVSBlvoUO1tOLJootbo9CquNJmbIh4yikWHiUedhRYrNPn1arpEmQ==}
+    dev: false
 
   /jsx-ast-utils/3.3.3:
     resolution: {integrity: sha512-fYQHZTZ8jSfmWZ0iyzfwiU4WDX4HpHbMCZ3gPlWYiCl3BoeOTsqKBqnTVfH2rYT7eP5c3sVbeSPHnnJOaTrWiw==}

@@ -1,5 +1,11 @@
 # gboost-common
 
+## 0.10.0
+
+### Minor Changes
+
+- [`0386b44`](https://github.com/awslabs/green-boost/commit/0386b44f30a80e3d62a2f5445a24162648e10fcb) Thanks [@bestickley](https://github.com/bestickley)! - Make mergeDeep utility immutable
+
 ## 0.9.0
 
 ### Minor Changes

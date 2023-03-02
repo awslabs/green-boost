@@ -1,6 +1,6 @@
 {
   "name": "gboost-common",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Green Boost Common Library",
   "type": "module",
   "main": "./src/index.ts",
