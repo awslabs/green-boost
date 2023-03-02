@@ -10,13 +10,29 @@ Instructions below allow you to edit .ts files and test out your changes without
 
 ### gboost-ui
 
-After running `pnpm add ../path/to/gboost/packages/gboost-ui` in your GB app, you'll need to restart the Vite dev server.
+After running `pnpm add ../path/to/gboost/packages/gboost-ui` in your GB app ui folder, you'll need to restart the Vite dev server.
 
 For any library used in `gboost-ui` and the consuming package (ui folder), you'll want to add that library to Vite's [resolve.dedupe](https://vitejs.dev/config/#resolve-dedupe) configuration parameter. See an explanation [here](https://blog.maximeheckel.com/posts/duplicate-dependencies-npm-link/). Here is an inexhaustive list: `["aws-amplify", "@aws-amplify/ui-react", "graphql", "graphql-tag", "react", "react-dom", "react-icons", "react-router-dom"]`
 
 ### gboost
 
-To develop `gboost` locally, run `pnpm dlx ts-node --esm ../path/to/green-boost/packages/gboost/src/index.ts` or you can globally install ts-node with `pnpm add -g ts-node` and then run `ts-node --esm ../path/to/green-boost/packages/gboost/src/index.ts`
+Install `vite-node` globally with `pnpm add -g vite-node`. Then you can run the CLI source (TS files) with: `vite-node --options.deps.inline="@aws-sdk/util-user-agent-node" ../path/to/green-boost/packages/gboost/src/index.ts -- <command>`. You can remove `--options.deps.inline="@aws-sdk/util-user-agent-node"` once [this issue](https://github.com/aws/aws-sdk-js-v3/issues/3622) is resolved.
+
+## gboost-infra
+
+After running `pnpm add ../path/to/gboost/packages/gboost-infra` in your GB app infra folder, in order for cdk-nag to work correctly you'll need to deduplicate `aws-cdk-lib` and `cdk-nag` node_modules by adding the below vite.config.ts file to infra/vite.config.ts. For more info, see [here](https://github.com/cdklabs/cdk-nag/issues/1219).
+
+vite.config.ts
+```ts
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  resolve: {
+    dedupe: ["aws-cdk-lib", "cdk-nag"],
+  },
+});
+
+```
 
 ## Commit Workflow
 

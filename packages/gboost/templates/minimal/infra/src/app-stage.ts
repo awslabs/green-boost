@@ -2,7 +2,11 @@
 import { Aspects, Stage, Tags } from "aws-cdk-lib";
 import { AwsSolutionsChecks } from "cdk-nag";
 import type { Construct } from "constructs";
-import { setConstructDefaultProps, SuppressOkNags } from "gboost-infra";
+import {
+  setConstructDefaultProps,
+  SuppressNags,
+  Suppression,
+} from "gboost-infra";
 import { Ui } from "./app/stateless/ui.js";
 import type { StageConfig } from "./config/stage-config.js";
 
@@ -15,7 +19,7 @@ export class AppStage extends Stage {
     });
 
     Tags.of(this).add("appId", config.appId);
-    Aspects.of(this).add(new SuppressOkNags());
+    Aspects.of(this).add(new SuppressNags(Object.values(Suppression)));
     Aspects.of(this).add(new AwsSolutionsChecks());
   }
 }
