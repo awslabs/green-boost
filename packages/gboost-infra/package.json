@@ -44,8 +44,8 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.272.0",
     "adm-zip": "^0.5.10",
     "aws-cdk-lib": "^2.66.1",
-    "cdk-nag": "^2.22.8",
-    "constructs": "^10.1.262",
+    "cdk-nag": "^2.22.22",
+    "constructs": "^10.1.264",
     "gboost-common": "workspace:^0.9.0",
     "mime-types": "^2.1.35"
   },

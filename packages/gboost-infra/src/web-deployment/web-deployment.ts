@@ -15,12 +15,13 @@ import {
 import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import { Asset } from "aws-cdk-lib/aws-s3-assets";
 import { Provider } from "aws-cdk-lib/custom-resources";
+import { NagSuppressions } from "cdk-nag";
 import { Construct } from "constructs";
 import { execSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { Bucket } from "../bucket.js";
+import type { Bucket } from "../bucket/bucket.js";
 import type { InputResourceProperties } from "./common.js";
 
 const thisFilePath = fileURLToPath(import.meta.url);
@@ -29,7 +30,7 @@ interface BuildConfigProps {
   /**
    * Build command to run in `workingDirectory`
    */
-  command: string;
+  command?: string;
   /**
    * Environment variables to inject into process where `buildCommand` is run.
    * For values where `Token.isUnresolved` is true (i.e. `api.url`), temporary
@@ -127,8 +128,8 @@ export class WebDeployment extends Construct {
     });
 
     asset.grantRead(fn);
-    props.destinationBucket.grantReadWrite(fn);
-    props.destinationBucket.grantDelete(fn);
+    props.destinationBucket.grantReadWriteTame(fn);
+    props.destinationBucket.grantDeleteTame(fn);
     if (props.distribution) {
       props.distribution.grantCreateInvalidation(fn);
     }
@@ -144,6 +145,7 @@ export class WebDeployment extends Construct {
     };
 
     this.#getCustomResource({ fn, properties });
+    this.#suppressNags(fn);
   }
 
   /**
@@ -180,13 +182,15 @@ export class WebDeployment extends Construct {
     } else {
       codePath = resolve(thisFilePath, "../custom-resource-handler");
     }
+    const uuid = "e94797a6-488d-4a73-8e2b-79695c7ec7dd";
+    const lambdaPurpose = "WebDeploymentCustomResourceHandler";
     return new SingletonFunction(this, "CustomResourceHandler", {
       runtime: Runtime.NODEJS_18_X,
       code: Code.fromAsset(codePath),
       handler: "custom-resource-handler.handler",
-      uuid: "e94797a6-488d-4a73-8e2b-79695c7ec7dd",
+      uuid,
       architecture: Architecture.ARM_64,
-      lambdaPurpose: "WebDeploymentCustomResourceHandler",
+      lambdaPurpose,
       timeout: Duration.minutes(10),
       memorySize,
       environment: {
@@ -238,11 +242,24 @@ export class WebDeployment extends Construct {
       logRetention: RetentionDays.ONE_DAY,
     });
 
-    return new CustomResource(this, "CustomResource", {
+    const customResource = new CustomResource(this, "CustomResource", {
       resourceType: "Custom::WebDeployment",
       serviceToken: provider.serviceToken,
       properties: params.properties,
     });
+    return customResource;
+  }
+
+  #suppressNags(fn: SingletonFunction) {
+    const serviceRole = fn.permissionsNode.findChild("ServiceRole");
+    const defaultPolicy = serviceRole.node.findChild("DefaultPolicy");
+    NagSuppressions.addResourceSuppressions(defaultPolicy, [
+      {
+        id: "AwsSolutions-IAM5",
+        reason:
+          "Custom Resource Lambda can have use all s3:GetObject*, s3:GetBucket*, and s3:List* actions on any objects with the static site bucket or cdk assets bucket",
+      },
+    ]);
   }
 }
 
