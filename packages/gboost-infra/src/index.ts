@@ -1,4 +1,4 @@
-export * from "./bucket.js";
+export * from "./bucket/bucket.js";
 export * from "./function.js";
 export * from "./graphql-api.js";
 export * from "./static-site/static-site.js";

@@ -8,29 +8,32 @@ export function isObject(item: object | undefined): boolean | undefined {
 }
 
 /**
- * Deep merge two objects.
- * @param target
- * @param ...sources
- * @link https://stackoverflow.com/a/34749873/9658768
+ * Deep merge objects immutably.
+ *
+ * Adapted from: https://stackoverflow.com/a/34749873/9658768
+ *
+ * `target` is overwritten by additional `sources` where each new source takes
+ * higher priority
  */
 export function mergeDeep(
   target: object,
   ...sources: (object | undefined)[]
 ): object {
-  if (!sources.length) return target;
+  const newTarget = structuredClone(target);
+  if (!sources.length) return newTarget;
   const source = sources.shift();
 
-  if (isObject(target) && isObject(source)) {
+  if (isObject(newTarget) && isObject(source)) {
     for (const key in source) {
       const typedKey = key as keyof typeof source;
       if (isObject(source[typedKey])) {
-        if (!target[typedKey]) Object.assign(target, { [typedKey]: {} });
-        mergeDeep(target[typedKey], source[typedKey]);
+        if (!newTarget[typedKey]) Object.assign(newTarget, { [typedKey]: {} });
+        mergeDeep(newTarget[typedKey], source[typedKey]);
       } else {
-        Object.assign(target, { [key]: source[typedKey] });
+        Object.assign(newTarget, { [key]: source[typedKey] });
       }
     }
   }
 
-  return mergeDeep(target, ...sources);
+  return mergeDeep(newTarget, ...sources);
 }

@@ -14,13 +14,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@swc/core": "^1.3.37",
-    "aws-cdk-lib": "^2.61.0",
+    "aws-cdk": "^2.67.0",
+    "aws-cdk-lib": "^2.67.0",
     "cdk-nag": "^2.21.67",
     "constructs": "^10.1.225",
     "gboost-common": "^0.9.0",
     "gboost-infra": "^0.12.0",
-    "ts-node": "^10.9.1"
+    "vite": "^4.1.4",
+    "vite-node": "^0.29.2"
   },
   "devDependencies": {
     "@types/node": "^18.13.0",

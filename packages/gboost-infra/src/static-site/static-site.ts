@@ -11,9 +11,9 @@ import {
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import type { CfnWebACL } from "aws-cdk-lib/aws-wafv2";
 import type { ICertificate } from "aws-cdk-lib/aws-certificatemanager";
-import { Bucket } from "../bucket.js";
-import type { ResponseHeaders } from "./responseHeaders.js";
-import { getResponseHeadersPolicyProps } from "./responseHeaders.js";
+import { Bucket } from "../bucket/bucket.js";
+import type { ResponseHeaders } from "./response-headers.js";
+import { getResponseHeadersPolicyProps } from "./response-headers.js";
 import { NagSuppressions } from "cdk-nag";
 import { fileURLToPath } from "node:url";
 import { StaticSiteWebAcl } from "./web-acl.js";
