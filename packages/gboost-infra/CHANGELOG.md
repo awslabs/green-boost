@@ -1,5 +1,16 @@
 # gboost-infra
 
+## 0.13.0
+
+### Minor Changes
+
+- [#176](https://github.com/awslabs/green-boost/pull/176) [`131200a`](https://github.com/awslabs/green-boost/commit/131200ad8354a30599a42833727e5e3815c80ea2) Thanks [@bestickley](https://github.com/bestickley)! - Change SuppressOkNags to SuppressNags and require user to pass in array of Suppression enums to specify which suppressions should be used. For previous behavior, use `new SuppressNags(Object.values(Supppression))`.
+
+### Patch Changes
+
+- Updated dependencies [[`0386b44`](https://github.com/awslabs/green-boost/commit/0386b44f30a80e3d62a2f5445a24162648e10fcb)]:
+  - gboost-common@0.10.0
+
 ## 0.12.0
 
 ### Minor Changes
