@@ -49,6 +49,7 @@ export class Api extends Stack {
       description: "Widgets API for stage: " + params.stageName,
       endpointTypes: [EndpointType.REGIONAL],
     });
+    // https://sst.dev/chapters/handle-api-gateway-cors-errors.html
     api.addGatewayResponse("GatewayResponseDefault4XX", {
       type: ResponseType.DEFAULT_4XX,
       responseHeaders: {

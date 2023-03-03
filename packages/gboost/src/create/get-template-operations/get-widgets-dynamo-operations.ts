@@ -19,39 +19,6 @@ export function getWidgetsDynamoOperations(
       sourcePath: resolve(templatesDirPath, "widgets-dynamo"),
       destinationPath,
     },
-    {
-      name: "UpdateUiDependencies",
-      type: OperationType.UpdatePackageJson,
-      sourcePaths: [resolve(destinationPath, "ui/package.json")],
-      dependencies: {
-        "@trpc/client": "^10.11.1",
-        "@trpc/react-query": "^10.11.1",
-      },
-      devDependencies: {
-        "@trpc/server": "^10.11.1",
-      },
-    },
-    {
-      name: "UpdateCoreDependencies",
-      type: OperationType.UpdatePackageJson,
-      sourcePaths: [resolve(destinationPath, "core/package.json")],
-      dependencies: {
-        "@aws-lambda-powertools/logger": "^1.5.1",
-        "@trpc/server": "^10.11.1",
-        zod: "^3.20.6",
-      },
-    },
-    {
-      name: "UpdateInfraDependencies",
-      type: OperationType.UpdatePackageJson,
-      sourcePaths: [resolve(destinationPath, "infra/package.json")],
-      dependencies: {
-        "@aws-cdk/aws-apigatewayv2-alpha": "^2.66.1-alpha.0",
-        "@aws-cdk/aws-redshift-alpha": "^2.66.1-alpha.0",
-        "@aws-cdk/aws-synthetics-alpha": "^2.66.1-alpha.0",
-        "cdk-monitoring-constructs": "^2.6.4",
-      },
-    },
     // {
     //   name: "UpdatePnpmPatchedDependencies",
     //   type: OperationType.UpdatePackageJson,

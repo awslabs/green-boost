@@ -35,7 +35,8 @@ export async function create() {
     "\n" +
     `🧹 Clean up: ${kleur.yellow("cd infra")} then ${kleur.yellow(
       "pnpm destroy:local"
-    )}`;
+    )}` +
+    "\n";
   logger.log(message);
 }
 
