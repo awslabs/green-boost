@@ -90,6 +90,7 @@ interface LayoutProps {
 
 /**
  * App Layout including header, aside, main and footer
+ * @deprecated
  */
 export function Layout(props: LayoutProps): ReactElement {
   const {
