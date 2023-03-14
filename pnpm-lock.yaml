@@ -285,6 +285,7 @@ importers:
       '@radix-ui/react-tooltip': ^1.0.5
       '@stitches/react': ^1.2.8
       '@tanstack/react-query': ^4.26.1
+      '@trpc/server': ^10.16.0
       '@tsconfig/vite-react': ^1.0.1
       '@types/react': ^18.0.28
       '@types/react-dom': ^18.0.11
@@ -339,6 +340,7 @@ importers:
       zod: 3.21.4
     devDependencies:
       '@aws-sdk/client-s3': 3.290.0
+      '@trpc/server': 10.16.0
       '@tsconfig/vite-react': 1.0.1
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
@@ -8178,6 +8180,10 @@ packages:
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
+
+  /@trpc/server/10.16.0:
+    resolution: {integrity: sha512-lCUq7AB7vcgrNbaN+xP/AN62OjKDgrRyG7fTDPv5K633ut7KJ3m57qs60VRBOgp9vow6elAg51pKFFDtPHbTRA==}
+    dev: true
 
   /@trysound/sax/0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
