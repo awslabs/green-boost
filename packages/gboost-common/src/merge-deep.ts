@@ -1,39 +1,33 @@
-/**
- * Simple object check.
- * @param item
- * @returns {boolean}
- */
-export function isObject(item: object | undefined): boolean | undefined {
-  return item && typeof item === "object" && !Array.isArray(item);
-}
+const isObject = (obj: unknown) => obj && typeof obj === "object";
 
 /**
- * Deep merge objects immutably.
+ * Performs a deep merge of objects and returns new object. Does not modify
+ * objects (immutable) and merges arrays via concatenation.
  *
- * Adapted from: https://stackoverflow.com/a/34749873/9658768
- *
- * `target` is overwritten by additional `sources` where each new source takes
- * higher priority
+ * @link https://stackoverflow.com/a/48218209/9658768
  */
-export function mergeDeep(
-  target: object,
-  ...sources: (object | undefined)[]
-): object {
-  const newTarget = structuredClone(target);
-  if (!sources.length) return newTarget;
-  const source = sources.shift();
+export function mergeDeep<T extends object>(
+  ...objects: (object | undefined)[]
+): T {
+  const result: Record<string, unknown> = {};
+  for (const obj of objects) {
+    if (obj) {
+      for (const key of Object.keys(obj)) {
+        const pVal = result[key];
+        const oVal = obj[key as keyof typeof obj];
 
-  if (isObject(newTarget) && isObject(source)) {
-    for (const key in source) {
-      const typedKey = key as keyof typeof source;
-      if (isObject(source[typedKey])) {
-        if (!newTarget[typedKey]) Object.assign(newTarget, { [typedKey]: {} });
-        mergeDeep(newTarget[typedKey], source[typedKey]);
-      } else {
-        Object.assign(newTarget, { [key]: source[typedKey] });
+        if (Array.isArray(pVal) && Array.isArray(oVal)) {
+          result[key] = pVal.concat(...(oVal as unknown[]));
+        } else if (isObject(pVal) && isObject(oVal)) {
+          result[key] = mergeDeep(
+            pVal as Record<string, unknown>,
+            oVal as Record<string, unknown>
+          );
+        } else {
+          result[key] = oVal;
+        }
       }
     }
   }
-
-  return mergeDeep(newTarget, ...sources);
+  return result as T;
 }
