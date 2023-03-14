@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.290.0",
+    "@trpc/server": "^10.16.0",
     "@tsconfig/vite-react": "^1.0.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
