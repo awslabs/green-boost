@@ -6,6 +6,7 @@ import {
 } from "aws-cdk-lib/aws-lambda-nodejs";
 import type { Construct } from "constructs";
 import { mergeDeep } from "gboost-common";
+import { constructDefaultProps } from "./construct-default-props.js";
 
 export interface FunctionProps extends NodejsFunctionProps {
   entry: string;
@@ -30,7 +31,11 @@ const defaultFunctionProps: NodejsFunctionProps = {
  */
 export class Function extends NodejsFunction {
   constructor(scope: Construct, id: string, props: FunctionProps) {
-    const newProps = mergeDeep(defaultFunctionProps, props);
+    const newProps = mergeDeep(
+      defaultFunctionProps,
+      constructDefaultProps?.function,
+      props
+    );
     super(scope, id, newProps);
     this._functionNode().addMetadata("gboost:function-entrypoint", props.entry);
   }
