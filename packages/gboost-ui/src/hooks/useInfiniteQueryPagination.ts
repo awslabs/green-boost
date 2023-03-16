@@ -9,7 +9,7 @@ interface ListResult<T> {
 interface UseInfiniteQueryProps<T> {
   data: InfiniteData<ListResult<T>> | undefined;
   fetchNextPage: (params: FetchNextPageOptions) => Promise<unknown>;
-  hasNextPage: boolean | undefined;
+  hasNextPage?: boolean | undefined;
   pagination: Pagination;
   setPagination: Dispatch<SetStateAction<Pagination>>;
 }

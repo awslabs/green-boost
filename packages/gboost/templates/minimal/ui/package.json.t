@@ -23,6 +23,9 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@{{GB_APP_ID}}/eslint-config-react": "workspace:^0.1.0",
+    "@{{GB_APP_ID}}/tsconfig": "workspace:^0.1.0",
+    "@{{GB_APP_ID}}/utils": "workspace:^0.1.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@vanilla-extract/vite-plugin": "^3.7.0",

@@ -16,7 +16,7 @@ import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { NagSuppressions } from "cdk-nag";
 import { CfnWebACL, CfnWebACLAssociation } from "aws-cdk-lib/aws-wafv2";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
-import type { StageName } from "../../config/stage-name.js";
+import type { StageName } from "@{{GB_APP_ID}}/core";
 import { resolve } from "node:path";
 
 const thisFilePath = fileURLToPath(import.meta.url);
@@ -113,12 +113,23 @@ export class Api extends Stack {
         thisFilePath,
         "../../../../../core/src/entrypoints/api/handler.ts"
       ),
+      memorySize: 512,
       runtime: Runtime.NODEJS_18_X,
       environment: {
-        TABLE_NAME: table.tableName,
+        WIDGETS_TABLE_NAME: table.tableName,
         POWERTOOLS_SERVICE_NAME: "WidgetsApi",
       },
     });
+    table.grantReadWriteData(fn);
+    const defaultPolicy = fn.node
+      .findChild("ServiceRole")
+      .node.findChild("DefaultPolicy");
+    NagSuppressions.addResourceSuppressions(defaultPolicy, [
+      {
+        id: "AwsSolutions-IAM5",
+        reason: "api function can read/write to all table indexes",
+      },
+    ]);
     return fn;
   }
 

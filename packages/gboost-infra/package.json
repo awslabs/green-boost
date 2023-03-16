@@ -43,9 +43,9 @@
     "@aws-sdk/client-cloudfront": "^3.290.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.290.0",
     "adm-zip": "^0.5.10",
-    "aws-cdk-lib": "^2.68.0",
+    "aws-cdk-lib": "^2.69.0",
     "cdk-nag": "^2.22.35",
-    "constructs": "^10.1.277",
+    "constructs": "^10.1.279",
     "gboost-common": "workspace:^0.10.0",
     "mime-types": "^2.1.35"
   },

@@ -4,11 +4,11 @@
   "type": "module",
   "exports": "./.eslintrc.cjs",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.45.1",
-    "@typescript-eslint/parser": "^5.45.1",
-    "eslint": "^8.29.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-define-config": "^1.12.0",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-define-config": "^1.16.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.8.0",
     "typescript": "^4.9.3"

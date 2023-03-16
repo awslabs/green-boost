@@ -16,10 +16,15 @@ export class Data extends Stack {
   }
 
   getTable() {
-    return new Table(this, "WidgetsTable", {
-      partitionKey: { name: "PK", type: AttributeType.STRING },
-      sortKey: { name: "SK", type: AttributeType.STRING },
+    const table = new Table(this, "WidgetsTable", {
+      partitionKey: { name: "pk", type: AttributeType.STRING },
+      sortKey: { name: "sk", type: AttributeType.STRING },
     });
+    table.addGlobalSecondaryIndex({
+      indexName: "gsi1",
+      partitionKey: { name: "sk", type: AttributeType.STRING },
+      sortKey: { name: "gsi1sk", type: AttributeType.STRING },
+    });
+    return table;
   }
 }
-

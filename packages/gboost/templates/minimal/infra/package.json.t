@@ -14,6 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@{{GB_APP_ID}}/core": "workspace:^0.1.0",
     "aws-cdk": "^2.67.0",
     "aws-cdk-lib": "^2.67.0",
     "cdk-nag": "^2.21.67",
@@ -24,6 +25,9 @@
     "vite-node": "^0.29.2"
   },
   "devDependencies": {
+    "@{{GB_APP_ID}}/eslint-config-node": "workspace:^0.1.0",
+    "@{{GB_APP_ID}}/tsconfig": "workspace:^0.1.0",
+    "@{{GB_APP_ID}}/utils": "workspace:^0.1.0",
     "@types/node": "^18.13.0",
     "eslint": "^8.32.0",
     "eslint-define-config": "^1.14.0",

@@ -1,34 +1,35 @@
 import { resolve } from "node:path";
 import { Operation, OperationType } from "../operations/operations.js";
 import type { GetOperationsParams } from "./common.js";
-import { getMinimalOperations } from "./get-minimal-operations.js";
 
 export function getWidgetsDynamoOperations(
   params: GetOperationsParams
 ): Operation[] {
-  const { destinationPath, appId, templatesDirPath } = params;
+  const { destinationPath, templatesDirPath } = params;
   return [
-    ...getMinimalOperations({
-      destinationPath,
-      appId,
-      templatesDirPath,
-    }),
     {
-      name: "CopyBasicTemplate",
+      type: OperationType.Copy,
+      name: "CopyMinimalTemplate",
+      sourcePath: resolve(templatesDirPath, "minimal"),
+      destinationPath,
+    },
+    {
+      name: "CopyWidgetsCoreTemplate",
+      type: OperationType.Copy,
+      sourcePath: resolve(templatesDirPath, "widgets-core"),
+      destinationPath,
+    },
+    {
+      name: "CopyWidgetsDynamoTemplate",
       type: OperationType.Copy,
       sourcePath: resolve(templatesDirPath, "widgets-dynamo"),
       destinationPath,
     },
-    // {
-    //   name: "UpdatePnpmPatchedDependencies",
-    //   type: OperationType.UpdatePackageJson,
-    //   sourcePath: resolve(destinationPath, "package.json"),
-    //   update(packageJson) {
-    //     packageJson.pnpm.patchedDependencies = {
-    //       "@hookform/resolvers@2.9.10": "patches/@hookform__resolvers@2.9.10.patch"
-    //     }
-    //     return packageJson;
-    //   },
-    // },
+    {
+      name: "ReplaceTitle",
+      type: OperationType.Replace,
+      values: [{ find: "{{GB_APP_TITLE}}", replace: "Widgets" }],
+      sourcePath: resolve(destinationPath, "ui/index.html"),
+    },
   ];
 }

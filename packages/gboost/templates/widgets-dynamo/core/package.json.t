@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./models": "./src/domain/models/index.ts",
+    "./schemas": "./src/domain/schemas/index.ts",
+    "./router": "./src/entrypoints/api/router.ts"
+  },
+  "imports": {
+    "#adapters/*": "./src/adapters/*.ts",
+    "#models/*": "./src/domain/models/*.ts",
+    "#schemas/*": "./src/domain/schemas/*.ts",
+    "#services/*": "./src/services/*.ts"
+  },
   "scripts": {
     "lint": "eslint \"src/**/*.ts\"",
     "test": "vitest run --passWithNoTests",
@@ -11,12 +23,19 @@
   },
   "dependencies": {
     "@aws-lambda-powertools/logger": "^1.5.1",
-    "@trpc/server": "^10.11.1",
-    "zod": "^3.20.6"
+    "@aws-sdk/client-dynamodb": "^3.289.0",
+    "@aws-sdk/lib-dynamodb": "^3.289.0",
+    "@aws-sdk/smithy-client": "^3.289.0",
+    "@trpc/server": "^10.16.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
-    "eslint": "^8.32.0",
-    "eslint-define-config": "^1.14.0",
+    "@aws-sdk/types": "^3.289.0",
+    "@{{GB_APP_ID}}/eslint-config-node": "workspace:^0.1.0",
+    "@{{GB_APP_ID}}/tsconfig": "workspace:^0.1.0",
+    "@{{GB_APP_ID}}/utils": "workspace:^0.1.0",
+    "eslint": "^8.36.0",
+    "eslint-define-config": "^1.16.0",
     "typescript": "^4.9.4",
     "vitest": "^0.28.5"
   }

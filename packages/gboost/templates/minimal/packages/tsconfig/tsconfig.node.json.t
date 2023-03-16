@@ -4,6 +4,5 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "noEmit": true,
-    "skipLibCheck": true,
   },
 }

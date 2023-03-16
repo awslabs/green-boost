@@ -14,7 +14,7 @@ export function getMinimalOperations(params: GetOperationsParams): Operation[] {
     {
       name: "ReplaceTitle",
       type: OperationType.Replace,
-      values: [{ find: "{{GB_APP_TITLE}}", replace: "Minimal" }],
+      values: [{ find: "{{GB_APP_TITLE}}", replace: "My App" }],
       sourcePath: resolve(destinationPath, "ui/index.html"),
     },
   ];

@@ -11,7 +11,7 @@ import {
 import type { Construct } from "constructs";
 import { AppStage } from "../app-stage.js";
 import { configs } from "../config/configs.js";
-import { StageName } from "../config/stage-name.js";
+import { StageName } from "@{{GB_APP_ID}}/core";
 
 export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {

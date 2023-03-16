@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import { StageConfig } from "./stage-config.js";
-import { StageName } from "./stage-name.js";
+import { StageName } from "@{{GB_APP_ID}}/core";
 
 export const configs: Record<StageName, StageConfig> = {
   [StageName.Local]: new StageConfig({
