@@ -2,10 +2,10 @@ import type prompts from "prompts";
 
 export enum Template {
   Minimal = "Minimal",
-  WidgetsDynamo = "WidgetsDynamo",
-  WidgetsPostgres = "WidgetsPostgres",
-  WebPortal = "WebPortal",
-  KitchenSink = "KitchenSink",
+  CrudDynamo = "CrudDynamo",
+  CrudPostgres = "CrudPostgres",
+  UserAuthMgmtCognito = "UserAuthMgmtCognito",
+  Dashboard = "Dashboard",
 }
 
 export const templateChoices: prompts.Choice[] = [
@@ -16,29 +16,28 @@ export const templateChoices: prompts.Choice[] = [
     value: Template.Minimal,
   },
   {
-    title: "Widgets App with DynamoDB",
-    description:
-      "Widgets App based on minimal template + tRPC via API Gateway and DynamoDB",
-    value: Template.WidgetsDynamo,
+    title: "CRUD with DynamoDB",
+    description: "CRUD via table and forms. API Gateway with tRPC and DynamoDB",
+    value: Template.CrudDynamo,
   },
   {
-    title: "Widgets App with Aurora Serverless Postgres",
+    title: "CRUD with Aurora Serverless Postgres",
     description:
-      "Widgets App based on minimal template + tRPC via API Gateway and Aurora Serverless Postgres",
-    value: Template.WidgetsPostgres,
+      "CRUD via table and forms. API Gateway with tRPC and Aurora Serverless Postgres",
+    value: Template.CrudPostgres,
     disabled: true,
   },
   {
-    title: "Web Portal",
+    title: "User Authentication and Management with Cognito",
     description:
-      "Web Portal based on Widgets App with Aurora Serverless Postgres + Cognito Authentication and user management",
-    value: Template.WebPortal,
+      "User password authentication with Cognito User Pools and Green Boost's user management use-case feature",
+    value: Template.UserAuthMgmtCognito,
     disabled: true,
   },
   {
-    title: "Kitchen Sink",
-    description: "Showcase of all Green Boost's E2E Features",
-    value: Template.KitchenSink,
+    title: "Dashboard",
+    description: "Mock dashboard built with amcharts",
+    value: Template.UserAuthMgmtCognito,
     disabled: true,
   },
 ];

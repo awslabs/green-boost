@@ -1,5 +1,6 @@
 export interface GetOperationsParams {
-  destinationPath: string;
   appId: string;
+  appTitle: string;
+  destinationPath: string;
   templatesDirPath: string;
 }

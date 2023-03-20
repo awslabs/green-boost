@@ -1,0 +1,21 @@
+{
+  "app": "./node_modules/.bin/vite-node src/local-app.ts",
+  "watch": {
+    "include": [
+      "src/**",
+      "../core/**"
+    ],
+    "exclude": [
+      "node_modules",
+      "cdk.out",
+      "../core/node_modules"
+    ]
+  },
+  "context": {
+    "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
+    "@aws-cdk/core:stackRelativeExports": true,
+    "@aws-cdk/aws-rds:lowercaseDbIdentifier": true,
+    "@aws-cdk/aws-lambda:recognizeVersionProps": true,
+    "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": true
+  }
+}

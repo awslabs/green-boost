@@ -9,7 +9,7 @@
     "outDir": "lib",
     "skipLibCheck": true,
   },
-  "exclude": ["templates/**/*", "lib"],
+  "exclude": ["templates/**/*", "lib", "examples/**/*"],
   "ts-node": {
     "esm": true,
     "swc": true,

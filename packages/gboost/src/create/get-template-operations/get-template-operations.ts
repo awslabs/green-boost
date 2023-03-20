@@ -3,8 +3,8 @@ import type { Operation } from "../operations/operations.js";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { getMinimalOperations } from "./get-minimal-operations.js";
-import { getWidgetsDynamoOperations } from "./get-widgets-dynamo-operations.js";
-import { getWidgetsPostgresOperations } from "./get-widgets-postgres-operations.js";
+import { getCrudDynamoOperations } from "./get-crud-dynamo-operations.js";
+import { getCrudPostgresOperations } from "./get-crud-postgres-operations.js";
 import { getCommonOperations } from "./get-common-operations.js";
 import type { Answers } from "../ask.js";
 import type { GetOperationsParams } from "./common.js";
@@ -15,15 +15,16 @@ import type { GetOperationsParams } from "./common.js";
  * specified directory, replacing tokens in files, adding dependencies, etc.
  */
 export function getTemplateOperations(answers: Answers): Operation[] {
-  const { appId, template, directory } = answers;
+  const { appId, appTitle, template, directory } = answers;
   const destinationPath = resolve(directory);
   const templatesDirPath = resolve(
     fileURLToPath(import.meta.url),
     "../../../../templates"
   );
   const opsParams: GetOperationsParams = {
-    destinationPath,
     appId,
+    appTitle,
+    destinationPath,
     templatesDirPath,
   };
   const operations: Record<Template, Operation[]> = {
@@ -31,16 +32,16 @@ export function getTemplateOperations(answers: Answers): Operation[] {
       ...getMinimalOperations(opsParams),
       ...getCommonOperations(opsParams),
     ],
-    [Template.WidgetsDynamo]: [
-      ...getWidgetsDynamoOperations(opsParams),
+    [Template.CrudDynamo]: [
+      ...getCrudDynamoOperations(opsParams),
       ...getCommonOperations(opsParams),
     ],
-    [Template.WidgetsPostgres]: [
-      ...getWidgetsPostgresOperations(opsParams),
+    [Template.CrudPostgres]: [
+      ...getCrudPostgresOperations(opsParams),
       ...getCommonOperations(opsParams),
     ],
-    [Template.WebPortal]: [], // TODO
-    [Template.KitchenSink]: [], // TODO
+    [Template.Dashboard]: [], // TODO
+    [Template.UserAuthMgmtCognito]: [], // TODO
   };
   return operations[template];
 }
