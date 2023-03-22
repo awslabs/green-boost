@@ -4,7 +4,7 @@ import { BucketEncryption } from "aws-cdk-lib/aws-s3";
 import { mergeDeep } from "gboost-common";
 import type { ConstructDefaultProps } from "gboost-infra";
 import { userInfo } from "node:os";
-import { StageName } from "./stage-name.js";
+import { StageName } from "@{{GB_APP_ID}}/core";
 
 interface StageConfigParams {
   stageName: StageName;

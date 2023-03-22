@@ -5,13 +5,14 @@ import type { GetOperationsParams } from "./common.js";
  * Common operations to run at END of specific template operations
  */
 export function getCommonOperations(params: GetOperationsParams): Operation[] {
-  const { destinationPath, appId } = params;
+  const { destinationPath, appId, appTitle } = params;
   return [
     {
       name: "ReplaceAppIdAndTsNoCheck",
       type: OperationType.Replace,
       values: [
         { find: /{{GB_APP_ID}}/g, replace: appId },
+        { find: /{{GB_APP_TITLE}}/g, replace: appTitle },
         { find: "// @ts-nocheck\n", replace: "" },
       ],
       sourcePath: destinationPath,

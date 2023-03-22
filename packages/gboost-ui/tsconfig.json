@@ -6,6 +6,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "outDir": "lib",
+    "rootDir": "./src"
   },
   "exclude": ["lib"],
 }

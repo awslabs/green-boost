@@ -26,6 +26,10 @@ export interface CopyOperation extends BaseOperation {
   filterFiles?: RegExp;
 }
 
+/**
+ * Copy files from `sourcePath` to `destinationPath`. Files already existing
+ * in `destinationPath` will be overwritten by files in `sourcePath`
+ */
 export function copy(params: CopyOperation): void {
   if (statSync(params.sourcePath).isDirectory()) {
     const options: CopySyncOptions = {

@@ -12,17 +12,20 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^4.1.0",
-    "@fontsource/inter": "^4.5.14",
+    "@aws-amplify/ui-react": "^4.4.1",
+    "@fontsource/inter": "^4.5.15",
     "@radix-ui/colors": "^0.1.8",
     "@stitches/react": "^1.2.8",
-    "@tanstack/react-query": "^4.19.1",
-    "@vanilla-extract/css": "^1.9.2",
+    "@tanstack/react-query": "^4.28.0",
+    "@vanilla-extract/css": "^1.10.0",
     "gboost-ui": "^0.31.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@{{GB_APP_ID}}/eslint-config-react": "workspace:^0.1.0",
+    "@{{GB_APP_ID}}/tsconfig": "workspace:^0.1.0",
+    "@{{GB_APP_ID}}/utils": "workspace:^0.1.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@vanilla-extract/vite-plugin": "^3.7.0",

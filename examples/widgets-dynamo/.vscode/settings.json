@@ -1,0 +1,11 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/cdk.out": true,
+  }
+}

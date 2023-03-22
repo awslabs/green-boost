@@ -1,0 +1,8 @@
+- 'core'
+- 'db'
+- 'infra'
+- 'packages/tsconfig'
+- 'packages/eslint-config-node'
+- 'packages/eslint-config-react'
+- 'packages/utils'
+- 'ui'

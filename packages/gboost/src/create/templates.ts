@@ -2,10 +2,10 @@ import type prompts from "prompts";
 
 export enum Template {
   Minimal = "Minimal",
-  WidgetsDynamo = "WidgetsDynamo",
-  WidgetsPostgres = "WidgetsPostgres",
-  WebPortal = "WebPortal",
-  KitchenSink = "KitchenSink",
+  CrudDynamo = "CrudDynamo",
+  CrudPostgres = "CrudPostgres",
+  UserAuthMgmtCognito = "UserAuthMgmtCognito",
+  Dashboard = "Dashboard",
 }
 
 export const templateChoices: prompts.Choice[] = [
@@ -16,30 +16,30 @@ export const templateChoices: prompts.Choice[] = [
     value: Template.Minimal,
   },
   {
-    title: "Widgets App with DynamoDB",
+    title: "CRUD App with DynamoDB",
     description:
-      "Widgets App based on minimal template + tRPC via API Gateway and DynamoDB",
-    value: Template.WidgetsDynamo,
+      "CRUD App with table and forms built on Minimal template. API layer uses tRPC with API Gateway and data layer uses DynamoDB",
+    value: Template.CrudDynamo,
+  },
+  {
+    title: "CRUD App with Aurora Serverless Postgres",
+    description:
+      "CRUD App with table and forms built on Minimal template. API layer uses tRPC with API Gateway and data layer uses Aurora Serverless Postgres",
+    value: Template.CrudPostgres,
     disabled: true,
   },
   {
-    title: "Widgets App with Aurora Serverless Postgres",
+    title: "User Auth and Management with Cognito",
     description:
-      "Widgets App based on minimal template + tRPC via API Gateway and Aurora Serverless Postgres",
-    value: Template.WidgetsPostgres,
+      "User password authentication with Cognito User Pools and user management built on CRUD App with DynamoDB",
+    value: Template.UserAuthMgmtCognito,
     disabled: true,
   },
   {
-    title: "Web Portal",
+    title: "Dashboard",
     description:
-      "Web Portal based on Widgets App with Aurora Serverless Postgres + Cognito Authentication and user management",
-    value: Template.WebPortal,
-    disabled: true,
-  },
-  {
-    title: "Kitchen Sink",
-    description: "Showcase of all Green Boost's E2E Features",
-    value: Template.KitchenSink,
+      "Mock dashboard using amCharts built on User Auth and Management with Cognito",
+    value: Template.Dashboard,
     disabled: true,
   },
 ];

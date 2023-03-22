@@ -11,6 +11,7 @@ export interface Answers {
   template: Template;
   directory: string;
   appId: string;
+  appTitle: string;
 }
 
 export async function ask(): Promise<Answers> {
@@ -52,6 +53,14 @@ const questions: PromptObject<keyof Answers>[] = [
         return true;
       }
     },
+    onState: handleAborted,
+  },
+  {
+    name: "appTitle",
+    type: "text",
+    // Part of CDK Stack name and used as scope to prefix all PNPM workspaces within monorepo
+    message: "App Title:",
+    initial: "My App",
     onState: handleAborted,
   },
 ];

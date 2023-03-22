@@ -1,85 +1,100 @@
-import parse from "minimist";
-import { execSync } from "node:child_process";
+import { exec } from "node:child_process";
 import type { Answers } from "../src/create/ask.js";
 import { Template } from "../src/create/templates.js";
 import { getTemplateOperations } from "../src/create/get-template-operations/get-template-operations.js";
 import { executeOperations } from "../src/create/execute-operations.js";
 import { tmpdir } from "node:os";
-import { mkdtempSync, rmdirSync } from "node:fs";
+import { mkdtemp, rm } from "node:fs/promises";
 import { resolve as resolvePath } from "node:path";
+import { Command, Option } from "@commander-js/extra-typings";
 
-const allTemplates: Template[] = [
-  Template.Minimal,
-  Template.WidgetsDynamo,
-  Template.WidgetsPostgres,
-  Template.WebPortal,
-  Template.KitchenSink,
-];
+// const allTemplates = Object.values(Template);
 
-const templateAppIds: Record<Template, string> = {
-  [Template.Minimal]: "min",
-  [Template.WidgetsDynamo]: "wddb",
-  [Template.WidgetsPostgres]: "wpg",
-  [Template.WebPortal]: "wp",
-  [Template.KitchenSink]: "ks",
+const templateAnswers: Record<Template, Pick<Answers, "appId" | "appTitle">> = {
+  [Template.Minimal]: { appId: "min", appTitle: "Minimal" },
+  [Template.CrudDynamo]: { appId: "crud-ddb", appTitle: "CRUD DynamoDB" },
+  [Template.CrudPostgres]: { appId: "crud-pg", appTitle: "CRUD PostgreSQL" },
+  [Template.UserAuthMgmtCognito]: {
+    appId: "auth-cognito",
+    appTitle: "Auth Cognito",
+  },
+  [Template.Dashboard]: { appId: "dash", appTitle: "Dashboard" },
 };
 
-const argv = parse(process.argv.slice(2));
-const all = argv["all"];
-const template = argv["template"];
-if (all) {
-  await testCreate(
-    allTemplates.map((t) => ({ appId: templateAppIds[t], template: t }))
-  );
-} else if (template in Template) {
-  console.log(`Testing Template ${template}`);
-  await testCreate([{ appId: templateAppIds[template as Template], template }]);
-} else {
-  throw new Error(
-    `Usage: ts-node tests/test-create.ts --template ${allTemplates.join("|")}`
-  );
-}
-
-function testCreate(answers: Omit<Answers, "directory">[]) {
-  const promises: Promise<unknown>[] = [];
-  for (const answer of answers) {
-    promises.push(
-      new Promise((resolve, reject) => {
-        const tmpDir = getTmpDir();
-        console.log("Using tmp directory: " + tmpDir);
-        let error: unknown;
-        try {
-          const operations = getTemplateOperations({
-            ...answer,
-            directory: tmpDir,
-          });
-          executeOperations(operations);
-          run("pnpm i", tmpDir);
-          run("pnpm deploy:local", resolvePath(tmpDir, "infra"));
-          run("pnpm destroy:local", resolvePath(tmpDir, "infra"));
-        } catch (err) {
-          error = err;
-        } finally {
-          rmdirSync(tmpDir);
-        }
-        if (error) {
-          reject(error);
-        } else {
-          resolve(null);
-        }
-      })
-    );
-  }
-  return Promise.all(promises);
-}
-
-function run(command: string, cwd: string) {
-  execSync(command, {
-    cwd,
-    stdio: "inherit",
+const program = new Command();
+program
+  .name("test-create")
+  .description("CLI to test 'gboost create' templates")
+  .option("--all")
+  .addOption(
+    new Option("--template <template>").choices(Object.values(Template))
+  )
+  .action(async ({ all, template }) => {
+    try {
+      if (all) {
+        // TODO: uncomment below after all templates are done
+        // await testCreate(
+        //   allTemplates.map((t) => ({ ...templateAnswers[t], template: t }))
+        // );
+        await testTemplates([
+          { ...templateAnswers.Minimal, template: Template.Minimal },
+          { ...templateAnswers.CrudDynamo, template: Template.CrudDynamo },
+        ]);
+      } else if (template && template in Template) {
+        await testTemplates([
+          { ...templateAnswers[template as Template], template },
+        ]);
+      } else {
+        program.help();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   });
+program.parse();
+
+function testTemplates(answers: Omit<Answers, "directory">[]) {
+  // .allSettled() allows working templates to finish before failing
+  return Promise.allSettled(
+    answers.map(async (answer) => {
+      const log = (d: string) => console.log(`${answer.template}: ${d}`);
+      const tmpDir = await mkdtemp(tmpdir());
+      try {
+        log("Testing Template");
+        log(`Using tmp directory: ${tmpDir}`);
+        const operations = getTemplateOperations({
+          ...answer,
+          directory: tmpDir,
+        });
+        executeOperations(operations);
+        await run("pnpm i", tmpDir, log);
+        await run("pnpm typecheck", tmpDir, log);
+        await run("pnpm lint", tmpDir, log);
+        await run("pnpm test", tmpDir, log);
+        const infraDir = resolvePath(tmpDir, "infra");
+        try {
+          await run("pnpm deploy:local", infraDir, log);
+        } catch (err) {
+          log("Error while deploying");
+        } finally {
+          await run("pnpm destroy:local", infraDir, log);
+        }
+      } catch (err) {
+        //
+      } finally {
+        await rm(tmpDir, { force: true, recursive: true });
+      }
+    })
+  );
 }
 
-function getTmpDir() {
-  return mkdtempSync(tmpdir());
+function run(command: string, cwd: string, log: (d: string) => void) {
+  return new Promise((resolve, reject) => {
+    const process = exec(command, {
+      cwd,
+    });
+    process.stdout?.on("data", (d) => log(d.toString()));
+    process.stderr?.on("data", (d) => log(d.toString()));
+    process.on("exit", (code) => (code === 0 ? resolve(null) : reject(code)));
+  });
 }

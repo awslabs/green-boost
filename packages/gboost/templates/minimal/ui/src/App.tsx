@@ -1,16 +1,13 @@
 // @ts-nocheck
-import "@aws-amplify/ui-react/styles.css";
-import "@fontsource/inter/variable.css";
-import { globalStyles, Layout, theme as stitchesTheme } from "gboost-ui";
+import "./App.css.js";
+import { Layout } from "gboost-ui";
 import { AmplifyProvider, Heading, Text } from "@aws-amplify/ui-react";
 import { theme } from "./theme.js";
 
 export function App() {
-  globalStyles();
   return (
     <AmplifyProvider theme={theme}>
       <Layout
-        className={stitchesTheme}
         HeaderTitle={
           <Heading level={3} color="white">
             Minimal App

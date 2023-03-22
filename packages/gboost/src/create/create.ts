@@ -29,13 +29,12 @@ export async function create() {
       "pnpm deploy:local"
     )}` +
     "\n" +
-    `💻 Locally develop your frontend: ${kleur.yellow(
-      "cd ui"
-    )} then ${kleur.yellow("pnpm dev")}` +
-    "\n" +
     `🧹 Clean up: ${kleur.yellow("cd infra")} then ${kleur.yellow(
       "pnpm destroy:local"
-    )}`;
+    )}` +
+    "\n" +
+    `See README.md on how to develop frontend with fast refresh and backend with hotswaps` +
+    "\n";
   logger.log(message);
 }
 
