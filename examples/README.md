@@ -1,0 +1,3 @@
+# Green Boost Examples
+
+Examples are production-grade web apps built with Green Boost that solve a business problem. They have specific requirements and may take many manual steps to deploy. They're not meant for use as a "quick start". Templates created from `gboost create` on the other hand are simple web apps meeting more generic use cases meant for developers to build on top off. Templates are easy to get started with. You're welcome to deploy these example apps and utilize patterns and code found within them.
