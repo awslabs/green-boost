@@ -23,8 +23,8 @@
     "cdk-monitoring-constructs": "^2.6.4",
     "cdk-nag": "^2.22.34",
     "constructs": "^10.1.277",
-    "gboost-common": "link:../../../green-boost/packages/gboost-common",
-    "gboost-infra": "link:../../../green-boost/packages/gboost-infra",
+    "gboost-common": "^0.10.0",
+    "gboost-infra": "^0.13.0",
     "vite": "^4.1.4",
     "vite-node": "^0.29.2"
   },
