@@ -1,5 +1,17 @@
 # gboost-ui
 
+## 0.32.0
+
+### Minor Changes
+
+- [#179](https://github.com/awslabs/green-boost/pull/179) [`62b8f67`](https://github.com/awslabs/green-boost/commit/62b8f677bc8c5810a990c0945d51687e8d5e6b8a) Thanks [@bestickley](https://github.com/bestickley)! - Add `useInfiniteQueryPagination` hook to make working with QueryTable and React Query's useInfiniteData hook easier
+
+- [#179](https://github.com/awslabs/green-boost/pull/179) [`62b8f67`](https://github.com/awslabs/green-boost/commit/62b8f677bc8c5810a990c0945d51687e8d5e6b8a) Thanks [@bestickley](https://github.com/bestickley)! - Create composable alternative to `Layout`: `LayoutGrid` which utilizes CSS Grid. Additionally includes: `FooterArea`, `HeaderArea`, `LeftAsideArea`, `MainArea`, and `RightAside` area intended to be used for `LayoutGrid` props. Also add `NavAside` intended for usage with `LeftAsideArea` and `Header` intended for usage with `HeaderArea`. Deprecate `Layout` as `LayoutGrid` is its successor.
+
+### Patch Changes
+
+- [#179](https://github.com/awslabs/green-boost/pull/179) [`62b8f67`](https://github.com/awslabs/green-boost/commit/62b8f677bc8c5810a990c0945d51687e8d5e6b8a) Thanks [@bestickley](https://github.com/bestickley)! - Fix QueryTable to use TooltipProvider from radix ui
+
 ## 0.31.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.13.1
+
+### Patch Changes
+
+- [#179](https://github.com/awslabs/green-boost/pull/179) [`62b8f67`](https://github.com/awslabs/green-boost/commit/62b8f677bc8c5810a990c0945d51687e8d5e6b8a) Thanks [@bestickley](https://github.com/bestickley)! - Use construct default props in function and table
+
 ## 0.13.0
 
 ### Minor Changes

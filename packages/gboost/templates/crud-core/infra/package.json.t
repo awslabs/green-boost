@@ -24,7 +24,7 @@
     "cdk-nag": "^2.22.34",
     "constructs": "^10.1.277",
     "gboost-common": "^0.10.0",
-    "gboost-infra": "^0.13.0",
+    "gboost-infra": "^0.13.1",
     "vite": "^4.1.4",
     "vite-node": "^0.29.2"
   },
