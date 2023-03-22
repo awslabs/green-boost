@@ -8,8 +8,9 @@ import { StageName } from "@{{GB_APP_ID}}/core";
 
 interface StageConfigParams {
   /**
-   * Note, this value will be set on `enumStageName` on instance. Instance's
-   * `stageName` will be different if `StageName.Local`.
+   * Note, this value will be set as `enumStageName` on class instance. Instance's
+   * `stageName` will be different than this value passed into constructor if
+   * `StageName.Local`.
    */
   stageName: StageName;
   account?: string;

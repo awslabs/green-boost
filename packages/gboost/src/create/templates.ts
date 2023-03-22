@@ -16,28 +16,30 @@ export const templateChoices: prompts.Choice[] = [
     value: Template.Minimal,
   },
   {
-    title: "CRUD with DynamoDB",
-    description: "CRUD via table and forms. API Gateway with tRPC and DynamoDB",
+    title: "CRUD App with DynamoDB",
+    description:
+      "CRUD App with table and forms built on Minimal template. API layer uses tRPC with API Gateway and data layer uses DynamoDB",
     value: Template.CrudDynamo,
   },
   {
-    title: "CRUD with Aurora Serverless Postgres",
+    title: "CRUD App with Aurora Serverless Postgres",
     description:
-      "CRUD via table and forms. API Gateway with tRPC and Aurora Serverless Postgres",
+      "CRUD App with table and forms built on Minimal template. API layer uses tRPC with API Gateway and data layer uses Aurora Serverless Postgres",
     value: Template.CrudPostgres,
     disabled: true,
   },
   {
-    title: "User Authentication and Management with Cognito",
+    title: "User Auth and Management with Cognito",
     description:
-      "User password authentication with Cognito User Pools and Green Boost's user management use-case feature",
+      "User password authentication with Cognito User Pools and user management built on CRUD App with DynamoDB",
     value: Template.UserAuthMgmtCognito,
     disabled: true,
   },
   {
     title: "Dashboard",
-    description: "Mock dashboard built with amcharts",
-    value: Template.UserAuthMgmtCognito,
+    description:
+      "Mock dashboard using amCharts built on User Auth and Management with Cognito",
+    value: Template.Dashboard,
     disabled: true,
   },
 ];

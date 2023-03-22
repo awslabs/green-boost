@@ -34,6 +34,7 @@ export function copy(params: CopyOperation): void {
   if (statSync(params.sourcePath).isDirectory()) {
     const options: CopySyncOptions = {
       recursive: true,
+      force: true,
     };
     const filterFiles = params.filterFiles;
     if (filterFiles) {
