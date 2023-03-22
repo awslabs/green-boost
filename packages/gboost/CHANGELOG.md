@@ -1,5 +1,11 @@
 # gboost
 
+## 0.12.1
+
+### Patch Changes
+
+- [#181](https://github.com/awslabs/green-boost/pull/181) [`dcff897`](https://github.com/awslabs/green-boost/commit/dcff8975e47b7d1c87f41bb3e7c25dabbdf5813a) Thanks [@bestickley](https://github.com/bestickley)! - Fix gboost CLI build
+
 ## 0.12.0
 
 ### Minor Changes
