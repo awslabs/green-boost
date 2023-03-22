@@ -1,5 +1,12 @@
 # gboost-ui
 
+## 0.32.1
+
+### Patch Changes
+
+- Updated dependencies [[`2161419`](https://github.com/awslabs/green-boost/commit/21614193f619eecda922ea60bab82e5de15210f9)]:
+  - gboost-common@0.11.0
+
 ## 0.32.0
 
 ### Minor Changes
