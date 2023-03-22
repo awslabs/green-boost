@@ -25,78 +25,117 @@ function run(command: string) {
 }
 
 /**
- * Scans packages/gboost/templates directory for any package.txt, then updates
- * the package version of Green Boost dependencies
+ * Update version of GB dependencies within packages/gboost/templates/ and
+ * examples/ which aren't automatically updated by changeset.
+ * `
  */
 function updateTemplatePackageVersions() {
   // get updated package versions
-  const commonVersion =
+  const latestVersions = getLatestVersions();
+  const pkgJsonPaths = getPkgJsonPaths();
+  for (const pkgJsonPath of pkgJsonPaths) {
+    updateGbDeps(pkgJsonPath, latestVersions);
+  }
+}
+
+interface LatestGbVersions {
+  "gboost-common": string;
+  "gboost-infra": string;
+  "gboost-node": string;
+  "gboost-ui": string;
+}
+
+/**
+ * Get latest NPM (semver) versions of GB packages
+ */
+function getLatestVersions(): LatestGbVersions {
+  const common =
     "^" +
     readPkgJson(
       resolve(thisFilePath, "../../packages/gboost-common/package.json")
     ).version;
-  const infraVersion =
+  const infra =
     "^" +
     readPkgJson(
       resolve(thisFilePath, "../../packages/gboost-infra/package.json")
     ).version;
-  const uiVersion =
+  const ui =
     "^" +
     readPkgJson(resolve(thisFilePath, "../../packages/gboost-ui/package.json"))
       .version;
-  const nodeVersion =
+  const node =
     "^" +
     readPkgJson(
       resolve(thisFilePath, "../../packages/gboost-node/package.json")
     ).version;
+  return {
+    "gboost-common": common,
+    "gboost-infra": infra,
+    "gboost-ui": ui,
+    "gboost-node": node,
+  };
+}
 
+/**
+ * Get paths of package.json's that should have their GB dependencies updated
+ */
+function getPkgJsonPaths(): string[] {
   // update package versions in template
-  const templateFilePaths = listFilePaths(
+  const pkgJsonPaths: string[] = [];
+  const templatePkgJsons = listFilePaths(
     resolve(thisFilePath, "../../packages/gboost/templates")
-  );
-  // package.txt is used instead of package.json to avoid IDE errors
-  const pkgJsonPaths = templateFilePaths.filter((p) =>
-    p.endsWith("package.json.t")
-  );
-  console.log({ templateFilePaths, pkgJsonPaths });
-  for (const pkgJsonPath of pkgJsonPaths) {
-    const pkgJson = readPkgJson(pkgJsonPath);
-    const dependencies = pkgJson.dependencies;
-    if (dependencies) {
-      let edited = false;
-      if (
-        "gboost-common" in dependencies &&
-        dependencies["gboost-common"] !== commonVersion
-      ) {
-        dependencies["gboost-common"] = commonVersion;
-        edited = true;
-      }
-      if (
-        "gboost-infra" in dependencies &&
-        dependencies["gboost-infra"] !== infraVersion
-      ) {
-        dependencies["gboost-infra"] = infraVersion;
-        edited = true;
-      }
-      if (
-        "gboost-node" in dependencies &&
-        dependencies["gboost-node"] !== nodeVersion
-      ) {
-        dependencies["gboost-node"] = nodeVersion;
-        edited = true;
-      }
-      if (
-        "gboost-ui" in dependencies &&
-        dependencies["gboost-ui"] !== uiVersion
-      ) {
-        dependencies["gboost-ui"] = uiVersion;
-        edited = true;
-      }
-      if (edited) {
-        console.log("Editing: " + pkgJsonPath);
-        console.log(pkgJson);
-        writePkgJson(pkgJsonPath, pkgJson);
-      }
+    // package.txt is used instead of package.json to avoid IDE errors
+  ).filter((p) => p.endsWith("package.json.t"));
+  pkgJsonPaths.push(...templatePkgJsons);
+  const examplePkgJsons = listFilePaths(
+    resolve(thisFilePath, "../../examples")
+  ).filter((p) => p.endsWith("package.json"));
+  pkgJsonPaths.push(...examplePkgJsons);
+  console.log({ pkgJsonPaths });
+  return pkgJsonPaths;
+}
+
+/**
+ * Given the path of a package.json file, update versions of GB packages to
+ * latest versions
+ */
+function updateGbDeps(pkgJsonPath: string, latestVersions: LatestGbVersions) {
+  const pkgJson = readPkgJson(pkgJsonPath);
+  const dependencies = pkgJson.dependencies;
+  if (dependencies) {
+    let edited = false;
+    if (
+      "gboost-common" in dependencies &&
+      dependencies["gboost-common"] !== latestVersions["gboost-common"]
+    ) {
+      dependencies["gboost-common"] = latestVersions["gboost-common"];
+      edited = true;
+    }
+    if (
+      "gboost-infra" in dependencies &&
+      dependencies["gboost-infra"] !== latestVersions["gboost-infra"]
+    ) {
+      dependencies["gboost-infra"] = latestVersions["gboost-infra"];
+      edited = true;
+    }
+    if (
+      "gboost-node" in dependencies &&
+      dependencies["gboost-node"] !== latestVersions["gboost-node"]
+    ) {
+      dependencies["gboost-node"] = latestVersions["gboost-node"];
+      edited = true;
+    }
+    if (
+      "gboost-ui" in dependencies &&
+      dependencies["gboost-ui"] !== latestVersions["gboost-ui"]
+    ) {
+      dependencies["gboost-ui"] = latestVersions["gboost-ui"];
+      edited = true;
+    }
+    if (edited) {
+      console.log("Editing: " + pkgJsonPath);
+      console.log(pkgJson);
+      writePkgJson(pkgJsonPath, pkgJson);
     }
   }
 }

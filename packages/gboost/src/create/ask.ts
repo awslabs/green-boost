@@ -60,7 +60,7 @@ const questions: PromptObject<keyof Answers>[] = [
     type: "text",
     // Part of CDK Stack name and used as scope to prefix all PNPM workspaces within monorepo
     message: "App Title:",
-    initial: (_prev, answers) => answers.template,
+    initial: "My App",
     onState: handleAborted,
   },
 ];
