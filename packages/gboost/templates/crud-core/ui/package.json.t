@@ -12,8 +12,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^4.4.0",
-    "@fontsource/inter": "^4.5.14",
+    "@aws-amplify/ui-react": "^4.4.1",
+    "@fontsource/inter": "^4.5.15",
     "@hookform/resolvers": "^2.9.11",
     "@{{GB_APP_ID}}/core": "workspace:^0.1.0",
     "@radix-ui/colors": "^0.1.8",

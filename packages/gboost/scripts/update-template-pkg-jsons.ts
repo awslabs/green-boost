@@ -2,8 +2,9 @@ import ncu from "npm-check-updates";
 import { resolve } from "node:path";
 import { listFilePaths } from "../src/create/operations/common.js";
 import { writeFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 
-const thisFilePath = import.meta.url;
+const thisFilePath = fileURLToPath(import.meta.url);
 
 /**
  * Updates package.json versions within templates/ folder. `pnpm update` doesn't
@@ -22,16 +23,16 @@ async function main() {
         packageFile,
         upgrade: true,
         target: "minor", // or "latest" if you want to update major versions
-        // Defaults:
-        // jsonUpgraded: true,
-        // silent: true,
+        jsonAll: true,
+        silent: false,
+        packageManager: "pnpm",
       })
     )
   );
 
   let i = 0;
   for (const pkgJsonPath of pkgJsonPaths) {
-    writeFileSync(pkgJsonPath, JSON.stringify(updatedPkgJsons[i]));
+    writeFileSync(pkgJsonPath, JSON.stringify(updatedPkgJsons[i], null, 2));
     i++;
   }
 }

@@ -5,11 +5,11 @@
   "exports": "./.eslintrc.cjs",
   "devDependencies": {
     "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.7.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-config-react-app": "^7.0.1",
-    "eslint-define-config": "^1.16.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.8.0",
-    "typescript": "^4.9.3"
+    "eslint-define-config": "^1.17.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.6",
+    "typescript": "^4.9.5"
   }
 }

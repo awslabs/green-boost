@@ -22,15 +22,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-lambda-powertools/logger": "^1.5.1",
-    "@aws-sdk/client-dynamodb": "^3.289.0",
-    "@aws-sdk/lib-dynamodb": "^3.289.0",
-    "@aws-sdk/smithy-client": "^3.289.0",
-    "@trpc/server": "^10.16.0",
+    "@aws-lambda-powertools/logger": "^1.7.0",
+    "@aws-sdk/client-dynamodb": "^3.296.0",
+    "@aws-sdk/lib-dynamodb": "^3.296.0",
+    "@aws-sdk/smithy-client": "^3.296.0",
+    "@trpc/server": "^10.17.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@aws-sdk/types": "^3.289.0",
+    "@aws-sdk/types": "^3.296.0",
     "@{{GB_APP_ID}}/eslint-config-node": "workspace:^0.1.0",
     "@{{GB_APP_ID}}/tsconfig": "workspace:^0.1.0",
     "@{{GB_APP_ID}}/utils": "workspace:^0.1.0",

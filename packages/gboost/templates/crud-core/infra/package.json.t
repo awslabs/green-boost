@@ -14,9 +14,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigatewayv2-alpha": "^2.66.1-alpha.0",
-    "@aws-cdk/aws-redshift-alpha": "^2.66.1-alpha.0",
-    "@aws-cdk/aws-synthetics-alpha": "^2.66.1-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-alpha": "^2.69.0-alpha.0",
+    "@aws-cdk/aws-redshift-alpha": "^2.69.0-alpha.0",
+    "@aws-cdk/aws-synthetics-alpha": "^2.69.0-alpha.0",
     "@{{GB_APP_ID}}/core": "workspace:^0.1.0",
     "aws-cdk": "^2.68.0",
     "aws-cdk-lib": "^2.68.0",
