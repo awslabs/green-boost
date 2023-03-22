@@ -1,5 +1,11 @@
 # gboost
 
+## 0.12.2
+
+### Patch Changes
+
+- [`254e1f4`](https://github.com/awslabs/green-boost/commit/254e1f49f528c94d75e815b9dc9974742988cf22) Thanks [@bestickley](https://github.com/bestickley)! - Include ui/.env in gboost templates
+
 ## 0.12.1
 
 ### Patch Changes
