@@ -9,11 +9,6 @@ overrides:
   eta@<2.0.0: '>=2.0.0'
   webpack@5: '>=5.76.0'
 
-patchedDependencies:
-  '@hookform/resolvers@2.9.11':
-    hash: cjy2iymqqmz6if5vz6nics7yxq
-    path: patches/@hookform__resolvers@2.9.11.patch
-
 importers:
 
   .:
@@ -278,7 +273,7 @@ importers:
     specifiers:
       '@aws-amplify/ui-react': ^4.3.10
       '@aws-sdk/client-s3': ^3.290.0
-      '@hookform/resolvers': ^2.9.11
+      '@hookform/resolvers': ^3.0.0
       '@mantine/hooks': ^5.10.4
       '@radix-ui/colors': ^0.1.8
       '@radix-ui/react-dialog': ^1.0.3
@@ -308,7 +303,7 @@ importers:
       prettier: ^2.8.4
       react: ^18.2.0
       react-dom: ^18.2.0
-      react-hook-form: ^7.43.5
+      react-hook-form: ^7.43.7
       react-icons: ^4.8.0
       react-router-dom: ^6.9.0
       react-transition-group: ^4.4.5
@@ -319,7 +314,7 @@ importers:
       zod: ^3.21.4
     dependencies:
       '@aws-amplify/ui-react': 4.3.10_3u5bidcurqsubwcpxcweciuzdu
-      '@hookform/resolvers': 2.9.11_cjy2iymqqmz6if5vz6nics7yxq_react-hook-form@7.43.5
+      '@hookform/resolvers': 3.0.0_react-hook-form@7.43.7
       '@mantine/hooks': 5.10.5_react@18.2.0
       '@radix-ui/colors': 0.1.8
       '@radix-ui/react-dialog': 1.0.3_zula6vjvt3wdocc4mwcxqa6nzi
@@ -335,7 +330,7 @@ importers:
       graphql-tag: 2.12.6_graphql@16.6.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-hook-form: 7.43.5_react@18.2.0
+      react-hook-form: 7.43.7_react@18.2.0
       react-icons: 4.8.0_react@18.2.0
       react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
       zod: 3.21.4
@@ -6833,14 +6828,13 @@ packages:
     dependencies:
       '@hapi/hoek': 9.3.0
 
-  /@hookform/resolvers/2.9.11_cjy2iymqqmz6if5vz6nics7yxq_react-hook-form@7.43.5:
-    resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
+  /@hookform/resolvers/3.0.0_react-hook-form@7.43.7:
+    resolution: {integrity: sha512-SQPefakODpyq25b/phHXDKCdRrEfPcCXV7B4nAa139wE1DxufYbbNAjeo0T04ZXBokRxZ+wD8iA1kkVMa3QwjQ==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
-      react-hook-form: 7.43.5_react@18.2.0
+      react-hook-form: 7.43.7_react@18.2.0
     dev: false
-    patched: true
 
   /@humanwhocodes/config-array/0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
@@ -15542,8 +15536,8 @@ packages:
       react-fast-compare: 3.2.0
       shallowequal: 1.1.0
 
-  /react-hook-form/7.43.5_react@18.2.0:
-    resolution: {integrity: sha512-YcaXhuFHoOPipu5pC7ckxrLrialiOcU91pKu8P+isAcXZyMgByUK9PkI9j5fENO4+6XU5PwWXRGMIFlk9u9UBQ==}
+  /react-hook-form/7.43.7_react@18.2.0:
+    resolution: {integrity: sha512-38yehQkQQ5uufaPKFScs7jhLE8n3+LG9H/BZfFAiBL2+7piDmw/BrdNJV4irzMaPnWZGhmGLHVICHXNVGIuXZg==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18

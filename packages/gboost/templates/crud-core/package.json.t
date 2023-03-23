@@ -36,9 +36,6 @@
         "@babel/plugin-transform-react-jsx",
         "react-native"
       ]
-    },
-    "patchedDependencies": {
-      "@hookform/resolvers@2.9.11": "patches/@hookform__resolvers@2.9.11.patch"
     }
   }
 }

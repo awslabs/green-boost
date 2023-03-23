@@ -14,7 +14,7 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^4.4.0",
     "@fontsource/inter": "^4.5.14",
-    "@hookform/resolvers": "^2.9.11",
+    "@hookform/resolvers": "^3.0.0",
     "@myapp/core": "workspace:^0.1.0",
     "@radix-ui/colors": "^0.1.8",
     "@stitches/react": "^1.2.8",
