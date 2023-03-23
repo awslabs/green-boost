@@ -1,19 +1,23 @@
 import { execSync } from "node:child_process";
 
-const allowedLicenses = [
-  "(MIT AND Zlib)",
-  "(MIT OR GPL-3.0-or-later)",
-  "(WTFPL OR MIT)",
-  "(MIT OR CC0-1.0)",
-  "Apache-2.0",
+/**
+ * Array of strings of allowed licenses or functions that accept a license
+ * and return `true` if allowed and `false` if not allowed
+ */
+const allowedLicenses: (string | ((l: string) => boolean))[] = [
+  (l) => l.includes("Apache-2.0"),
   "APACHEv2",
-  "Apache-2.0 AND MIT",
-  "MIT",
-  "MIT-0",
-  "MIT/X11",
+  "BlueOak-1.0.0",
+  (l) => l.includes("BlueOak"),
+  (l) => l.includes("BSD"),
+  (l) => l.includes("CC"),
+  (l) => l.includes("gpl"),
+  "ISC",
+  (l) => l.includes("MIT"),
+  (l) => l.includes("MPL"),
+  "Python-2.0",
   "Unknown",
   "Unlicense",
-  "0BSD",
 ];
 
 const licenseOutputString = execSync("pnpm licenses list --json", {
@@ -29,7 +33,19 @@ const licenseOutput: Record<string, Package[]> =
   JSON.parse(licenseOutputString);
 const notAllowedLicenses: string[] = [];
 for (const [license, packages] of Object.entries(licenseOutput)) {
-  if (!allowedLicenses.includes(license)) {
+  let allowed = false;
+  for (const allowedLicense of allowedLicenses) {
+    if (typeof allowedLicense === "string") {
+      if (license === allowedLicense) {
+        allowed = true;
+      }
+    } else {
+      if (allowedLicense(license)) {
+        allowed = true;
+      }
+    }
+  }
+  if (!allowed) {
     notAllowedLicenses.push(license);
     console.log({ [license]: packages });
   }
