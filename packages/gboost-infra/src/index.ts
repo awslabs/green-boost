@@ -9,3 +9,4 @@ export * from "./user-base/index.js";
 export * from "./file-upload/file-upload.js";
 export * from "./web-deployment/web-deployment.js";
 export * from "./construct-default-props.js";
+export * from "./db-iam-cluster.js";

@@ -1,6 +1,5 @@
 import { existsSync } from "node:fs";
 import { rm } from "node:fs/promises";
-import { userInfo } from "node:os";
 import prompts, { PromptObject } from "prompts";
 import { pascalToKebabCase } from "gboost-common";
 import { logger } from "../utils/logger.js";
@@ -35,8 +34,7 @@ const questions: PromptObject<keyof Answers>[] = [
     name: "directory",
     type: "text",
     message: "Directory:",
-    initial: (prev: string) =>
-      `${userInfo().username}-${pascalToKebabCase(prev)}`,
+    initial: (prev: string) => `${pascalToKebabCase(prev)}`,
     onState: handleAborted,
   },
   {
