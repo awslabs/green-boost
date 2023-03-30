@@ -5,8 +5,9 @@
     "declarationMap": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "outDir": "lib",
-    "rootDir": "./src"
   },
   "exclude": ["lib"],
+  "ts-node": {
+    "esm": true,
+  }
 }

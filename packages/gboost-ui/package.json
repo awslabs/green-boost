@@ -33,7 +33,7 @@
     "lib/**/*"
   ],
   "scripts": {
-    "build": "rimraf lib && tsc -p tsconfig.build.json",
+    "build": "rimraf lib && tsc --project tsconfig.build.json",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
