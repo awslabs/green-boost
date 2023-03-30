@@ -95,23 +95,25 @@ export function Tooltip(props: TooltipProps): ReactElement {
     sideOffset,
   } = props;
   return (
-    <TooltipPrimitive.Root
-      defaultOpen={defaultOpen}
-      delayDuration={delayDuration}
-      open={open}
-      onOpenChange={onOpenChange}
-    >
-      <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
-      <StyledContent
-        align={align}
-        alignOffset={alignOffset}
-        css={{ maxWidth }}
-        side={side}
-        sideOffset={sideOffset}
+    <TooltipPrimitive.Provider>
+      <TooltipPrimitive.Root
+        defaultOpen={defaultOpen}
+        delayDuration={delayDuration}
+        open={open}
+        onOpenChange={onOpenChange}
       >
-        {content}
-        <StyledArrow />
-      </StyledContent>
-    </TooltipPrimitive.Root>
+        <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
+        <StyledContent
+          align={align}
+          alignOffset={alignOffset}
+          css={{ maxWidth }}
+          side={side}
+          sideOffset={sideOffset}
+        >
+          {content}
+          <StyledArrow />
+        </StyledContent>
+      </TooltipPrimitive.Root>
+    </TooltipPrimitive.Provider>
   );
 }
