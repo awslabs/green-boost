@@ -7,6 +7,7 @@ import { suppressCdkBucketDeployment } from "./suppress-cdk-bucket-deployment.js
 import { suppressCdkCustomResourceProvider } from "./suppress-cdk-custom-resource-provider.js";
 import { suppressCdkLogRetention } from "./suppress-cdk-log-retention.js";
 import { suppressCdkCustomResource } from "./suppress-cdk-custom-resource.js";
+import { suppressCdkMonitoringConstructs } from "./suppress-cdk-monitoring-constructs.js";
 
 /**
  * Suppresses common cdk-nags that are acceptable to many development teams.
@@ -35,6 +36,9 @@ export class SuppressNags implements IAspect {
     }
     if (this.#suppressions.includes(Suppression.CdkLogRetention)) {
       suppressCdkLogRetention(construct);
+    }
+    if (this.#suppressions.includes(Suppression.CdkMonitoringConstructs)) {
+      suppressCdkMonitoringConstructs(construct);
     }
   }
 }

@@ -27,4 +27,8 @@ export enum Suppression {
    * Supress AwsSolutions-IAM5 nags for CDK Log Retention resources
    */
   CdkLogRetention = "CdkLogRetention",
+  /**
+   * Suppress AwsSolutions-IAM5 and AwsSolutions-L1 nags for CDK Monitoring Constructs
+   */
+  CdkMonitoringConstructs = "CdkMonitoringConstructs",
 }
