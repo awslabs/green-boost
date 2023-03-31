@@ -6,6 +6,6 @@
     ".": "./index.js"
   },
   "dependencies": {
-    "eslint": "^8.36.0"
+    "eslint": "^8.37.0"
   }
 }

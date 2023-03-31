@@ -14,28 +14,24 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigatewayv2-alpha": "^2.69.0-alpha.0",
-    "@aws-cdk/aws-redshift-alpha": "^2.69.0-alpha.0",
-    "@aws-cdk/aws-synthetics-alpha": "^2.69.0-alpha.0",
-    "@{{GB_APP_ID}}/core": "workspace:^0.1.0",
-    "aws-cdk": "^2.68.0",
-    "aws-cdk-lib": "^2.68.0",
+    "@aws-cdk/aws-apigatewayv2-alpha": "^2.72.1-alpha.0",
+    "@aws-cdk/aws-redshift-alpha": "^2.72.1-alpha.0",
+    "@aws-cdk/aws-synthetics-alpha": "^2.72.1-alpha.0",
+    "aws-cdk": "^2.72.1",
+    "aws-cdk-lib": "^2.72.1",
     "cdk-monitoring-constructs": "^2.6.4",
-    "cdk-nag": "^2.22.34",
-    "constructs": "^10.1.277",
-    "gboost-common": "^0.10.0",
-    "gboost-infra": "^0.13.1",
-    "vite": "^4.1.4",
-    "vite-node": "^0.29.2"
+    "cdk-nag": "^2.25.2",
+    "constructs": "^10.1.297",
+    "gboost-common": "^0.11.0",
+    "gboost-infra": "^0.13.2",
+    "vite": "^4.2.1",
+    "vite-node": "^0.29.8"
   },
   "devDependencies": {
-    "@{{GB_APP_ID}}/eslint-config-node": "workspace:^0.1.0",
-    "@{{GB_APP_ID}}/tsconfig": "workspace:^0.1.0",
-    "@{{GB_APP_ID}}/utils": "workspace:^0.1.0",
-    "@types/node": "^18.15.2",
-    "eslint": "^8.36.0",
-    "eslint-define-config": "^1.16.0",
-    "typescript": "^4.9.4",
-    "vitest": "^0.28.5"
+    "@types/node": "^18.15.11",
+    "eslint": "^8.37.0",
+    "eslint-define-config": "^1.17.0",
+    "typescript": "^4.9.5",
+    "vitest": "^0.29.8"
   }
 }

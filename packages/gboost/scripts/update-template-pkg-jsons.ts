@@ -26,6 +26,8 @@ async function main() {
         jsonAll: true,
         silent: false,
         packageManager: "pnpm",
+        reject: /^@{{GB_APP_ID}}.+$/,
+        verbose: true,
       })
     )
   );

@@ -14,24 +14,20 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@{{GB_APP_ID}}/core": "workspace:^0.1.0",
-    "aws-cdk": "^2.67.0",
-    "aws-cdk-lib": "^2.67.0",
-    "cdk-nag": "^2.21.67",
-    "constructs": "^10.1.277",
-    "gboost-common": "^0.10.0",
-    "gboost-infra": "^0.13.1",
-    "vite": "^4.1.4",
-    "vite-node": "^0.29.2"
+    "aws-cdk": "^2.72.1",
+    "aws-cdk-lib": "^2.72.1",
+    "cdk-nag": "^2.25.2",
+    "constructs": "^10.1.297",
+    "gboost-common": "^0.11.0",
+    "gboost-infra": "^0.13.2",
+    "vite": "^4.2.1",
+    "vite-node": "^0.29.8"
   },
   "devDependencies": {
-    "@{{GB_APP_ID}}/eslint-config-node": "workspace:^0.1.0",
-    "@{{GB_APP_ID}}/tsconfig": "workspace:^0.1.0",
-    "@{{GB_APP_ID}}/utils": "workspace:^0.1.0",
-    "@types/node": "^18.13.0",
-    "eslint": "^8.32.0",
-    "eslint-define-config": "^1.14.0",
-    "typescript": "^4.9.4",
-    "vitest": "^0.28.5"
+    "@types/node": "^18.15.11",
+    "eslint": "^8.37.0",
+    "eslint-define-config": "^1.17.0",
+    "typescript": "^4.9.5",
+    "vitest": "^0.29.8"
   }
 }

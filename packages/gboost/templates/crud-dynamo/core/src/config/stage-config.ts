@@ -3,7 +3,7 @@ import { StageName } from "./stage-name.js";
 import { getEnvVar } from "../utils/get-env-var.js";
 
 /**
- * StageConfig shared with ui/
+ * CommonStageConfig shared with ui/
  */
 export class CommonStageConfig {
   constructor(stageName: string) {
