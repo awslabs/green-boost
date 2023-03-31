@@ -41,6 +41,7 @@ export class Ui extends Stack {
         workingDirectory,
         environment: {
           VITE_API_URL: api.url,
+          VITE_STAGE_NAME: config.stageName,
         },
       },
       destinationBucket: staticSite.bucket,

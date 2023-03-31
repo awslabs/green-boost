@@ -1,1 +1,1 @@
-export * from "./stage-name.js";
+export * from "./config/index.js";

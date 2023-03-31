@@ -1,9 +1,11 @@
 // @ts-nocheck
 import { App } from "aws-cdk-lib";
 import { AppStage } from "./app-stage.js";
-import { configs } from "./config/configs.js";
-import { StageName } from "@{{GB_APP_ID}}/core";
+import { StageConfig } from "./config/stage-config.js";
+import { userInfo } from "node:os";
 
 const app = new App();
-const localConfig = configs[StageName.Local];
+const localConfig = new StageConfig(
+  process.env["STAGE_NAME"] || userInfo().username
+);
 new AppStage(app, localConfig.stageId, localConfig);

@@ -5,13 +5,18 @@ import { StaticSite, WebDeployment } from "gboost-infra";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+interface UiProps extends StackProps {
+  config: StageConfig;
+}
+
 const thisFilePath = fileURLToPath(import.meta.url);
 
 export class Ui extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps) {
+  constructor(scope: Construct, id: string, props: UiProps) {
     super(scope, id, props);
+    const { config } = props;
     const staticSite = new StaticSite(this, "StaticSite", {
-      retainAccessLogs: false,
+      retainAccessLogs: !config.isLocal,
       responseHeaders: {
         securityHeaders: {
           contentSecurityPolicy: {
@@ -28,6 +33,9 @@ export class Ui extends Stack {
     new WebDeployment(this, "WebDeployment", {
       buildConfig: {
         command: "pnpm build",
+        environment: {
+          VITE_STAGE_NAME: config.stageName,
+        },
         workingDirectory,
       },
       destinationBucket: staticSite.bucket,

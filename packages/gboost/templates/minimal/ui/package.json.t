@@ -14,6 +14,7 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^4.4.1",
     "@fontsource/inter": "^4.5.15",
+    "@{{GB_APP_ID}}/core": "workspace:^0.1.0",
     "@radix-ui/colors": "^0.1.8",
     "@stitches/react": "^1.2.8",
     "@tanstack/react-query": "^4.28.0",
@@ -28,6 +29,7 @@
     "@{{GB_APP_ID}}/utils": "workspace:^0.1.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
+    "@vanilla-extract/esbuild-plugin": "^2.2.2",
     "@vanilla-extract/vite-plugin": "^3.7.0",
     "@vitejs/plugin-react": "^3.1.0",
     "aws-amplify": "5.0.16",

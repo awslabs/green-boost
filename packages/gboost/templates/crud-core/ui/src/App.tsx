@@ -18,7 +18,7 @@ import { NavAside } from "./components/NavAside.js";
 import { theme } from "./theme.js";
 import { trpc, trpcClient } from "./trpc.js";
 import { Outlet } from "react-router-dom";
-import { config } from "./config.js";
+import { config } from "./config/config.js";
 
 const queryClient = new QueryClient({
   defaultOptions: {
