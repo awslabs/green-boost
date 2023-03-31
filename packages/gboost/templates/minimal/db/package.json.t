@@ -8,6 +8,9 @@
     "watch": "tsc -w",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "@{{GB_APP_ID}}/core": "workspace:^0.1.0"
+  },
   "devDependencies": {
     "@{{GB_APP_ID}}/eslint-config-node": "workspace:^0.1.0",
     "@{{GB_APP_ID}}/tsconfig": "workspace:^0.1.0",

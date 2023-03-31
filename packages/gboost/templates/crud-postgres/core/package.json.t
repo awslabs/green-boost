@@ -25,7 +25,7 @@
   "dependencies": {
     "@aws-lambda-powertools/logger": "^1.7.0",
     "@aws-sdk/smithy-client": "^3.296.0",
-    "@myapp1/db": "workspace:^0.1.0",
+    "@{{GB_APP_ID}}/db": "workspace:^0.1.0",
     "@trpc/server": "^10.17.0",
     "zod": "^3.21.4"
   },

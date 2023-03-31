@@ -3,7 +3,7 @@ import { Environment, RemovalPolicy } from "aws-cdk-lib";
 import { BucketEncryption } from "aws-cdk-lib/aws-s3";
 import { mergeDeep } from "gboost-common";
 import type { ConstructDefaultProps } from "gboost-infra";
-import { StageConfig as CoreStageConfig, StageName } from "@myapp1/core";
+import { StageConfig as CoreStageConfig, StageName } from "@{{GB_APP_ID}}/core";
 import { RetentionDays } from "aws-cdk-lib/aws-logs";
 
 /**
