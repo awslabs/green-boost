@@ -17,7 +17,7 @@
     "aws-cdk": "^2.72.1",
     "aws-cdk-lib": "^2.72.1",
     "cdk-nag": "^2.25.2",
-    "constructs": "^10.1.297",
+    "constructs": "^10.1.300",
     "gboost-common": "^0.11.0",
     "gboost-infra": "^0.13.2",
     "vite": "^4.2.1",

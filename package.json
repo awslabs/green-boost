@@ -16,7 +16,7 @@
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.1",
     "@types/license-checker": "^25.0.3",
-    "@types/node": "^18.15.10",
+    "@types/node": "^18.15.11",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "ts-node": "^10.9.1",

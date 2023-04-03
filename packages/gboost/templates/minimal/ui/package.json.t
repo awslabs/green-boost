@@ -23,7 +23,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.31",
+    "@types/react": "^18.0.32",
     "@types/react-dom": "^18.0.11",
     "@vanilla-extract/esbuild-plugin": "^2.2.2",
     "@vanilla-extract/vite-plugin": "^3.8.0",

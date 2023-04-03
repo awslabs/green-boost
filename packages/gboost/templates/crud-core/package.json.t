@@ -19,7 +19,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "esbuild": "^0.17.14"
+    "esbuild": "^0.17.15"
   },
   "pnpm": {
     "overrides": {
