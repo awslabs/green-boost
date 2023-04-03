@@ -46,7 +46,7 @@
     "aws-cdk-lib": "^2.72.1",
     "cdk-nag": "^2.25.2",
     "constructs": "^10.1.300",
-    "gboost-common": "workspace:^0.10.0",
+    "gboost-common": "workspace:^",
     "mime-types": "^2.1.35"
   },
   "devDependencies": {

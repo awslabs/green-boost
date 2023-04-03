@@ -31,9 +31,9 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
         resolve(destinationPath, "infra/package.json.t"),
       ],
       devDependencies: {
-        [`@${appId}/eslint-config-node`]: "workspace:^0.1.0",
-        [`@${appId}/tsconfig`]: "workspace:^0.1.0",
-        [`@${appId}/utils`]: "workspace:^0.1.0",
+        [`@${appId}/eslint-config-node`]: "workspace:^",
+        [`@${appId}/tsconfig`]: "workspace:^",
+        [`@${appId}/utils`]: "workspace:^",
       },
     },
     {
@@ -41,9 +41,9 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
       type: OperationType.UpdatePackageJson,
       sourcePaths: [resolve(destinationPath, "ui/package.json.t")],
       devDependencies: {
-        [`@${appId}/eslint-config-react`]: "workspace:^0.1.0",
-        [`@${appId}/tsconfig`]: "workspace:^0.1.0",
-        [`@${appId}/utils`]: "workspace:^0.1.0",
+        [`@${appId}/eslint-config-react`]: "workspace:^",
+        [`@${appId}/tsconfig`]: "workspace:^",
+        [`@${appId}/utils`]: "workspace:^",
       },
     },
     {
@@ -55,7 +55,7 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
         resolve(destinationPath, "ui/package.json.t"),
       ],
       dependencies: {
-        [`@${appId}/core`]: "workspace:^0.1.0",
+        [`@${appId}/core`]: "workspace:^",
       },
     },
     {

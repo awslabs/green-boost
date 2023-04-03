@@ -30,7 +30,7 @@ export function getCrudPostgresOperations(
       type: OperationType.UpdatePackageJson,
       sourcePaths: [resolve(destinationPath, "core/package.json.t")],
       dependencies: {
-        [`@${appId}/db`]: "workspace:^0.1.0",
+        [`@${appId}/db`]: "workspace:^",
       },
     },
   ];
