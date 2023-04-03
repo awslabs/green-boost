@@ -1,5 +1,11 @@
 # gboost-common
 
+## 0.11.0
+
+### Minor Changes
+
+- [`2161419`](https://github.com/awslabs/green-boost/commit/21614193f619eecda922ea60bab82e5de15210f9) Thanks [@bestickley](https://github.com/bestickley)! - Update deepMerge
+
 ## 0.10.0
 
 ### Minor Changes
