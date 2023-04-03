@@ -25,7 +25,7 @@ export const handler: CdkCustomResourceHandler = async (event) => {
     });
     await migrate({ db, action: "migrateToLatest" });
     db.destroy();
-  } else {
+  } else if (type === "Delete") {
     console.log("Custom Resource `event.RequestType` is Delete. Skipping.");
   }
   return {};

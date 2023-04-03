@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { getDbEnvVars } from "../utils/getDbEnvVars.js";
+import { getDbEnvVars } from "../utils/get-db-env-vars.js";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 
