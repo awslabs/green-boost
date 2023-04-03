@@ -4,6 +4,7 @@ import type { Construct } from "constructs";
 import { StaticSite, WebDeployment } from "gboost-infra";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import type { StageConfig } from "../../config/stage-config.js";
 
 interface UiProps extends StackProps {
   config: StageConfig;

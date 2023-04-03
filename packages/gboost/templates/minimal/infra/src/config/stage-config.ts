@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Environment } from "aws-cdk-lib";
+import type { Environment } from "aws-cdk-lib";
 import { BucketEncryption } from "aws-cdk-lib/aws-s3";
 import { mergeDeep } from "gboost-common";
 import type { ConstructDefaultProps } from "gboost-infra";
@@ -25,7 +25,13 @@ export class StageConfig extends CoreStageConfig {
     return stageAccounts[this.enumStageName];
   }
   get constructDefaultProps(): ConstructDefaultProps {
-    const stageConstructDefaultProps: Record<StageName, ConstructDefaultProps> = {};
+    const stageConstructDefaultProps: Record<StageName, ConstructDefaultProps> =
+      {
+        [StageName.Local]: {},
+        [StageName.Dev]: {},
+        [StageName.Test]: {},
+        [StageName.Prod]: {},
+      };
     return mergeDeep(
       this.#baseConstructDefaultProps,
       stageConstructDefaultProps[this.enumStageName]

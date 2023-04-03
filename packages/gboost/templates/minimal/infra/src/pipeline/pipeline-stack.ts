@@ -16,11 +16,7 @@ import { StageConfig } from "../config/stage-config.js";
 export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
-    const repo = Repository.fromRepositoryName(
-      this,
-      "CodeCommitRepo",
-      "{{GB_APP_ID}}"
-    );
+    const repo = Repository.fromRepositoryName(this, "CodeCommitRepo", "{{GB_APP_ID}}");
     const pipeline = new CodePipeline(this, "CdkPipeline", {
       // crossAccountKeys: true,
       selfMutation: true,
