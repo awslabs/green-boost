@@ -27,8 +27,9 @@ export class AppStage extends Stage {
       table: dataStack.table,
     });
     const uiStack = new Ui(this, "ui", {
-      env: config.env,
       api: apiStack.api,
+      config,
+      env: config.env,
     });
     new Monitor(this, "monitor", {
       env: config.env,

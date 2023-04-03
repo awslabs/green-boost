@@ -19,7 +19,7 @@ import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { resolve } from "node:path";
 import type { StageConfig } from "../../config/stage-config.js";
 import { Port, SubnetType } from "aws-cdk-lib/aws-ec2";
-import { getDbEnvVars } from "../utils/getDbEnvVars.js";
+import { getDbEnvVars } from "../utils/get-db-env-vars.js";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 

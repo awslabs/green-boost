@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Environment, RemovalPolicy } from "aws-cdk-lib";
+import type { Environment } from "aws-cdk-lib";
 import { BucketEncryption } from "aws-cdk-lib/aws-s3";
 import { mergeDeep } from "gboost-common";
 import type { ConstructDefaultProps } from "gboost-infra";

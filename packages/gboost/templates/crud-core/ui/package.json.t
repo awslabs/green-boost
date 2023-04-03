@@ -34,6 +34,7 @@
     "@trpc/server": "^10.18.0",
     "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.11",
+    "@vanilla-extract/esbuild-plugin": "^2.2.2",
     "@vanilla-extract/vite-plugin": "^3.8.0",
     "@vitejs/plugin-react": "^3.1.0",
     "aws-amplify": "5.0.23",
