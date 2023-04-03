@@ -9,5 +9,6 @@
   "exclude": ["lib"],
   "ts-node": {
     "esm": true,
+    "swc": true,
   }
 }
