@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.14.1
+
+### Patch Changes
+
+- [#190](https://github.com/awslabs/green-boost/pull/190) [`cd92554`](https://github.com/awslabs/green-boost/commit/cd92554e79a248e222224753576e27fd44428619) Thanks [@bestickley](https://github.com/bestickley)! - Fix `Bucket` to use `constructDefaultProps`
+
 ## 0.14.0
 
 ### Minor Changes
