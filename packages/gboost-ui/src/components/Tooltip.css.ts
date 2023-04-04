@@ -21,6 +21,7 @@ const slideLeftAndFade = keyframes({
 });
 
 export const content = style({
+  zIndex: 100,
   borderRadius: 4,
   padding: "10px 15px",
   fontSize: 15,
