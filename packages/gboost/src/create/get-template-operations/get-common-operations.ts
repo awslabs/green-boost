@@ -21,7 +21,8 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
     // programatically add monorepo workspace dependencies instead of using
     // "@{{GB_APP_ID}}/utils": "workspace:^0.1.0" in package.json.t's so that
     // we can use scripts/update-template-pkg-json.ts to easily update dependencies.
-    // if we use above technique npm-check-updates fails b/c package isn't real
+    // if we use above technique npm-check-updates fails b/c package isn't the
+    // "@{{GB_APP_ID}}/utils" package name isn't recognized
     {
       name: "UpdateDevDependenciesNodeUtils",
       type: OperationType.UpdatePackageJson,

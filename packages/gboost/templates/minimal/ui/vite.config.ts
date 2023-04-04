@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       react(),
-      createHtmlPlugin({ inject: { data: env } }),
+      createHtmlPlugin({ inject: { data: { ...env, mode } } }),
       tsconfigPaths(), // needed for baseUrl tsconfig option
       veVitePlugin(),
     ],
