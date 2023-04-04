@@ -29,6 +29,10 @@ export class StageConfig extends CoreStageConfig {
     const stageConstructDefaultProps: Record<StageName, ConstructDefaultProps> =
       {
         [StageName.Local]: {
+          bucket: {
+            autoDeleteObjects: true,
+            removalPolicy: RemovalPolicy.DESTROY,
+          },
           function: {
             logRetention: RetentionDays.ONE_MONTH,
             environment: {

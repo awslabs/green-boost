@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "deploy:local": "cdk deploy \"**\" --require-approval never",
-    "deploy:pipeline": "cdk --app \"./node_modules/.bin/ts-node src/pipeline/pipeline-app.ts\" deploy \"*\"",
+    "deploy:local": "cdk deploy \"**\" --require-approval never --no-rollback",
+    "deploy:pipeline": "cdk --app \"./node_modules/.bin/ts-node src/pipeline/pipeline-app.ts\" deploy \"*\" --no-rollback",
     "destroy:local": "cdk destroy --force \"**\"",
     "destroy:pipeline": "cdk --app \"./node_modules/.bin/ts-node src/pipeline/pipeline-app.ts\" --force destroy \"*\"",
     "lint": "eslint \"src/**/*.ts\"",

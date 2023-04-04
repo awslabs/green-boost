@@ -31,11 +31,7 @@ export class Data extends Stack {
   }
 
   getVpc(config: StageConfig) {
-    const flowLogsBucket = new Bucket(this, "FlowLogsBucket", {
-      removalPolicy: config.isLocal
-        ? RemovalPolicy.DESTROY
-        : RemovalPolicy.RETAIN,
-    });
+    const flowLogsBucket = new Bucket(this, "FlowLogsBucket");
     NagSuppressions.addResourceSuppressions(flowLogsBucket, [
       {
         id: "AwsSolutions-S1",
