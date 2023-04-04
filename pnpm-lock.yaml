@@ -383,9 +383,6 @@ importers:
       '@aws-amplify/ui-react':
         specifier: ^4.4.3
         version: 4.4.3(@types/react@18.0.32)(aws-amplify@5.0.23)(react-dom@18.2.0)(react@18.2.0)
-      '@hookform/resolvers':
-        specifier: ^3.0.0
-        version: 3.0.0(react-hook-form@7.43.9)
       '@mantine/hooks':
         specifier: ^5.10.4
         version: 5.10.5(react@18.2.0)
@@ -404,9 +401,6 @@ importers:
       '@stitches/react':
         specifier: ^1.2.8
         version: 1.2.8(react@18.2.0)
-      '@tanstack/react-query':
-        specifier: ^4.28.0
-        version: 4.28.0(react-dom@18.2.0)(react@18.2.0)
       '@vanilla-extract/css':
         specifier: ^1.11.0
         version: 1.11.0
@@ -419,34 +413,28 @@ importers:
       gboost-common:
         specifier: workspace:^
         version: link:../gboost-common
-      graphql:
-        specifier: ^16.6.0
-        version: 16.6.0
-      graphql-tag:
-        specifier: ^2.12.6
-        version: 2.12.6(graphql@16.6.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      react-hook-form:
-        specifier: ^7.43.9
-        version: 7.43.9(react@18.2.0)
       react-icons:
         specifier: ^4.8.0
         version: 4.8.0(react@18.2.0)
       react-transition-group:
         specifier: ^4.4.5
         version: 4.4.5(react-dom@18.2.0)(react@18.2.0)
-      zod:
-        specifier: ^3.21.4
-        version: 3.21.4
     devDependencies:
       '@aws-sdk/client-s3':
         specifier: ^3.304.0
         version: 3.304.0
+      '@hookform/resolvers':
+        specifier: ^3.0.0
+        version: 3.0.0(react-hook-form@7.43.9)
+      '@tanstack/react-query':
+        specifier: ^4.28.0
+        version: 4.28.0(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server':
         specifier: ^10.18.0
         version: 10.18.0
@@ -486,9 +474,18 @@ importers:
       eslint-plugin-prettier:
         specifier: ^4.2.1
         version: 4.2.1(eslint-config-prettier@8.8.0)(eslint@8.37.0)(prettier@2.8.7)
+      graphql:
+        specifier: ^16.6.0
+        version: 16.6.0
+      graphql-tag:
+        specifier: ^2.12.6
+        version: 2.12.6(graphql@16.6.0)
       prettier:
         specifier: ^2.8.7
         version: 2.8.7
+      react-hook-form:
+        specifier: ^7.43.9
+        version: 7.43.9(react@18.2.0)
       react-router-dom:
         specifier: ^6.10.0
         version: 6.10.0(react-dom@18.2.0)(react@18.2.0)
@@ -496,7 +493,7 @@ importers:
         specifier: ^4.4.1
         version: 4.4.1
       typescript:
-        specifier: ~4.9.5
+        specifier: ^4.9.5
         version: 4.9.5
       vite:
         specifier: ^4.2.1
@@ -504,6 +501,9 @@ importers:
       vitest:
         specifier: ^0.29.8
         version: 0.29.8
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
 
 packages:
 
@@ -7858,7 +7858,7 @@ packages:
       react-hook-form: ^7.0.0
     dependencies:
       react-hook-form: 7.43.9(react@18.2.0)
-    dev: false
+    dev: true
 
   /@humanwhocodes/config-array@0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
@@ -9290,7 +9290,7 @@ packages:
 
   /@tanstack/query-core@4.27.0:
     resolution: {integrity: sha512-sm+QncWaPmM73IPwFlmWSKPqjdTXZeFf/7aEmWh00z7yl2FjqophPt0dE1EHW9P1giMC5rMviv7OUbSDmWzXXA==}
-    dev: false
+    dev: true
 
   /@tanstack/react-query@4.28.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-8cGBV5300RHlvYdS4ea+G1JcZIt5CIuprXYFnsWggkmGoC0b5JaqG0fIX3qwDL9PTNkKvG76NGThIWbpXivMrQ==}
@@ -9308,7 +9308,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
+    dev: true
 
   /@tootallnate/once@2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
@@ -13457,7 +13457,7 @@ packages:
     dependencies:
       graphql: 16.6.0
       tslib: 2.5.0
-    dev: false
+    dev: true
 
   /graphql@15.8.0:
     resolution: {integrity: sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==}
@@ -13466,7 +13466,7 @@ packages:
   /graphql@16.6.0:
     resolution: {integrity: sha512-KPIBPDlW7NxrbT/eh4qPXz5FiFdL5UbaA0XUNz2Rp3Z3hqBSkbj0GVjwFDztsWVauZUWsbKHgMg++sk8UX0bkw==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
-    dev: false
+    dev: true
 
   /gray-matter@4.0.3:
     resolution: {integrity: sha512-5v6yZd4JK3eMI3FqqCouswVqwugaA9r4dNZB1wwcmrD02QkV5H0y7XBQW8QwQqEaZY1pM9aqORSORhJRdNK44Q==}
@@ -16633,7 +16633,7 @@ packages:
       react: ^16.8.0 || ^17 || ^18
     dependencies:
       react: 18.2.0
-    dev: false
+    dev: true
 
   /react-icons@4.8.0(react@18.2.0):
     resolution: {integrity: sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==}
@@ -18696,7 +18696,6 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
-    dev: false
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -19447,7 +19446,7 @@ packages:
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
-    dev: false
+    dev: true
 
   /zwitch@1.0.5:
     resolution: {integrity: sha512-V50KMwwzqJV0NpZIZFwfOD5/lyny3WlSzRiXgA0G7VUnRlqttta1L6UQIHzd6EuBY/cHGfwTIck7w1yH6Q5zUw==}
