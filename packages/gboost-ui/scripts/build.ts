@@ -21,7 +21,6 @@ removeVETypes();
 function removeVETypes() {
   const filePaths = listFilePaths(libPath);
   for (const filePath of filePaths) {
-    console.log(filePath);
     if (filePath.endsWith(".css.d.ts") || filePath.endsWith(".css.d.ts.map")) {
       rmSync(filePath);
     }

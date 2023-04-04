@@ -1,55 +1,10 @@
 import type { ReactElement } from "react";
-import { styled, keyframes } from "../index.js";
-import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+// NOTE: use HoverCard instead of Tooltip from radix-ui b/c Tooltip doesn't
+// let you select text from within tooltip
+import * as HoverCard from "@radix-ui/react-hover-card";
 import { MdInfoOutline } from "react-icons/md";
 import { Icon } from "@aws-amplify/ui-react";
-
-const slideUpAndFade = keyframes({
-  "0%": { opacity: 0, transform: "translateY(2px)" },
-  "100%": { opacity: 1, transform: "translateY(0)" },
-});
-
-const slideRightAndFade = keyframes({
-  "0%": { opacity: 0, transform: "translateX(-2px)" },
-  "100%": { opacity: 1, transform: "translateX(0)" },
-});
-
-const slideDownAndFade = keyframes({
-  "0%": { opacity: 0, transform: "translateY(-2px)" },
-  "100%": { opacity: 1, transform: "translateY(0)" },
-});
-
-const slideLeftAndFade = keyframes({
-  "0%": { opacity: 0, transform: "translateX(2px)" },
-  "100%": { opacity: 1, transform: "translateX(0)" },
-});
-
-const StyledContent = styled(TooltipPrimitive.Content, {
-  borderRadius: 4,
-  padding: "10px 15px",
-  fontSize: 15,
-  lineHeight: 1,
-  color: "black", // TODO: why doesn"t $primary11 show correct color? always shows green
-  backgroundColor: "white",
-  boxShadow:
-    "hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px",
-  "@media (prefers-reduced-motion: no-preference)": {
-    animationDuration: "400ms",
-    animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-    animationFillMode: "forwards",
-    willChange: "transform, opacity",
-    '&[data-state="delayed-open"]': {
-      '&[data-side="top"]': { animationName: slideDownAndFade },
-      '&[data-side="right"]': { animationName: slideLeftAndFade },
-      '&[data-side="bottom"]': { animationName: slideUpAndFade },
-      '&[data-side="left"]': { animationName: slideRightAndFade },
-    },
-  },
-});
-
-const StyledArrow = styled(TooltipPrimitive.Arrow, {
-  fill: "white",
-});
+import * as styles from "./Tooltip.css.js";
 
 export function TooltipIcon() {
   return <Icon ariaLabel="info" fontSize={20} as={MdInfoOutline} />;
@@ -95,25 +50,24 @@ export function Tooltip(props: TooltipProps): ReactElement {
     sideOffset,
   } = props;
   return (
-    <TooltipPrimitive.Provider>
-      <TooltipPrimitive.Root
-        defaultOpen={defaultOpen}
-        delayDuration={delayDuration}
-        open={open}
-        onOpenChange={onOpenChange}
+    <HoverCard.Root
+      defaultOpen={defaultOpen}
+      closeDelay={delayDuration}
+      open={open}
+      onOpenChange={onOpenChange}
+    >
+      <HoverCard.Trigger asChild>{children}</HoverCard.Trigger>
+      <HoverCard.HoverCardContent
+        className={styles.content}
+        align={align}
+        alignOffset={alignOffset}
+        side={side}
+        sideOffset={sideOffset}
+        style={{ maxWidth }}
       >
-        <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
-        <StyledContent
-          align={align}
-          alignOffset={alignOffset}
-          css={{ maxWidth }}
-          side={side}
-          sideOffset={sideOffset}
-        >
-          {content}
-          <StyledArrow />
-        </StyledContent>
-      </TooltipPrimitive.Root>
-    </TooltipPrimitive.Provider>
+        {content}
+        <HoverCard.Arrow className={styles.arrow} />
+      </HoverCard.HoverCardContent>
+    </HoverCard.Root>
   );
 }

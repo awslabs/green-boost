@@ -28,6 +28,7 @@ function maybeAddGboostChangeset(updatedPackageNames: string[]) {
     (updatedPackageNames.includes("gboost-ui") ||
       updatedPackageNames.includes("gboost-infra"))
   ) {
+    console.log("Adding minor gboost changeset for dependency updates");
     const changesetFileContents =
       '---\n"gboost": minor\n---\n\nUpdate dependencies\n';
     writeFileSync(".changeset/green-boost-forever.md", changesetFileContents);
