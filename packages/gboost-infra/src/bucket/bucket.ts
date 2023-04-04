@@ -10,6 +10,7 @@ import {
 import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
 import { mergeDeep } from "gboost-common";
+import { constructDefaultProps } from "../construct-default-props.js";
 import * as perms from "./permissions.js";
 
 export type BucketProps = CdkBucketProps;
@@ -29,7 +30,11 @@ export class Bucket extends CdkBucket {
   #scope: Construct;
   #id: string;
   constructor(scope: Construct, id: string, props?: BucketProps) {
-    const newProps = mergeDeep(defaultBucketProps, props);
+    const newProps = mergeDeep(
+      defaultBucketProps,
+      constructDefaultProps.bucket,
+      props
+    );
     super(scope, id, newProps);
     this.#id = id;
     this.#scope = scope;
