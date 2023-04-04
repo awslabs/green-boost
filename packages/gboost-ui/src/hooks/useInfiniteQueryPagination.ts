@@ -1,5 +1,5 @@
 import { FetchNextPageOptions, InfiniteData } from "@tanstack/react-query";
-import { Pagination } from "gboost-ui";
+import { Pagination } from "../index.js";
 import { Dispatch, SetStateAction, useCallback, useMemo } from "react";
 
 interface ListResult<T> {

@@ -9,7 +9,6 @@ import { TableHeader } from "./TableHeader.js";
 import { Row } from "./types/row.js";
 import { Flex } from "@aws-amplify/ui-react";
 import { BgLoading } from "./BgLoading.js";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 const StyledTable = styled("div", {
   display: "grid",
@@ -140,47 +139,45 @@ export function QueryTable<T extends Row>(
     );
   }
   return (
-    <TooltipProvider>
-      <Flex direction="column" gap="small" position="relative" width="100%">
-        {bgLoading && <BgLoading />}
-        {ActionBar}
-        <StyledTable
-          ref={tableRef}
-          {...tableProps}
-          css={{
-            gridTemplateColumns,
-          }}
-          className="amplify-table"
-        >
-          <TableHeader
-            enableSingleSelect={enableSingleSelect}
-            filters={filters}
-            filterButtonRef={filterButtonRef}
-            getRowId={getRowId}
-            onChangeSelected={onChangeSelected}
-            onChangeSorts={onChangeSorts}
-            padding={padding}
-            rows={rows}
-            selected={selected}
-            sorts={sorts}
-            visibleColumns={visibleColumns}
-          />
-          <TableBody
-            enableSingleSelect={enableSingleSelect}
-            getRowId={getRowId}
-            loading={loading}
-            onChangeSelected={onChangeSelected}
-            padding={padding}
-            pageSize={pagination?.pageSize || 10}
-            rows={rows}
-            rowHeight={rowHeight}
-            selected={selected}
-            visibleColumns={visibleColumns}
-          />
-        </StyledTable>
-        {AlertMessage}
-        {Pagination}
-      </Flex>
-    </TooltipProvider>
+    <Flex direction="column" gap="small" position="relative" width="100%">
+      {bgLoading && <BgLoading />}
+      {ActionBar}
+      <StyledTable
+        ref={tableRef}
+        {...tableProps}
+        css={{
+          gridTemplateColumns,
+        }}
+        className="amplify-table"
+      >
+        <TableHeader
+          enableSingleSelect={enableSingleSelect}
+          filters={filters}
+          filterButtonRef={filterButtonRef}
+          getRowId={getRowId}
+          onChangeSelected={onChangeSelected}
+          onChangeSorts={onChangeSorts}
+          padding={padding}
+          rows={rows}
+          selected={selected}
+          sorts={sorts}
+          visibleColumns={visibleColumns}
+        />
+        <TableBody
+          enableSingleSelect={enableSingleSelect}
+          getRowId={getRowId}
+          loading={loading}
+          onChangeSelected={onChangeSelected}
+          padding={padding}
+          pageSize={pagination?.pageSize || 10}
+          rows={rows}
+          rowHeight={rowHeight}
+          selected={selected}
+          visibleColumns={visibleColumns}
+        />
+      </StyledTable>
+      {AlertMessage}
+      {Pagination}
+    </Flex>
   );
 }

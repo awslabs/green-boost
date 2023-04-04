@@ -31,9 +31,9 @@
   },
   "devDependencies": {
     "@aws-sdk/types": "^3.289.0",
-    "@myapp/eslint-config-node": "workspace:^0.1.0",
-    "@myapp/tsconfig": "workspace:^0.1.0",
-    "@myapp/utils": "workspace:^0.1.0",
+    "@myapp/eslint-config-node": "workspace:^",
+    "@myapp/tsconfig": "workspace:^",
+    "@myapp/utils": "workspace:^",
     "eslint": "^8.36.0",
     "eslint-define-config": "^1.16.0",
     "typescript": "^4.9.4",

@@ -1,8 +1,9 @@
 // @ts-nocheck
 import { App } from "aws-cdk-lib";
-import { configs } from "../config/configs.js";
 import { StageName } from "@{{GB_APP_ID}}/core";
 import { PipelineStack } from "./pipeline-stack.js";
+import { StageConfig } from "../config/stage-config.js";
 
 const app = new App();
-new PipelineStack(app, "{{GB_APP_ID}}-pipeline", { env: configs[StageName.Dev] });
+const devConfig = new StageConfig(StageName.Dev);
+new PipelineStack(app, "{{GB_APP_ID}}-pipeline", { env: devConfig.env });

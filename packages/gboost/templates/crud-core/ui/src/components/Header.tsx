@@ -3,7 +3,7 @@ import { Dispatch, ReactElement, SetStateAction } from "react";
 import { Header as GbHeader } from "gboost-ui";
 import { Heading } from "@aws-amplify/ui-react";
 import { Link } from "react-router-dom";
-import { config } from "src/config.js";
+import { config } from "src/config/config.js";
 
 interface HeaderProps {
   open: boolean;

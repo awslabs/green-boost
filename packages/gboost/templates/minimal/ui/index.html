@@ -15,7 +15,7 @@
   </head>
   <body>
     <div id="app"></div>
-    <% if (!PROD) { %>
+    <% if (mode === "development") { %>
       <script>
         // https://ui.docs.amplify.aws/getting-started/installation#vite
         window.global = window;

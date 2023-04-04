@@ -1,101 +1,64 @@
-import { fileURLToPath } from "node:url";
-import { resolve } from "node:path";
-import { init, ModuleInfos } from "license-checker";
-import { readFileSync, writeFileSync } from "node:fs";
+import { execSync } from "node:child_process";
 
-const cwd = fileURLToPath(import.meta.url);
-const rootDir = resolve(cwd, "../../");
-const backEndTemplatePath = "packages/gb-cli/template";
-const backEndTemplatePkgJsonPath = resolve(backEndTemplatePath, "package.json");
-const frontEndTemplatePath = "packages/gb-cli/template/front-end";
-const frontEndTemplatePkgJsonPath = resolve(
-  frontEndTemplatePath,
-  "package.json"
-);
-const packages = [
-  ".",
-  "docs",
-  "packages/gboost",
-  "packages/gboost-common",
-  "packages/gboost-infra",
-  "packages/gboost-ui",
-  backEndTemplatePath,
-  frontEndTemplatePath,
+/**
+ * Array of strings of allowed licenses or functions that accept a license
+ * and return `true` if allowed and `false` if not allowed
+ */
+const allowedLicenses: (string | ((l: string) => boolean))[] = [
+  (l) => l.includes("Apache-2.0"),
+  "APACHEv2",
+  "BlueOak-1.0.0",
+  (l) => l.includes("BlueOak"),
+  (l) => l.includes("BSD"),
+  (l) => l.includes("CC"),
+  (l) => l.includes("gpl"),
+  "ISC",
+  (l) => l.includes("MIT"),
+  (l) => l.includes("MPL"),
+  "Python-2.0",
+  "Unknown",
+  "Unlicense",
 ];
-const paths = packages.map((d) => resolve(rootDir, d));
-const backEndPkgJson = readFileSync(backEndTemplatePkgJsonPath, {
+
+const licenseOutputString = execSync("pnpm licenses list --json", {
   encoding: "utf-8",
 });
-const frontEndPkgJson = readFileSync(frontEndTemplatePkgJsonPath, {
-  encoding: "utf-8",
-});
-
-try {
-  // template files have variable interpolation for package.json names and
-  // license-checker think's they're invalid packages so we have to rewrite
-  // the package.json and then gather license info then revert
-  const newBackEndPkgJson = JSON.parse(backEndPkgJson);
-  newBackEndPkgJson.name = "back-end-app";
-  writeFileSync(backEndTemplatePkgJsonPath, JSON.stringify(newBackEndPkgJson));
-  const newFrontEndPkgJson = JSON.parse(frontEndPkgJson);
-  newFrontEndPkgJson.name = "front-end-app";
-  writeFileSync(
-    frontEndTemplatePkgJsonPath,
-    JSON.stringify(newFrontEndPkgJson)
-  );
-
-  const licenses: Record<string, string | undefined | string[]> = {};
-
-  // get module info from each package and write to licenses Record
-  for (const path of paths) {
-    const packages: ModuleInfos = await getModuleInfos(path);
-    Object.entries(packages).forEach(([k, v]) => {
-      licenses[k] = v.licenses;
-    });
-  }
-
-  printLicenses(licenses);
-  console.log(`Licenses found: ${Object.keys(licenses).length}`);
-} catch (err) {
-  console.error(err);
-} finally {
-  // restore template package.json files
-  writeFileSync(
-    backEndTemplatePkgJsonPath,
-    JSON.stringify(JSON.parse(backEndPkgJson), null, 2)
-  );
-  writeFileSync(
-    frontEndTemplatePkgJsonPath,
-    JSON.stringify(JSON.parse(frontEndPkgJson), null, 2)
-  );
+interface Package {
+  name: string;
+  version: string;
+  path: string;
 }
 
-async function getModuleInfos(start: string): Promise<ModuleInfos> {
-  return new Promise((resolve, reject) => {
-    init(
-      {
-        start,
-        direct: true,
-      },
-      (err, packages) => {
-        if (err) reject(err);
-        resolve(packages);
+const licenseOutput: Record<string, Package[]> =
+  JSON.parse(licenseOutputString);
+const notAllowedLicenses: string[] = [];
+for (const [license, packages] of Object.entries(licenseOutput)) {
+  let allowed = false;
+  for (const allowedLicense of allowedLicenses) {
+    if (typeof allowedLicense === "string") {
+      if (license === allowedLicense) {
+        allowed = true;
       }
-    );
-  });
+    } else {
+      if (allowedLicense(license)) {
+        allowed = true;
+      }
+    }
+  }
+  if (!allowed) {
+    notAllowedLicenses.push(license);
+    console.log({ [license]: packages });
+  }
 }
 
-function printLicenses(
-  licenses: Record<string, string | undefined | string[]>
-) {
-  const exclude = [
-    "gb-docs",
-    "gb-cli",
-    "gb-lic",
-    "front-end-app",
-    "back-end-app",
-  ];
-  Object.entries(licenses)
-    .filter(([k]) => !exclude.some((e) => k.startsWith(e)))
-    .forEach(([name, license]) => console.log(`${name} - ${license}`));
+if (notAllowedLicenses.length) {
+  console.error(
+    "3rd party dependency not allowed licenses: " +
+      notAllowedLicenses.join(", ") +
+      "\n"
+  );
+  console.error("Please run 'pnpm licenses list' for more information");
+  process.exit(1);
+} else {
+  console.log("All 3rd party dependency licenses are allowed");
 }

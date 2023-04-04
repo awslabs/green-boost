@@ -12,14 +12,14 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@types/node": "^18.15.5",
-    "eslint": "^8.36.0",
+    "@types/node": "^18.15.11",
+    "eslint": "^8.37.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "esbuild": "^0.17.12"
+    "esbuild": "^0.17.15"
   },
   "pnpm": {
     "overrides": {
@@ -36,9 +36,6 @@
         "@babel/plugin-transform-react-jsx",
         "react-native"
       ]
-    },
-    "patchedDependencies": {
-      "@hookform/resolvers@2.9.11": "patches/@hookform__resolvers@2.9.11.patch"
     }
   }
 }

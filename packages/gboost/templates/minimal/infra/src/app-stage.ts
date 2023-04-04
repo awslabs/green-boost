@@ -15,6 +15,7 @@ export class AppStage extends Stage {
     super(scope, id);
     setConstructDefaultProps(config.constructDefaultProps);
     new Ui(this, "ui", {
+      config,
       env: config.env,
     });
 

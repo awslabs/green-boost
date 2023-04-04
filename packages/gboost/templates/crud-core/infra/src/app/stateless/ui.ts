@@ -5,9 +5,11 @@ import type { Construct } from "constructs";
 import { StaticSite, WebDeployment } from "gboost-infra";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import type { StageConfig } from "../../config/stage-config.js";
 
 interface UiProps extends StackProps {
   api: RestApi;
+  config: StageConfig;
 }
 
 const thisFilePath = fileURLToPath(import.meta.url);
@@ -15,9 +17,9 @@ const thisFilePath = fileURLToPath(import.meta.url);
 export class Ui extends Stack {
   constructor(scope: Construct, id: string, props: UiProps) {
     super(scope, id, props);
-    const { api } = props;
+    const { api, config } = props;
     const staticSite = new StaticSite(this, "StaticSite", {
-      retainAccessLogs: false,
+      retainAccessLogs: !config.isLocal,
       responseHeaders: {
         securityHeaders: {
           contentSecurityPolicy: {
@@ -41,6 +43,7 @@ export class Ui extends Stack {
         workingDirectory,
         environment: {
           VITE_API_URL: api.url,
+          VITE_STAGE_NAME: config.stageName,
         },
       },
       destinationBucket: staticSite.bucket,

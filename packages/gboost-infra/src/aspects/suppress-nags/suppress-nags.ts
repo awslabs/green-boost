@@ -6,31 +6,39 @@ import { suppressCdkBucketNotifications } from "./suppress-cdk-bucket-notificati
 import { suppressCdkBucketDeployment } from "./suppress-cdk-bucket-deployment.js";
 import { suppressCdkCustomResourceProvider } from "./suppress-cdk-custom-resource-provider.js";
 import { suppressCdkLogRetention } from "./suppress-cdk-log-retention.js";
+import { suppressCdkCustomResource } from "./suppress-cdk-custom-resource.js";
+import { suppressCdkMonitoringConstructs } from "./suppress-cdk-monitoring-constructs.js";
 
 /**
  * Suppresses common cdk-nags that are acceptable to many development teams.
  * Suppressions are controlled by passing in
  */
 export class SuppressNags implements IAspect {
-  #suppressions?: Suppression[];
-  constructor(suppressions?: Suppression[]) {
+  #suppressions: Suppression[];
+  constructor(suppressions: Suppression[] = []) {
     this.#suppressions = suppressions;
   }
   visit(construct: IConstruct) {
-    if (this.#suppressions?.includes(Suppression.AWSLambdaBasicExecutionRole)) {
+    if (this.#suppressions.includes(Suppression.AWSLambdaBasicExecutionRole)) {
       suppressAwsLambdaBasicExecutionRole(construct);
     }
-    if (this.#suppressions?.includes(Suppression.CdkBucketDeployment)) {
+    if (this.#suppressions.includes(Suppression.CdkBucketDeployment)) {
       suppressCdkBucketDeployment(construct);
     }
-    if (this.#suppressions?.includes(Suppression.CdkBucketNotifications)) {
+    if (this.#suppressions.includes(Suppression.CdkBucketNotifications)) {
       suppressCdkBucketNotifications(construct);
     }
-    if (this.#suppressions?.includes(Suppression.CdkCustomResourceProvider)) {
+    if (this.#suppressions.includes(Suppression.CdkCustomResource)) {
+      suppressCdkCustomResource(construct);
+    }
+    if (this.#suppressions.includes(Suppression.CdkCustomResourceProvider)) {
       suppressCdkCustomResourceProvider(construct);
     }
-    if (this.#suppressions?.includes(Suppression.CdkLogRetention)) {
+    if (this.#suppressions.includes(Suppression.CdkLogRetention)) {
       suppressCdkLogRetention(construct);
+    }
+    if (this.#suppressions.includes(Suppression.CdkMonitoringConstructs)) {
+      suppressCdkMonitoringConstructs(construct);
     }
   }
 }

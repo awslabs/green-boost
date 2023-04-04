@@ -8,7 +8,7 @@ import {
   UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
 import { CreateItem, Item } from "../domain/models/item.js";
-import { config } from "../config.js";
+import { config } from "../config/config.js";
 import {
   ddbDocClient,
   decodeLastEvaluatedKey,

@@ -14,11 +14,10 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
-    "@changesets/cli": "^2.26.0",
+    "@changesets/cli": "^2.26.1",
     "@types/license-checker": "^25.0.3",
-    "@types/node": "^18.15.3",
+    "@types/node": "^18.15.11",
     "husky": "^8.0.3",
-    "license-checker": "^25.0.1",
     "lint-staged": "^13.2.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
@@ -46,9 +45,6 @@
         "@babel/plugin-transform-react-jsx",
         "@algolia/client-search"
       ]
-    },
-    "patchedDependencies": {
-      "@hookform/resolvers@2.9.11": "patches/@hookform__resolvers@2.9.11.patch"
     }
   }
 }

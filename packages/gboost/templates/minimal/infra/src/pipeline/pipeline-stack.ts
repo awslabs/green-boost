@@ -10,8 +10,8 @@ import {
 } from "aws-cdk-lib/pipelines";
 import type { Construct } from "constructs";
 import { AppStage } from "../app-stage.js";
-import { configs } from "../config/configs.js";
 import { StageName } from "@{{GB_APP_ID}}/core";
+import { StageConfig } from "../config/stage-config.js";
 
 export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
@@ -46,15 +46,15 @@ export class PipelineStack extends Stack {
       },
     });
 
-    const devConfig = configs[StageName.Dev];
+    const devConfig = new StageConfig(StageName.Dev);
     const devStage = new AppStage(this, devConfig.stageId, devConfig);
     pipeline.addStage(devStage);
 
-    const testConfig = configs[StageName.Test];
+    const testConfig = new StageConfig(StageName.Test);
     const testStage = new AppStage(this, testConfig.stageId, testConfig);
     pipeline.addStage(testStage);
 
-    const prodConfig = configs[StageName.Prod];
+    const prodConfig = new StageConfig(StageName.Prod);
     const prodStage = new AppStage(this, prodConfig.stageId, prodConfig);
     const prodDeployment = pipeline.addStage(prodStage);
     prodDeployment.addPre(new ManualApprovalStep("ProductionApproval"));

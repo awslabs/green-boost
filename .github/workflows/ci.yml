@@ -15,10 +15,22 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
       - name: Audit Dependencies
-        # when a vulnerability is found that fails the build, first try to use
-        # package.json#pnpm.overrides to use patched version. Second, use
-        # package.json#pnpm.auditConfig.ignoreCves if harmless
+        # when a vulnerability is found that fails the build, try to use
+        # `pnpm audit --fix` which will override version within
+        # package.json#pnpm.overrides to patched version.
+        # Second, use package.json#pnpm.auditConfig.ignoreCves if harmless.
         run: pnpm audit --audit-level moderate
+
+  license-check:
+    name: License Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Install
+        uses: ./.github/actions/install
+      - name: Check Licenses
+        run: pnpm license-check
 
   build:
     name: Build
