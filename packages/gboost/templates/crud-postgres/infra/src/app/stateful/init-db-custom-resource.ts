@@ -51,10 +51,9 @@ export class InitDbCustomResource extends Construct {
     cluster.secret?.grantRead(fn);
     cluster.connections.allowFrom(fn, Port.tcp(cluster.clusterEndpoint.port));
     cluster.grantConnect(fn);
-    if (cluster.node.defaultChild) {
-      // prevent migration running before db instance is ready
-      fn.node.addDependency(cluster.node.defaultChild);
-    }
+    const dbInstance = cluster.node.findChild("Instance1");
+    // prevent migration running before db instance is ready
+    fn.node.addDependency(dbInstance);
     return fn;
   }
 

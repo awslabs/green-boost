@@ -1,5 +1,5 @@
 // @ts-nocheck
-import type { Environment } from "aws-cdk-lib";
+import { Environment, RemovalPolicy } from "aws-cdk-lib";
 import { BucketEncryption } from "aws-cdk-lib/aws-s3";
 import { mergeDeep } from "gboost-common";
 import type { ConstructDefaultProps } from "gboost-infra";
@@ -27,7 +27,12 @@ export class StageConfig extends CoreStageConfig {
   get constructDefaultProps(): ConstructDefaultProps {
     const stageConstructDefaultProps: Record<StageName, ConstructDefaultProps> =
       {
-        [StageName.Local]: {},
+        [StageName.Local]: {
+          bucket: {
+            autoDeleteObjects: true,
+            removalPolicy: RemovalPolicy.DESTROY,
+          },
+        },
         [StageName.Dev]: {},
         [StageName.Test]: {},
         [StageName.Prod]: {},
