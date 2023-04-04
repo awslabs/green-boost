@@ -1,10 +1,12 @@
 import { execSync } from "node:child_process";
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 
+const updatedPackageNames = getUpdatedPackageNames();
+maybeAddGboostChangeset(updatedPackageNames);
 // `pnpm changeset version` updates package versions based on changsets recorded
 // in .changeset folder
 run("pnpm changeset version");
@@ -14,6 +16,39 @@ updateTemplatePackageVersions();
 // https://github.com/pnpm/pnpm/issues/3664
 run("pnpm install --no-frozen-lockfile");
 run("git add --all");
+
+/**
+ * If gboost-ui or gboost-infra is updated, then we want gboost package to be
+ * updated if not already updated. This won't happen automatically so we need
+ * to do this manually.
+ */
+function maybeAddGboostChangeset(updatedPackageNames: string[]) {
+  if (
+    !updatedPackageNames.includes("gboost") &&
+    (updatedPackageNames.includes("gboost-ui") ||
+      updatedPackageNames.includes("gboost-infra"))
+  ) {
+    const changesetFileContents =
+      '---\n"gboost": minor\n---\n\nUpdate dependencies\n';
+    writeFileSync(".changeset/green-boost-forever.md", changesetFileContents);
+  }
+}
+
+function getUpdatedPackageNames(): string[] {
+  const statusFileName = "status.json";
+  run(`pnpm changeset status --output ${statusFileName}`);
+  const { releases } = readJson<ChangesetStatusOutput>(statusFileName);
+  const packageNames = releases.map((r) => r.name);
+  rmSync(statusFileName);
+  return packageNames;
+}
+
+interface ChangesetStatusOutput {
+  releases: ChangesetRelease[];
+}
+interface ChangesetRelease {
+  name: string;
+}
 
 /**
  * Run shell command
@@ -51,21 +86,22 @@ interface LatestGbVersions {
 function getLatestVersions(): LatestGbVersions {
   const common =
     "^" +
-    readPkgJson(
+    readJson<PkgJson>(
       resolve(thisFilePath, "../../packages/gboost-common/package.json")
     ).version;
   const infra =
     "^" +
-    readPkgJson(
+    readJson<PkgJson>(
       resolve(thisFilePath, "../../packages/gboost-infra/package.json")
     ).version;
   const ui =
     "^" +
-    readPkgJson(resolve(thisFilePath, "../../packages/gboost-ui/package.json"))
-      .version;
+    readJson<PkgJson>(
+      resolve(thisFilePath, "../../packages/gboost-ui/package.json")
+    ).version;
   const node =
     "^" +
-    readPkgJson(
+    readJson<PkgJson>(
       resolve(thisFilePath, "../../packages/gboost-node/package.json")
     ).version;
   return {
@@ -100,7 +136,7 @@ function getPkgJsonPaths(): string[] {
  * latest versions
  */
 function updateGbDeps(pkgJsonPath: string, latestVersions: LatestGbVersions) {
-  const pkgJson = readPkgJson(pkgJsonPath);
+  const pkgJson = readJson<PkgJson>(pkgJsonPath);
   const dependencies = pkgJson.dependencies;
   if (dependencies) {
     let edited = false;
@@ -145,7 +181,7 @@ interface PkgJson {
   dependencies?: Record<string, string>;
 }
 
-function readPkgJson(path: string): PkgJson {
+function readJson<T>(path: string): T {
   let fileString = "";
   fileString = readFileSync(path, {
     encoding: "utf8",
