@@ -1,5 +1,11 @@
 # gboost-docs
 
+## 0.3.1
+
+### Patch Changes
+
+- [#188](https://github.com/awslabs/green-boost/pull/188) [`8605034`](https://github.com/awslabs/green-boost/commit/86050348f2cd022acbe433a33cae83f048a4283e) Thanks [@bestickley](https://github.com/bestickley)! - Update dependencies
+
 ## 0.3.0
 
 ### Minor Changes

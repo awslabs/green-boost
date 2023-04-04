@@ -1,5 +1,16 @@
 # gboost-ui
 
+## 0.32.2
+
+### Patch Changes
+
+- [#188](https://github.com/awslabs/green-boost/pull/188) [`8605034`](https://github.com/awslabs/green-boost/commit/86050348f2cd022acbe433a33cae83f048a4283e) Thanks [@bestickley](https://github.com/bestickley)! - Update dependencies
+
+- [#188](https://github.com/awslabs/green-boost/pull/188) [`8605034`](https://github.com/awslabs/green-boost/commit/86050348f2cd022acbe433a33cae83f048a4283e) Thanks [@bestickley](https://github.com/bestickley)! - Add Radix UI Provider to all Tooltip components as it's required with new version
+
+- Updated dependencies [[`8605034`](https://github.com/awslabs/green-boost/commit/86050348f2cd022acbe433a33cae83f048a4283e)]:
+  - gboost-common@0.11.1
+
 ## 0.32.1
 
 ### Patch Changes
