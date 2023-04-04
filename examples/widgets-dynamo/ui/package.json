@@ -23,7 +23,7 @@
     "@trpc/react-query": "^10.16.0",
     "@vanilla-extract/css": "^1.10.0",
     "clsx": "^1.2.1",
-    "gboost-ui": "^0.33.0",
+    "gboost-ui": "^0.33.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.5",

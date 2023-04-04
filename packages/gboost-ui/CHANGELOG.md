@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.33.1
+
+### Patch Changes
+
+- [#194](https://github.com/awslabs/green-boost/pull/194) [`81badce`](https://github.com/awslabs/green-boost/commit/81badcef132cd6af17f7232c20f9396328bc21b5) Thanks [@bestickley](https://github.com/bestickley)! - Improve `Tooltip`'s text to be selectable/copyable
+
 ## 0.33.0
 
 ### Minor Changes
