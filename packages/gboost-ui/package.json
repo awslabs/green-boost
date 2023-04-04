@@ -1,6 +1,6 @@
 {
   "name": "gboost-ui",
-  "version": "0.32.2",
+  "version": "0.33.0",
   "description": "Green Boost UI Library of React Components",
   "type": "module",
   "main": "./src/index.ts",
@@ -64,12 +64,24 @@
     "zod": "^3.21.4"
   },
   "peerDependenciesMeta": {
-    "@hookform/resolvers": { "optional": true },
-    "@tanstack/react-query": { "optional": true },
-    "graphql": { "optional": true },
-    "graphql-tag": { "optional": true },
-    "react-hook-form": { "optional": true },
-    "zod": { "optional": true }
+    "@hookform/resolvers": {
+      "optional": true
+    },
+    "@tanstack/react-query": {
+      "optional": true
+    },
+    "graphql": {
+      "optional": true
+    },
+    "graphql-tag": {
+      "optional": true
+    },
+    "react-hook-form": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.304.0",

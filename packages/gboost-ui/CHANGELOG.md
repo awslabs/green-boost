@@ -1,5 +1,15 @@
 # gboost-ui
 
+## 0.33.0
+
+### Minor Changes
+
+- [#192](https://github.com/awslabs/green-boost/pull/192) [`6afebd6`](https://github.com/awslabs/green-boost/commit/6afebd689781d97a658cfb8d3f6484f576d8d563) Thanks [@bestickley](https://github.com/bestickley)! - Move dependencies used in consuming application to peerDependencies
+
+### Patch Changes
+
+- [#192](https://github.com/awslabs/green-boost/pull/192) [`6afebd6`](https://github.com/awslabs/green-boost/commit/6afebd689781d97a658cfb8d3f6484f576d8d563) Thanks [@bestickley](https://github.com/bestickley)! - Fix `QueryTable` filters adding extra select option
+
 ## 0.32.2
 
 ### Patch Changes

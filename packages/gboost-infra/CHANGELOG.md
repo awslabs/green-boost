@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.15.0
+
+### Minor Changes
+
+- [#192](https://github.com/awslabs/green-boost/pull/192) [`6afebd6`](https://github.com/awslabs/green-boost/commit/6afebd689781d97a658cfb8d3f6484f576d8d563) Thanks [@bestickley](https://github.com/bestickley)! - Move dependencies used in consuming application to peerDependencies
+
 ## 0.14.1
 
 ### Patch Changes
