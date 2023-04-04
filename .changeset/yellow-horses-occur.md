@@ -1,0 +1,5 @@
+---
+"gboost": minor
+---
+
+Update dependencies
