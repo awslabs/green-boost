@@ -90,7 +90,6 @@ export function FilterRow({
         label="Column"
         labelHidden
         onChange={handleChangeColumn}
-        placeholder="Column"
         value={filter.columnId}
       >
         {columnOptions.map((n) => (
@@ -104,7 +103,6 @@ export function FilterRow({
         label="Comparator"
         labelHidden
         onChange={handleChangeComparator}
-        placeholder="Comparator"
         value={filter.comparator}
       >
         {filterOptions?.comparators.map((c) => (
