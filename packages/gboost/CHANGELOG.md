@@ -1,5 +1,11 @@
 # gboost
 
+## 0.13.1
+
+### Patch Changes
+
+- [#190](https://github.com/awslabs/green-boost/pull/190) [`cd92554`](https://github.com/awslabs/green-boost/commit/cd92554e79a248e222224753576e27fd44428619) Thanks [@bestickley](https://github.com/bestickley)! - Fix `gboost create` CRUD App with PostgreSQL template deployment order
+
 ## 0.13.0
 
 ### Minor Changes
