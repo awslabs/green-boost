@@ -68,7 +68,6 @@ export function NewFilterRow({
         label="Column"
         labelHidden
         onChange={handleChangeColumn}
-        placeholder="Column"
         value={filter.columnId}
       >
         {columnOptions.map((n) => (
@@ -84,7 +83,6 @@ export function NewFilterRow({
         onChange={(e: ChangeEvent<HTMLSelectElement>) =>
           setFilter((f) => ({ ...f, comparator: e.target.value }))
         }
-        placeholder="Comparator"
         value={filter.comparator}
       >
         {filterOptions?.comparators.map((c) => (

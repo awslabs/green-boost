@@ -39,30 +39,42 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^4.4.3",
-    "@hookform/resolvers": "^3.0.0",
     "@mantine/hooks": "^5.10.4",
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-dialog": "^1.0.3",
     "@radix-ui/react-portal": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.5",
     "@stitches/react": "^1.2.8",
+    "clsx": "^1.2.1",
+    "gboost-common": "workspace:^",
+    "react-icons": "^4.8.0",
+    "react-transition-group": "^4.4.5"
+  },
+  "peerDependencies": {
+    "@aws-amplify/ui-react": "^4.4.3",
+    "@hookform/resolvers": "^3.0.0",
     "@tanstack/react-query": "^4.28.0",
     "@vanilla-extract/css": "^1.11.0",
     "@vanilla-extract/recipes": "^0.3.0",
-    "clsx": "^1.2.1",
-    "gboost-common": "workspace:^",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
-    "react-icons": "^4.8.0",
-    "react-transition-group": "^4.4.5",
     "zod": "^3.21.4"
+  },
+  "peerDependenciesMeta": {
+    "@hookform/resolvers": { "optional": true },
+    "@tanstack/react-query": { "optional": true },
+    "graphql": { "optional": true },
+    "graphql-tag": { "optional": true },
+    "react-hook-form": { "optional": true },
+    "zod": { "optional": true }
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.304.0",
+    "@hookform/resolvers": "^3.0.0",
+    "@tanstack/react-query": "^4.28.0",
     "@trpc/server": "^10.18.0",
     "@tsconfig/vite-react": "^1.0.1",
     "@types/react": "^18.0.32",
@@ -76,12 +88,16 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-define-config": "^1.17.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
     "prettier": "^2.8.7",
+    "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.10.0",
     "rimraf": "^4.4.1",
-    "typescript": "~4.9.5",
+    "typescript": "^4.9.5",
     "vite": "^4.2.1",
-    "vitest": "^0.29.8"
+    "vitest": "^0.29.8",
+    "zod": "^3.21.4"
   },
   "repository": {
     "type": "git",

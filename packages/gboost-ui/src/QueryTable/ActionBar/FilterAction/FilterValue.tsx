@@ -44,7 +44,6 @@ export function FilterValue({
             handleChangeValue(e.target.value)
           }
           onKeyPress={handleKeyPress}
-          placeholder="Value"
           value={value}
         >
           {options.map((o) => (
@@ -64,21 +63,12 @@ export function FilterValue({
             handleChangeValue(e.target.value)
           }
           onKeyPress={handleKeyPress}
-          placeholder="Value"
           value={value}
         />
       );
     }
   } else {
-    element = (
-      <TextField
-        disabled
-        label="Value"
-        labelHidden
-        placeholder="Value"
-        value=""
-      />
-    );
+    element = <TextField disabled label="Value" labelHidden value="" />;
   }
   return element;
 }
