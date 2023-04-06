@@ -18,6 +18,7 @@ export interface UserManagementProps {
 
 /**
  * Creates a Cognito user pool, Cognito groups, and Cognito user pool client
+ * @deprecated
  */
 export class UserManagement extends Construct {
   constructor(scope: Construct, id: string, props: UserManagementProps) {

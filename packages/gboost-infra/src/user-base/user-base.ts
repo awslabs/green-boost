@@ -19,6 +19,7 @@ export interface UserBaseProps extends CommonUserBaseProps {
 /**
  * UserBase Construct
  * Creates a Cognito User Pool, User Pool Client, and User Pool Groups
+ * @deprecated
  */
 export class UserBase extends Construct {
   userPool!: UserPool;
