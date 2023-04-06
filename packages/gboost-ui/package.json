@@ -1,13 +1,14 @@
 {
   "name": "gboost-ui",
-  "version": "0.33.1",
+  "version": "0.34.0",
   "description": "Green Boost UI Library of React Components",
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./UserManagement": "./src/UserManagement/UserManagement.ts",
-    "./FileUpload": "./src/FileUpload/FileUpload.ts"
+    "./file-upload": "./src/FileUpload/FileUpload.ts",
+    "./smart-fields": "./src/SmartFields/smart-fields.ts",
+    "./user-management": "./src/UserManagement/UserManagement.ts"
   },
   "types": "./src/index.ts",
   "publishConfig": {
@@ -18,13 +19,17 @@
         "types": "./lib/index.d.ts",
         "import": "./lib/index.js"
       },
-      "./UserManagement": {
-        "types": "./lib/UserManagement/UserManagement.d.ts",
-        "import": "./lib/UserManagement/UserManagement.js"
-      },
-      "./FileUpload": {
+      "./file-upload": {
         "types": "./lib/FileUpload/FileUpload.d.ts",
         "import": "./lib/FileUpload/FileUpload.js"
+      },
+      "./smart-fields": {
+        "types": "./lib/SmartFields/smart-fields.d.ts",
+        "import": "./lib/SmartFields/smart-fields.js"
+      },
+      "./user-management": {
+        "types": "./lib/UserManagement/UserManagement.d.ts",
+        "import": "./lib/UserManagement/UserManagement.js"
       }
     },
     "types": "./lib/index.d.ts"

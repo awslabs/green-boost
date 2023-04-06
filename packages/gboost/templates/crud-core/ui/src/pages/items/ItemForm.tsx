@@ -14,7 +14,7 @@ import {
   SmartSliderField,
   SmartTextAreaField,
   SmartTextField,
-} from "gboost-ui";
+} from "gboost-ui/smart-fields";
 import { Link } from "react-router-dom";
 import { ItemStep } from "@{{GB_APP_ID}}/core/models";
 import { MdArrowBack, MdAttachMoney } from "react-icons/md";
