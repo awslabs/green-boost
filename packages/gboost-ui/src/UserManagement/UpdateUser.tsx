@@ -6,14 +6,11 @@ import { MdArrowBack } from "react-icons/md";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, gQuery, StyledButton, useNotifications } from "../index.js";
 import {
-  Box,
-  gQuery,
-  SmartTextField,
   SmartMultiSelectField,
-  StyledButton,
-  useNotifications,
-} from "../index.js";
+  SmartTextField,
+} from "../SmartFields/smart-fields.js";
 import { getUser, listGroupsForUser, updateUser } from "./gql.js";
 import {
   baseUserSchema,

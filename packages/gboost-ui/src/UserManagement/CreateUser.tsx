@@ -9,14 +9,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CognitoUser } from "gboost-common";
 import { GraphQLError } from "graphql";
 import { createUser } from "./gql.js";
+import { Box, gQuery, StyledButton, useNotifications } from "../index.js";
 import {
-  Box,
-  gQuery,
   SmartMultiSelectField,
   SmartTextField,
-  StyledButton,
-  useNotifications,
-} from "../index.js";
+} from "../SmartFields/smart-fields.js";
 import {
   Container,
   BackIcon,
