@@ -1,4 +1,4 @@
-import { resolve } from "node:path";
+import path, { resolve } from "node:path";
 import { Operation, OperationType } from "../operations/operations.js";
 import type { GetOperationsParams } from "./common.js";
 
@@ -7,6 +7,26 @@ import type { GetOperationsParams } from "./common.js";
  */
 export function getCommonOperations(params: GetOperationsParams): Operation[] {
   const { destinationPath, appId, appTitle } = params;
+
+  // debugging...
+  //console.log("source path =>" + path.win32.resolve(`${destinationPath}/infra/cdk.json`));
+  //console.log("replace path =>" + path.win32.resolve(`${destinationPath}/infra/node_modules/.bin/ts-node`));
+  //console.log("dest path=>" + destinationPath);
+  //console.log("title =>" + appTitle);
+
+  //
+  // for windows/linux compatability, we need to ensure a full absolutle path to ts-node is
+  // present. No relative paths work correctly on windows, so all ./ references need to be replaced.
+  // This code below forms a normalized path to ts-node and replaces on back slash with forward slash
+  // have a consistent path.
+  //
+  const tsNodePath = path.posix.normalize(
+    `${destinationPath}/infra/node_modules/.bin/ts-node --esm`
+  );
+  const normalizedPath = tsNodePath.replace(/\\/g, "/");
+
+  //console.log("tsnodepath =>" + normalizedPath)
+
   return [
     {
       name: "ReplaceAppIdAndTsNoCheck",
@@ -17,6 +37,15 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
         { find: "// @ts-nocheck\n", replace: "" },
       ],
       sourcePath: destinationPath,
+    },
+    // This fixes up the cdk app line in cdk.json to work in both windows
+    // and linux systems. This is needed because of windows/linux file path
+    // differences.
+    {
+      name: "FixupTSNodePath",
+      type: OperationType.Replace,
+      values: [{ find: /{{GB_TSNODE_PATH}}/g, replace: normalizedPath }],
+      sourcePath: `${destinationPath}/infra/cdk.json`,
     },
     // programatically add monorepo workspace dependencies instead of using
     // "@{{GB_APP_ID}}/utils": "workspace:^0.1.0" in package.json.t's so that
