@@ -1,5 +1,11 @@
 # gboost
 
+## 0.16.1
+
+### Patch Changes
+
+- [#198](https://github.com/awslabs/green-boost/pull/198) [`f22679d`](https://github.com/awslabs/green-boost/commit/f22679dbaeca891af733cd29d66348eb1bb3d58e) Thanks [@bestickley](https://github.com/bestickley)! - Update "gboost-ui/smart-fields" import for templates
+
 ## 0.16.0
 
 ### Minor Changes
