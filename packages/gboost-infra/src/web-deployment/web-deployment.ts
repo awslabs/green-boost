@@ -144,7 +144,7 @@ export class WebDeployment extends Construct {
       prune: props.prune || true,
     };
 
-    this.#getCustomResource({ fn, properties });
+    this.#createCustomResource({ fn, properties });
     this.#suppressNags(fn);
   }
 
@@ -236,7 +236,7 @@ export class WebDeployment extends Construct {
     });
   }
 
-  #getCustomResource(params: GetCustomResourceParams) {
+  #createCustomResource(params: GetCustomResourceParams) {
     const provider = new Provider(this, "Provider", {
       onEventHandler: params.fn,
       logRetention: RetentionDays.ONE_DAY,
