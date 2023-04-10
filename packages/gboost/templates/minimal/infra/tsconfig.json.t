@@ -4,4 +4,7 @@
   "compilerOptions": {
     "exactOptionalPropertyTypes": false
   },
+  "ts-node": {
+    "esm": true
+  }
 }

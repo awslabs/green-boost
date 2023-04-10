@@ -79,7 +79,7 @@ export class StaticSite extends Construct {
     const {
       bucket,
       distribution,
-      enableWaf = true,
+      enableWaf = false,
       webAcl: overrideWebAcl,
     } = props;
 

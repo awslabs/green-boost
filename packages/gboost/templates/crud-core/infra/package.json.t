@@ -24,8 +24,7 @@
     "constructs": "^10.1.300",
     "gboost-common": "^0.11.1",
     "gboost-infra": "^0.15.0",
-    "vite": "^4.2.1",
-    "vite-node": "^0.29.8"
+    "vite": "^4.2.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

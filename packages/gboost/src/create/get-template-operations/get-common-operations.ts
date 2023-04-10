@@ -1,4 +1,4 @@
-import path, { resolve } from "node:path";
+import { resolve } from "node:path";
 import { Operation, OperationType } from "../operations/operations.js";
 import type { GetOperationsParams } from "./common.js";
 
@@ -8,25 +8,17 @@ import type { GetOperationsParams } from "./common.js";
 export function getCommonOperations(params: GetOperationsParams): Operation[] {
   const { destinationPath, appId, appTitle } = params;
 
-  // debugging...
-  //console.log("source path =>" + path.win32.resolve(`${destinationPath}/infra/cdk.json`));
-  //console.log("replace path =>" + path.win32.resolve(`${destinationPath}/infra/node_modules/.bin/ts-node`));
-  //console.log("dest path=>" + destinationPath);
-  //console.log("title =>" + appTitle);
-
   //
   // for windows/linux compatability, we need to ensure a full absolutle path to ts-node is
   // present. No relative paths work correctly on windows, so all ./ references need to be replaced.
-  // This code below forms a normalized path to ts-node and replaces on back slash with forward slash
-  // have a consistent path.
+  // This code below forms an absolute path to ts-node and replaces on all back slash with forward slash
+  // have a consistent paths through out the file. 
   //
-  const tsNodePath = path.posix.normalize(
-    `${destinationPath}/infra/node_modules/.bin/ts-node --esm`
+  const tsNodePath = resolve(
+    `${destinationPath}/infra/node_modules/.bin/ts-node`
   );
   const normalizedPath = tsNodePath.replace(/\\/g, "/");
-
-  //console.log("tsnodepath =>" + normalizedPath)
-
+ 
   return [
     {
       name: "ReplaceAppIdAndTsNoCheck",
