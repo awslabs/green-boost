@@ -17,10 +17,21 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@aws-sdk/client-ssm": "^3.306.0",
+    "fast-jwt": "^2.2.1",
     "gboost-common": "workspace:^"
+  },
+  "peerDependencies": {
+    "openid-client": "^5.4.0"
+  },
+  "peerDependenciesMeta": {
+    "openid-client": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@tsconfig/node18-strictest-esm": "^1.0.1",
+    "@types/aws-lambda": "^8.10.114",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.37.0",

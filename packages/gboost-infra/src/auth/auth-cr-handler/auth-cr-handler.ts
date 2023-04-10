@@ -62,6 +62,7 @@ export const handler: CdkCustomResourceHandler = async (event) => {
 };
 
 function generateKeys() {
+  //https://www.scottbrady91.com/jose/jwts-which-signing-algorithm-should-i-use
   const keyPair = generateKeyPairSync("ed25519");
   const privateKey = keyPair.privateKey
     .export({ format: "pem", type: "pkcs8" })

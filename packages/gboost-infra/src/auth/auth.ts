@@ -96,12 +96,10 @@ export class Auth extends Construct {
     if (!/^[a-z\/]+$/.test(apiPathPrefix)) {
       throw new Error(`Invalid apiPathPrefix: ${apiPathPrefix}`);
     }
-    const paths = apiPathPrefix.split("/");
+    const paths = apiPathPrefix.split("/").filter(Boolean);
     let resource = api.root;
     for (const path of paths) {
-      if (path) {
-        resource = resource.addResource(path);
-      }
+      resource = resource.addResource(path);
     }
     return resource;
   }
