@@ -12,13 +12,13 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
   // for windows/linux compatability, we need to ensure a full absolutle path to ts-node is
   // present. No relative paths work correctly on windows, so all ./ references need to be replaced.
   // This code below forms an absolute path to ts-node and replaces on all back slash with forward slash
-  // have a consistent paths through out the file. 
+  // have a consistent paths through out the file.
   //
   const tsNodePath = resolve(
     `${destinationPath}/infra/node_modules/.bin/ts-node`
   );
   const normalizedPath = tsNodePath.replace(/\\/g, "/");
- 
+
   return [
     {
       name: "ReplaceAppIdAndTsNoCheck",
