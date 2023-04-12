@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Stack, StackProps } from "aws-cdk-lib";
+import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
 import { StaticSite, WebDeployment } from "gboost-infra";
 import { resolve } from "node:path";
@@ -29,6 +29,9 @@ export class Ui extends Stack {
           },
         },
       },
+    });
+    new CfnOutput(this, "CloudFrontDistributionDomain", {
+      value: staticSite.distribution.distributionDomainName,
     });
     const workingDirectory = resolve(thisFilePath, "../../../../../ui");
     new WebDeployment(this, "WebDeployment", {
