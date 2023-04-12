@@ -177,10 +177,10 @@ export class WebDeployment extends Construct {
     if (isDev) {
       codePath = resolve(
         thisFilePath,
-        "../../../lib/web-deployment/custom-resource-handler"
+        "../../../lib/web-deployment/web-deploy-cr-handler"
       );
     } else {
-      codePath = resolve(thisFilePath, "../custom-resource-handler");
+      codePath = resolve(thisFilePath, "../web-deploy-cr-handler-handler");
     }
     const uuid = "e94797a6-488d-4a73-8e2b-79695c7ec7dd";
     const lambdaPurpose = "WebDeploymentCustomResourceHandler";

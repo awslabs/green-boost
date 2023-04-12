@@ -3,9 +3,21 @@
   "version": "0.2.3",
   "description": "Green Boost UI Library of Node.js Functions",
   "type": "module",
-  "exports": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./auth": "./src/auth/auth.ts"
+  },
   "publishConfig": {
-    "exports": "./lib/index.js"
+    "exports": {
+      ".": {
+        "types": "./lib/index.d.ts",
+        "import": "./lib/index.js"
+      },
+      "./auth": {
+        "types": "./lib/auth/auth.d.ts",
+        "import": "./lib/auth/auth.js"
+      }
+    }
   },
   "files": [
     "lib/**/*"

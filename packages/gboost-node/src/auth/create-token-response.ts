@@ -1,11 +1,6 @@
 import type { APIGatewayProxyResult } from "aws-lambda";
-import { createSigner, createVerifier, SignerOptions } from "fast-jwt";
-import {
-  getCookiesFromHeader,
-  getPrivateKey,
-  getPublicKey,
-  getRequestData,
-} from "./common.js";
+import { createSigner, SignerOptions } from "fast-jwt";
+import { getPrivateKey } from "./common.js";
 
 /**
  * Claims added to JWT payload for your frontend or downstream API to read.
@@ -17,7 +12,7 @@ import {
  * @example
  * ```ts
  * declare module "gboost-infra/auth" {
- *   export interface PrivateClaims {
+ *   export interface Claims {
  *     userId: string;
  *   }
  * }
@@ -28,6 +23,9 @@ export type Claims = Record<string, any>;
 
 interface CreateTokenParams {
   claims: Claims;
+  /**
+   * @link https://github.com/nearform/fast-jwt#createsigner
+   */
   options?: Omit<SignerOptions, "key" | "algorithm">;
 }
 /**
@@ -61,7 +59,7 @@ interface CreateTokenResponseParams {
    * your own `APIGatewayProxyResult`.
    * @default "queryParameter"
    */
-  type: "queryParameter" | "cookie";
+  type?: "queryParameter" | "cookie";
 }
 
 /**
@@ -92,32 +90,4 @@ export function createTokenResponse(
     body: "",
     headers,
   };
-}
-
-function getToken(): string {
-  const requestData = getRequestData();
-  const headerToken = requestData.event.headers["authorization"];
-  if (headerToken) {
-    return headerToken;
-  }
-  const stringCookies = requestData.event.headers["Cookie"];
-  if (!stringCookies) {
-    throw new Error("authorization and cookie header missing");
-  }
-  const cookies = getCookiesFromHeader(stringCookies);
-  const cookieToken = cookies["authorization"];
-  if (cookieToken) {
-    return cookieToken;
-  }
-  throw new Error("authorization header missing and no authorization cookie");
-}
-
-export function useToken(): Claims {
-  const verifier = createVerifier({
-    key: getPublicKey(),
-    algorithms: ["EdDSA"],
-    cache: true,
-  });
-  const token = getToken();
-  return verifier(token);
 }

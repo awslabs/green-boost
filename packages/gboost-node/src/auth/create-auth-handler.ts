@@ -16,11 +16,16 @@ setPrivateKey(privateKey);
 setPublicKey(publicKey);
 
 export function createAuthHandler(
-  getAdapter: (event: APIGatewayProxyEvent) => APIGatewayProxyHandler
+  getAdapter: (
+    event: APIGatewayProxyEvent
+  ) => APIGatewayProxyHandler | Promise<APIGatewayProxyHandler>
 ): APIGatewayProxyHandler {
   const handler: APIGatewayProxyHandler = async (event, context, callback) => {
     setRequestData({ event, context });
-    const adapter = getAdapter(event);
+    let adapter = getAdapter(event);
+    if (adapter instanceof Promise) {
+      adapter = await adapter;
+    }
     const res = (await adapter(
       event,
       context,
