@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.15.1
+
+### Patch Changes
+
+- [#203](https://github.com/awslabs/green-boost/pull/203) [`ccf0b85`](https://github.com/awslabs/green-boost/commit/ccf0b857d984753c12e557a4d963e127c486b946) Thanks [@jwhigg](https://github.com/jwhigg)! - Update `StaticSite` to disable WAF by default. This resolves issue where deploying in non-us-east-1 regions fails as WAF for CloudFront must be deployed in us-east-1.
+
 ## 0.15.0
 
 ### Minor Changes
