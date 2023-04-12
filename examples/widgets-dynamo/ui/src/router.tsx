@@ -4,6 +4,8 @@ import { Root } from "./pages/Root.js";
 import { CreateWidget } from "./pages/widgets/create/CreateWidget.js";
 import { EditWidget } from "./pages/widgets/$id/EditWidget.js";
 import { WidgetsTable } from "./pages/widgets/WidgetsTable.js";
+import { CreateComponent } from "./pages/components/create/CreateComponent.js";
+import { EditComponent } from "./pages/components/$id/EditComponent.js";
 
 export const router = createBrowserRouter([
   {
@@ -33,10 +35,26 @@ export const router = createBrowserRouter([
       },
       {
         path: "components",
-        lazy: () =>
-          import("./pages/components/Components.js").then(({ Components }) => ({
-            Component: Components,
-          })),
+        element: <Outlet />,
+        children: [
+          {
+            index: true,
+            lazy: () =>
+              import("./pages/components/ComponentsTable.js").then(
+                ({ ComponentsTable }) => ({
+                  Component: ComponentsTable,
+                })
+              ),
+          },
+          {
+            path: "create",
+            element: <CreateComponent />,
+          },
+          {
+            path: ":id",
+            element: <EditComponent />,
+          },
+        ],
       },
     ],
   },

@@ -32,7 +32,7 @@ export class Ui extends Stack {
     const workingDirectory = resolve(thisFilePath, "../../../../../ui");
     new WebDeployment(this, "WebDeployment", {
       buildConfig: {
-        // command: "pnpm build",
+        command: "pnpm build",
         workingDirectory,
         environment: {
           VITE_API_URL: api.url,
