@@ -2,4 +2,4 @@
 "gboost": patch
 ---
 
-added ts-node to dev dependencies to ensure ts-node gets added dependency install.
+Use `ts-node` in templates infra/ folder instead of vite-node to reduce ESM errors. ts-node is more forgiving. Make ts-node path dynamic to resolve windows/linux issues.
