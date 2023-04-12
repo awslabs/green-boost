@@ -1,6 +1,5 @@
 ---
 "gboost-infra": patch
-"gboost": patch
 ---
 
-Fixes to support ts-node paths in windows and linux. enableWaf = false. Remove vite-node dependency.
+Update `StaticSite` to disable WAF by default. This resolves issue where deploying in non-us-east-1 regions fails as WAF for CloudFront must be deployed in us-east-1.
