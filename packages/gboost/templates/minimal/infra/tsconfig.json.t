@@ -5,6 +5,7 @@
     "exactOptionalPropertyTypes": false
   },
   "ts-node": {
-    "esm": true
+    "esm": true,
+    "swc": true,
   }
 }

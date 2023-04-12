@@ -23,11 +23,12 @@
     "vite": "^4.2.1"
   },
   "devDependencies": {
+    "@swc/core": "^1.3.49",
     "@types/node": "^18.15.11",
     "eslint": "^8.37.0",
     "eslint-define-config": "^1.17.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
-    "vitest": "^0.29.8",
-    "ts-node": "^10.9.1"
+    "vitest": "^0.29.8"
   }
 }
