@@ -7,6 +7,18 @@ import type { GetOperationsParams } from "./common.js";
  */
 export function getCommonOperations(params: GetOperationsParams): Operation[] {
   const { destinationPath, appId, appTitle } = params;
+
+  //
+  // for windows/linux compatability, we need to ensure a full absolutle path to ts-node is
+  // present. No relative paths work correctly on windows, so all ./ references need to be replaced.
+  // This code below forms an absolute path to ts-node and replaces on all back slash with forward slash
+  // have a consistent paths through out the file.
+  //
+  const tsNodePath = resolve(
+    `${destinationPath}/infra/node_modules/.bin/ts-node`
+  );
+  const normalizedPath = tsNodePath.replace(/\\/g, "/");
+
   return [
     {
       name: "ReplaceAppIdAndTsNoCheck",
@@ -17,6 +29,15 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
         { find: "// @ts-nocheck\n", replace: "" },
       ],
       sourcePath: destinationPath,
+    },
+    // This fixes up the cdk app line in cdk.json to work in both windows
+    // and linux systems. This is needed because of windows/linux file path
+    // differences.
+    {
+      name: "FixupTSNodePath",
+      type: OperationType.Replace,
+      values: [{ find: /{{GB_TSNODE_PATH}}/g, replace: normalizedPath }],
+      sourcePath: `${destinationPath}/infra/cdk.json`,
     },
     // programatically add monorepo workspace dependencies instead of using
     // "@{{GB_APP_ID}}/utils": "workspace:^0.1.0" in package.json.t's so that

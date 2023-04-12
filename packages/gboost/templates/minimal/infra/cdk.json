@@ -1,5 +1,5 @@
 {
-  "app": "./node_modules/.bin/vite-node src/local-app.ts",
+  "app": "{{GB_TSNODE_PATH}} src/local-app.ts",
   "watch": {
     "include": [
       "src/**",
