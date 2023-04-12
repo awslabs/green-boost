@@ -1,5 +1,11 @@
 # gboost
 
+## 0.16.2
+
+### Patch Changes
+
+- [#203](https://github.com/awslabs/green-boost/pull/203) [`ccf0b85`](https://github.com/awslabs/green-boost/commit/ccf0b857d984753c12e557a4d963e127c486b946) Thanks [@jwhigg](https://github.com/jwhigg)! - Use `ts-node` in templates infra/ folder instead of vite-node to reduce ESM errors. ts-node is more forgiving. Make ts-node path dynamic to resolve windows/linux issues.
+
 ## 0.16.1
 
 ### Patch Changes
