@@ -1,6 +1,6 @@
 {
-    "name": "{{GB_APP_NAME}}",
-    "short_name": "{{GB_APP_NAME}}",
+    "name": "Green Boost",
+    "short_name": "Green Boost",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",

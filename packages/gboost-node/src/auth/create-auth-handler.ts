@@ -10,8 +10,10 @@ import {
   setRequestData,
 } from "./common.js";
 
-const privateKey = await getKeyFromSSM("/gboost/private-key");
-const publicKey = await getKeyFromSSM("/gboost/public-key");
+const [privateKey, publicKey] = await Promise.all([
+  getKeyFromSSM("/gboost/auth/private-key"),
+  getKeyFromSSM("/gboost/auth/public-key"),
+]);
 setPrivateKey(privateKey);
 setPublicKey(publicKey);
 

@@ -1,9 +1,10 @@
-import { CustomResource, Duration } from "aws-cdk-lib";
+import { CustomResource, Duration, Stack } from "aws-cdk-lib";
 import {
   IResource,
   LambdaIntegration,
   RestApi,
 } from "aws-cdk-lib/aws-apigateway";
+import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import {
   Architecture,
   Code,
@@ -55,6 +56,7 @@ export class Auth extends Construct {
     this.#createCustomResource(crFn);
     const resource = this.#getApiResource({ api, apiPathPrefix });
     this.#addRoutes({ fn, resource, types });
+    this.#updateFnPermissions(fn);
   }
 
   #getFunction() {
@@ -67,7 +69,7 @@ export class Auth extends Construct {
     }
     const uuid = "e92614cc-1c65-4033-adc4-fa6b6aeef31e";
     const lambdaPurpose = "AuthSetupCustomResourceHandler";
-    return new SingletonFunction(this, "CustomResourceHandler", {
+    const fn = new SingletonFunction(this, "CustomResourceHandler", {
       runtime: Runtime.NODEJS_18_X,
       code: Code.fromAsset(codePath),
       handler: "auth-cr-handler.handler",
@@ -79,7 +81,20 @@ export class Auth extends Construct {
       environment: {
         NODE_OPTIONS: "--enable-source-maps",
       },
+      initialPolicy: [
+        new PolicyStatement({
+          actions: ["ssm:PutParameter", "ssm:DeleteParameter"],
+          resources: [
+            Stack.of(this).formatArn({
+              service: "ssm",
+              resource: "parameter",
+              resourceName: "gboost/auth/*",
+            }),
+          ],
+        }),
+      ],
     });
+    return fn;
   }
 
   #createCustomResource(fn: SingletonFunction) {
@@ -130,6 +145,21 @@ export class Auth extends Construct {
         throw new Error("Not Implemented");
       }
     }
+  }
+
+  #updateFnPermissions(fn: GbFunction) {
+    fn.addToRolePolicy(
+      new PolicyStatement({
+        actions: ["ssm:GetParameter"],
+        resources: [
+          Stack.of(this).formatArn({
+            service: "ssm",
+            resource: "parameter",
+            resourceName: "gboost/auth/*",
+          }),
+        ],
+      })
+    );
   }
 }
 

@@ -21,13 +21,22 @@ function getTokenFromEvent(event: APIGatewayProxyEvent): string {
 }
 
 interface GetTokenParams {
+  /**
+   * API Gateway Proxy Event to extract token from
+   */
   event: APIGatewayProxyEvent;
   /**
+   * JWT Verifier Options
    * @link https://github.com/nearform/fast-jwt#createverifier
    */
   options?: Omit<VerifierOptions, "key" | "algorithms">;
 }
 
+/**
+ * Get cryptographically verified claims on token that were set in Lambda
+ * handler created by `createAuthHandler`. If you'd like the entire token
+ * returned, set the `options` property to `{ complete: true }`.
+ */
 export function getVerifiedToken(params: GetTokenParams): Claims {
   const verifier = createVerifier({
     cache: true,
