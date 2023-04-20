@@ -22,7 +22,7 @@ const thisFilePath = fileURLToPath(import.meta.url);
 
 export const enum AuthType {
   "OAuth" = "OAuth",
-  "MagicLinks" = "MagicLinks",
+  "MagicLink" = "MagicLink",
   "SAML" = "SAML",
   "WebAuthn" = "WebAuthn",
 }
@@ -56,7 +56,7 @@ export class Auth extends Construct {
     this.#createCustomResource(crFn);
     const resource = this.#getApiResource({ api, apiPathPrefix });
     this.#addRoutes({ fn, resource, types });
-    this.#updateFnPermissions(fn);
+    this.#allowAccessToKeys(fn);
   }
 
   #getFunction() {
@@ -88,7 +88,12 @@ export class Auth extends Construct {
             Stack.of(this).formatArn({
               service: "ssm",
               resource: "parameter",
-              resourceName: "gboost/auth/*",
+              resourceName: "gboost/auth/private-key",
+            }),
+            Stack.of(this).formatArn({
+              service: "ssm",
+              resource: "parameter",
+              resourceName: "gboost/auth/public-key",
             }),
           ],
         }),
@@ -130,15 +135,16 @@ export class Auth extends Construct {
   #addRoutes(params: AddRoutesParams) {
     const { resource, fn } = params;
     for (const authType of params.types) {
-      if (authType === AuthType.MagicLinks) {
+      if (authType === AuthType.MagicLink) {
         throw new Error("Not Implemented");
       } else if (authType === AuthType.OAuth) {
-        resource
+        const oAuthResource = resource.addResource("oauth");
+        oAuthResource
           .addResource("authorize")
           .addMethod("GET", new LambdaIntegration(fn));
-        resource
+        oAuthResource
           .addResource("callback")
-          .addMethod("POST", new LambdaIntegration(fn));
+          .addMethod("GET", new LambdaIntegration(fn));
       } else if (authType === AuthType.SAML) {
         throw new Error("Not Implemented");
       } else if (authType === AuthType.WebAuthn) {
@@ -147,7 +153,7 @@ export class Auth extends Construct {
     }
   }
 
-  #updateFnPermissions(fn: GbFunction) {
+  #allowAccessToKeys(fn: GbFunction) {
     fn.addToRolePolicy(
       new PolicyStatement({
         actions: ["ssm:GetParameter"],
@@ -155,7 +161,12 @@ export class Auth extends Construct {
           Stack.of(this).formatArn({
             service: "ssm",
             resource: "parameter",
-            resourceName: "gboost/auth/*",
+            resourceName: "gboost/auth/private-key",
+          }),
+          Stack.of(this).formatArn({
+            service: "ssm",
+            resource: "parameter",
+            resourceName: "gboost/auth/public-key",
           }),
         ],
       })

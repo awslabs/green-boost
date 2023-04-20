@@ -1,6 +1,6 @@
 import type { APIGatewayProxyResult } from "aws-lambda";
 import { createSigner, SignerOptions } from "fast-jwt";
-import { getPrivateKey } from "./common.js";
+import { getKeyFromSSM } from "./common.js";
 
 /**
  * Claims added to JWT payload for your frontend or downstream API to read.
@@ -28,14 +28,20 @@ interface CreateTokenParams {
    */
   options?: Omit<SignerOptions, "key" | "algorithm">;
 }
+
+let privateKey = "";
+
 /**
  * Creates JWT signed with private key.
  */
-export function createToken(params: CreateTokenParams): string {
+export async function createToken(params: CreateTokenParams): Promise<string> {
   const { options, claims } = params;
+  if (!privateKey) {
+    privateKey = await getKeyFromSSM("/gboost/auth/private-key");
+  }
   const signer = createSigner({
     ...options,
-    key: getPrivateKey(),
+    key: privateKey,
     algorithm: "EdDSA",
   });
   return signer(claims);
@@ -66,11 +72,11 @@ interface CreateTokenResponseParams {
  * Returns API Gateway redirect response with signed JWT either in query
  * parameter or cookie depending on `type` parameter.
  */
-export function createTokenResponse(
+export async function createTokenResponse(
   params: CreateTokenResponseParams
-): APIGatewayProxyResult {
+): Promise<APIGatewayProxyResult> {
   const { claims, options, redirectLocation, type = "queryParameter" } = params;
-  const token = createToken({ claims, options });
+  const token = await createToken({ claims, options });
   const headers: APIGatewayProxyResult["headers"] = {
     Location: redirectLocation,
   };
