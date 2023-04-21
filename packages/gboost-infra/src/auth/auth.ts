@@ -1,9 +1,5 @@
 import { CustomResource, Duration, Stack } from "aws-cdk-lib";
-import {
-  IResource,
-  LambdaIntegration,
-  RestApi,
-} from "aws-cdk-lib/aws-apigateway";
+import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import {
   Architecture,
@@ -20,46 +16,57 @@ import type { Function as GbFunction } from "../function.js";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 
-export const enum AuthType {
-  "OAuth" = "OAuth",
-  "MagicLink" = "MagicLink",
-  "SAML" = "SAML",
-  "WebAuthn" = "WebAuthn",
-}
-
 interface AuthProps {
   /**
-   * API Gateway (v1) to attach to routes: .../authorize and .../callback
+   * API Gateway (v1) to attach auth routes to.
    */
   api: RestApi;
   /**
-   * API path to prefix /authorize and /callback routes with
+   * Prefix for auth proxy route.
    * @default "auth"
    */
   apiPathPrefix?: string;
   /**
-   * Function to authenticate users with. In this function you should call
-   * `createAuthHandler`.
+   * Function to authenticate users with. In this function use Green Boost's
+   * Auth handlers like `handleOAuth` or `handleLink`. You're responsible for
+   * ensuring the frontend redirects or makes requests to API paths that call
+   * the correct auth "handlers".
    */
-  fn: GbFunction;
-  /**
-   * Type of authentication desire. Determines routes added to API Gateway.
-   */
-  types: AuthType[];
+  authFunction: GbFunction;
 }
 
+/**
+ * Sets up resources necessary for Green Boost's Auth including SSM Parameters
+ * for public/private key pair an API routes.
+ *
+ * Each API Gateway resource can only be associated with 1 `Auth` construct.
+ */
 export class Auth extends Construct {
   constructor(scope: Construct, id: string, props: AuthProps) {
     super(scope, id);
-    const { api, apiPathPrefix = "auth", fn, types } = props;
-    const crFn = this.#getFunction();
-    this.#createCustomResource(crFn);
-    const resource = this.#getApiResource({ api, apiPathPrefix });
-    this.#addRoutes({ fn, resource, types });
-    this.#allowAccessToKeys(fn);
+    const { api, apiPathPrefix = "auth", authFunction } = props;
+    this.#createCustomResource(api.restApiId);
+    this.#addRoute({ api, apiPathPrefix, authFunction });
   }
 
-  #getFunction() {
+  #createCustomResource(apiId: string) {
+    const provider = new Provider(this, "Provider", {
+      onEventHandler: this.#getFunction(apiId),
+      logRetention: RetentionDays.ONE_DAY,
+    });
+
+    const customResource = new CustomResource(this, "CustomResource", {
+      resourceType: "Custom::WebDeployment",
+      serviceToken: provider.serviceToken,
+      properties: {
+        PrivateKeyName: getKeyName({ apiId, type: "private" }),
+        PublicKeyName: getKeyName({ apiId, type: "public" }),
+      },
+    });
+    return customResource;
+  }
+
+  #getFunction(apiId: string) {
     const isDev = import.meta.url.endsWith(".ts");
     let codePath = "";
     if (isDev) {
@@ -88,12 +95,12 @@ export class Auth extends Construct {
             Stack.of(this).formatArn({
               service: "ssm",
               resource: "parameter",
-              resourceName: "gboost/auth/private-key",
+              resourceName: getKeyName({ apiId, type: "private" }).slice(1),
             }),
             Stack.of(this).formatArn({
               service: "ssm",
               resource: "parameter",
-              resourceName: "gboost/auth/public-key",
+              resourceName: getKeyName({ apiId, type: "public" }).slice(1),
             }),
           ],
         }),
@@ -102,25 +109,8 @@ export class Auth extends Construct {
     return fn;
   }
 
-  #createCustomResource(fn: SingletonFunction) {
-    const provider = new Provider(this, "Provider", {
-      onEventHandler: fn,
-      logRetention: RetentionDays.ONE_DAY,
-    });
-
-    const customResource = new CustomResource(this, "CustomResource", {
-      resourceType: "Custom::WebDeployment",
-      serviceToken: provider.serviceToken,
-      properties: {
-        PrivateKeyName: "/gboost/auth/private-key",
-        PublicKeyName: "/gboost/auth/public-key",
-      },
-    });
-    return customResource;
-  }
-
-  #getApiResource(params: GetApiResourceParams): IResource {
-    const { api, apiPathPrefix } = params;
+  #addRoute(params: AddRouteParams) {
+    const { api, apiPathPrefix, authFunction } = params;
     if (!/^[a-z\/]+$/.test(apiPathPrefix)) {
       throw new Error(`Invalid apiPathPrefix: ${apiPathPrefix}`);
     }
@@ -129,57 +119,23 @@ export class Auth extends Construct {
     for (const path of paths) {
       resource = resource.addResource(path);
     }
-    return resource;
-  }
-
-  #addRoutes(params: AddRoutesParams) {
-    const { resource, fn } = params;
-    for (const authType of params.types) {
-      if (authType === AuthType.MagicLink) {
-        throw new Error("Not Implemented");
-      } else if (authType === AuthType.OAuth) {
-        const oAuthResource = resource.addResource("oauth");
-        oAuthResource
-          .addResource("authorize")
-          .addMethod("GET", new LambdaIntegration(fn));
-        oAuthResource
-          .addResource("callback")
-          .addMethod("GET", new LambdaIntegration(fn));
-      } else if (authType === AuthType.SAML) {
-        throw new Error("Not Implemented");
-      } else if (authType === AuthType.WebAuthn) {
-        throw new Error("Not Implemented");
-      }
-    }
-  }
-
-  #allowAccessToKeys(fn: GbFunction) {
-    fn.addToRolePolicy(
-      new PolicyStatement({
-        actions: ["ssm:GetParameter"],
-        resources: [
-          Stack.of(this).formatArn({
-            service: "ssm",
-            resource: "parameter",
-            resourceName: "gboost/auth/private-key",
-          }),
-          Stack.of(this).formatArn({
-            service: "ssm",
-            resource: "parameter",
-            resourceName: "gboost/auth/public-key",
-          }),
-        ],
-      })
-    );
+    resource
+      .addResource("{proxy+}")
+      .addMethod("ANY", new LambdaIntegration(authFunction));
   }
 }
 
-interface GetApiResourceParams {
+interface AddRouteParams {
   api: RestApi;
   apiPathPrefix: string;
+  authFunction: GbFunction;
 }
-interface AddRoutesParams {
-  resource: IResource;
-  fn: GbFunction;
-  types: AuthType[];
+
+interface GetKeyNameParams {
+  apiId: string;
+  type: "private" | "public";
+}
+function getKeyName(params: GetKeyNameParams): string {
+  const { apiId, type } = params;
+  return `/gboost/auth/${apiId}/${type}-key`;
 }

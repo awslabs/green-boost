@@ -21,16 +21,20 @@ interface GetTokenParams {
  * Get cryptographically verified claims on token that were set in Lambda
  * handler created by `createAuthHandler`. If you'd like the entire token
  * returned, set the `options` property to `{ complete: true }`.
+ *
+ * Note, Lambdas that use this function must be created with Green Boost's
+ * `Function` constuct.
  */
 export async function getVerifiedToken(
   params: GetTokenParams
 ): Promise<Claims> {
+  const { event, options } = params;
   if (!publicKey) {
-    publicKey = await getKeyFromSSM("/gboost/auth/public-key");
+    publicKey = await getKeyFromSSM({ event, type: "public" });
   }
   const verifier = createVerifier({
     cache: true,
-    ...params.options,
+    ...options,
     key: publicKey,
     algorithms: ["EdDSA"],
   });

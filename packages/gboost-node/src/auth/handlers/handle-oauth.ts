@@ -3,25 +3,27 @@ import { BaseClient, TokenSet, Issuer, generators } from "openid-client";
 import { getAction, getCallbackUrl } from "./common.js";
 import { getCookiesFromHeader } from "../common.js";
 
-interface CreateOAuthAdapterAdapterParams {
+interface HandleOAuthParams {
   clientId: string;
   clientSecret: string;
   event: APIGatewayProxyEvent;
   issuer: Issuer;
   onAuthenticated: (
     params: OnAuthenticatedParams
-  ) => Promise<APIGatewayProxyResult>;
-  onError: (error: Error) => Promise<APIGatewayProxyResult>;
+  ) => Promise<APIGatewayProxyResult> | APIGatewayProxyResult;
+  onError: (
+    error: Error
+  ) => Promise<APIGatewayProxyResult> | APIGatewayProxyResult;
   scope: string;
 }
 
 /**
- * OAuth2 adapter which uses the secure authorization code flow with PKCE to
+ * OAuth2 handler which uses the secure authorization code flow with PKCE to
  * obtain access, refresh and id tokens. To learn more about the OAuth2 flow,
  * see this excellent visual explanation [here](https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc#let-the-oauth-flow).
  */
-export async function createOAuthAdapter(
-  params: CreateOAuthAdapterAdapterParams
+export async function handleOAuth(
+  params: HandleOAuthParams
 ): Promise<APIGatewayProxyResult> {
   const {
     clientId,
@@ -95,7 +97,7 @@ export async function createOAuthAdapter(
         parameters, // includes code, scope, state, ...etc
         { code_verifier: codeVerifier, state }
       );
-      return onAuthenticated({ tokenSet, client });
+      return onAuthenticated({ client, event, tokenSet });
     } catch (err) {
       return onError(err as Error);
     }
@@ -108,6 +110,7 @@ export async function createOAuthAdapter(
 }
 
 export interface OnAuthenticatedParams {
-  tokenSet: TokenSet;
   client: BaseClient;
+  event: APIGatewayProxyEvent;
+  tokenSet: TokenSet;
 }

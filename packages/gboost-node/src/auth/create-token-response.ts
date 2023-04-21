@@ -1,4 +1,4 @@
-import type { APIGatewayProxyResult } from "aws-lambda";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { createSigner, SignerOptions } from "fast-jwt";
 import { getKeyFromSSM } from "./common.js";
 
@@ -19,10 +19,11 @@ import { getKeyFromSSM } from "./common.js";
  * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Claims = Record<string, any>;
+export declare type Claims = Record<string, any>;
 
 interface CreateTokenParams {
   claims: Claims;
+  event: APIGatewayProxyEvent;
   /**
    * @link https://github.com/nearform/fast-jwt#createsigner
    */
@@ -35,9 +36,9 @@ let privateKey = "";
  * Creates JWT signed with private key.
  */
 export async function createToken(params: CreateTokenParams): Promise<string> {
-  const { options, claims } = params;
+  const { claims, event, options } = params;
   if (!privateKey) {
-    privateKey = await getKeyFromSSM("/gboost/auth/private-key");
+    privateKey = await getKeyFromSSM({ event, type: "private" });
   }
   const signer = createSigner({
     ...options,
@@ -49,6 +50,7 @@ export async function createToken(params: CreateTokenParams): Promise<string> {
 
 interface CreateTokenResponseParams {
   claims: Claims;
+  event: APIGatewayProxyEvent;
   /**
    * JWT Signing Options
    */
@@ -69,14 +71,20 @@ interface CreateTokenResponseParams {
 }
 
 /**
- * Returns API Gateway redirect response with signed JWT either in query
+ * Returns API Gateway redirect (302) response with signed JWT either in query
  * parameter or cookie depending on `type` parameter.
  */
 export async function createTokenResponse(
   params: CreateTokenResponseParams
 ): Promise<APIGatewayProxyResult> {
-  const { claims, options, redirectLocation, type = "queryParameter" } = params;
-  const token = await createToken({ claims, options });
+  const {
+    claims,
+    event,
+    options,
+    redirectLocation,
+    type = "queryParameter",
+  } = params;
+  const token = await createToken({ claims, event, options });
   const headers: APIGatewayProxyResult["headers"] = {
     Location: redirectLocation,
   };

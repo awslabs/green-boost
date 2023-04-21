@@ -2,7 +2,6 @@ import type { CdkCustomResourceHandler } from "aws-lambda";
 import { generateKeyPairSync } from "node:crypto";
 import {
   DeleteParameterCommand,
-  GetParameterCommand,
   PutParameterCommand,
   SSMClient,
 } from "@aws-sdk/client-ssm";
@@ -13,36 +12,43 @@ export const handler: CdkCustomResourceHandler = async (event) => {
   console.log(event);
   const privateKeyName: string = event.ResourceProperties["PrivateKeyName"];
   const publicKeyName: string = event.ResourceProperties["PublicKeyName"];
-  if (event.RequestType === "Create") {
+  if (event.RequestType === "Create" || event.RequestType === "Update") {
+    const promises: Promise<unknown>[] = [];
+    if (event.RequestType === "Update") {
+      promises.push(
+        ssmClient.send(
+          new DeleteParameterCommand({
+            Name: event.OldResourceProperties["PrivateKeyName"],
+          })
+        )
+      );
+      promises.push(
+        ssmClient.send(
+          new DeleteParameterCommand({
+            Name: event.OldResourceProperties["PublicKeyName"],
+          })
+        )
+      );
+    }
     const { privateKey, publicKey } = generateKeys();
-    await Promise.all([
+    promises.push(
       ssmClient.send(
         new PutParameterCommand({
           Name: privateKeyName,
           Value: privateKey,
           Type: "SecureString",
         })
-      ),
+      )
+    );
+    promises.push(
       ssmClient.send(
         new PutParameterCommand({
           Name: publicKeyName,
           Value: publicKey,
           Type: "SecureString",
         })
-      ),
-    ]);
-  } else if (event.RequestType === "Update") {
-    const oldPrivateKeyPath: string =
-      event.OldResourceProperties["PrivateKeyName"];
-    const oldPublicKeyPath: string =
-      event.OldResourceProperties["PublicKeyName"];
-    const promises: Promise<unknown>[] = [];
-    if (oldPrivateKeyPath !== privateKeyName) {
-      promises.push(updateSecureString(oldPrivateKeyPath, privateKeyName));
-    }
-    if (oldPublicKeyPath !== publicKeyName) {
-      promises.push(updateSecureString(oldPublicKeyPath, publicKeyName));
-    }
+      )
+    );
     await Promise.all(promises);
   } else if (event.RequestType === "Delete") {
     await Promise.all([
@@ -62,7 +68,7 @@ export const handler: CdkCustomResourceHandler = async (event) => {
 };
 
 function generateKeys() {
-  //https://www.scottbrady91.com/jose/jwts-which-signing-algorithm-should-i-use
+  // why ed25519? see https://www.scottbrady91.com/jose/jwts-which-signing-algorithm-should-i-use
   const keyPair = generateKeyPairSync("ed25519");
   const privateKey = keyPair.privateKey
     .export({ format: "pem", type: "pkcs8" })
@@ -72,25 +78,4 @@ function generateKeys() {
     .export({ format: "pem", type: "spki" })
     .toString("utf8");
   return { privateKey, publicKey };
-}
-
-async function updateSecureString(oldName: string, newName: string) {
-  const oldParam = await ssmClient.send(
-    new GetParameterCommand({
-      Name: oldName,
-      WithDecryption: true,
-    })
-  );
-  await ssmClient.send(
-    new PutParameterCommand({
-      Name: newName,
-      Value: oldParam.Parameter?.Value,
-      Type: "SecureString",
-    })
-  );
-  return ssmClient.send(
-    new DeleteParameterCommand({
-      Name: oldName,
-    })
-  );
 }
