@@ -19,7 +19,7 @@
     "cdk-nag": "^2.25.2",
     "constructs": "^10.1.300",
     "gboost-common": "^0.11.1",
-    "gboost-infra": "^0.15.1",
+    "gboost-infra": "^0.15.2",
     "vite": "^4.2.1"
   },
   "devDependencies": {
