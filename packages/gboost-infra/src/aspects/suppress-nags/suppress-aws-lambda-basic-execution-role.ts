@@ -20,9 +20,8 @@ export function suppressAwsLambdaBasicExecutionRole(construct: IConstruct) {
         }]
      * ```
      */
-    const managedPolicyArns = Stack.of(construct).resolve(
-      construct.managedPolicyArns
-    );
+    const managedPolicyArns =
+      Stack.of(construct).resolve(construct.managedPolicyArns) || [];
     for (const managedPolicyArn of managedPolicyArns) {
       const endOfArn = managedPolicyArn?.["Fn::Join"]?.at(-1)?.at(-1);
       if (endOfArn?.endsWith("AWSLambdaBasicExecutionRole")) {
