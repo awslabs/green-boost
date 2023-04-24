@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.15.2
+
+### Patch Changes
+
+- [#209](https://github.com/awslabs/green-boost/pull/209) [`1296bde`](https://github.com/awslabs/green-boost/commit/1296bdeac19ea0cdcc2453162448a4ff073d8da3) Thanks [@bestickley](https://github.com/bestickley)! - Fix `suppressAwsLambdaBasicExecutionRole` to handle empty `managedPolicyArn` array
+
 ## 0.15.1
 
 ### Patch Changes
