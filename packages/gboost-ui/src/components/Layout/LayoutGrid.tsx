@@ -46,7 +46,7 @@ export const LayoutGrid = forwardRef<HTMLDivElement, LayoutGridProps>(
       }
       return `"${row1}" "${row2}" "${row3}"`;
     }, [leftAsideArea, rightAsideArea]);
-    const templateRows = useMemo<GridProps["templateRows"]>(() => {
+    const templateColumns = useMemo<GridProps["templateRows"]>(() => {
       let templateRows = "1fr";
       if (leftAsideArea) {
         templateRows = "auto " + templateRows;
@@ -60,8 +60,8 @@ export const LayoutGrid = forwardRef<HTMLDivElement, LayoutGridProps>(
       <Grid
         height="100vh"
         templateAreas={templateAreas}
-        templateRows={templateRows}
-        templateColumns={templateRows}
+        templateRows="auto 1fr auto"
+        templateColumns={templateColumns}
         {...rest}
         ref={ref}
       >
