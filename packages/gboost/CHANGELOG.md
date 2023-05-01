@@ -1,5 +1,11 @@
 # gboost
 
+## 0.18.0
+
+### Minor Changes
+
+- Update dependencies
+
 ## 0.17.0
 
 ### Minor Changes

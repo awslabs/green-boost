@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.34.1
+
+### Patch Changes
+
+- [#211](https://github.com/awslabs/green-boost/pull/211) [`6fe29ac`](https://github.com/awslabs/green-boost/commit/6fe29acf8ffbf703d6cc9b66f6f16097392d8f44) Thanks [@bestickley](https://github.com/bestickley)! - Fix `LayoutGrid` so that it does not require `leftAsideArea`
+
 ## 0.34.0
 
 ### Minor Changes
