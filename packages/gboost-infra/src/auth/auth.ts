@@ -33,6 +33,10 @@ interface AuthProps {
    * the correct auth "handlers".
    */
   authFunction: GbFunction;
+  /**
+   * AWS resources that need to verify JWT's like functions.
+   */
+  tokenVerifiers: GbFunction[];
 }
 
 /**
@@ -44,9 +48,19 @@ interface AuthProps {
 export class Auth extends Construct {
   constructor(scope: Construct, id: string, props: AuthProps) {
     super(scope, id);
-    const { api, apiPathPrefix = "auth", authFunction } = props;
+    const { api, apiPathPrefix = "auth", authFunction, tokenVerifiers } = props;
+    const getPrivateKeySsmPolicyStatement = this.#getSsmPolicyStatement(
+      getKeyName({ apiId: api.restApiId, type: "private" })
+    );
+    authFunction.addToRolePolicy(getPrivateKeySsmPolicyStatement);
     this.#createCustomResource(api.restApiId);
     this.#addRoute({ api, apiPathPrefix, authFunction });
+    const getPublicKeyPolicyStatement = this.#getSsmPolicyStatement(
+      getKeyName({ apiId: api.restApiId, type: "public" })
+    );
+    for (const verifier of tokenVerifiers) {
+      verifier.addToRolePolicy(getPublicKeyPolicyStatement);
+    }
   }
 
   #createCustomResource(apiId: string) {
@@ -123,6 +137,19 @@ export class Auth extends Construct {
       .addResource("{proxy+}")
       .addMethod("ANY", new LambdaIntegration(authFunction));
   }
+
+  #getSsmPolicyStatement(resourceName: string) {
+    return new PolicyStatement({
+      actions: ["ssm:GetParameter"],
+      resources: [
+        Stack.of(this).formatArn({
+          resource: "parameter",
+          resourceName,
+          service: "ssm",
+        }),
+      ],
+    });
+  }
 }
 
 interface AddRouteParams {
@@ -131,9 +158,11 @@ interface AddRouteParams {
   authFunction: GbFunction;
 }
 
+type KeyType = "private" | "public";
+
 interface GetKeyNameParams {
   apiId: string;
-  type: "private" | "public";
+  type: KeyType;
 }
 function getKeyName(params: GetKeyNameParams): string {
   const { apiId, type } = params;

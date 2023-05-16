@@ -43,7 +43,8 @@ export async function getVerifiedToken(
 }
 
 function getTokenFromEvent(event: APIGatewayProxyEvent): string {
-  const headerToken = event.headers["authorization"];
+  const headerToken =
+    event.headers["authorization"] || event.headers["Authorization"];
   if (headerToken) {
     return headerToken;
   }

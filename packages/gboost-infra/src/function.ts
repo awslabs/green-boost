@@ -1,12 +1,9 @@
-import { Stack } from "aws-cdk-lib";
-import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Architecture, Runtime } from "aws-cdk-lib/aws-lambda";
 import {
   NodejsFunction,
   NodejsFunctionProps,
   OutputFormat,
 } from "aws-cdk-lib/aws-lambda-nodejs";
-import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
 import { mergeDeep } from "gboost-common";
 import { constructDefaultProps } from "./construct-default-props.js";
@@ -44,38 +41,5 @@ export class Function extends NodejsFunction {
     );
     super(scope, id, newProps);
     this._functionNode().addMetadata("gboost:function-entrypoint", props.entry);
-    const policyStatement = new PolicyStatement({
-      actions: ["ssm:GetParameter"],
-      resources: [
-        Stack.of(this).formatArn({
-          resource: "parameter",
-          resourceName: "gboost/*",
-          service: "ssm",
-        }),
-      ],
-    });
-    this.addToRolePolicy(policyStatement);
-    const defaultPolicy = this.permissionsNode
-      .findChild("ServiceRole")
-      .node.findChild("DefaultPolicy");
-    NagSuppressions.addResourceSuppressions(
-      defaultPolicy,
-      [
-        {
-          id: "AwsSolutions-IAM5",
-          appliesTo: [
-            `Resource::${Stack.of(this).formatArn({
-              resource: "parameter",
-              resourceName: "gboost/*",
-              service: "ssm",
-              partition: "<AWS::Partition>",
-            })}`,
-          ],
-          reason:
-            "Green Boost Functions can have access to all Green Boost SSM Parameters",
-        },
-      ],
-      true
-    );
   }
 }
