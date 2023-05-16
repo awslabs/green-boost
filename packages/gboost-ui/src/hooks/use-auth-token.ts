@@ -32,6 +32,7 @@ export function useAuthToken(params?: UseAuthTokenParams): string {
         setAuthToken(token);
       }
     }
+    setToken();
     window.addEventListener("storage", setToken);
     return () => window.removeEventListener("storage", setToken);
   }, [keyName, storageType]);
