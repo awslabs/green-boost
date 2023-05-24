@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.15.3
+
+### Patch Changes
+
+- [#215](https://github.com/awslabs/green-boost/pull/215) [`485b177`](https://github.com/awslabs/green-boost/commit/485b17724713758616f59e4a6f0c6102f97cfe22) Thanks [@bestickley](https://github.com/bestickley)! - Fix `StaticSite`'s CloudFront Distribution's access to access logs bucket
+
 ## 0.15.2
 
 ### Patch Changes
