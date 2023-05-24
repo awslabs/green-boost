@@ -41,14 +41,13 @@ const questions: PromptObject<keyof Answers>[] = [
     name: "appId",
     type: "text",
     // Part of CDK Stack name and used as scope to prefix all PNPM workspaces within monorepo
-    message: "App ID (alphanumeric and lowercase):",
+    message: "App ID (lowercase alphanumeric and hyphens):",
     initial: "myapp",
     validate(v) {
-      // regex [^...] means nothing except what replaces ...
-      if (/[^a-z0-9]/g.test(v)) {
-        return "App ID must be alphanumeric lowercase.";
-      } else {
+      if (/[a-z0-9-_]+/g.test(v)) {
         return true;
+      } else {
+        return "App ID must be lowercase alphanumeric and can include hyphens.";
       }
     },
     onState: handleAborted,

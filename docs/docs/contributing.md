@@ -20,19 +20,12 @@ Install `vite-node` globally with `pnpm add -g vite-node`. Then you can run the 
 
 ## gboost-infra
 
-After running `pnpm add ../path/to/gboost/packages/gboost-infra` in your GB app infra folder, in order for cdk-nag to work correctly you'll need to deduplicate `aws-cdk-lib` and `cdk-nag` node_modules by adding the below vite.config.ts file to infra/vite.config.ts. For more info, see [here](https://github.com/cdklabs/cdk-nag/issues/1219).
+After running `pnpm add ../path/to/gboost/packages/gboost-infra` in your GB app infra folder you'll have 2 instances of `aws-cdk-lib`. One in your project and one in the green-boost repository. This causes an issue for `cdk-nag` because it uses `instanceof` comparisons on classes to conditionally check if resources adhere to requirements. See more here. To get around this, we'll utilize PNPM's default feature of [resolving peer dependencies from workspace root](https://pnpm.io/npmrc#resolve-peers-from-workspace-root) to deduplicate. Steps:
+- In root folder run: `pnpm add -w aws-cdk-lib`
+- In infra folder run: `pnpm remove aws-cdk-lib`
+- Remember to revert this action after installing `gboost-infra` from NPM Registry.
 
-vite.config.ts
-```ts
-import { defineConfig } from "vite";
-
-export default defineConfig({
-  resolve: {
-    dedupe: ["aws-cdk-lib", "cdk-nag"],
-  },
-});
-
-```
+Note: you'll need to run `pnpm build` within green-boost/packages/gboost-infra if using constructs that rely on built code like custom resources.
 
 ## Commit Workflow
 

@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 import { StaticSiteWebAcl } from "./web-acl.js";
 import { resolve } from "node:path";
 import { RemovalPolicy } from "aws-cdk-lib";
+import { ObjectOwnership } from "aws-cdk-lib/aws-s3";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 
@@ -133,6 +134,9 @@ export class StaticSite extends Construct {
       removalPolicy: retainAccessLogs
         ? RemovalPolicy.RETAIN
         : RemovalPolicy.DESTROY,
+      // ObjectOwnership.OBJECT_WRITER required or you get error:
+      // The S3 bucket that you specified for CloudFront logs does not enable ACL access
+      objectOwnership: ObjectOwnership.OBJECT_WRITER,
     });
     NagSuppressions.addResourceSuppressions(logBucket, [
       {
