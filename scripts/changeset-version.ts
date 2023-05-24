@@ -30,7 +30,7 @@ function maybeAddGboostChangeset(updatedPackageNames: string[]) {
   ) {
     console.log("Adding minor gboost changeset for dependency updates");
     const changesetFileContents =
-      '---\n"gboost": minor\n---\n\nUpdate dependencies\n';
+      '---\n"gboost": patch\n---\n\nUpdate dependencies\n';
     writeFileSync(".changeset/green-boost-forever.md", changesetFileContents);
   }
 }
