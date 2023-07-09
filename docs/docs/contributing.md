@@ -20,10 +20,20 @@ Install `vite-node` globally with `pnpm add -g vite-node`. Then you can run the 
 
 ## gboost-infra
 
-After running `pnpm add ../path/to/gboost/packages/gboost-infra` in your GB app infra folder you'll have 2 instances of `aws-cdk-lib`. One in your project and one in the green-boost repository. This causes an issue for `cdk-nag` because it uses `instanceof` comparisons on classes to conditionally check if resources adhere to requirements. See more here. To get around this, we'll utilize PNPM's default feature of [resolving peer dependencies from workspace root](https://pnpm.io/npmrc#resolve-peers-from-workspace-root) to deduplicate. Steps:
-- In root folder run: `pnpm add -w aws-cdk-lib`
-- In infra folder run: `pnpm remove aws-cdk-lib`
-- Remember to revert this action after installing `gboost-infra` from NPM Registry.
+After running `pnpm add ../path/to/gboost/packages/gboost-infra` in your GB app infra folder you'll have 2 instances of `aws-cdk-lib` and `cdk-nag`. One in your project and one in the green-boost repository. This causes an issue for `cdk-nag` because it uses `instanceof` comparisons on classes to conditionally check if resources adhere to requirements. See more [here](https://github.com/cdklabs/cdk-nag/issues/1219). To get around this, we'll use Vite's `resolve.dedupe` [configuration feature](https://vitejs.dev/config/shared-options.html#resolve-dedupe). Steps:
+- In infra folder run: `pnpm add -D vite vite-node`
+- Add vite.config.ts
+```ts
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  resolve: {
+    dedupe: ["aws-cdk-lib", "cdk-nag"],
+  },
+});
+```
+- Change cdk.json#app to `"/path/to/your/app/infra/node_modules/.bin/vite-node src/local-app.ts"`
+- `cdk synth "**"`. Now only 1 version of those libraries will be used when synthesizing your app.
 
 Note: you'll need to run `pnpm build` within green-boost/packages/gboost-infra if using constructs that rely on built code like custom resources.
 
