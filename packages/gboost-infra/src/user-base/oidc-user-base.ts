@@ -41,6 +41,7 @@ interface OidcUserBaseProps extends Partial<CommonUserBaseProps> {
  * Federated User Base with OIDC
  * Creates a Cognito User Pool, User Pool Client, User Pool Domain, and User
  * Pool Identity Provider
+ * @deprecated
  */
 export class OidcUserBase extends Construct {
   userPool!: UserPool;
