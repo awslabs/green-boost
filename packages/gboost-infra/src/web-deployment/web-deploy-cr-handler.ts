@@ -23,7 +23,7 @@ import {
   CreateInvalidationCommand,
 } from "@aws-sdk/client-cloudfront";
 import AdmZip from "adm-zip";
-import type { ResourceProperties } from "../common.js";
+import type { ResourceProperties } from "./common.js";
 import { Readable } from "node:stream";
 import { relative, resolve } from "node:path";
 import { tmpdir } from "node:os";
