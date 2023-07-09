@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 overrides:
   trim@<0.0.3: '>=0.0.3'
@@ -150,7 +154,7 @@ importers:
     devDependencies:
       '@swc/core':
         specifier: ^1.3.44
-        version: 1.3.46(@swc/helpers@0.5.0)
+        version: 1.3.46(@swc/helpers@0.5.1)
       '@tsconfig/node18-strictest-esm':
         specifier: ^1.0.1
         version: 1.0.1
@@ -246,7 +250,7 @@ importers:
     dependencies:
       '@aws-cdk/aws-appsync-alpha':
         specifier: 2.54.0-alpha.0
-        version: 2.54.0-alpha.0(aws-cdk-lib@2.72.1)(constructs@10.1.300)
+        version: 2.54.0-alpha.0(aws-cdk-lib@2.82.0)(constructs@10.2.31)
       '@aws-sdk/client-cloudfront':
         specifier: ^3.303.0
         version: 3.306.0
@@ -257,14 +261,14 @@ importers:
         specifier: ^0.5.10
         version: 0.5.10
       aws-cdk-lib:
-        specifier: ^2.72.1
-        version: 2.72.1(constructs@10.1.300)
+        specifier: ^2.82.0
+        version: 2.82.0(constructs@10.2.31)
       cdk-nag:
         specifier: ^2.25.2
-        version: 2.25.2(aws-cdk-lib@2.72.1)(constructs@10.1.300)
+        version: 2.25.2(aws-cdk-lib@2.82.0)(constructs@10.2.31)
       constructs:
-        specifier: ^10.1.300
-        version: 10.1.300
+        specifier: ^10.2.31
+        version: 10.2.31
       gboost-common:
         specifier: workspace:^
         version: link:../gboost-common
@@ -829,12 +833,12 @@ packages:
       aws-amplify: '>= 5.0.1'
       react: '>= 16.14.0'
     dependencies:
-      '@aws-amplify/ui': 5.5.9(aws-amplify@5.0.24)(xstate@4.37.1)
-      '@xstate/react': 3.0.1(@types/react@18.0.33)(react@18.2.0)(xstate@4.37.1)
+      '@aws-amplify/ui': 5.5.9(aws-amplify@5.0.24)(xstate@4.37.2)
+      '@xstate/react': 3.0.1(@types/react@18.0.33)(react@18.2.0)(xstate@4.37.2)
       aws-amplify: 5.0.24
       lodash: 4.17.21
       react: 18.2.0
-      xstate: 4.37.1
+      xstate: 4.37.2
     transitivePeerDependencies:
       - '@types/react'
       - '@xstate/fsm'
@@ -850,7 +854,7 @@ packages:
       aws-amplify:
         optional: true
     dependencies:
-      '@aws-amplify/ui': 5.5.9(aws-amplify@5.0.24)(xstate@4.37.1)
+      '@aws-amplify/ui': 5.5.9(aws-amplify@5.0.24)(xstate@4.37.2)
       '@aws-amplify/ui-react-core': 2.1.17(@types/react@18.0.33)(aws-amplify@5.0.24)(react@18.2.0)
       '@radix-ui/react-accordion': 1.0.0(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-direction': 1.0.0(react@18.2.0)
@@ -878,7 +882,7 @@ packages:
       - xstate
     dev: false
 
-  /@aws-amplify/ui@5.5.9(aws-amplify@5.0.24)(xstate@4.37.1):
+  /@aws-amplify/ui@5.5.9(aws-amplify@5.0.24)(xstate@4.37.2):
     resolution: {integrity: sha512-bbChxooKND9COWB5zmDfawqXluRi0r3xfzkYZ0wjUorVtpn5MnFYvt9K36104jyVFEfqyK43hpnnqyTm3m7a1g==}
     peerDependencies:
       aws-amplify: '>= 5.0.1'
@@ -892,30 +896,30 @@ packages:
       lodash: 4.17.21
       style-dictionary: 3.7.1
       tslib: 2.4.1
-      xstate: 4.37.1
+      xstate: 4.37.2
     dev: false
 
-  /@aws-cdk/asset-awscli-v1@2.2.136:
-    resolution: {integrity: sha512-8UeE5QpnTTHFPiiXpC3CYcCozO71mAKcoAXDp9mL+ESvmdaT/eWWir8kwATX3h30z9Z3IXqypQgWzjou+hP2fw==}
+  /@aws-cdk/asset-awscli-v1@2.2.185:
+    resolution: {integrity: sha512-cost0pu5nsmQmFhVxN4OonThGhgQeSlwntdXsEi5v8buVg+X4MzcXemmmSZxkkzzFCoS0r4w/7BiX1e+mMkFVA==}
     dev: false
 
   /@aws-cdk/asset-kubectl-v20@2.1.1:
     resolution: {integrity: sha512-U1ntiX8XiMRRRH5J1IdC+1t5CE89015cwyt5U63Cpk0GnMlN5+h9WsWMlKlPXZR4rdq/m806JRlBMRpBUB2Dhw==}
     dev: false
 
-  /@aws-cdk/asset-node-proxy-agent-v5@2.0.112:
-    resolution: {integrity: sha512-lByrQT3StWfPL7FFj1nnwoQIapafgJ6/vzMDLoBtvJGP859SRVDcCtp4dEn3Lk4AgIFcacKI37krFogNCtqUrg==}
+  /@aws-cdk/asset-node-proxy-agent-v5@2.0.155:
+    resolution: {integrity: sha512-Q+Ny25hUPINlBbS6lmbUr4m6Tr6ToEJBla7sXA3FO3JUD0Z69ddcgbhuEBF8Rh1a2xmPONm89eX77kwK2fb4vQ==}
     dev: false
 
-  /@aws-cdk/aws-appsync-alpha@2.54.0-alpha.0(aws-cdk-lib@2.72.1)(constructs@10.1.300):
+  /@aws-cdk/aws-appsync-alpha@2.54.0-alpha.0(aws-cdk-lib@2.82.0)(constructs@10.2.31):
     resolution: {integrity: sha512-90qjXoBpnqY2QdLO9VqryIHNb2ZcLGbs40QKQPVeULomC/fB26SxjLMj1wcYvS7Ykzkro7Oy9vVVC0qEwh+TjQ==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       aws-cdk-lib: ^2.54.0
       constructs: ^10.0.0
     dependencies:
-      aws-cdk-lib: 2.72.1(constructs@10.1.300)
-      constructs: 10.1.300
+      aws-cdk-lib: 2.82.0(constructs@10.2.31)
+      constructs: 10.2.31
     dev: false
 
   /@aws-crypto/crc32@1.2.2:
@@ -5064,10 +5068,6 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
-  /@balena/dockerignore@1.0.2:
-    resolution: {integrity: sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q==}
-    dev: false
-
   /@changesets/apply-release-plan@6.1.3:
     resolution: {integrity: sha512-ECDNeoc3nfeAe1jqJb5aFQX7CqzQhD2klXRez2JDb/aVpGUbX673HgKrnrgJRuQR/9f2TtLoYIzrGB9qwD77mg==}
     dependencies:
@@ -6586,8 +6586,8 @@ packages:
       - webpack-cli
     dev: false
 
-  /@emotion/hash@0.9.0:
-    resolution: {integrity: sha512-14FtKiHhy2QoPIzdTcvh//8OyBlknNs2nXRwIhG904opCby3l+9Xaf/wuPvICBF0rc1ZCNBd3nKe9cd2mecVkQ==}
+  /@emotion/hash@0.9.1:
+    resolution: {integrity: sha512-gJB6HLm5rYwSLI6PQa+X1t5CFGrv1J1TWG+sOyMCeKz2ojaj6Fnl/rZEspogG+cvqbt4AE/2eIyD2QfLKTBNlQ==}
     dev: false
 
   /@esbuild/android-arm64@0.17.15:
@@ -8221,14 +8221,14 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@swc/core@1.3.46(@swc/helpers@0.5.0):
+  /@swc/core@1.3.46(@swc/helpers@0.5.1):
     resolution: {integrity: sha512-WxzgJMWUBVJ95HsvEqlWzM3Qxp2FQrPa4QdAkQQuuvCMnfdctGUbhX/c3LiSRlWrl2LIkYAi4bLansTOol4QcQ==}
     engines: {node: '>=10'}
     requiresBuild: true
     peerDependencies:
       '@swc/helpers': ^0.5.0
     dependencies:
-      '@swc/helpers': 0.5.0
+      '@swc/helpers': 0.5.1
     optionalDependencies:
       '@swc/core-darwin-arm64': 1.3.46
       '@swc/core-darwin-x64': 1.3.46
@@ -8241,8 +8241,8 @@ packages:
       '@swc/core-win32-ia32-msvc': 1.3.46
       '@swc/core-win32-x64-msvc': 1.3.46
 
-  /@swc/helpers@0.5.0:
-    resolution: {integrity: sha512-SjY/p4MmECVVEWspzSRpQEM3sjR17sP8PbGxELWrT+YZMBfiUyt1MRUNjMV23zohwlG2HYtCQOsCwsTHguXkyg==}
+  /@swc/helpers@0.5.1:
+    resolution: {integrity: sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==}
     dependencies:
       tslib: 2.5.0
 
@@ -8560,8 +8560,8 @@ packages:
     resolution: {integrity: sha512-sFkIgeXh6HJR79DbTrZrsHWhfyr3q8v2Gswj3y0tRPEo57OEPVgDF/z/ePybHUGuSCwiDiAt/3YMta9ujUxQpQ==}
     dev: true
 
-  /@types/mapbox-gl@2.7.10:
-    resolution: {integrity: sha512-nMVEcu9bAcenvx6oPWubQSPevsekByjOfKjlkr+8P91vawtkxTnopDoXXq1Qn/f4cg3zt0Z2W9DVsVsKRNXJTw==}
+  /@types/mapbox-gl@2.7.11:
+    resolution: {integrity: sha512-4vSwPSTQIawZTFRiTY2R74aZwAiM9gE6KGj871xdyAPpa+DmEObXxQQXqL2PsMH31/rP9nxJ2Kv0boeTVJMXVw==}
     dependencies:
       '@types/geojson': 7946.0.10
     dev: false
@@ -8876,7 +8876,7 @@ packages:
   /@vanilla-extract/css@1.11.0:
     resolution: {integrity: sha512-uohj+8cGWbnrVzTfrjlJeXqdGjH3d3TcscdQxKe3h5bb5QQXTpPSq+c+SeWADIGiZybzcW0CBvZV8jsy1ywY9w==}
     dependencies:
-      '@emotion/hash': 0.9.0
+      '@emotion/hash': 0.9.1
       '@vanilla-extract/private': 1.0.3
       ahocorasick: 1.0.2
       chalk: 4.1.2
@@ -9038,7 +9038,7 @@ packages:
       - '@types/react'
     dev: false
 
-  /@xstate/react@3.0.1(@types/react@18.0.33)(react@18.2.0)(xstate@4.37.1):
+  /@xstate/react@3.0.1(@types/react@18.0.33)(react@18.2.0)(xstate@4.37.2):
     resolution: {integrity: sha512-/tq/gg92P9ke8J+yDNDBv5/PAxBvXJf2cYyGDByzgtl5wKaxKxzDT82Gj3eWlCJXkrBg4J5/V47//gRJuVH2fA==}
     peerDependencies:
       '@xstate/fsm': ^2.0.0
@@ -9053,7 +9053,7 @@ packages:
       react: 18.2.0
       use-isomorphic-layout-effect: 1.1.2(@types/react@18.0.33)(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
-      xstate: 4.37.1
+      xstate: 4.37.2
     transitivePeerDependencies:
       - '@types/react'
     dev: false
@@ -9396,6 +9396,7 @@ packages:
   /astral-regex@2.0.0:
     resolution: {integrity: sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==}
     engines: {node: '>=8'}
+    dev: true
 
   /at-least-node@1.0.0:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
@@ -9443,26 +9444,16 @@ packages:
       - encoding
       - react-native
 
-  /aws-cdk-lib@2.72.1(constructs@10.1.300):
-    resolution: {integrity: sha512-uZJTXkZFFYoJsfzrvTMVCJH5x64DVw/7PiMHahCOIguipUFMzQI5sb3jmNkO7vgZIX/obQkuUl7C33rB/xfpcQ==}
+  /aws-cdk-lib@2.82.0(constructs@10.2.31):
+    resolution: {integrity: sha512-icLhHvoxxo5mu9z8oplSHF+A7scbRiXYoRp2hyFkYSCoY9H+eBeIVXKA2S5YPpJfJO4SeORbCQnsyXBbz31XXw==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       constructs: ^10.0.0
     dependencies:
-      '@aws-cdk/asset-awscli-v1': 2.2.136
+      '@aws-cdk/asset-awscli-v1': 2.2.185
       '@aws-cdk/asset-kubectl-v20': 2.1.1
-      '@aws-cdk/asset-node-proxy-agent-v5': 2.0.112
-      '@balena/dockerignore': 1.0.2
-      case: 1.6.3
-      constructs: 10.1.300
-      fs-extra: 9.1.0
-      ignore: 5.2.4
-      jsonschema: 1.4.1
-      minimatch: 3.1.2
-      punycode: 2.3.0
-      semver: 7.3.8
-      table: 6.8.1
-      yaml: 1.10.2
+      '@aws-cdk/asset-node-proxy-agent-v5': 2.0.155
+      constructs: 10.2.31
     dev: false
     bundledDependencies:
       - '@balena/dockerignore'
@@ -9891,22 +9882,17 @@ packages:
       upper-case-first: 2.0.2
     dev: false
 
-  /case@1.6.3:
-    resolution: {integrity: sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==}
-    engines: {node: '>= 0.8.0'}
-    dev: false
-
   /ccount@1.1.0:
     resolution: {integrity: sha512-vlNK021QdI7PNeiUh/lKkC/mNHHfV0m/Ad5JoI0TYtlBnJAslM/JIkm/tGC88bkLIwO6OQ5uV6ztS6kVAtCDlg==}
 
-  /cdk-nag@2.25.2(aws-cdk-lib@2.72.1)(constructs@10.1.300):
+  /cdk-nag@2.25.2(aws-cdk-lib@2.82.0)(constructs@10.2.31):
     resolution: {integrity: sha512-ISazms6C3nPIdukxFGsO50KDoQneWrcsSvVNl5BC5HY+0IQQWOTINksRCXDKLi6drlYF5oOPFOWnmvEChE6BLw==}
     peerDependencies:
       aws-cdk-lib: ^2.45.0
       constructs: ^10.0.5
     dependencies:
-      aws-cdk-lib: 2.72.1(constructs@10.1.300)
-      constructs: 10.1.300
+      aws-cdk-lib: 2.82.0(constructs@10.2.31)
+      constructs: 10.2.31
     dev: false
 
   /chai@4.3.7:
@@ -10246,9 +10232,9 @@ packages:
       upper-case: 2.0.2
     dev: false
 
-  /constructs@10.1.300:
-    resolution: {integrity: sha512-u3+h8uSKwcH/HRNhtk9CUlFgIGr5pY+17pAF10SoX/eD1dBFSr2qZNpMi+61eUnxt0zISMTdgy+0iBDI+8zK9g==}
-    engines: {node: '>= 14.17.0'}
+  /constructs@10.2.31:
+    resolution: {integrity: sha512-r49ORPNWmPXAVWADpqKjhL+Pa9m9AgaSrUfI4U7w7whhY4Eg2+2E4TSAdssam05WCFl59HiTd2aW5DikrNyycA==}
+    engines: {node: '>= 16.14.0'}
     dev: false
 
   /content-disposition@0.5.2:
@@ -10806,8 +10792,8 @@ packages:
     resolution: {integrity: sha512-D+mk+qE8VC/PAUrlAU34N+VfXev0ghe5ywmpqrawphmVZc1bEfn56uo9qpyGp1p4xpzOHkSW4ztBd6L7Xx4ACw==}
     engines: {node: '>=0.3.1'}
 
-  /dijkstrajs@1.0.2:
-    resolution: {integrity: sha512-QV6PMaHTCNmKSeP6QoXhVTw9snc9VD8MulTT0Bd99Pacp4SS1cjcrYPgBPmibqKVtMJJfqC6XvOXgPMEEPH/fg==}
+  /dijkstrajs@1.0.3:
+    resolution: {integrity: sha512-qiSlmBq9+BCdCA/L46dw8Uy93mloxsPSbwnm5yrKn2vMPiy8KyAskTF6zuV/j5BMsmOGZDPs7KjU+mjb670kfA==}
     dev: false
 
   /dir-glob@3.0.1:
@@ -13175,10 +13161,6 @@ packages:
     engines: {'0': node >= 0.2.0}
     dev: true
 
-  /jsonschema@1.4.1:
-    resolution: {integrity: sha512-S6cATIPVv1z0IlxdN+zUk5EPjkGCdnhN4wVSBlvoUO1tOLJootbo9CquNJmbIh4yikWHiUedhRYrNPn1arpEmQ==}
-    dev: false
-
   /jsx-ast-utils@3.3.3:
     resolution: {integrity: sha512-fYQHZTZ8jSfmWZ0iyzfwiU4WDX4HpHbMCZ3gPlWYiCl3BoeOTsqKBqnTVfH2rYT7eP5c3sVbeSPHnnJOaTrWiw==}
     engines: {node: '>=4.0'}
@@ -13372,10 +13354,6 @@ packages:
   /lodash.startcase@4.4.0:
     resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
     dev: true
-
-  /lodash.truncate@4.4.2:
-    resolution: {integrity: sha512-jttmRe7bRse52OsWIMDLaXxWqRAmtIUccAQ3garviCqJjafXOfNMO0yMfNpdD6zbGaTU0P5Nz7e7gAT6cKmJRw==}
-    dev: false
 
   /lodash.uniq@4.5.0:
     resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
@@ -15149,7 +15127,7 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
     dependencies:
-      dijkstrajs: 1.0.2
+      dijkstrajs: 1.0.3
       encode-utf8: 1.0.3
       pngjs: 5.0.0
       yargs: 15.4.1
@@ -15393,7 +15371,7 @@ packages:
       mapbox-gl: '*'
       react: '>=16.3.0'
     dependencies:
-      '@types/mapbox-gl': 2.7.10
+      '@types/mapbox-gl': 2.7.11
       mapbox-gl: 1.13.1
       react: 18.2.0
     dev: false
@@ -16274,6 +16252,7 @@ packages:
       ansi-styles: 4.3.0
       astral-regex: 2.0.0
       is-fullwidth-code-point: 3.0.0
+    dev: true
 
   /slice-ansi@5.0.0:
     resolution: {integrity: sha512-FC+lgizVPfie0kkhqUScwRu1O/lF6NOgJmlCgK+/LYxDCTk8sGelYaHDhFcDN+Sn3Cv+3VSa4Byeo+IMCzpMgQ==}
@@ -16694,17 +16673,6 @@ packages:
       picocolors: 1.0.0
       stable: 0.1.8
 
-  /table@6.8.1:
-    resolution: {integrity: sha512-Y4X9zqrCftUhMeH2EptSSERdVKt/nEdijTOacGD/97EKjhQ/Qs8RTlEGABSJNNN8lac9kheH+af7yAkEWlgneA==}
-    engines: {node: '>=10.0.0'}
-    dependencies:
-      ajv: 8.12.0
-      lodash.truncate: 4.4.2
-      slice-ansi: 4.0.0
-      string-width: 4.2.3
-      strip-ansi: 6.0.1
-    dev: false
-
   /tapable@1.1.3:
     resolution: {integrity: sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==}
     engines: {node: '>=6'}
@@ -16860,7 +16828,7 @@ packages:
         optional: true
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
-      '@swc/core': 1.3.46(@swc/helpers@0.5.0)
+      '@swc/core': 1.3.46(@swc/helpers@0.5.1)
       '@tsconfig/node10': 1.0.9
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
@@ -17958,8 +17926,8 @@ packages:
     dependencies:
       sax: 1.2.4
 
-  /xstate@4.37.1:
-    resolution: {integrity: sha512-MuB7s01nV5vG2CzaBg2msXLGz7JuS+x/NBkQuZAwgEYCnWA8iQMiRz2VGxD3pcFjZAOih3fOgDD3kDaFInEx+g==}
+  /xstate@4.37.2:
+    resolution: {integrity: sha512-Qm337O49CRTZ3PRyRuK6b+kvI+D3JGxXIZCTul+xEsyFCVkTFDt5jixaL1nBWcUBcaTQ9um/5CRGVItPi7fveg==}
     dev: false
 
   /xtend@4.0.2:

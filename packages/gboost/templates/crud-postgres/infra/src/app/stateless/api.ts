@@ -115,7 +115,6 @@ export class Api extends Stack {
         "../../../../../core/src/entrypoints/api/handler.ts"
       ),
       memorySize: 512,
-      runtime: Runtime.NODEJS_18_X,
       environment: {
         POWERTOOLS_SERVICE_NAME: config.appId,
         ...getDbEnvVars(cluster),

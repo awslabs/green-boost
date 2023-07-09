@@ -74,6 +74,41 @@ export class Bucket extends CdkBucket {
     ]);
   }
 
+  override grantRead(
+    identity: IGrantable,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    objectsKeyPattern?: any,
+    suppressNags?: boolean
+  ): Grant {
+    const grant = super.grantRead(identity, objectsKeyPattern);
+    if (suppressNags) {
+      // TODO: need to find generic way of accessing IGrantable's IAM policy
+      // to addResourceSuppressions on it. I can for example find a lambda
+      // function's IAM policy with ServiceRole > DefaultPolicy > Resource
+      // but what about other resources?
+      // if (grant instanceof Construct) {
+      //   grant.node.
+      // }
+      // const policy = this.node.findChild("Policy").node.findChild("Resource");
+      // const bucketLogicalId = Stack.of(this).getLogicalId(
+      //   this.node.defaultChild as CfnBucket
+      // );
+      // NagSuppressions.addResourceSuppressions(policy, [
+      //   {
+      //     id: "AwsSolutions-IAM5",
+      //     reason: "Specified object in bucket can be read by granted resource",
+      //     appliesTo: [
+      //       "Action::s3:GetObject*",
+      //       "Action::s3:GetBucket*",
+      //       "Action::s3:List*",
+      //       `Resource::<${bucketLogicalId}.Arn>/*`,
+      //     ],
+      //   },
+      // ]);
+    }
+    return grant;
+  }
+
   #grantExplicit(params: GrantExplicitParams) {
     const { bucketActions, grantee, keyActions, resourceArns } = params;
     const grant = Grant.addToPrincipalOrResource({
@@ -90,6 +125,7 @@ export class Bucket extends CdkBucket {
 
   /**
    * Same as `grantRead` but enumerates all actions instead of using wildcards.
+   * @deprecated
    */
   grantReadTame(identity: IGrantable, objectsKeyPattern = "*"): Grant {
     return this.#grantExplicit({
@@ -102,6 +138,7 @@ export class Bucket extends CdkBucket {
 
   /**
    * Same as `grantWrite` but enumerates all actions instead of using wildcards.
+   * @deprecated
    */
   grantWriteTame(identity: IGrantable, objectsKeyPattern = "*"): Grant {
     return this.#grantExplicit({
@@ -119,6 +156,7 @@ export class Bucket extends CdkBucket {
 
   /**
    * Same as `grantPut` but enumerates all actions instead of using wildcards.
+   * @deprecated
    */
   grantPutTame(identity: IGrantable, objectsKeyPattern = "*"): Grant {
     return this.#grantExplicit({
@@ -131,6 +169,7 @@ export class Bucket extends CdkBucket {
 
   /**
    * Same as `grantPutAcl` but enumerates all actions instead of using wildcards.
+   * @deprecated
    */
   grantPutAclTame(identity: IGrantable, objectsKeyPattern = "*"): Grant {
     return this.#grantExplicit({
@@ -143,6 +182,7 @@ export class Bucket extends CdkBucket {
 
   /**
    * Same as `grantDelete` but enumerates all actions instead of using wildcards.
+   * @deprecated
    */
   grantDeleteTame(identity: IGrantable, objectsKeyPattern = "*"): Grant {
     return this.#grantExplicit({
@@ -155,6 +195,7 @@ export class Bucket extends CdkBucket {
 
   /**
    * Same as `grantReadWrite` but enumerates all actions instead of using wildcards.
+   * @deprecated
    */
   grantReadWriteTame(identity: IGrantable, objectsKeyPattern = "*"): Grant {
     return this.#grantExplicit({
