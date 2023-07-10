@@ -40,7 +40,7 @@ export function SmartMultiCheckboxField<T extends FieldValues>(
         hasError={hasError || invalid}
         labelHidden
         name={name}
-        onChange={onChange}
+        onChange={onChange as any}
         value={value}
       />
     </BaseSmartField>

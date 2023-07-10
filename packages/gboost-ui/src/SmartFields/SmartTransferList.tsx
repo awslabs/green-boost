@@ -56,7 +56,7 @@ export function SmartTransferList<T extends FieldValues, U>(
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
-        onChange={onChange}
+        onChange={onChange as any}
         labelHidden
         value={value}
         render={render}

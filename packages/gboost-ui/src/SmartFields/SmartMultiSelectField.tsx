@@ -41,7 +41,7 @@ export function SmartMultiSelectField<T extends FieldValues>(
         hasError={hasError || invalid}
         name={name}
         labelHidden
-        onChange={onChange}
+        onChange={onChange as any}
         value={value}
       />
     </BaseSmartField>
