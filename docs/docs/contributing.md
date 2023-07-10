@@ -2,7 +2,7 @@
 
 First clone the repository: `git clone https://github.com/awslabs/green-boost.git` and install dependencies: `pnpm i`.
 
-## Developing Libraries
+## Developing and Testing Libraries
 
 To develop `gboost-ui` or `gboost-infra` or `gboost-common` in your Green Boost application repository (created with `gboost create`), run `pnpm add ../path/to/gboost/packages/gboost-*` replacing the path with the path to wherever the package is locally. This will change your package.json.
 
@@ -35,3 +35,15 @@ Note: you'll need to run `pnpm build` within green-boost/packages/gboost-infra i
 1. Stage changes _including_ changeset file (i.e. `git add -A`)
 1. Commit changes. Husky git commits should trigger lint-staged to run validating your staged files
 1. Push branch and create a PR into main ensuring status checks run successfully
+
+## Update Dependencies
+GB dependencies should be updated regularly. To update all patch and minor NPM versions, run `pnpm -r up -i`. This will launch an interactive CLI UI that allows you to pick which dependencies you want to updated. You can type `a` to update them all. For patch and minor version updated, you *should* be safe to do this.
+
+You'll also want to check for major package upgrades but tread cautiously as these new versions contain breaking changes that may or may not break GB. For major version upgrades run `pnpm -r up -i --latest`. For any major upgrades, make sure to check out the realease notes or changelog for the package on GitHub.
+
+## Fix Audit Issues
+On each PR, `pnpm audit` is used to detect [CVEs](https://www.redhat.com/en/topics/security/what-is-cve). The GitHub Actions Workflow will fail if any CVEs >= moderate severity are found by running the command `pnpm audit --audit-level moderate`. If the dependency is a direct dependency of your project, you should try to [update dependencies](#update-dependencies). You can learn why a dependency is in your project (dependency hierarchy) with `pnpm why <package-name>`. If the dependency is a transitive dependency (dependency of dependency), you'll need to use PNPM's [pnpm.overrides feature](https://pnpm.io/package_json#pnpmoverrides) by adding to the `package.json#pnpm.overrides` object a key/value pair like: `"<package-name>@<vulnerable-version>": "<patched-version>"`. Then run `pnpm i` to update your dependencies.
+
+Periodically, `pnpm.overrides` should be cleaned up as libraries overtime will update to patched version of packages.
+
+If there is no patched version of the library and you can safely ignore the CVE, you can add it to `pnpm.auditConfig.ignoreCves`.
