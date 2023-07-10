@@ -1,11 +1,11 @@
 import { Duration } from "aws-cdk-lib";
 import {
   CfnUserPoolGroup,
-  CfnUserPoolGroupProps,
-  PasswordPolicy,
-  StandardAttributesMask,
-  UserPoolClientProps,
-  UserPoolProps,
+  type CfnUserPoolGroupProps,
+  type PasswordPolicy,
+  type StandardAttributesMask,
+  type UserPoolClientProps,
+  type UserPoolProps,
 } from "aws-cdk-lib/aws-cognito";
 import type { Construct } from "constructs";
 

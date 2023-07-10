@@ -1,12 +1,12 @@
-import { logger } from "../utils/logger.js";
+import { logger } from "../utils/logger";
 import {
   updatePackageJson,
   copy,
-  Operation,
+  type Operation,
   OperationType,
   replace,
   renameFiles,
-} from "./operations/operations.js";
+} from "./operations/operations";
 
 /**
  * Executes all operations upon destination directory

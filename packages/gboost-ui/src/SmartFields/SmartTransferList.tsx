@@ -1,11 +1,11 @@
-import { ReactElement } from "react";
-import { FieldValues, useController } from "react-hook-form";
+import { type ReactElement } from "react";
+import { type FieldValues, useController } from "react-hook-form";
 import { defaultListHeight, TransferList } from "../index.js";
 import type { TransferListProps } from "../index.js";
-import { ControlProps, normalizeProps } from "./common.js";
+import { type ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
-  ExternalBaseSmartFieldProps,
+  type ExternalBaseSmartFieldProps,
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";

@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { MdRefresh } from "react-icons/md";
 import { Icon, Button } from "@aws-amplify/ui-react";
 import { Tooltip } from "../../index.js";

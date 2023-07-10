@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { Flex, Placeholder, Text } from "@aws-amplify/ui-react";
 import type { ReactNode } from "react";
 import { styled, Tooltip, TooltipIcon } from "../index.js";

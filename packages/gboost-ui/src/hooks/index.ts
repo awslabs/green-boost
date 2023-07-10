@@ -1,1 +1,1 @@
-export * from "./useInfiniteQueryPagination.js";
+export { useInfiniteQueryPagination } from "./useInfiniteQueryPagination.js";

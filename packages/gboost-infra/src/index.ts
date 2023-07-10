@@ -1,12 +1,16 @@
-export * from "./bucket/bucket.js";
-export * from "./function.js";
-export * from "./graphql-api.js";
-export * from "./static-site/static-site.js";
-export * from "./aspects/index.js";
-export * from "./table.js";
-export * from "./user-management/user-management.js";
-export * from "./user-base/index.js";
-export * from "./file-upload/file-upload.js";
-export * from "./web-deployment/web-deployment.js";
-export * from "./construct-default-props.js";
-export * from "./db-iam-cluster.js";
+export { Bucket, type BucketProps } from "./bucket/bucket";
+export { Function, type FunctionProps } from "./function";
+export { GraphqlApi } from "./graphql-api";
+export { StaticSite, type StaticSiteProps } from "./static-site/static-site";
+export { GovCloudCompat, SuppressNags, Suppression } from "./aspects/index";
+export { Table, type TableProps } from "./table";
+export { type UserManagementProps } from "./user-management/user-management";
+export { type UserBaseProps } from "./user-base/index";
+export { FileUpload, type FileUploadProps } from "./file-upload/file-upload";
+export { WebDeployment } from "./web-deployment/web-deployment";
+export {
+  type ConstructDefaultProps,
+  constructDefaultProps,
+  setConstructDefaultProps,
+} from "./construct-default-props";
+export { DbIamCluster } from "./db-iam-cluster";

@@ -1,12 +1,17 @@
-import { ReactElement, ReactNode, RefObject, useMemo } from "react";
+import {
+  type ReactElement,
+  type ReactNode,
+  type RefObject,
+  useMemo,
+} from "react";
 import { Heading } from "@aws-amplify/ui-react";
 import { Box } from "../../index.js";
-import { Column } from "../types/column.js";
+import { type Column } from "../types/column.js";
 import { FilterAction } from "./FilterAction/FilterAction.js";
 import { ColumnVisibilityAction } from "./ColumnVisibilityAction.js";
-import { Density, DensityAction } from "./DensityAction.js";
-import { Filter } from "../types/filter.js";
-import { Row } from "../types/row.js";
+import { type Density, DensityAction } from "./DensityAction.js";
+import { type Filter } from "../types/filter.js";
+import { type Row } from "../types/row.js";
 import { RefreshAction } from "./RefreshAction.js";
 
 interface ActionBarProps<T extends Row> {

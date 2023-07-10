@@ -1,12 +1,12 @@
-import { ReactElement, useCallback, useEffect, useState } from "react";
+import { type ReactElement, useCallback, useEffect, useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { CreateCognitoUser } from "gboost-common";
 import { ButtonGroup, Link } from "@aws-amplify/ui-react";
 import { MdArrowBack } from "react-icons/md";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CognitoUser } from "gboost-common";
+import { type CognitoUser } from "gboost-common";
 import { GraphQLError } from "graphql";
 import { createUser } from "./gql.js";
 import { Box, gQuery, StyledButton, useNotifications } from "../index.js";
@@ -86,7 +86,7 @@ export function CreateUser(props: CreateUserProps): ReactElement {
     [navigate, notify, setValue]
   );
   useEffect(() => {
-    const subscription = watch((value, { name }) => {
+    const subscription = watch((_value, { name }) => {
       if (name === "username") {
         setValue("userAlreadyExists", false, { shouldValidate: true });
       }

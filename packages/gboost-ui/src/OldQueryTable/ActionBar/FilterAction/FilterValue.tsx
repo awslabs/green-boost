@@ -1,11 +1,11 @@
 import {
-  ChangeEvent,
-  KeyboardEventHandler,
-  ReactElement,
+  type ChangeEvent,
+  type KeyboardEventHandler,
+  type ReactElement,
   useCallback,
 } from "react";
 import { SelectField, TextField } from "@aws-amplify/ui-react";
-import { FilterOptions } from "./FilterAction.js";
+import { type FilterOptions } from "./FilterAction.js";
 
 interface FilterValueProps {
   comparator?: string;

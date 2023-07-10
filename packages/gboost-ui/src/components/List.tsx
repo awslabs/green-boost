@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { type ReactElement, type ReactNode } from "react";
 import { config, styled } from "../index.js";
 import type { CSS } from "@stitches/react";
 

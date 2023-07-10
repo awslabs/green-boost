@@ -26,7 +26,9 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@tsconfig/node18-strictest-esm": "^1.0.1",
+    "@tsconfig/esm": "^1.0.4",
+    "@tsconfig/node18": "^18.2.0",
+    "@tsconfig/strictest": "^2.0.1",
     "@types/node": "^18.16.19",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
@@ -36,10 +38,9 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.8",
     "rimraf": "^4.4.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.5",
+    "typescript": "^5.1.6",
     "vite": "^4.4.2",
-    "vitest": "^0.29.8"
+    "vitest": "^0.33.0"
   },
   "repository": {
     "type": "git",

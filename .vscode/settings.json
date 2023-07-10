@@ -9,7 +9,6 @@
     "./packages/gboost-node",
     "./packages/gboost-ui"
   ],
-  "typescript.preferences.importModuleSpecifierEnding": "js",
   "typescript.tsdk": "node_modules/typescript/lib",
   "search.exclude": {
     "**/node_modules": true,

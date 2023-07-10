@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { camelToKebab } from "./convert-case.js";
+import { camelToKebab } from "./convert-case";
 
 describe("convertCase.ts", () => {
   const camelCase = "longVariableName";

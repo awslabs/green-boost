@@ -1,9 +1,9 @@
 import { Construct } from "constructs";
 import type { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
-import { Function } from "../function.js";
-import { createSchema } from "./createSchema.js";
+import { Function } from "../function";
+import { createSchema } from "./createSchema";
 import { Duration, Stack } from "aws-cdk-lib";
-import type { Bucket } from "../bucket/bucket.js";
+import type { Bucket } from "../bucket/bucket";
 import { NagSuppressions } from "cdk-nag";
 import type { CfnBucket, CorsRule, HttpMethods } from "aws-cdk-lib/aws-s3";
 

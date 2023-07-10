@@ -1,5 +1,5 @@
 import { Icon } from "@aws-amplify/ui-react";
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import {
   MdOutlineCheckBoxOutlineBlank,
   MdOutlineCheckBox,

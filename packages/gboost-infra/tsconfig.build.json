@@ -1,5 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "include": ["src/**/*"], // don't compile scripts/
-  "exclude": ["**/*.test.ts", "lib", "./src/web-deployment/custom-resource-handler/**"]
+  "exclude": [
+    "**/*.test.ts",
+    "./src/web-deployment/web-deploy-cr-handler/**",
+  ]
 }

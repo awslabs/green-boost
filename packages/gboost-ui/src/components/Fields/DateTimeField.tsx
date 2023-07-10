@@ -1,9 +1,9 @@
-import { TextField, TextFieldProps } from "@aws-amplify/ui-react";
+import { TextField, type TextFieldProps } from "@aws-amplify/ui-react";
 import {
-  ForwardedRef,
+  type ForwardedRef,
   forwardRef,
-  InputHTMLAttributes,
-  ReactElement,
+  type InputHTMLAttributes,
+  type ReactElement,
 } from "react";
 
 export type DateTimeFieldProps = TextFieldProps &

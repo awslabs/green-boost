@@ -1,16 +1,16 @@
 import { Flex, ScrollView, VisuallyHidden } from "@aws-amplify/ui-react";
 import React, {
-  ChangeEventHandler,
-  DragEventHandler,
-  MouseEventHandler,
-  ReactElement,
+  type ChangeEventHandler,
+  type DragEventHandler,
+  type MouseEventHandler,
+  type ReactElement,
   useCallback,
 } from "react";
 import { Box, theme, styled } from "../index.js";
-import { FileData } from "./index.js";
+import { type FileData } from "./index.js";
 import { ActionButtons } from "./ActionButtons.js";
 import { FileList } from "./FileList.js";
-import { CustomActionButtonProps } from "./CustomActionButtons.js";
+import { type CustomActionButtonProps } from "./CustomActionButtons.js";
 
 interface DropOutlineProps {
   inputFile: React.RefObject<HTMLInputElement>;

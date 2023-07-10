@@ -28,9 +28,9 @@ export function getAmplifyTheme(
         link: {
           // when using lighter primary colors (green) right drawer nav looks bad
           // this fixes it
-          color: t.colors.primary12,
+          color: t.colors["primary12"],
           hover: {
-            color: t.colors.primary12,
+            color: t.colors["primary12"],
           },
         },
       },

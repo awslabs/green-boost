@@ -1,7 +1,7 @@
-import { View, ViewProps } from "@aws-amplify/ui-react";
+import { View, type ViewProps } from "@aws-amplify/ui-react";
 import { clsx } from "clsx";
-import { forwardRef, ReactNode } from "react";
-import * as styles from "./FooterArea.css.js";
+import { forwardRef, type ReactNode } from "react";
+import * as styles from "./FooterArea.css";
 
 interface FooterAreaProps extends ViewProps {
   children?: ReactNode;

@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { navAsideContainer } from "./NavAside.css.js";
+import { navAsideContainer } from "./NavAside.css";
 
 export const itemContainer = style({
   cursor: "pointer",

@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactElement } from "react";
+import { Component, type ErrorInfo, type ReactElement } from "react";
 import {
   Alert,
   Button,
@@ -37,13 +37,13 @@ export class ErrorBoundary extends Component<Props, State> {
     return { errorDetails: error.message, hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error(error);
     console.error(errorInfo);
     // send to CloudWatch RUM
   }
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       if (this.props.ErrorComponent) {
         return this.props.ErrorComponent;

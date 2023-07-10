@@ -1,6 +1,6 @@
-import type { BucketProps } from "./bucket/bucket.js";
-import type { FunctionProps } from "./function.js";
-import type { TableProps } from "./table.js";
+import type { BucketProps } from "./bucket/bucket";
+import type { FunctionProps } from "./function";
+import type { TableProps } from "./table";
 import { mergeDeep } from "gboost-common";
 
 /**

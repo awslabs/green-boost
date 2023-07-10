@@ -1,5 +1,5 @@
 import { Text } from "@aws-amplify/ui-react";
-import { ReactElement, ReactNode } from "react";
+import { type ReactElement, type ReactNode } from "react";
 
 interface ErrorMessageProps {
   children: ReactNode;

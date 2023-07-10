@@ -1,8 +1,8 @@
 import { execSync } from "node:child_process";
-import { injectFnConfig } from "./inject-fn-config.js";
+import { injectFnConfig } from "./inject-fn-config";
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
-import { logger } from "../utils/logger.js";
+import { logger } from "../utils/logger";
 
 interface RunFnParams {
   event?: string;

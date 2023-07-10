@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement } from "react";
+import { type ChangeEvent, type ReactElement } from "react";
 import { MdViewColumn } from "react-icons/md";
 import { Button, Icon, SwitchField } from "@aws-amplify/ui-react";
 import { Box, Dialog } from "../../index.js";

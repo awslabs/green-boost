@@ -1,4 +1,4 @@
-import { MouseEvent, ReactElement } from "react";
+import { type MouseEvent, type ReactElement } from "react";
 import { Box } from "../index.js";
 
 interface RemoveFileProps {

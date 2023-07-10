@@ -1,5 +1,5 @@
-import { Flex, FlexProps } from "@aws-amplify/ui-react";
-import { forwardRef, ReactNode } from "react";
+import { Flex, type FlexProps } from "@aws-amplify/ui-react";
+import { forwardRef, type ReactNode } from "react";
 import * as styles from "./NavAsideItem.css.js";
 
 interface NavAsideItemProps extends FlexProps {

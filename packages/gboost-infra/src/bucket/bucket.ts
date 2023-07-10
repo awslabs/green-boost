@@ -1,17 +1,17 @@
 import { Duration } from "aws-cdk-lib";
-import { IGrantable, Grant } from "aws-cdk-lib/aws-iam";
+import { type IGrantable, Grant } from "aws-cdk-lib/aws-iam";
 import {
   BlockPublicAccess,
   Bucket as CdkBucket,
   BucketEncryption,
-  BucketProps as CdkBucketProps,
+  type BucketProps as CdkBucketProps,
   StorageClass,
 } from "aws-cdk-lib/aws-s3";
 import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
 import { mergeDeep } from "gboost-common";
-import { constructDefaultProps } from "../construct-default-props.js";
-import * as perms from "./permissions.js";
+import { constructDefaultProps } from "../construct-default-props";
+import * as perms from "./permissions";
 
 export type BucketProps = CdkBucketProps;
 

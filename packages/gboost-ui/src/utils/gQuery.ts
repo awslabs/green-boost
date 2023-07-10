@@ -1,5 +1,5 @@
 import { API } from "aws-amplify";
-import { DocumentNode, GraphQLError } from "graphql";
+import { type DocumentNode, GraphQLError } from "graphql";
 
 enum GRAPHQL_AUTH_MODE {
   API_KEY = "API_KEY",

@@ -1,13 +1,12 @@
-import { ReactElement, useMemo } from "react";
+import { type ReactElement, useMemo } from "react";
 import { listGroups } from "./gql.js";
-import { CognitoGroup } from "gboost-common";
+import { type CognitoGroup } from "gboost-common";
 import { Link, useTheme } from "@aws-amplify/ui-react";
 import { Link as RouterLink } from "react-router-dom";
 import {
-  Column,
+  type Column,
   QueryTable,
-  OnQueryParams,
-  OnQueryReturnValue,
+  type OnQueryReturnValue,
 } from "../OldQueryTable/QueryTable.js";
 import { gQuery } from "../index.js";
 import { renderDate } from "./common.js";
@@ -20,9 +19,7 @@ interface ListGroupsResponse {
   };
 }
 
-async function handleQuery(
-  params: OnQueryParams
-): Promise<OnQueryReturnValue<CognitoGroup>> {
+async function handleQuery(): Promise<OnQueryReturnValue<CognitoGroup>> {
   try {
     const res = await gQuery({ query: listGroups });
     const { nextToken, groups: rows } = (res as ListGroupsResponse).listGroups;

@@ -1,9 +1,13 @@
-import { ReactElement, useState, useEffect, useCallback } from "react";
-import { CognitoUser, CognitoGroup, CreateCognitoUser } from "gboost-common";
+import { type ReactElement, useState, useEffect, useCallback } from "react";
+import {
+  type CognitoUser,
+  type CognitoGroup,
+  CreateCognitoUser,
+} from "gboost-common";
 import { Link as RouterLink, useParams, useNavigate } from "react-router-dom";
 import { ButtonGroup, Link } from "@aws-amplify/ui-react";
 import { MdArrowBack } from "react-icons/md";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, gQuery, StyledButton, useNotifications } from "../index.js";
@@ -54,7 +58,7 @@ export function UpdateUser(props: UpdateUserProps): ReactElement {
       try {
         const data = await gQuery<GetUserResponse>({
           query: getUser,
-          vars: { username: params.username },
+          vars: { username: params["username"] },
         });
         reset(data.getUser);
       } catch (err) {
@@ -67,14 +71,14 @@ export function UpdateUser(props: UpdateUserProps): ReactElement {
     if (!users) {
       query();
     } else {
-      const user = users.find((u) => u.username === params.username);
+      const user = users.find((u) => u.username === params["username"]);
       if (user) {
         reset(user);
       } else {
         query();
       }
     }
-  }, [params.username, reset, users]);
+  }, [params, reset, users]);
   const [loadingGroups, setLoadingGroups] = useState(false);
   useEffect(() => {
     async function query() {
@@ -82,7 +86,7 @@ export function UpdateUser(props: UpdateUserProps): ReactElement {
         setLoadingGroups(true);
         const data = await gQuery<ListGroupsForUserResponse>({
           query: listGroupsForUser,
-          vars: { username: params.username },
+          vars: { username: params["username"] },
         });
         const groupNames = data.listGroupsForUser.map((g) => g.name);
         setValue("groups", groupNames);
@@ -93,7 +97,7 @@ export function UpdateUser(props: UpdateUserProps): ReactElement {
       }
     }
     query();
-  }, [params.username, groupNameOptions, setValue]);
+  }, [params, groupNameOptions, setValue]);
   const navigate = useNavigate();
   const { notify } = useNotifications();
   const handleUpdate: SubmitHandler<Schema> = useCallback(

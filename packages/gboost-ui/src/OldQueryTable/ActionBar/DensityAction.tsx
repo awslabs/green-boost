@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { MdLineWeight } from "react-icons/md";
 import { Icon, Menu, MenuButton, MenuItem } from "@aws-amplify/ui-react";
 import { styled } from "../../stitches.config.js";

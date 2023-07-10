@@ -1,10 +1,10 @@
-import { ReactElement, useCallback, useEffect, useMemo } from "react";
+import { type ReactElement, useCallback, useEffect, useMemo } from "react";
 import { Placeholder } from "@aws-amplify/ui-react";
 import { Box, styled } from "../index.js";
 import { SelectionCell } from "./SelectionCell.js";
 import type { Column } from "./types/column.js";
 import type { OnChangeSelectedParams } from "./types/selected.js";
-import { Row } from "./types/row.js";
+import { type Row } from "./types/row.js";
 import { TableCell } from "./TableCell.js";
 
 const StyledTableBody = styled("div", {
@@ -112,7 +112,7 @@ export function TableBody<T extends Row>(
             onSelect={handleSelect}
             onUnselect={handleUnselect}
             row={r}
-            selected={selectedMap[getRowId(r)]}
+            selected={Boolean(selectedMap[getRowId(r)])}
           />
         )}
         {visibleColumns.map((c) => (

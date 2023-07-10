@@ -1,8 +1,8 @@
 import { Stack } from "aws-cdk-lib";
-import { Grant, IGrantable } from "aws-cdk-lib/aws-iam";
+import { Grant, type IGrantable } from "aws-cdk-lib/aws-iam";
 import {
   DatabaseCluster as CdkDatabaseCluster,
-  DatabaseClusterProps as CdkDatabaseClusterProps,
+  type DatabaseClusterProps as CdkDatabaseClusterProps,
 } from "aws-cdk-lib/aws-rds";
 import {
   AwsCustomResource,

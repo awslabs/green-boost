@@ -1,13 +1,13 @@
 import {
-  MouseEventHandler,
-  ReactElement,
+  type MouseEventHandler,
+  type ReactElement,
   useEffect,
   useMemo,
   useRef,
 } from "react";
 import { useHotkeys, useFocusTrap } from "@mantine/hooks";
 import * as Portal from "@radix-ui/react-portal";
-import { Box, CSS, Overlay } from "../index.js";
+import { Box, type CSS, Overlay } from "../index.js";
 
 interface DrawerProps {
   open: boolean;

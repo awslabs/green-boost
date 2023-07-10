@@ -6,9 +6,9 @@ import {
   getUploadURL,
 } from "./gql.js";
 import { GraphQLError } from "graphql";
-import { CompletedPart } from "@aws-sdk/client-s3";
-import { ContextNotification, gQuery } from "../index.js";
-import { FileData } from "./index.js";
+import { type CompletedPart } from "@aws-sdk/client-s3";
+import { type ContextNotification, gQuery } from "../index.js";
+import { type FileData } from "./index.js";
 
 export interface HandleUploadProps {
   file: File;
@@ -74,11 +74,11 @@ export function handleUpload(props: HandleUploadProps) {
     setPendingFilesData,
     updateCursor,
   } = props;
-  if (file.size <= uploadProps.maxFileSize) {
+  if (file.size <= Number(uploadProps.maxFileSize)) {
     let isSupported = false;
 
     const parts = fileName.split(".");
-    const extension = parts[parts.length - 1].toLowerCase();
+    const extension = parts[parts.length - 1]?.toLowerCase() || "";
     if (Array.isArray(uploadProps.fileType)) {
       if (uploadProps.fileType.includes(extension)) {
         isSupported = true;
@@ -289,59 +289,62 @@ export async function handleMultipartUpload(
     const end = (i + 1) * filePartSize;
     const filePart =
       i < numberOfParts - 1 ? file.slice(start, end) : file.slice(start);
-    const result = await fetch(urls[i], {
-      method: "PUT",
-      body: filePart,
-      mode: "cors",
-    });
+    const url = urls[i];
+    if (url) {
+      const result = await fetch(url, {
+        method: "PUT",
+        body: filePart,
+        mode: "cors",
+      });
 
-    let etag = result.headers.get("ETag");
-    if (etag != null) {
-      multipartUpload[i] = {
-        ETag: etag,
-        PartNumber: i + 1,
-      };
-    }
+      let etag = result.headers.get("ETag");
+      if (etag != null) {
+        multipartUpload[i] = {
+          ETag: etag,
+          PartNumber: i + 1,
+        };
+      }
 
-    if (result.status !== 200) {
-      await gQuery<abortUploadResponse>({
-        query: abortUpload,
-        vars: {
-          input: {
-            bucket: uploadProps.bucket,
-            fileName: uploadProps.fileKey + fileName,
-            uploadId: uploadId,
+      if (result.status !== 200) {
+        await gQuery<abortUploadResponse>({
+          query: abortUpload,
+          vars: {
+            input: {
+              bucket: uploadProps.bucket,
+              fileName: uploadProps.fileKey + fileName,
+              uploadId: uploadId,
+            },
           },
-        },
-      });
-      notify({
-        body: `Error uploading ${fileName}`,
-        variation: `error`,
-      });
-      partsUploaded = 0;
-      setPercent(0);
-      // Update the files hasFailed
-      setPendingFilesData((prev) => {
-        let newPendingFilesData: FileData[] = [];
-        prev.forEach((oldFileData) => {
-          if (fileName !== oldFileData.fileName) {
-            newPendingFilesData.push(oldFileData);
-          } else {
-            newPendingFilesData.push({
-              file: oldFileData.file,
-              fileName: oldFileData.fileName,
-              isUploaded: oldFileData.isUploaded,
-              setPercent: oldFileData.setPercent,
-              hasFailed: true,
-            });
-          }
         });
-        return newPendingFilesData;
-      });
-      return;
-    } else {
-      partsUploaded += 1;
-      setPercent((partsUploaded / numberOfParts) * 100);
+        notify({
+          body: `Error uploading ${fileName}`,
+          variation: `error`,
+        });
+        partsUploaded = 0;
+        setPercent(0);
+        // Update the files hasFailed
+        setPendingFilesData((prev) => {
+          let newPendingFilesData: FileData[] = [];
+          prev.forEach((oldFileData) => {
+            if (fileName !== oldFileData.fileName) {
+              newPendingFilesData.push(oldFileData);
+            } else {
+              newPendingFilesData.push({
+                file: oldFileData.file,
+                fileName: oldFileData.fileName,
+                isUploaded: oldFileData.isUploaded,
+                setPercent: oldFileData.setPercent,
+                hasFailed: true,
+              });
+            }
+          });
+          return newPendingFilesData;
+        });
+        return;
+      } else {
+        partsUploaded += 1;
+        setPercent((partsUploaded / numberOfParts) * 100);
+      }
     }
   }
 

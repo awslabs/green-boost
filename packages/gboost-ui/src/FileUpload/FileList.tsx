@@ -5,8 +5,8 @@ import {
   TableHead,
   TableRow,
 } from "@aws-amplify/ui-react";
-import { ReactElement } from "react";
-import { FileData } from "./FileUpload.js";
+import { type ReactElement } from "react";
+import { type FileData } from "./FileUpload.js";
 import { FileViewer } from "./FileViewer.js";
 
 interface FileListProps {

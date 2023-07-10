@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { Loader } from "@aws-amplify/ui-react";
 
 export function BgLoading(): ReactElement {

@@ -1,8 +1,8 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { Heading, Icon } from "@aws-amplify/ui-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { MdClose } from "react-icons/md";
-import { keyframes, styled, Box, CSS } from "../index.js";
+import { keyframes, styled, Box, type CSS } from "../index.js";
 
 const overlayShow = keyframes({
   "0%": { opacity: 0 },

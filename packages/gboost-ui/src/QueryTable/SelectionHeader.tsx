@@ -1,5 +1,5 @@
 import { Icon } from "@aws-amplify/ui-react";
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import {
   MdOutlineCheckBoxOutlineBlank,
   MdOutlineCheckBox,
@@ -7,7 +7,7 @@ import {
 } from "react-icons/md";
 import { styled } from "../stitches.config.js";
 import { StyledTableCell } from "./StyledTableCell.js";
-import { Row } from "./types/row.js";
+import { type Row } from "./types/row.js";
 
 export const iconSize = 25;
 export const CheckBox = styled(MdOutlineCheckBox, {

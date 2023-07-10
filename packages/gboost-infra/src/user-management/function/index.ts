@@ -1,16 +1,16 @@
 import type { AppSyncResolverEvent } from "aws-lambda";
 import { CognitoIdentityProviderClient } from "@aws-sdk/client-cognito-identity-provider";
-import { listUsers } from "./listUsers.js";
-import { createUser } from "./createUser.js";
-import { updateUser } from "./updateUser.js";
-import { deleteUsers } from "./deleteUsers.js";
-import { disableUsers } from "./disableUsers.js";
-import { enableUsers } from "./enableUsers.js";
-import { resetPasswords } from "./resetPasswords.js";
-import { listGroups } from "./listGroups.js";
-import { listUsersInGroup } from "./listUsersInGroup.js";
-import { listGroupsForUser } from "./listGroupsForUser.js";
-import { getUser } from "./getUser.js";
+import { listUsers } from "./listUsers";
+import { createUser } from "./createUser";
+import { updateUser } from "./updateUser";
+import { deleteUsers } from "./deleteUsers";
+import { disableUsers } from "./disableUsers";
+import { enableUsers } from "./enableUsers";
+import { resetPasswords } from "./resetPasswords";
+import { listGroups } from "./listGroups";
+import { listUsersInGroup } from "./listUsersInGroup";
+import { listGroupsForUser } from "./listGroupsForUser";
+import { getUser } from "./getUser";
 
 const cognitoClient = new CognitoIdentityProviderClient({});
 const userPoolId = process.env["USER_POOL_ID"] as string;

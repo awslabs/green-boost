@@ -1,6 +1,14 @@
-import { FetchNextPageOptions, InfiniteData } from "@tanstack/react-query";
-import { Pagination } from "../index.js";
-import { Dispatch, SetStateAction, useCallback, useMemo } from "react";
+import {
+  type FetchNextPageOptions,
+  type InfiniteData,
+} from "@tanstack/react-query";
+import { type Pagination } from "../index.js";
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useMemo,
+} from "react";
 
 interface ListResult<T> {
   items: T[];

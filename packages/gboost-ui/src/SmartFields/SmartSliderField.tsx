@@ -1,17 +1,17 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import {
   Flex,
   Placeholder,
   SliderField,
-  SliderFieldProps,
+  type SliderFieldProps,
   Text,
 } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { Tooltip } from "../index.js";
-import { ControlProps, normalizeProps } from "./common.js";
+import { type ControlProps, normalizeProps } from "./common.js";
 import {
-  ExternalBaseSmartFieldProps,
+  type ExternalBaseSmartFieldProps,
   LabelContainer,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";

@@ -21,8 +21,8 @@ import { execSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { Bucket } from "../bucket/bucket.js";
-import type { InputResourceProperties } from "./common.js";
+import type { Bucket } from "../bucket/bucket";
+import type { InputResourceProperties } from "./common";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 
@@ -144,7 +144,7 @@ export class WebDeployment extends Construct {
       prune: props.prune || true,
     };
 
-    this.#getCustomResource({ fn, properties });
+    this.#createCustomResource({ fn, properties });
     this.#suppressNags(fn);
   }
 
@@ -177,10 +177,10 @@ export class WebDeployment extends Construct {
     if (isDev) {
       codePath = resolve(
         thisFilePath,
-        "../../../lib/web-deployment/custom-resource-handler"
+        "../../../lib/web-deployment/web-deploy-cr-handler"
       );
     } else {
-      codePath = resolve(thisFilePath, "../custom-resource-handler");
+      codePath = resolve(thisFilePath, "../web-deploy-cr-handler-handler");
     }
     const uuid = "e94797a6-488d-4a73-8e2b-79695c7ec7dd";
     const lambdaPurpose = "WebDeploymentCustomResourceHandler";
@@ -236,7 +236,7 @@ export class WebDeployment extends Construct {
     });
   }
 
-  #getCustomResource(params: GetCustomResourceParams) {
+  #createCustomResource(params: GetCustomResourceParams) {
     const provider = new Provider(this, "Provider", {
       onEventHandler: params.fn,
       logRetention: RetentionDays.ONE_DAY,

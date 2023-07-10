@@ -1,16 +1,16 @@
 import { Duration } from "aws-cdk-lib";
 import {
-  ResponseHeadersPolicyProps,
+  type ResponseHeadersPolicyProps,
   HeadersReferrerPolicy,
-  ResponseHeadersCorsBehavior,
-  ResponseCustomHeadersBehavior,
-  ResponseSecurityHeadersBehavior,
-  ResponseHeadersContentSecurityPolicy,
-  ResponseHeadersReferrerPolicy,
-  ResponseHeadersStrictTransportSecurity,
-  ResponseHeadersContentTypeOptions,
-  ResponseHeadersFrameOptions,
-  ResponseHeadersXSSProtection,
+  type ResponseHeadersCorsBehavior,
+  type ResponseCustomHeadersBehavior,
+  type ResponseSecurityHeadersBehavior,
+  type ResponseHeadersContentSecurityPolicy,
+  type ResponseHeadersReferrerPolicy,
+  type ResponseHeadersStrictTransportSecurity,
+  type ResponseHeadersContentTypeOptions,
+  type ResponseHeadersFrameOptions,
+  type ResponseHeadersXSSProtection,
   HeadersFrameOption,
 } from "aws-cdk-lib/aws-cloudfront";
 import { camelToKebab } from "gboost-common";

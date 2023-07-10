@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { Button, Icon } from "@aws-amplify/ui-react";
 import { MdDownload } from "react-icons/md";
 
@@ -8,7 +8,7 @@ interface DownloadActionProps {
 }
 
 function downloadCsv(rows: Record<string, string>[], fileName: string): void {
-  const csvHeaders = Object.keys(rows[0]).join(",") + "\n";
+  const csvHeaders = Object.keys(rows[0] || []).join(",") + "\n";
   const csvBody = rows.map((r) => Object.values(r).join(",")).join("\n");
   const csvString = "data:text/csv;charset=utf-8," + csvHeaders + csvBody;
   const encodedUri = encodeURI(csvString);

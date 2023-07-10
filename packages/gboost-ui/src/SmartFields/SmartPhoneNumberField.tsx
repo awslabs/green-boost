@@ -1,11 +1,14 @@
-import { ReactElement } from "react";
-import { PhoneNumberField, PhoneNumberFieldProps } from "@aws-amplify/ui-react";
+import { type ReactElement } from "react";
+import {
+  PhoneNumberField,
+  type PhoneNumberFieldProps,
+} from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { ControlProps, normalizeProps } from "./common.js";
+import { type ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
-  ExternalBaseSmartFieldProps,
+  type ExternalBaseSmartFieldProps,
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";

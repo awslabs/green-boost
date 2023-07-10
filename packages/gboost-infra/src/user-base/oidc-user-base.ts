@@ -1,19 +1,19 @@
 import { Construct } from "constructs";
 import {
-  AttributeMapping,
+  type AttributeMapping,
   ClientAttributes,
-  OAuthSettings,
+  type OAuthSettings,
   StringAttribute,
   UserPool,
   UserPoolClient,
   UserPoolClientIdentityProvider,
   UserPoolDomain,
-  UserPoolDomainProps,
+  type UserPoolDomainProps,
   UserPoolIdentityProviderOidc,
-  UserPoolIdentityProviderOidcProps,
+  type UserPoolIdentityProviderOidcProps,
 } from "aws-cdk-lib/aws-cognito";
 import {
-  CommonUserBaseProps,
+  type CommonUserBaseProps,
   createUserPoolGroups,
   defaultPasswordPolicy,
   standardWriteAttributes,
@@ -41,6 +41,7 @@ interface OidcUserBaseProps extends Partial<CommonUserBaseProps> {
  * Federated User Base with OIDC
  * Creates a Cognito User Pool, User Pool Client, User Pool Domain, and User
  * Pool Identity Provider
+ * @deprecated
  */
 export class OidcUserBase extends Construct {
   userPool!: UserPool;

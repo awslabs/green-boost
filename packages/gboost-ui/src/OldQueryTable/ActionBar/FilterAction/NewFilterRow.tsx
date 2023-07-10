@@ -1,7 +1,7 @@
 import {
-  ChangeEvent,
-  ChangeEventHandler,
-  ReactElement,
+  type ChangeEvent,
+  type ChangeEventHandler,
+  type ReactElement,
   useCallback,
   useLayoutEffect,
   useRef,
@@ -11,9 +11,9 @@ import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
 import { MdCheck } from "react-icons/md";
 import { FilterValue as FilterValueComponent } from "./FilterValue.js";
 import {
-  ColumnOption,
-  FilterColumnsObj,
-  InternalFilter,
+  type ColumnOption,
+  type FilterColumnsObj,
+  type InternalFilter,
 } from "./FilterAction.js";
 import { randomId } from "@mantine/hooks";
 
@@ -47,7 +47,7 @@ export function NewFilterRow({
   }, [filter, onCreateFilter]);
   const handleChangeColumn: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => {
-      setFilter((f) => {
+      setFilter(() => {
         const newFilter: InternalFilter = {
           ...filter,
           column: e.target.value,
@@ -56,7 +56,7 @@ export function NewFilterRow({
           filterColumnsObj[e.target.value]?.filterOptions?.comparators || [];
         // if there is only 1 comparator for the column, pre-select it for user
         if (!filter.comparator && newComparators.length === 1) {
-          newFilter.comparator = newComparators[0].value;
+          newFilter.comparator = newComparators?.[0]?.value || "";
         }
         return newFilter;
       });

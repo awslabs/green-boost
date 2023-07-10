@@ -4,12 +4,12 @@ import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { NagSuppressions } from "cdk-nag";
 import { Construct } from "constructs";
 import { fileURLToPath } from "node:url";
-import { Function } from "../index.js";
+import { Function } from "../";
 import {
-  CommonUserBaseProps,
+  type CommonUserBaseProps,
   createUserPoolGroups,
   defaultPasswordPolicy,
-} from "./common.js";
+} from "./common";
 
 export interface UserBaseProps extends CommonUserBaseProps {
   sesEmail?: string;
@@ -19,6 +19,7 @@ export interface UserBaseProps extends CommonUserBaseProps {
 /**
  * UserBase Construct
  * Creates a Cognito User Pool, User Pool Client, and User Pool Groups
+ * @deprecated
  */
 export class UserBase extends Construct {
   userPool!: UserPool;

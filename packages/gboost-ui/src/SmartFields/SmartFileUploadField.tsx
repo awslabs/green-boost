@@ -1,13 +1,13 @@
-import { ChangeEventHandler, ReactElement, useCallback } from "react";
-import { ControlProps, normalizeProps } from "./common.js";
-import { FileUploadField, FileUploadFieldProps } from "../index.js";
+import { type ChangeEventHandler, type ReactElement, useCallback } from "react";
+import { type ControlProps, normalizeProps } from "./common.js";
+import { FileUploadField, type FileUploadFieldProps } from "../index.js";
 import {
   BaseSmartField,
-  ExternalBaseSmartFieldProps,
+  type ExternalBaseSmartFieldProps,
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
-import { FieldValues, useController } from "react-hook-form";
+import { type FieldValues, useController } from "react-hook-form";
 
 export type SmartFileUploadFieldProps<T extends FieldValues> =
   ExternalBaseSmartFieldProps &

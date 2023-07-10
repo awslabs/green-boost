@@ -1,13 +1,13 @@
 import type { ReactElement, ReactNode } from "react";
 import type { TableProps } from "@aws-amplify/ui-react";
-import { Filter } from "./filter.js";
+import { type Filter } from "./filter.js";
 import type { Density } from "../ActionBar/DensityAction.js";
-import { Pagination } from "../types/pagination.js";
-import { Column } from "./column.js";
-import { Sort } from "./sort.js";
-import { OnChangeSelectedParams } from "./selected.js";
+import { type Pagination } from "../types/pagination.js";
+import { type Column } from "./column.js";
+import { type Sort } from "./sort.js";
+import { type OnChangeSelectedParams } from "./selected.js";
 import { ActionBar } from "../ActionBar/ActionBar.js";
-import { Row } from "./row.js";
+import { type Row } from "./row.js";
 
 export interface QueryTableProps<T extends Row> {
   /**

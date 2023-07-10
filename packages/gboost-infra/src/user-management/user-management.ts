@@ -2,8 +2,8 @@ import { Arn, Stack } from "aws-cdk-lib";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
 import type { GraphqlApi } from "@aws-cdk/aws-appsync-alpha";
-import { Function } from "../function.js";
-import { createSchema } from "./createSchema.js";
+import { Function } from "../function";
+import { createSchema } from "./createSchema";
 import { fileURLToPath } from "node:url";
 
 export interface UserManagementProps {
@@ -18,6 +18,7 @@ export interface UserManagementProps {
 
 /**
  * Creates a Cognito user pool, Cognito groups, and Cognito user pool client
+ * @deprecated
  */
 export class UserManagement extends Construct {
   constructor(scope: Construct, id: string, props: UserManagementProps) {

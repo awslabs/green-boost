@@ -4,10 +4,10 @@ import {
   AdminAddUserToGroupCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { AppSyncResolverEvent } from "aws-lambda";
-import { transformUser } from "./user.js";
+import { transformUser } from "./user";
 import Joi from "joi";
 import type { CreateCognitoUser } from "gboost-common";
-import { groupNames } from "./group.js";
+import { groupNames } from "./group";
 
 interface CreateUserArgs {
   input: CreateCognitoUser;

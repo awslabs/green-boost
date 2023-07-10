@@ -1,7 +1,7 @@
 import {
   constants,
   copyFileSync,
-  CopySyncOptions,
+  type CopySyncOptions,
   cpSync,
   statSync,
 } from "node:fs";

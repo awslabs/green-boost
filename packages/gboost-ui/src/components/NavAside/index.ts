@@ -1,2 +1,2 @@
-export * from "./NavAside.js";
-export * from "./NavAsideItem.js";
+export { NavAside } from "./NavAside";
+export { NavAsideItem } from "./NavAsideItem";

@@ -1,5 +1,5 @@
 import { Alert } from "@aws-amplify/ui-react";
-import { ReactElement, ReactNode } from "react";
+import { type ReactElement, type ReactNode } from "react";
 import { styled } from "../index.js";
 
 const StyledAlert = styled(Alert, { mt: "$1" });

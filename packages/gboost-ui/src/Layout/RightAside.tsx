@@ -1,5 +1,5 @@
-import { ReactElement } from "react";
-import { CSS, styled } from "../index.js";
+import { type ReactElement } from "react";
+import { type CSS, styled } from "../index.js";
 
 const Container = styled("div", {
   gridArea: "rightDrawer",

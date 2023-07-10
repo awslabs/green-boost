@@ -1,7 +1,7 @@
-import { ReactElement } from "react";
-import { StringWithAutocomplete } from "../../types/string-with-autocomplete.js";
-import { FilterOptions } from "./filter.js";
-import { Row } from "./row.js";
+import { type ReactElement } from "react";
+import { type StringWithAutocomplete } from "../../types/string-with-autocomplete.js";
+import { type FilterOptions } from "./filter.js";
+import { type Row } from "./row.js";
 
 export interface Column<T extends Row> {
   /**

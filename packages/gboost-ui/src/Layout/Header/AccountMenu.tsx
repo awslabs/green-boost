@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { Menu, MenuItem, MenuButton, useTheme } from "@aws-amplify/ui-react";
 import { MdAccountCircle, MdLogout } from "react-icons/md";
 import { styled } from "../../stitches.config.js";

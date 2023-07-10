@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useMemo, useState } from "react";
+import { type ReactElement, useEffect, useMemo, useState } from "react";
 import { Link, Tabs, TabItem } from "@aws-amplify/ui-react";
 import {
   Link as ReactRouterLink,
@@ -15,7 +15,7 @@ import { CreateUser } from "./CreateUser.js";
 import { GroupsTable } from "./GroupsTable.js";
 import { UsersTable } from "./UsersTable.js";
 import { UsersInGroupTable } from "./UsersInGroupTable.js";
-import { CognitoUser } from "gboost-common";
+import { type CognitoUser } from "gboost-common";
 
 export interface UserManagementProps {
   groupNames: string[];
@@ -27,6 +27,7 @@ const groupsPath = "groups";
 /**
  * Page that enables management of users in Cognito User Pool or view of
  * federated users in Cognito User Pool
+ * @deprecated
  */
 export function UserManagement(props: UserManagementProps): ReactElement {
   const { groupNames } = props;

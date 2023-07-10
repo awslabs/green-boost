@@ -1,14 +1,16 @@
 {
-  "extends": "@tsconfig/vite-react/tsconfig.json",
+  "extends": ["@tsconfig/strictest", "@tsconfig/esm", "@tsconfig/next"],
   "compilerOptions": {
-    "declaration": true,
-    "declarationMap": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    // uncomment below once stitches code is removed!
+    // https://github.com/stitchesjs/stitches/issues/1055
+    // "declaration": true,
+    // "declarationMap": true,
+    "exactOptionalPropertyTypes": false,
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "checkJs": false, // remove once fixAmplify.js is removed
   },
-  "exclude": ["lib"],
-  "ts-node": {
-    "esm": true,
-    "swc": true,
-  }
+  "include": ["**/*.ts", "**/*.tsx",],
+  "exclude": ["lib", "node_modules"],
 }

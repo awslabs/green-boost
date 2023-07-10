@@ -1,11 +1,19 @@
-import { MutableRefObject, ReactElement, RefObject, useMemo } from "react";
+import {
+  type MutableRefObject,
+  type ReactElement,
+  type RefObject,
+  useMemo,
+} from "react";
 import { Button, Heading, Icon } from "@aws-amplify/ui-react";
 import { Box } from "../../index.js";
-import { Column } from "../QueryTable.js";
+import { type Column } from "../QueryTable.js";
 import { DownloadAction } from "./DownloadAction.js";
-import { FilterAction, InternalFilter } from "./FilterAction/FilterAction.js";
+import {
+  FilterAction,
+  type InternalFilter,
+} from "./FilterAction/FilterAction.js";
 import { ColumnVisibilityAction } from "./ColumnVisibilityAction.js";
-import { Density, DensityAction } from "./DensityAction.js";
+import { type Density, DensityAction } from "./DensityAction.js";
 import { MdRefresh } from "react-icons/md";
 
 interface ActionBarProps<T> {

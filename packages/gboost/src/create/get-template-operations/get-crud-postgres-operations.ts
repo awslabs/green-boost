@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { Operation, OperationType } from "../operations/operations.js";
+import { type Operation, OperationType } from "../operations/operations";
 import type { GetOperationsParams } from "./common.js";
 
 export function getCrudPostgresOperations(

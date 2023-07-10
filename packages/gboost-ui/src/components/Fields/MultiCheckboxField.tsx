@@ -1,7 +1,16 @@
-import { ReactElement, useState, useCallback, ChangeEventHandler } from "react";
-import { CheckboxField, CheckboxFieldProps, Text } from "@aws-amplify/ui-react";
-import type { CSS } from "../../index.js";
-import { ErrorMessage, styled } from "../../index.js";
+import {
+  type ReactElement,
+  useState,
+  useCallback,
+  type ChangeEventHandler,
+} from "react";
+import {
+  CheckboxField,
+  type CheckboxFieldProps,
+  Text,
+} from "@aws-amplify/ui-react";
+import type { CSS } from "../..";
+import { ErrorMessage, styled } from "../..";
 
 const Container = styled("div", {
   display: "flex",

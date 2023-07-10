@@ -1,16 +1,8 @@
 {
+  "extends": ["@tsconfig/strictest", "@tsconfig/esm", "@tsconfig/node18"],
   "compilerOptions": {
-    "target": "esnext",
     "module": "ESNext",
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
+    "moduleResolution": "Bundler",
   },
-  "exclude": ["packages/gboost/templates/**/*", "examples/**/*"],
-  "ts-node": {
-    "esm": true,
-    "swc": true
-  }
+  "includes": ["scripts/**/*", "utils/**/*"],
 }

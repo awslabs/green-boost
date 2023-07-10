@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef } from "react";
+import { type ReactElement, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
 const portalId = "gb-portal";

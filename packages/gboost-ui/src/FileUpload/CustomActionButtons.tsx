@@ -1,8 +1,8 @@
-import React from "react";
+import { type MouseEvent } from "react";
 
 export interface CustomActionButtonProps {
-  handleUpload: (event: React.MouseEvent) => void;
-  handleClear: (event: React.MouseEvent) => void;
+  handleUpload: (event: MouseEvent) => void;
+  handleClear: (event: MouseEvent) => void;
   isUploadDisabled: boolean;
   isClearDisabled: boolean;
 }

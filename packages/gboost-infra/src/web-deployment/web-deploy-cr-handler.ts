@@ -13,9 +13,9 @@ import {
   DeleteObjectsCommand,
   GetObjectCommand,
   ListObjectsV2Command,
-  ListObjectsV2CommandInput,
+  type ListObjectsV2CommandInput,
   PutObjectCommand,
-  PutObjectCommandInput,
+  type PutObjectCommandInput,
   S3Client,
 } from "@aws-sdk/client-s3";
 import {
@@ -23,7 +23,7 @@ import {
   CreateInvalidationCommand,
 } from "@aws-sdk/client-cloudfront";
 import AdmZip from "adm-zip";
-import type { ResourceProperties } from "../common.js";
+import type { ResourceProperties } from "./common";
 import { Readable } from "node:stream";
 import { relative, resolve } from "node:path";
 import { tmpdir } from "node:os";
