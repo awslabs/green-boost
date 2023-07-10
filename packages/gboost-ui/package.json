@@ -38,7 +38,7 @@
     "lib/**/*"
   ],
   "scripts": {
-    "build": "ts-node ./scripts/build.ts",
+    "build": "tsx ./scripts/build.ts",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
@@ -114,6 +114,7 @@
     "react-hook-form": "^7.45.1",
     "react-router-dom": "^6.14.1",
     "rimraf": "^4.4.1",
+    "tsx": "^3.12.7",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0",
     "zod": "^3.21.4"

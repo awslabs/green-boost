@@ -33,7 +33,7 @@
     "lib/**/*"
   ],
   "scripts": {
-    "build": "ts-node scripts/build.ts",
+    "build": "tsx scripts/build.ts",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
@@ -71,6 +71,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "joi": "^17.9.2",
     "prettier": "^2.8.8",
+    "tsx": "^3.12.7",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0"
   },
