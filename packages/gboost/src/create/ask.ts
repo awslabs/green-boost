@@ -41,13 +41,14 @@ const questions: PromptObject<keyof Answers>[] = [
     name: "appId",
     type: "text",
     // Part of CDK Stack name and used as scope to prefix all PNPM workspaces within monorepo
-    message: "App ID (lowercase alphanumeric and hyphens):",
+    // Also cloud formation stacks name restrictions only allow alphanumeric and hyphens
+    message: "App ID (lowercase alphanumeric and hyphens only):",
     initial: "myapp",
     validate(v) {
-      if (/[a-z0-9-_]+/g.test(v)) {
+      if (/^[a-z][a-z0-9-]*$/g.test(v)) {
         return true;
       } else {
-        return "App ID must be lowercase alphanumeric and can include hyphens.";
+        return "App ID must begin with a lowercase character and contain only alphanumeric characters with hyphens";
       }
     },
     onState: handleAborted,

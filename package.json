@@ -25,17 +25,13 @@
   "license": "Apache-2.0",
   "pnpm": {
     "auditConfig": {
-      "ignoreCvs": []
+      "ignoreCves": []
     },
     "overrides": {
       "trim@<0.0.3": ">=0.0.3",
       "got@<11.8.5": ">=11.8.5",
-      "minimatch@<3.0.5": ">=3.1.2",
-      "loader-utils": ">=3.2.1",
-      "terser": ">=5.14.2",
-      "eta@<2.0.0": ">=2.0.0",
-      "webpack@5": ">=5.76.0",
-      "yaml@2": ">=2.2.2"
+      "fast-xml-parser@<4.2.4": ">=4.2.4",
+      "semver@<7.2.1": ">=7.2.1"
     },
     "peerDependencyRules": {
       "ignoreMissing": [

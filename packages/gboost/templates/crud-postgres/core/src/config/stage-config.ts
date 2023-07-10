@@ -37,13 +37,18 @@ export class StageConfig extends CommonStageConfig {
     super(stageName);
     this.stageName = stageName;
   }
+
+  /* replace dashs with underscores to comply with SQL Naming conventions. */
+  #normalizeForDb(name: string) {
+    return name.replaceAll("-", "_");
+  }
   get dbAdminUsername() {
-    return `${this.appId}_admin`;
+    return this.#normalizeForDb(`${this.appId}_admin`);
   }
   get dbIamUsername() {
     return `${this.appId}_iam_user`;
   }
   get dbName() {
-    return `${this.appId}_db`;
+    return this.#normalizeForDb(`${this.appId}_db`);
   }
 }
