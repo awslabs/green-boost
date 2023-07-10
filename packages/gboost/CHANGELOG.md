@@ -1,5 +1,11 @@
 # gboost
 
+## 0.18.2
+
+### Patch Changes
+
+- [#219](https://github.com/awslabs/green-boost/pull/219) [`ac331f6`](https://github.com/awslabs/green-boost/commit/ac331f6aa6ecc79a99007354b3a96f1c30713af6) Thanks [@jwhigg](https://github.com/jwhigg)! - Validate AppId input against NPM Spec, and normalize DB user, name against SQL Spec
+
 ## 0.18.1
 
 ### Patch Changes
