@@ -58,7 +58,7 @@ export function SmartSliderField<T extends FieldValues>(
         name={name}
         label={label}
         labelHidden
-        onChange={onChange}
+        onChange={onChange as any}
         value={value}
       />
     );

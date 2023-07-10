@@ -25,10 +25,10 @@ export function SmartTextField<T extends FieldValues>(
     field: { ref, onChange, value },
     fieldState: { error, invalid },
   } = useController({ name, control });
-  let newOnChange = onChange;
+  let newOnChange = onChange as any;
   if (props.type === "number") {
     newOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-      onChange(e.target.valueAsNumber);
+      onChange(e.target.valueAsNumber as any);
     };
   }
 
