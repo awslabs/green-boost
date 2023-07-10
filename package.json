@@ -9,7 +9,7 @@
     "test": "pnpm --recursive --filter \"./packages/**\" --parallel test",
     "prepare": "husky install",
     "changeset-version": "ts-node scripts/changeset-version.ts",
-    "license-check": "ts-node scripts/license-check.ts",
+    "license-check": "tsx scripts/license-check.ts",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
@@ -22,7 +22,7 @@
     "@types/node": "^18.16.19",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
-    "ts-node": "^10.9.1",
+    "tsx": "^3.12.7",
     "typescript": "^5.1.6"
   },
   "license": "Apache-2.0",
