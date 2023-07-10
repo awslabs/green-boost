@@ -3,5 +3,5 @@ window.global = window;
 window.process = {
   env: { DEBUG: undefined },
 };
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line no-unused-vars
 var exports = {};

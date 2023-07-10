@@ -1,17 +1,13 @@
 {
-  "extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
+  "extends": ["@tsconfig/strictest", "@tsconfig/esm", "@tsconfig/node18"],
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
     "exactOptionalPropertyTypes": false,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "outDir": "lib",
     "skipLibCheck": true,
   },
   "exclude": ["templates/**/*", "lib", "examples/**/*"],
-  "ts-node": {
-    "esm": true,
-    "swc": true,
-  }
 }

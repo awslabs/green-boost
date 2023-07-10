@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
 import parse from "minimist";
-import { logger } from "../utils/logger.js";
+import { logger } from "../utils/logger";
 
 const argv = parse(process.argv.slice(2));
 callFn({

@@ -1,8 +1,8 @@
 import { Icon } from "@aws-amplify/ui-react";
 import { useInterval } from "@mantine/hooks";
-import { ReactElement, useCallback, useEffect, useState } from "react";
+import { type ReactElement, useCallback, useEffect, useState } from "react";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-import { CSS, styled } from "../index.js";
+import { type CSS, styled } from "../index.js";
 
 // Adapted from https://mdbootstrap.com/docs/standard/components/carousel
 
@@ -187,7 +187,7 @@ export function Carousel(props: CarouselProps): ReactElement {
   if (!hideIndicators) {
     indicators = (
       <IndicatorContainer className="carousel-indicators-container">
-        {children.map((c, i) => (
+        {children.map((_c, i) => (
           <IndicatorButton
             key={i}
             active={active === i}

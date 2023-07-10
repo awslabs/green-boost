@@ -1,11 +1,11 @@
-import { ReactElement } from "react";
-import { MultiCheckboxField, MultiCheckboxFieldProps } from "../index.js";
+import { type ReactElement } from "react";
+import { MultiCheckboxField, type MultiCheckboxFieldProps } from "../index.js";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { ControlProps, normalizeProps } from "./common.js";
+import { type ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
-  ExternalBaseSmartFieldProps,
+  type ExternalBaseSmartFieldProps,
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
@@ -40,7 +40,7 @@ export function SmartMultiCheckboxField<T extends FieldValues>(
         hasError={hasError || invalid}
         labelHidden
         name={name}
-        onChange={onChange}
+        onChange={onChange as any}
         value={value}
       />
     </BaseSmartField>

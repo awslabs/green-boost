@@ -1,4 +1,4 @@
-import { cloneElement, ReactElement } from "react";
+import { cloneElement, type ReactElement } from "react";
 import type { QueueNotification } from "../context/NotificationsContext.js";
 import { TransitionGroup } from "react-transition-group";
 import { Portal } from "../index.js";

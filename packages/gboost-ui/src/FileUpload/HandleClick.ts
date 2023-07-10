@@ -1,5 +1,5 @@
-import { FileData } from "./FileUpload.js";
-import { HandleClickParams } from "./HandleClickParams.js";
+import { type FileData } from "./FileUpload.js";
+import { type HandleClickParams } from "./HandleClickParams.js";
 
 export function handleClick(params: HandleClickParams) {
   const {

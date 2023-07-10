@@ -1,19 +1,19 @@
 import { Construct } from "constructs";
 import {
-  AttributeMapping,
+  type AttributeMapping,
   ClientAttributes,
-  OAuthSettings,
+  type OAuthSettings,
   StringAttribute,
   UserPool,
   UserPoolClient,
   UserPoolClientIdentityProvider,
   UserPoolDomain,
-  UserPoolDomainProps,
+  type UserPoolDomainProps,
   UserPoolIdentityProviderOidc,
-  UserPoolIdentityProviderOidcProps,
+  type UserPoolIdentityProviderOidcProps,
 } from "aws-cdk-lib/aws-cognito";
 import {
-  CommonUserBaseProps,
+  type CommonUserBaseProps,
   createUserPoolGroups,
   defaultPasswordPolicy,
   standardWriteAttributes,

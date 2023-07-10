@@ -1,6 +1,6 @@
-import { View, ViewProps } from "@aws-amplify/ui-react";
+import { View, type ViewProps } from "@aws-amplify/ui-react";
 import { clsx } from "clsx";
-import { forwardRef, ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import * as styles from "./LeftAsideArea.css.js";
 
 interface LeftAsideAreaProps extends ViewProps {

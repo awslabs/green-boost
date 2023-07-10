@@ -1,6 +1,6 @@
 import {
-  MutableRefObject,
-  ReactElement,
+  type MutableRefObject,
+  type ReactElement,
   useCallback,
   useMemo,
   useState,
@@ -9,7 +9,7 @@ import { useClickOutside } from "@mantine/hooks";
 import { ButtonGroup, Menu, MenuItem, Text } from "@aws-amplify/ui-react";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { CognitoUser, CognitoUserStatus } from "gboost-common";
+import { type CognitoUser, CognitoUserStatus } from "gboost-common";
 import {
   deleteUsers,
   disableUsers,
@@ -198,7 +198,7 @@ export function UsersTableActionBar(
         <MenuItem
           isDisabled={disable.update}
           isLoading={loading.update}
-          onClick={() => navigate(`../${selectedUsers[0].username}`)}
+          onClick={() => navigate(`../${selectedUsers?.[0]?.username}`)}
         >
           Update
         </MenuItem>

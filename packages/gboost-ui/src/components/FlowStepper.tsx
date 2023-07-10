@@ -1,4 +1,4 @@
-import { Fragment, ReactElement } from "react";
+import { Fragment, type ReactElement } from "react";
 import { Button, Divider, Flex, Placeholder } from "@aws-amplify/ui-react";
 import { MdCheck } from "react-icons/md";
 import { styled } from "../index.js";

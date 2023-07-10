@@ -3,7 +3,6 @@
   "include": ["src/**/*"], // don't compile scripts/
   "exclude": [
     "**/*.test.ts",
-    "lib",
     "./src/web-deployment/web-deploy-cr-handler/**",
   ]
 }

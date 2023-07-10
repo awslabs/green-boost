@@ -1,13 +1,13 @@
 import type { IAspect } from "aws-cdk-lib";
 import type { IConstruct } from "constructs";
-import { Suppression } from "./suppression.js";
-import { suppressAwsLambdaBasicExecutionRole } from "./suppress-aws-lambda-basic-execution-role.js";
-import { suppressCdkBucketNotifications } from "./suppress-cdk-bucket-notifications.js";
-import { suppressCdkBucketDeployment } from "./suppress-cdk-bucket-deployment.js";
-import { suppressCdkCustomResourceProvider } from "./suppress-cdk-custom-resource-provider.js";
-import { suppressCdkLogRetention } from "./suppress-cdk-log-retention.js";
-import { suppressCdkCustomResource } from "./suppress-cdk-custom-resource.js";
-import { suppressCdkMonitoringConstructs } from "./suppress-cdk-monitoring-constructs.js";
+import { Suppression } from "./suppression";
+import { suppressAwsLambdaBasicExecutionRole } from "./suppress-aws-lambda-basic-execution-role";
+import { suppressCdkBucketNotifications } from "./suppress-cdk-bucket-notifications";
+import { suppressCdkBucketDeployment } from "./suppress-cdk-bucket-deployment";
+import { suppressCdkCustomResourceProvider } from "./suppress-cdk-custom-resource-provider";
+import { suppressCdkLogRetention } from "./suppress-cdk-log-retention";
+import { suppressCdkCustomResource } from "./suppress-cdk-custom-resource";
+import { suppressCdkMonitoringConstructs } from "./suppress-cdk-monitoring-constructs";
 
 /**
  * Suppresses common cdk-nags that are acceptable to many development teams.

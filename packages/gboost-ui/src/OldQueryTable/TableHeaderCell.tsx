@@ -1,10 +1,10 @@
-import { ReactElement, useCallback, useRef } from "react";
+import { type ReactElement, useCallback, useRef } from "react";
 import { Button, TableCell } from "@aws-amplify/ui-react";
 import * as Stitches from "@stitches/react";
 import { MdArrowDownward, MdArrowUpward, MdFilterList } from "react-icons/md";
-import { Column, Sort } from "./QueryTable.js";
+import { type Column, type Sort } from "./QueryTable.js";
 import { Box, config, styled } from "../index.js";
-import { RefObject } from "react";
+import { type RefObject } from "react";
 
 const StyledTableCell = styled(TableCell, {
   overflow: "hidden",

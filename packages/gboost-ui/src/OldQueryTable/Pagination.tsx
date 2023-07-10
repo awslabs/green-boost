@@ -1,5 +1,5 @@
 import { Button, SelectField, Text } from "@aws-amplify/ui-react";
-import { ChangeEvent, ReactElement } from "react";
+import { type ChangeEvent, type ReactElement } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Box, styled } from "../index.js";
 import type { CSS } from "@stitches/react";

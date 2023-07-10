@@ -1,6 +1,6 @@
 import {
-  RefObject,
-  ReactElement,
+  type RefObject,
+  type ReactElement,
   useCallback,
   useMemo,
   useEffect,
@@ -8,11 +8,15 @@ import {
 import { Button, Icon } from "@aws-amplify/ui-react";
 import { MdFilterList } from "react-icons/md";
 import { Box, Dialog, Tooltip } from "../../../index.js";
-import { Column } from "../../types/column.js";
+import { type Column } from "../../types/column.js";
 import { FilterRow } from "./FilterRow.js";
 import { NewFilterRow } from "./NewFilterRow.js";
-import { ColumnOption, Filter, FilterOptions } from "../../types/filter.js";
-import { Row } from "../../types/row.js";
+import {
+  type ColumnOption,
+  type Filter,
+  type FilterOptions,
+} from "../../types/filter.js";
+import { type Row } from "../../types/row.js";
 
 interface FilterActionProps<T extends Row> {
   disableMultiFilter: boolean;

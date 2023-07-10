@@ -1,9 +1,9 @@
-import { ChangeEvent, ReactElement, useMemo } from "react";
+import { type ChangeEvent, type ReactElement, useMemo } from "react";
 import { MdViewColumn } from "react-icons/md";
 import type { Column } from "../types/column.js";
 import { Button, Icon, SwitchField } from "@aws-amplify/ui-react";
 import { Box, Dialog, Tooltip } from "../../index.js";
-import { Row } from "../types/row.js";
+import { type Row } from "../types/row.js";
 
 interface ColumnVisibilityActionProps<T extends Row> {
   columns: Column<T>[];

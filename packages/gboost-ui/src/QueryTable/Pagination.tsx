@@ -3,9 +3,14 @@ import {
   SelectField,
   Text,
 } from "@aws-amplify/ui-react";
-import { ChangeEvent, ReactElement, useCallback, useEffect } from "react";
+import {
+  type ChangeEvent,
+  type ReactElement,
+  useCallback,
+  useEffect,
+} from "react";
 import { Box, styled } from "../index.js";
-import { Pagination as PaginationState } from "./types/pagination.js";
+import { type Pagination as PaginationState } from "./types/pagination.js";
 
 const StyledText = styled(Text, {
   alignSelf: "center",

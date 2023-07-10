@@ -1,7 +1,7 @@
 import {
-  ChangeEvent,
-  ChangeEventHandler,
-  ReactElement,
+  type ChangeEvent,
+  type ChangeEventHandler,
+  type ReactElement,
   useCallback,
   useLayoutEffect,
   useMemo,
@@ -11,7 +11,11 @@ import {
 import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
 import { MdCheck } from "react-icons/md";
 import { FilterValue as FilterValueComponent } from "./FilterValue.js";
-import { ColumnOption, Filter, FilterColumnsObj } from "../../types/filter.js";
+import {
+  type ColumnOption,
+  type Filter,
+  type FilterColumnsObj,
+} from "../../types/filter.js";
 
 interface NewFilterProps {
   columnOptions: ColumnOption[];
@@ -26,9 +30,10 @@ export function NewFilterRow({
 }: NewFilterProps): ReactElement {
   const initFilter = useMemo<Filter>(() => {
     // select first comparator by default
-    const firstColumnId = columnOptions[0].id;
+    const firstColumnId = columnOptions[0]?.id;
     const firstComparator =
-      filterColumnsObj[firstColumnId]?.filterOptions?.comparators[0]?.value;
+      filterColumnsObj[firstColumnId || ""]?.filterOptions?.comparators[0]
+        ?.value;
     return {
       columnId: firstColumnId || "",
       comparator: firstComparator || "",
@@ -47,7 +52,7 @@ export function NewFilterRow({
   }, [filter, initFilter, onCreateFilter]);
   const handleChangeColumn: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => {
-      setFilter((f) => {
+      setFilter(() => {
         const newFilter: Filter = {
           ...filter,
           columnId: e.target.value,
@@ -55,7 +60,7 @@ export function NewFilterRow({
         const newComparators =
           filterColumnsObj[e.target.value]?.filterOptions?.comparators || [];
         // select first comparator by default
-        newFilter.comparator = newComparators[0].value;
+        newFilter.comparator = newComparators[0]?.value;
         return newFilter;
       });
     },

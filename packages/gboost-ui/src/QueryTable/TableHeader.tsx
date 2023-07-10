@@ -1,12 +1,17 @@
-import { RefObject, ReactElement, useCallback, useEffect } from "react";
+import {
+  type RefObject,
+  type ReactElement,
+  useCallback,
+  useEffect,
+} from "react";
 import { TableHeaderCell } from "./TableHeaderCell.js";
 import { SelectionHeader } from "./SelectionHeader.js";
 import { styled } from "../stitches.config.js";
-import { Sort, SortDirection } from "./types/sort.js";
-import { Filter } from "./types/filter.js";
-import { Column } from "./types/column.js";
-import { OnChangeSelectedParams } from "./types/selected.js";
-import { Row } from "./types/row.js";
+import { type Sort, type SortDirection } from "./types/sort.js";
+import { type Filter } from "./types/filter.js";
+import { type Column } from "./types/column.js";
+import { type OnChangeSelectedParams } from "./types/selected.js";
+import { type Row } from "./types/row.js";
 
 // https://adamlynch.com/flexible-data-tables-with-css-grid/
 const StyledTableHead = styled("div", {
@@ -129,7 +134,7 @@ export function TableHeader<T extends Row>(
             selected={selected}
           />
         )}
-        {visibleColumns.map((c, i) => (
+        {visibleColumns.map((c) => (
           <TableHeaderCell
             key={String(c.id)}
             activeFilter={Boolean(filters?.some((f) => f.columnId === c.id))}

@@ -1,11 +1,17 @@
 import { Box, useNotifications } from "../index.js";
-import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
+import {
+  type ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import React from "react";
 import { handleUpload } from "./FileUploadFunctions.js";
 import { DropOutline } from "./DropOutline.js";
 import { handleClick } from "./HandleClick.js";
-import { HandleClickParams } from "./index.js";
-import { CustomActionButtonProps } from "./CustomActionButtons.js";
+import { type HandleClickParams } from "./index.js";
+import { type CustomActionButtonProps } from "./CustomActionButtons.js";
 
 interface FileUploadProps {
   /**
@@ -23,13 +29,13 @@ interface FileUploadProps {
    * Represented in number of bytes
    * @default 5497558138880
    */
-  maxFileSize?: Number;
+  maxFileSize?: number;
   /**
    * Maximum number of files to be accepted per upload
    * maxFiles <= 0 represent no file limit
    * @default 0
    */
-  maxFiles?: Number;
+  maxFiles?: number;
   /**
    * Text to be placed in the center of the component
    */
@@ -111,8 +117,8 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     let allFilesFailed = true;
     let i = 0;
     while (allFilesUploaded && i < pendingFilesData.length) {
-      if (!pendingFilesData[i].isUploaded) {
-        if (!pendingFilesData[i].hasFailed) {
+      if (!pendingFilesData[i]?.isUploaded) {
+        if (!pendingFilesData[i]?.hasFailed) {
           allFilesUploaded = false;
           allFilesFailed = false;
         }
@@ -132,7 +138,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     let allFailed = true;
     let i = 0;
     while (allFailed && i < pendingFilesData.length) {
-      if (!pendingFilesData[i].hasFailed || pendingFilesData[i].isUploaded) {
+      if (!pendingFilesData[i]?.hasFailed || pendingFilesData[i]?.isUploaded) {
         allFailed = false;
       }
       i++;
@@ -274,20 +280,18 @@ export function FileUpload(props: FileUploadProps): ReactElement {
     ]
   );
 
-  const removeFile = useCallback(
-    (fileName: string, event: React.MouseEvent) => {
-      setPendingFilesData((oldData) => {
-        let newData: FileData[] = [];
-        for (let i = 0; i < oldData.length; i++) {
-          if (oldData[i].fileName !== fileName) {
-            newData.push(oldData[i]);
-          }
+  const removeFile = useCallback((fileName: string) => {
+    setPendingFilesData((oldData) => {
+      let newData: FileData[] = [];
+      for (let i = 0; i < oldData.length; i++) {
+        const element = oldData[i];
+        if (element && element.fileName !== fileName) {
+          newData.push(element);
         }
-        return newData;
-      });
-    },
-    []
-  );
+      }
+      return newData;
+    });
+  }, []);
 
   const changeFileName = useCallback(
     (oldFileName: string, newFileName: string): boolean => {

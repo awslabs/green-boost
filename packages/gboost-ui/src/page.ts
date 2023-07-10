@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 
 /**
  * Configure pages shown within drawer on right side of app screen

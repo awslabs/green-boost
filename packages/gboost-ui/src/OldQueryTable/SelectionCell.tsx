@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { Icon } from "@aws-amplify/ui-react";
 import { MdRadioButtonChecked, MdRadioButtonUnchecked } from "react-icons/md";
 import { styled } from "../stitches.config.js";

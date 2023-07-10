@@ -10,7 +10,7 @@ import {
   MappingTemplate,
 } from "@aws-cdk/aws-appsync-alpha";
 import { fileURLToPath } from "node:url";
-import { groupNames, adminGroupNames } from "./function/group.js";
+import { groupNames, adminGroupNames } from "./function/group";
 
 export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
   // Enum Types

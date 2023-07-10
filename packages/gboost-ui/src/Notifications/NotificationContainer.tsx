@@ -1,6 +1,6 @@
-import { ReactElement, useEffect, useRef } from "react";
-import { Transition, TransitionStatus } from "react-transition-group";
-import { QueueNotification } from "../context/NotificationsContext.js";
+import { type ReactElement, useEffect, useRef } from "react";
+import { Transition, type TransitionStatus } from "react-transition-group";
+import { type QueueNotification } from "../context/NotificationsContext.js";
 import { styled } from "../stitches.config.js";
 import { Notification } from "./Notification.js";
 import type * as Stitches from "@stitches/react";
@@ -64,6 +64,7 @@ export function NotificationContainer(
       );
       return () => window.clearTimeout(timeout.current);
     }
+    return;
   }, [notification, removeNotification]);
   return (
     <Transition

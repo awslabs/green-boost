@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { MdLogout } from "react-icons/md";
 import { List, ListItem, styled } from "../../index.js";
 

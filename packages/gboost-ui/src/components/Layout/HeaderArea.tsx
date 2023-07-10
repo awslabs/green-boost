@@ -1,7 +1,7 @@
-import { forwardRef, ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import { clsx } from "clsx";
-import * as styles from "./HeaderArea.css.js";
-import { View, ViewProps } from "@aws-amplify/ui-react";
+import * as styles from "./HeaderArea.css";
+import { View, type ViewProps } from "@aws-amplify/ui-react";
 
 interface HeaderAreaProps extends ViewProps {
   children?: ReactNode;

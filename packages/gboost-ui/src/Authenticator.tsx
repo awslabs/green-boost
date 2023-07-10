@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import {
   Authenticator as AmplifyAuthenticator,
   Heading,
@@ -7,7 +7,7 @@ import {
 } from "@aws-amplify/ui-react";
 import { mergeDeep } from "gboost-common";
 import { Box, styled } from "./index.js";
-import { ArgumentTypes } from "./utils/ArgumentTypes.js";
+import { type ArgumentTypes } from "./utils/ArgumentTypes.js";
 type AuthenticatorProps = ArgumentTypes<typeof AmplifyAuthenticator>[0] & {
   title?: string;
 };

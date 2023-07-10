@@ -1,7 +1,7 @@
 import {
-  MutableRefObject,
-  ReactElement,
-  Reducer,
+  type MutableRefObject,
+  type ReactElement,
+  type Reducer,
   useCallback,
   useEffect,
   useMemo,
@@ -15,16 +15,16 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableProps,
+  type TableProps,
 } from "@aws-amplify/ui-react";
 import { randomId } from "@mantine/hooks";
 import { Box, styled } from "../index.js";
 import { Pagination } from "./Pagination.js";
 import { ActionBar } from "./ActionBar/ActionBar.js";
 import {
-  Filter,
-  FilterOptions,
-  InternalFilter,
+  type Filter,
+  type FilterOptions,
+  type InternalFilter,
 } from "./ActionBar/FilterAction/FilterAction.js";
 import type { Density } from "./ActionBar/DensityAction.js";
 import { TableHeaderCell } from "./TableHeaderCell.js";
@@ -302,7 +302,7 @@ function tableReducer<T>(
       } else if (action.page < state.page) {
         // action.page / state.page are 1-based
         // indexing on state.prevTokens is 0-based
-        nextToken = state.prevTokens[action.page - 1];
+        nextToken = state.prevTokens[action.page - 1] || "";
         prevTokens = state.prevTokens.slice(0, action.page - 1);
       }
       return {
@@ -364,7 +364,7 @@ export function QueryTable<T extends Record<string, any>>(
     downloadFileName = "data.csv",
     enableSelect,
     enableSingleSelect,
-    getRowId = (r: T) => r.id,
+    getRowId = (r: T) => r["id"],
     heading,
     hideActionBar = false,
     hidePagination = false,
@@ -375,7 +375,7 @@ export function QueryTable<T extends Record<string, any>>(
     initSorts = [],
     onQuery,
     pageSizeOptions = [10, 20, 50],
-    onSelect = (s) => undefined,
+    onSelect = () => undefined,
     refreshRef,
     selectedValue: controlledSelected,
     ActionButton,
@@ -555,7 +555,7 @@ export function QueryTable<T extends Record<string, any>>(
       <Box
         css={{ display: "flex", gap: "$1", flexDirection: "column", my: "$2" }}
       >
-        {[...Array(pageSize)].map((e, i) => (
+        {[...Array(pageSize)].map((_e, i) => (
           <StyledPlaceholder key={i} />
         ))}
       </Box>
@@ -634,7 +634,7 @@ export function QueryTable<T extends Record<string, any>>(
                 selected={selected}
               />
             )}
-            {visibleColumns.map((c, i) => (
+            {visibleColumns.map((c) => (
               <TableHeaderCell
                 key={String(c.accessor)}
                 activeFilter={filters.some((f) => f.column === c.accessor)}

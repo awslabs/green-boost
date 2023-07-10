@@ -1,5 +1,10 @@
 import { Button, Flex, Icon } from "@aws-amplify/ui-react";
-import { Dispatch, forwardRef, ReactNode, SetStateAction } from "react";
+import {
+  type Dispatch,
+  forwardRef,
+  type ReactNode,
+  type SetStateAction,
+} from "react";
 import { MdMenu, MdMenuOpen } from "react-icons/md";
 
 interface HeaderProps {

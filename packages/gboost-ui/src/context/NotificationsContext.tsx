@@ -1,11 +1,11 @@
 import {
   createContext,
-  ReactNode,
-  ReactElement,
+  type ReactNode,
+  type ReactElement,
   useContext,
   useCallback,
 } from "react";
-import { NotificationProps } from "../Notifications/Notification.js";
+import { type NotificationProps } from "../Notifications/Notification.js";
 import { useQueue, randomId } from "@mantine/hooks";
 import { Notifications } from "../Notifications/Notifications.js";
 
@@ -30,7 +30,7 @@ interface INotificationsContext {
   clearNotifications: () => void;
 }
 const NotificationsContext = createContext<INotificationsContext>({
-  notify: (notification: ContextNotification) => {
+  notify: () => {
     return; // just for initialization
   },
   clearNotifications: () => {

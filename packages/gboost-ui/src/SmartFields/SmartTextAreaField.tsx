@@ -1,10 +1,10 @@
-import { ReactElement } from "react";
-import { TextAreaField, TextAreaFieldProps } from "@aws-amplify/ui-react";
-import { FieldValues, useController } from "react-hook-form";
-import { ControlProps, normalizeProps } from "./common.js";
+import { type ReactElement } from "react";
+import { TextAreaField, type TextAreaFieldProps } from "@aws-amplify/ui-react";
+import { type FieldValues, useController } from "react-hook-form";
+import { type ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
-  ExternalBaseSmartFieldProps,
+  type ExternalBaseSmartFieldProps,
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";

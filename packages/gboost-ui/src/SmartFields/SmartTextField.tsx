@@ -1,11 +1,15 @@
-import { ChangeEvent, InputHTMLAttributes, ReactElement } from "react";
-import { TextField, TextFieldProps } from "@aws-amplify/ui-react";
+import {
+  type ChangeEvent,
+  type InputHTMLAttributes,
+  type ReactElement,
+} from "react";
+import { TextField, type TextFieldProps } from "@aws-amplify/ui-react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { ControlProps, normalizeProps } from "./common.js";
+import { type ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
-  ExternalBaseSmartFieldProps,
+  type ExternalBaseSmartFieldProps,
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
@@ -27,9 +31,9 @@ export function SmartTextField<T extends FieldValues>(
   } = useController({ name, control });
   let newOnChange = onChange;
   if (props.type === "number") {
-    newOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-      onChange(e.target.valueAsNumber);
-    };
+    newOnChange = ((e: ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.valueAsNumber as any);
+    }) as any;
   }
 
   return (

@@ -1,5 +1,5 @@
-import { MouseEventHandler, ReactElement, useMemo } from "react";
-import { Box, CSS } from "../index.js";
+import { type MouseEventHandler, type ReactElement, useMemo } from "react";
+import { Box, type CSS } from "../index.js";
 
 interface OverlayProps {
   onClick: MouseEventHandler;

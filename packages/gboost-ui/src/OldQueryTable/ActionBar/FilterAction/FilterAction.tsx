@@ -1,8 +1,8 @@
-import { RefObject, ReactElement, useCallback, useMemo } from "react";
+import { type RefObject, type ReactElement, useCallback, useMemo } from "react";
 import { Button, Icon } from "@aws-amplify/ui-react";
 import { MdFilterList } from "react-icons/md";
 import { Box, Dialog } from "../../../index.js";
-import { Column } from "../../QueryTable.js";
+import { type Column } from "../../QueryTable.js";
 import { FilterRow } from "./FilterRow.js";
 import { NewFilterRow } from "./NewFilterRow.js";
 

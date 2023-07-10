@@ -1,5 +1,5 @@
 import { renameSync } from "node:fs";
-import { BaseOperation, listFilePaths, OperationType } from "./common.js";
+import { type BaseOperation, listFilePaths, OperationType } from "./common";
 
 export interface RenameFilesOperation extends BaseOperation {
   /**

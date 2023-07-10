@@ -5,7 +5,7 @@ import {
 import type { AppSyncResolverEvent } from "aws-lambda";
 import type { CognitoUser, ListUsersArgs } from "gboost-common";
 import Joi from "joi";
-import { transformUser } from "./user.js";
+import { transformUser } from "./user";
 
 interface ListUsersParams {
   cognitoClient: CognitoIdentityProviderClient;

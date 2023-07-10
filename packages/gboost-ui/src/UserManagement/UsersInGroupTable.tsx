@@ -1,14 +1,14 @@
-import { ReactElement, useCallback, useMemo } from "react";
+import { type ReactElement, useCallback, useMemo } from "react";
 import { listUsersInGroup } from "./gql.js";
 import type { CognitoUser, ListUsersInGroupArgs } from "gboost-common";
 import { Link, useTheme } from "@aws-amplify/ui-react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import {
-  Column,
+  type Column,
   QueryTable,
-  OnQueryParams,
-  OnQueryReturnValue,
+  type OnQueryParams,
+  type OnQueryReturnValue,
 } from "../OldQueryTable/QueryTable.js";
 import { Box, gQuery } from "../index.js";
 import {

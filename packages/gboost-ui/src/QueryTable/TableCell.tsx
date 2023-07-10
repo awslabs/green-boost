@@ -1,7 +1,7 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { styled } from "../stitches.config.js";
-import { Column } from "./types/column.js";
-import { Row } from "./types/row.js";
+import { type Column } from "./types/column.js";
+import { type Row } from "./types/row.js";
 
 const StyledTableCell = styled("div", {
   overflow: "hidden",

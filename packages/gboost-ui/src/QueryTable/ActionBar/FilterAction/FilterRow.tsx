@@ -1,6 +1,6 @@
 import {
-  ChangeEventHandler,
-  ReactElement,
+  type ChangeEventHandler,
+  type ReactElement,
   useCallback,
   useEffect,
   useState,
@@ -8,7 +8,11 @@ import {
 import { Button, Icon, SelectField } from "@aws-amplify/ui-react";
 import { MdCheck, MdDelete } from "react-icons/md";
 import { FilterValue as FilterValueComponent } from "./FilterValue.js";
-import { ColumnOption, Filter, FilterColumnsObj } from "../../types/filter.js";
+import {
+  type ColumnOption,
+  type Filter,
+  type FilterColumnsObj,
+} from "../../types/filter.js";
 
 interface FilterProps {
   columnOptions: ColumnOption[];
@@ -43,7 +47,7 @@ export function FilterRow({
         filterColumnsObj[e.target.value]?.filterOptions?.comparators || [];
       // if there is only 1 comparator for the column, pre-select it for user
       if (!filter.comparator && newComparators.length === 1) {
-        newFilter.comparator = newComparators[0].value;
+        newFilter.comparator = newComparators[0]?.value;
       }
       handleUpdateFilter(filter, newFilter);
     },
@@ -79,7 +83,7 @@ export function FilterRow({
     if (!filter.comparator && filterOptions?.comparators.length === 1) {
       handleUpdateFilter(filter, {
         ...filter,
-        comparator: filterOptions?.comparators[0].value,
+        comparator: filterOptions?.comparators[0]?.value,
         value: "",
       });
     }

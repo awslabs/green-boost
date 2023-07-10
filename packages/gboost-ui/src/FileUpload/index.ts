@@ -1,3 +1,4 @@
-export * from "./FileUpload.js";
-export * from "./CustomActionButtons.js";
-export * from "./HandleClickParams.js";
+export { FileUpload } from "./FileUpload.js";
+export type { FileData } from "./FileUpload.js";
+export type { CustomActionButtonProps } from "./CustomActionButtons.js";
+export type { HandleClickParams } from "./HandleClickParams.js";

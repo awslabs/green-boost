@@ -1,6 +1,11 @@
 import { Icon, useTheme } from "@aws-amplify/ui-react";
 import { MdMenu, MdMenuOpen } from "react-icons/md";
-import { Dispatch, ReactElement, SetStateAction, useState } from "react";
+import {
+  type Dispatch,
+  type ReactElement,
+  type SetStateAction,
+  useState,
+} from "react";
 import { Box, Drawer, styled } from "../../index.js";
 import { useMediaQuery } from "@mantine/hooks";
 

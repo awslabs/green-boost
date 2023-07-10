@@ -5,11 +5,11 @@ import {
   SearchField,
 } from "@aws-amplify/ui-react";
 import {
-  ChangeEvent,
-  ForwardedRef,
+  type ChangeEvent,
+  type ForwardedRef,
   forwardRef,
-  ReactElement,
-  ReactNode,
+  type ReactElement,
+  type ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -106,7 +106,7 @@ function _TransferList<T extends Record<string, any>>(
     hasError,
     id,
     listHeight = defaultListHeight,
-    getKey = (option) => option.key as string,
+    getKey = (option) => option["key"] as string,
     label,
     labelHidden,
     onChange,
@@ -136,7 +136,7 @@ function _TransferList<T extends Record<string, any>>(
       if (handleFilter && sourceFilter) {
         let filteredItems = handleFilter(
           sourceFilter,
-          initSourceKeys.map((k) => optionsMap[k]),
+          initSourceKeys.map((k) => optionsMap[k] as T),
           "source"
         );
         if ("then" in filteredItems) {
@@ -154,7 +154,7 @@ function _TransferList<T extends Record<string, any>>(
       if (handleFilter && targetFilter) {
         let filteredItems = handleFilter(
           targetFilter,
-          initTargetKeys.map((k) => optionsMap[k]),
+          initTargetKeys.map((k) => optionsMap[k] as T),
           "target"
         );
         if ("then" in filteredItems) {
@@ -229,7 +229,7 @@ function _TransferList<T extends Record<string, any>>(
               <li key={s} style={{ display: "flex" }}>
                 <CheckboxField
                   checked={selectedKeys.includes(s)}
-                  label={render(optionsMap[s])}
+                  label={render(optionsMap[s] as T)}
                   name={s}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleCheck(s, e.target.checked)
@@ -282,7 +282,7 @@ function _TransferList<T extends Record<string, any>>(
               <li key={t}>
                 <CheckboxField
                   checked={selectedKeys.includes(t)}
-                  label={render(optionsMap[t])}
+                  label={render(optionsMap[t] as T)}
                   name={t}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleCheck(t, e.target.checked)

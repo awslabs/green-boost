@@ -1,9 +1,12 @@
-import { ContextNotification } from "../index.js";
-import { HandleUploadProps, UploadProps } from "./FileUploadFunctions.js";
-import { FileData } from "./index.js";
+import { type ContextNotification } from "../index.js";
+import {
+  type HandleUploadProps,
+  type UploadProps,
+} from "./FileUploadFunctions.js";
+import { type FileData } from "./index.js";
 
 export interface HandleClickParams {
-  maxFiles: Number;
+  maxFiles: number;
   pendingFilesData: FileData[];
   uploadProps: UploadProps;
   setUploading: React.Dispatch<React.SetStateAction<boolean>>;

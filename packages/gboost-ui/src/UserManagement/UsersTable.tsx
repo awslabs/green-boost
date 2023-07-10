@@ -1,7 +1,7 @@
 import {
-  Dispatch,
-  ReactElement,
-  SetStateAction,
+  type Dispatch,
+  type ReactElement,
+  type SetStateAction,
   useCallback,
   useMemo,
   useState,
@@ -15,9 +15,9 @@ import { CognitoUserStatus } from "gboost-common";
 import { listUsers } from "./gql.js";
 import { UsersTableActionBar } from "./UsersTableActionBar.js";
 import {
-  Column,
-  OnQueryParams,
-  OnQueryReturnValue,
+  type Column,
+  type OnQueryParams,
+  type OnQueryReturnValue,
   QueryTable,
 } from "../OldQueryTable/QueryTable.js";
 import { gQuery } from "../index.js";
@@ -211,7 +211,7 @@ export function UsersTable(props: UsersTableProps): ReactElement {
       enableSelect
       heading="Users"
       onQuery={handleQuery}
-      onSelect={(action, allSelectedRows) => setSelectedUsers(allSelectedRows)}
+      onSelect={(_action, allSelectedRows) => setSelectedUsers(allSelectedRows)}
       getRowId={(r) => r.username}
       tableProps={{ highlightOnHover: true }}
       refreshRef={refreshRef}

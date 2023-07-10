@@ -1,11 +1,11 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { useController } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { MultiSelectField, MultiSelectFieldProps } from "../index.js";
-import { ControlProps, normalizeProps } from "./common.js";
+import { MultiSelectField, type MultiSelectFieldProps } from "../index.js";
+import { type ControlProps, normalizeProps } from "./common.js";
 import {
   BaseSmartField,
-  ExternalBaseSmartFieldProps,
+  type ExternalBaseSmartFieldProps,
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
@@ -41,7 +41,7 @@ export function SmartMultiSelectField<T extends FieldValues>(
         hasError={hasError || invalid}
         name={name}
         labelHidden
-        onChange={onChange}
+        onChange={onChange as any}
         value={value}
       />
     </BaseSmartField>

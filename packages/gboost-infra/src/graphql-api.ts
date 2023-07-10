@@ -1,9 +1,9 @@
 import {
   AuthorizationType,
-  DataSourceOptions,
+  type DataSourceOptions,
   FieldLogLevel,
   GraphqlApi as AwsGraphqlApi,
-  GraphqlApiProps as AwsGraphqlApiProps,
+  type GraphqlApiProps as AwsGraphqlApiProps,
   LambdaDataSource,
 } from "@aws-cdk/aws-appsync-alpha";
 import { NagSuppressions } from "cdk-nag";

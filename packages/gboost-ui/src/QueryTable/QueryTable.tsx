@@ -1,12 +1,12 @@
-import { ReactElement, useEffect, useMemo, useRef, useState } from "react";
+import { type ReactElement, useEffect, useMemo, useRef, useState } from "react";
 import { styled } from "../index.js";
 import { Pagination as DefaultPagination } from "./Pagination.js";
 import { ActionBar as DefaultActionBar } from "./ActionBar/ActionBar.js";
 import type { Density } from "./ActionBar/DensityAction.js";
 import { TableBody } from "./TableBody.js";
-import { QueryTableProps } from "./types/props.js";
+import { type QueryTableProps } from "./types/props.js";
 import { TableHeader } from "./TableHeader.js";
-import { Row } from "./types/row.js";
+import { type Row } from "./types/row.js";
 import { Flex } from "@aws-amplify/ui-react";
 import { BgLoading } from "./BgLoading.js";
 
@@ -46,7 +46,7 @@ export function QueryTable<T extends Row>(
     disableMultiFilter = false,
     enableSingleSelect = false,
     filters,
-    getRowId = (r: T) => r.id,
+    getRowId = (r: T) => r["id"],
     heading,
     initDensity = "standard",
     initColumnVisibility,

@@ -1,10 +1,10 @@
 import {
   Table as CdkTable,
-  TableProps as CdkTableProps,
+  type TableProps as CdkTableProps,
 } from "aws-cdk-lib/aws-dynamodb";
 import type { Construct } from "constructs";
 import { mergeDeep } from "gboost-common";
-import { constructDefaultProps } from "./construct-default-props.js";
+import { constructDefaultProps } from "./construct-default-props";
 
 export type TableProps = CdkTableProps;
 

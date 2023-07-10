@@ -2,24 +2,24 @@ import {
   FieldGroupIcon,
   Icon,
   TextField,
-  TextFieldProps,
+  type TextFieldProps,
 } from "@aws-amplify/ui-react";
 import { useId, useMergedRef } from "@mantine/hooks";
 import {
-  ChangeEventHandler,
-  ForwardedRef,
+  type ChangeEventHandler,
+  type ForwardedRef,
   forwardRef,
-  InputHTMLAttributes,
-  KeyboardEventHandler,
-  ReactElement,
-  RefObject,
+  type InputHTMLAttributes,
+  type KeyboardEventHandler,
+  type ReactElement,
+  type RefObject,
   useCallback,
   useMemo,
   useRef,
   useState,
 } from "react";
 import { MdUpload } from "react-icons/md";
-import { styled } from "../../index.js";
+import { styled } from "../../";
 
 const Container = styled("div", {
   cursor: "pointer",

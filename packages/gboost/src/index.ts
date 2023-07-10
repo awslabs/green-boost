@@ -3,9 +3,9 @@ import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 import { Command, Option } from "@commander-js/extra-typings";
 import { getErrorMessage } from "gboost-common";
-import { create } from "./create/create.js";
-import { setupFn } from "./invoke/setup-fn.js";
-import { logger, LogLevel } from "./utils/logger.js";
+import { create } from "./create/create";
+import { setupFn } from "./invoke/setup-fn";
+import { logger, LogLevel } from "./utils/logger";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 

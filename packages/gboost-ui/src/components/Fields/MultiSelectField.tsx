@@ -1,10 +1,10 @@
 import {
-  ForwardedRef,
+  type ForwardedRef,
   forwardRef,
-  KeyboardEventHandler,
-  MouseEvent,
-  ReactElement,
-  ReactNode,
+  type KeyboardEventHandler,
+  type MouseEvent,
+  type ReactElement,
+  type ReactNode,
   useCallback,
   useEffect,
   useState,
@@ -19,9 +19,9 @@ import {
   View,
 } from "@aws-amplify/ui-react";
 import { useClickOutside, useId } from "@mantine/hooks";
-import { styled } from "../../index.js";
+import { styled } from "../..";
 import { MdArrowDropDown, MdArrowDropUp, MdClose } from "react-icons/md";
-import { Box } from "../Box.js";
+import { Box } from "../Box";
 
 const StyledInput = styled("input", {
   cursor: "pointer",

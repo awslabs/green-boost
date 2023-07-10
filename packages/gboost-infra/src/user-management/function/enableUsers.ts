@@ -3,7 +3,7 @@ import {
   AdminEnableUserCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { AppSyncResolverEvent } from "aws-lambda";
-import { UsernameArgs, validate } from "./validateUsernames.js";
+import { type UsernameArgs, validate } from "./validateUsernames";
 
 // params
 interface EnableUsersParams {

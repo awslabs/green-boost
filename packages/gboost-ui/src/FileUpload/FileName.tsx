@@ -1,5 +1,11 @@
 import { TextField } from "@aws-amplify/ui-react";
-import React, { ReactElement, useState } from "react";
+import {
+  type ReactElement,
+  useState,
+  type MouseEvent,
+  type FormEvent,
+  type KeyboardEvent,
+} from "react";
 import { styled, useNotifications } from "../index.js";
 
 interface FileNameProps {
@@ -28,7 +34,7 @@ export function FileName(props: FileNameProps): ReactElement {
       labelHidden={true}
       label={""}
       defaultValue={fileName}
-      onBlur={(event: React.FocusEvent<HTMLElement>) => {
+      onBlur={() => {
         if (!changeFileName(fileName, inputText)) {
           notify({
             body: `${inputText} already exists.`,
@@ -36,14 +42,14 @@ export function FileName(props: FileNameProps): ReactElement {
           });
         }
       }}
-      onClick={(event: React.MouseEvent<HTMLElement>) => {
+      onClick={(event: MouseEvent<HTMLElement>) => {
         event.preventDefault();
         event.stopPropagation();
       }}
-      onChange={(event: React.FormEvent<HTMLInputElement>) => {
+      onChange={(event: FormEvent<HTMLInputElement>) => {
         setInputText(event.currentTarget.value);
       }}
-      onKeyDown={(event: React.KeyboardEvent) => {
+      onKeyDown={(event: KeyboardEvent) => {
         if (event.key === "Enter" || event.key === "Escape") {
           if (props.inputRef.current) {
             props.inputRef.current.blur();

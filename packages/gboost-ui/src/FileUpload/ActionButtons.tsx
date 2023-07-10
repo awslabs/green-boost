@@ -1,10 +1,10 @@
 import { Button } from "@aws-amplify/ui-react";
-import React, { ReactElement } from "react";
+import { type ReactElement, type MouseEvent } from "react";
 import { Box, styled } from "../index.js";
 
 export interface ActionButtonProps {
-  handleClick: (event: React.MouseEvent) => void;
-  handleClear: (event: React.MouseEvent) => void;
+  handleClick: (event: MouseEvent) => void;
+  handleClear: (event: MouseEvent) => void;
   isClearDisabled: boolean;
   isUploadDisabled: boolean;
 }

@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
-import { Operation, OperationType } from "../operations/operations.js";
-import type { GetOperationsParams } from "./common.js";
+import { type Operation, OperationType } from "../operations/operations";
+import type { GetOperationsParams } from "./common";
 
 /**
  * Common operations to run at END of specific template operations

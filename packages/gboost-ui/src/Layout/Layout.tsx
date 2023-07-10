@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { type ReactElement, useEffect, useState } from "react";
 import { useTheme } from "@aws-amplify/ui-react";
 import { styled } from "../index.js";
 import { Header } from "./Header/Header.js";

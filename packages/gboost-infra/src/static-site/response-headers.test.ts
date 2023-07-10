@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { getCsp, getCspSource } from "./response-headers.js";
+import { getCsp, getCspSource } from "./response-headers";
 
 describe("getCspSource", () => {
   test("CSP sources are properly quoted and spaced", () => {

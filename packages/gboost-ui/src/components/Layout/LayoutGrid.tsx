@@ -1,5 +1,5 @@
-import { Grid, GridProps } from "@aws-amplify/ui-react";
-import { forwardRef, ReactNode, useMemo } from "react";
+import { Grid, type GridProps } from "@aws-amplify/ui-react";
+import { forwardRef, type ReactNode, useMemo } from "react";
 
 interface LayoutGridProps extends GridProps {
   headerArea: ReactNode;
