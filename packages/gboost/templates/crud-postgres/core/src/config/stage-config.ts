@@ -46,9 +46,10 @@ export class StageConfig extends CommonStageConfig {
     return this.#normalizeForDb(`${this.appId}_admin`);
   }
   get dbIamUsername() {
-    return `${this.appId}_iam_user`;
+    return this.#normalizeForDb(`${this.appId}_iam_user`);
   }
   get dbName() {
     return this.#normalizeForDb(`${this.appId}_db`);
   }
 }
+
