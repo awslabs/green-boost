@@ -1,5 +1,5 @@
 {
-  "extends": ["@tsconfig/strictest", "@tsconfig/esm", "@tsconfig/next"],
+  "extends": ["../../tsconfig.base.json", "@tsconfig/next"],
   "compilerOptions": {
     // uncomment below once stitches code is removed!
     // https://github.com/stitchesjs/stitches/issues/1055
