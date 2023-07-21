@@ -1,11 +1,11 @@
 import { resolve } from "node:path";
 import { type Operation, OperationType } from "../operations/operations";
-import type { GetOperationsParams } from "./common";
+import type { BaseOperationParams } from "./base-operation-params";
 
 /**
  * Common operations to run at END of specific template operations
  */
-export function getCommonOperations(params: GetOperationsParams): Operation[] {
+export function getCommonOperations(params: BaseOperationParams): Operation[] {
   const { destinationPath, appId, appTitle } = params;
 
   //
@@ -14,14 +14,12 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
   // This code below forms an absolute path to ts-node and replaces on all back slash with forward slash
   // have a consistent paths through out the file.
   //
-  const tsNodePath = resolve(
-    `${destinationPath}/infra/node_modules/.bin/ts-node`
-  );
-  const normalizedPath = tsNodePath.replace(/\\/g, "/");
+  const tsxPath = resolve(`${destinationPath}/infra/node_modules/.bin/tsx`);
+  const normalizedPath = tsxPath.replace(/\\/g, "/");
 
   return [
     {
-      name: "ReplaceAppIdAndTsNoCheck",
+      name: "ReplaceTokens",
       type: OperationType.Replace,
       values: [
         { find: /{{GB_APP_ID}}/g, replace: appId },
@@ -34,9 +32,9 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
     // and linux systems. This is needed because of windows/linux file path
     // differences.
     {
-      name: "FixupTSNodePath",
+      name: "UpdateTsxPath",
       type: OperationType.Replace,
-      values: [{ find: /{{GB_TSNODE_PATH}}/g, replace: normalizedPath }],
+      values: [{ find: /{{GB_TSX_PATH}}/g, replace: normalizedPath }],
       sourcePath: `${destinationPath}/infra/cdk.json`,
     },
     // programatically add monorepo workspace dependencies instead of using
@@ -49,7 +47,6 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
       type: OperationType.UpdatePackageJson,
       sourcePaths: [
         resolve(destinationPath, "core/package.json.t"),
-        resolve(destinationPath, "db/package.json.t"),
         resolve(destinationPath, "infra/package.json.t"),
       ],
       devDependencies: {
@@ -63,7 +60,7 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
       type: OperationType.UpdatePackageJson,
       sourcePaths: [resolve(destinationPath, "ui/package.json.t")],
       devDependencies: {
-        [`@${appId}/eslint-config-react`]: "workspace:^",
+        [`@${appId}/eslint-config-next`]: "workspace:^",
         [`@${appId}/tsconfig`]: "workspace:^",
         [`@${appId}/utils`]: "workspace:^",
       },
@@ -72,7 +69,6 @@ export function getCommonOperations(params: GetOperationsParams): Operation[] {
       name: "UpdateDependenciesWithCore",
       type: OperationType.UpdatePackageJson,
       sourcePaths: [
-        resolve(destinationPath, "db/package.json.t"),
         resolve(destinationPath, "infra/package.json.t"),
         resolve(destinationPath, "ui/package.json.t"),
       ],

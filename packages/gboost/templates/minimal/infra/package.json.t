@@ -9,26 +9,24 @@
     "destroy:local": "cdk destroy --force \"**\"",
     "destroy:pipeline": "cdk --app \"./node_modules/.bin/ts-node src/pipeline/pipeline-app.ts\" --force destroy \"*\"",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run",
     "watch": "cdk --watch",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "aws-cdk": "^2.72.1",
-    "aws-cdk-lib": "^2.72.1",
-    "cdk-nag": "^2.25.2",
-    "constructs": "^10.1.300",
+    "aws-cdk": "^2.87.0",
+    "aws-cdk-lib": "^2.87.0",
+    "cdk-nag": "^2.27.65",
+    "constructs": "^10.2.69",
     "gboost-common": "^0.11.1",
-    "gboost-infra": "^0.15.3",
-    "vite": "^4.2.1"
+    "gboost-infra": "^0.15.3"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.49",
-    "@types/node": "^18.15.11",
-    "eslint": "^8.37.0",
-    "eslint-define-config": "^1.17.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.5",
-    "vitest": "^0.29.8"
+    "@types/node": "^18.16.19",
+    "eslint": "^8.44.0",
+    "eslint-define-config": "^1.21.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6",
+    "vitest": "^0.33.0"
   }
 }
