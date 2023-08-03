@@ -29,9 +29,9 @@ export const templateChoices: prompts.Choice[] = [
     value: Template.CrudDynamo,
   },
   {
-    title: "CRUD App with Aurora Serverless Postgres",
+    title: "CRUD App with Aurora Postgres",
     description:
-      "CRUD App with table and forms built on Minimal template using Aurora PostgreSQL Serverless for data storage.",
+      "CRUD App with table and forms built on Minimal template using Aurora PostgreSQL for data storage.",
     value: Template.CrudPostgres,
   },
   // {

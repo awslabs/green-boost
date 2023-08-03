@@ -5,7 +5,7 @@ import type { BaseOperationParams } from "./base-operation-params.js";
 export function getCrudPostgresOperations(
   params: BaseOperationParams
 ): Operation[] {
-  const { appId, destinationPath, templatesDirPath } = params;
+  const { destinationPath, templatesDirPath } = params;
   return [
     {
       type: OperationType.Copy,
@@ -24,14 +24,6 @@ export function getCrudPostgresOperations(
       type: OperationType.Copy,
       sourcePath: resolve(templatesDirPath, "crud-postgres"),
       destinationPath,
-    },
-    {
-      name: "UpdateCoreDependenciesToIncludeDb",
-      type: OperationType.UpdatePackageJson,
-      sourcePaths: [resolve(destinationPath, "core/package.json.t")],
-      dependencies: {
-        [`@${appId}/db`]: "workspace:^",
-      },
     },
   ];
 }

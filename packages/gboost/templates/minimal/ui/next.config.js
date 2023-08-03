@@ -16,6 +16,13 @@ const nextConfig = {
       },
     ];
   },
+  modularizeImports: {
+    // https://mui.com/material-ui/guides/minimizing-bundle-size/#development-environment
+    // @mui/icons-material is automatically modularized by Next.js
+    "@mui/material": {
+      transform: "@mui/material/{{member}}",
+    },
+  },
   reactStrictMode: true,
   transpilePackages: ["@{{GB_APP_ID}}/core"],
 };
