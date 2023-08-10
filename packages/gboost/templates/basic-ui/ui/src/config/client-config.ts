@@ -2,7 +2,7 @@
 import { SharedConfig } from "@{{GB_APP_ID}}/core/shared";
 
 class ClientConfig extends SharedConfig {
-  appTitle = "My App 2";
+  appTitle = "{{GB_APP_TITLE}}";
 }
 
 export const clientConfig = new ClientConfig(

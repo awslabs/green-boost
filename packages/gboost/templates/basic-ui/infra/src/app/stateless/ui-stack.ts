@@ -5,7 +5,10 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Config } from "../../config/config";
 import { Nextjs, type NextjsDistributionProps } from "cdk-nextjs-standalone";
-import { FunctionUrlAuthType } from "aws-cdk-lib/aws-lambda";
+import {
+  FunctionUrlAuthType,
+  Function as CdkFunction,
+} from "aws-cdk-lib/aws-lambda";
 import {
   SecurityPolicyProtocol,
   type DistributionProps,
@@ -13,7 +16,7 @@ import {
 import { Bucket } from "gboost-infra";
 import { NagSuppressions } from "cdk-nag";
 import { SharedConfig } from "@{{GB_APP_ID}}/core/shared";
-import { ObjectOwnership, type CfnBucket } from "aws-cdk-lib/aws-s3";
+import { type CfnBucket } from "aws-cdk-lib/aws-s3";
 
 interface UiProps extends StackProps {
   config: Config;
@@ -29,6 +32,7 @@ export class UiStack extends Stack {
     super(scope, id, props);
     this.#props = props;
     this.#nextjs = this.#createNextjsSite();
+    this.#retainEdgeFnOnDelete();
     this.#suppressNags();
   }
 
@@ -51,7 +55,6 @@ export class UiStack extends Stack {
             distribution: {
               webAclId: this.#props.webAclArn,
               minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_2_2021,
-              logBucket: this.#createCloudFrontLogsBucket(),
               comment: `${SharedConfig.appId} Distribution for stage: ${
                 this.#props.config.stageName
               }`,
@@ -82,69 +85,72 @@ export class UiStack extends Stack {
     return bucket;
   }
 
-  #createCloudFrontLogsBucket(): Bucket {
-    const bucket = new Bucket(this, "NextjsCloudFrontLoggingBucket", {
-      autoDeleteObjects: true,
-      removalPolicy: RemovalPolicy.DESTROY,
-      objectOwnership: ObjectOwnership.BUCKET_OWNER_PREFERRED,
-    });
-    if (bucket.node.defaultChild) {
-      NagSuppressions.addResourceSuppressions(bucket.node.defaultChild, [
-        {
-          id: "AwsSolutions-S1",
-          reason: "CloudFront Access Logs bucket doesn't need access logs",
-        },
-      ]);
+  /**
+   * Don't fail on CloudFormation delete due to replicated function
+   * @link https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-delete-replicas.html
+   */
+  #retainEdgeFnOnDelete() {
+    const edgeFn = this.#nextjs.distribution.node
+      .findChild("EdgeFn")
+      .node.findChild("Fn");
+    if (edgeFn instanceof CdkFunction) {
+      edgeFn.applyRemovalPolicy(RemovalPolicy.RETAIN);
     }
-    return bucket;
   }
 
   #suppressNags() {
-    const bucket = this.#nextjs.bucket;
     const configBucket = this.#nextjs.node
-      .tryFindChild("Fn")
-      ?.node.tryFindChild("NextjsConfigBucket");
-    if (configBucket) {
-      NagSuppressions.addResourceSuppressions(
-        configBucket,
-        [
-          {
-            id: "AwsSolutions-S1",
-            reason: "Next.js config bucket doesn't need server access logs",
-          },
-          {
-            id: "AwsSolutions-S10",
-            reason: "Next.js config bucket doesn't need SSL",
-          },
-        ],
-        true,
-      );
-    }
+      .findChild("ServerFn")
+      .node.findChild("NextjsConfigBucket");
+    NagSuppressions.addResourceSuppressions(
+      configBucket,
+      [
+        {
+          id: "AwsSolutions-S1",
+          reason: "Next.js config bucket doesn't need server access logs",
+        },
+        {
+          id: "AwsSolutions-S10",
+          reason: "TODO: remove me once cdk-nextjs-standalone is updated",
+        },
+      ],
+      true,
+    );
     const lambdaCodeRewriter = this.#nextjs.node
-      .tryFindChild("Fn")
-      ?.node.tryFindChild("LambdaCodeRewriter")
-      ?.node.tryFindChild("RewriteOnEventHandler");
-    if (lambdaCodeRewriter) {
-      NagSuppressions.addResourceSuppressions(
-        lambdaCodeRewriter,
-        [
-          {
-            id: "AwsSolutions-L1",
-            reason: "Next.js code rewriter doesn't require latest runtime",
-          },
-          {
-            id: "AwsSolutions-IAM5",
-            reason:
-              "Next.js code rewriter can write to any object in CDK assets bucket",
-          },
-        ],
-        true,
-      );
-    }
+      .findChild("ServerFn")
+      .node.findChild("LambdaCodeRewriter")
+      .node.findChild("RewriteOnEventHandler");
+    NagSuppressions.addResourceSuppressions(
+      lambdaCodeRewriter,
+      [
+        {
+          id: "AwsSolutions-L1",
+          reason: "TODO: remove me once cdk-nextjs-standalone is updated",
+        },
+        {
+          id: "AwsSolutions-IAM5",
+          reason:
+            "Next.js code rewriter can write to any object in CDK assets bucket",
+        },
+      ],
+      true,
+    );
+    const serverHandlerPolicy = this.#nextjs.node
+      .findChild("ServerHandler")
+      .node.findChild("ServiceRole")
+      .node.findChild("DefaultPolicy")
+      .node.findChild("Resource");
+    NagSuppressions.addResourceSuppressions(serverHandlerPolicy, [
+      {
+        id: "AwsSolutions-IAM5",
+        reason: "Next.js server handler can write to analysis input bucket",
+      },
+    ]);
     const imgOptFnPolicy = this.#nextjs.node
       .findChild("ImgOptFn")
       .node.findChild("get-image-policy")
       .node.findChild("Resource");
+    const bucket = this.#nextjs.bucket;
     const bucketLogicalId = Stack.of(this).getLogicalId(
       bucket.node.defaultChild as CfnBucket,
     );
@@ -164,6 +170,24 @@ export class UiStack extends Stack {
       {
         id: "AwsSolutions-CFR4",
         reason: "See: https://github.com/cdklabs/cdk-nag/issues/1320",
+      },
+      {
+        id: "AwsSolutions-CFR3",
+        reason: "Logging not needed for Distribution",
+      },
+    ]);
+    const revalidationQueue = this.#nextjs.node
+      .findChild("Revalidation")
+      .node.findChild("RevalidationQueue")
+      .node.findChild("Resource");
+    NagSuppressions.addResourceSuppressions(revalidationQueue, [
+      {
+        id: "AwsSolutions-SQS3",
+        reason: "Revalidation Queue doesn't need DLQ.",
+      },
+      {
+        id: "AwsSolutions-SQS4",
+        reason: "TODO: remove once this is fixed in cdk-nextjs-standalone",
       },
     ]);
   }
