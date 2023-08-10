@@ -22,7 +22,9 @@ const StyledTextField = styled(TextField, {
     backgroundColor: "$gray1",
   },
 });
-
+/**
+ * @deprecated
+ */
 export function FileName(props: FileNameProps): ReactElement {
   const { fileName, isDisabled, changeFileName } = props;
   const [inputText, setInputText] = useState(fileName);

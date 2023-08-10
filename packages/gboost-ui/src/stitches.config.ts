@@ -25,6 +25,9 @@ import {
   yellowDarkA,
 } from "@radix-ui/colors";
 
+/**
+ * @deprecated
+ */
 export const {
   styled,
   css,

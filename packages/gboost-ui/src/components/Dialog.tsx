@@ -68,6 +68,7 @@ type DialogProps = UncontrolledDialogProps | ControlledDialogProps;
 /**
  * Dialog for showing auxiliary content. Try to limit use of dialogs. Prefer
  * nested pages where possible
+ * @deprecated
  */
 export function Dialog(props: DialogProps): ReactElement {
   const { children, css, description, title, maxWidth } = props;

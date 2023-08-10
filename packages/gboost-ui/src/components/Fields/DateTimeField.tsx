@@ -6,6 +6,9 @@ import {
   type ReactElement,
 } from "react";
 
+/**
+ * @deprecated
+ */
 export type DateTimeFieldProps = TextFieldProps &
   InputHTMLAttributes<HTMLInputElement> & {
     type?: "datetime-local" | "date" | "time";
@@ -28,6 +31,9 @@ export function _DateTimeField(
 }
 
 // https://fettblog.eu/typescript-react-generic-forward-refs/#option-1%3A-type-assertion
+/**
+ * @deprecated
+ */
 export const DateTimeField = forwardRef(_DateTimeField) as (
   props: DateTimeFieldProps & { ref?: ForwardedRef<HTMLInputElement> }
 ) => ReactElement;

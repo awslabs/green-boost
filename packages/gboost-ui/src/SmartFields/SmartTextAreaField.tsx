@@ -8,12 +8,16 @@ import {
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
-
+/**
+ * @deprecated
+ */
 export type SmartTextAreaFieldProps<T extends FieldValues> =
   ExternalBaseSmartFieldProps &
     ControlProps<T> &
     Omit<TextAreaFieldProps, "name">;
-
+/**
+ * @deprecated
+ */
 export function SmartTextAreaField<T extends FieldValues>(
   props: SmartTextAreaFieldProps<T>
 ): ReactElement {

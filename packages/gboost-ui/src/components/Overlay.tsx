@@ -5,7 +5,9 @@ interface OverlayProps {
   onClick: MouseEventHandler;
   show: boolean;
 }
-
+/**
+ * @deprecated
+ */
 export function Overlay(props: OverlayProps): ReactElement {
   const { onClick, show } = props;
   const overlayCss: CSS = useMemo(

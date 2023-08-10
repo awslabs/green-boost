@@ -14,7 +14,9 @@ interface RightAsideProps {
   children: ReactElement;
   css?: CSS;
 }
-
+/**
+ * @deprecated
+ */
 export function RightAside(props: RightAsideProps): ReactElement {
   const { css, children } = props;
   return <Container css={css}>{children}</Container>;

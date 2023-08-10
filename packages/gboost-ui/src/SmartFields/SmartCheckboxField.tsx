@@ -14,7 +14,9 @@ export type SmartCheckboxFieldProps<T extends FieldValues> =
   ExternalBaseSmartFieldProps &
     ControlProps<T> &
     Omit<CheckboxFieldProps, "name" | "children">;
-
+/**
+ * @deprecated
+ */
 export function SmartCheckboxField<T extends FieldValues>(
   props: SmartCheckboxFieldProps<T>
 ): ReactElement {

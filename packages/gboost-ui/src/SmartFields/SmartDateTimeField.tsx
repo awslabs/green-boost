@@ -14,7 +14,9 @@ export type SmartDateTimeFieldProps<T extends FieldValues> =
   ExternalBaseSmartFieldProps &
     ControlProps<T> &
     Omit<DateTimeFieldProps, "name">;
-
+/**
+ * @deprecated
+ */
 export function SmartDateTimeField<T extends FieldValues>(
   props: SmartDateTimeFieldProps<T>
 ): ReactElement {

@@ -32,7 +32,9 @@ interface HeaderProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   HeaderTitle?: ReactElement;
 }
-
+/**
+ * @deprecated
+ */
 export function Header(props: HeaderProps): ReactElement {
   const { setOpen, open, AccountMenu, AccountSidebar, HeaderTitle } = props;
   const [leftOpen, setLeftOpen] = useState(false);

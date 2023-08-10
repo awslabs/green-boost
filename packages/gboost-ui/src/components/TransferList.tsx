@@ -20,7 +20,9 @@ import { Box, ErrorMessage, styled } from "../index.js";
 
 type TransferDirection = "left" | "right";
 type TransferListType = "source" | "target";
-
+/**
+ * @deprecatedd
+ */
 export interface TransferListProps<T> {
   errorMessage?: string;
   getKey?: (option: T) => string;
@@ -56,7 +58,9 @@ export interface TransferListProps<T> {
    */
   titles?: [string, string];
 }
-
+/**
+ * @deprecatedd
+ */
 export const defaultListHeight = "300px";
 const StyledFieldContainer = styled(Box, {
   display: "flex",
@@ -300,6 +304,9 @@ function _TransferList<T extends Record<string, any>>(
 }
 
 // https://fettblog.eu/typescript-react-generic-forward-refs/#option-1%3A-type-assertion
+/**
+ * @deprecatedd
+ */
 export const TransferList = forwardRef(_TransferList) as <T>(
   props: TransferListProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
 ) => ReactElement;

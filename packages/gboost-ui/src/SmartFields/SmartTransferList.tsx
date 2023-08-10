@@ -9,7 +9,9 @@ import {
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
-
+/**
+ * @deprecated
+ */
 export type SmartTransferListProps<
   T extends FieldValues,
   U
@@ -23,6 +25,7 @@ export type SmartTransferListProps<
  * generic is the type of your form input which could be input for a user and include
  * roleIds and the second type parameter could be the Role interface which user
  * will be selecting but only roleIds are returned for user form input
+ * @deprecate
  */
 export function SmartTransferList<T extends FieldValues, U>(
   props: SmartTransferListProps<T, U>

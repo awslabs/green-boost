@@ -8,7 +8,7 @@
     "typecheck": "pnpm --recursive --filter \"./packages/**\" --parallel typecheck",
     "test": "pnpm --recursive --filter \"./packages/**\" --parallel test",
     "prepare": "husky install",
-    "changeset-version": "ts-node scripts/changeset-version.ts",
+    "changeset-version": "tsx scripts/changeset-version.ts",
     "license-check": "tsx scripts/license-check.ts",
     "preinstall": "npx only-allow pnpm"
   },

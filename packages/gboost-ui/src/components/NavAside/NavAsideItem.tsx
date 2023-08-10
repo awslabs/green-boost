@@ -6,7 +6,9 @@ interface NavAsideItemProps extends FlexProps {
   icon: ReactNode;
   label: ReactNode;
 }
-
+/**
+ * @deprecated
+ */
 export const NavAsideItem = forwardRef<HTMLDivElement, NavAsideItemProps>(
   function NavAsideItem(props, ref) {
     const { icon, label, ...restProps } = props;

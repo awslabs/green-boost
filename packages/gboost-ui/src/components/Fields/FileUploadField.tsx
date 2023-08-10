@@ -28,11 +28,17 @@ const UploadIcon = styled(Icon, {
   fontSize: "$6",
 });
 
+/**
+ * @deprecated
+ */
 export type FileUploadFieldProps = Omit<TextFieldProps, "value"> &
   Omit<InputHTMLAttributes<HTMLInputElement>, "value"> & {
     value?: FileList | null;
   };
 
+/**
+ * @deprecated
+ */
 export function _FileUploadField(
   props: FileUploadFieldProps,
   ref: ForwardedRef<HTMLInputElement>
@@ -102,6 +108,9 @@ export function _FileUploadField(
 }
 
 // https://fettblog.eu/typescript-react-generic-forward-refs/#option-1%3A-type-assertion
+/**
+ * @deprecated
+ */
 export const FileUploadField = forwardRef(_FileUploadField) as (
   props: FileUploadFieldProps & { ref?: ForwardedRef<HTMLInputElement> }
 ) => ReactElement;

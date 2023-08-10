@@ -13,7 +13,9 @@ interface HeaderProps {
   leftSide?: ReactNode;
   rightSide?: ReactNode;
 }
-
+/**
+ * @deprecated
+ */
 export const Header = forwardRef<HTMLDivElement, HeaderProps>(function Header(
   props,
   ref

@@ -2,6 +2,7 @@
  * Pagination state for `QueryTable`
  *
  * @link https://ui.docs.amplify.aws/react/components/pagination
+ * @deprecated
  */
 export interface Pagination {
   /**

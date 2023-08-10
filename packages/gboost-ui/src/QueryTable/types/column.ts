@@ -2,7 +2,9 @@ import { type ReactElement } from "react";
 import { type StringWithAutocomplete } from "../../types/string-with-autocomplete.js";
 import { type FilterOptions } from "./filter.js";
 import { type Row } from "./row.js";
-
+/**
+ * @deprecated
+ */
 export interface Column<T extends Row> {
   /**
    * Must be unique for all columns. Will be used to access your row's object's

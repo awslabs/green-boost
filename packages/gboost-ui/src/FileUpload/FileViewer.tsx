@@ -12,7 +12,9 @@ interface FileViewerProps {
   removeFile: (fileName: string, event: React.MouseEvent) => void;
   changeFileName: (oldFileName: string, newFileName: string) => boolean;
 }
-
+/**
+ * @deprecated
+ */
 export function FileViewer(props: FileViewerProps): ReactElement {
   const { fileData, setPendingFilesData, removeFile, changeFileName } = props;
   const [percent, setPercent] = useState(0);

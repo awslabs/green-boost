@@ -11,6 +11,9 @@ export interface ActionButtonProps {
 
 const StyledButton = styled(Button);
 
+/**
+ * @deprecated
+ */
 export function ActionButtons(props: ActionButtonProps): ReactElement {
   const { handleClick, handleClear, isClearDisabled, isUploadDisabled } = props;
 

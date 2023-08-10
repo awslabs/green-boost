@@ -8,7 +8,9 @@ interface ProgressBarProps {
   columnStart?: number;
   columnEnd?: number;
 }
-
+/**
+ * @deprecated
+ */
 export function ProgressBar(props: ProgressBarProps) {
   const { barColor = theme.colors.primary5, progress } = props;
   return (

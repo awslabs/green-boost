@@ -9,7 +9,9 @@ import { GraphQLError } from "graphql";
 import { type CompletedPart } from "@aws-sdk/client-s3";
 import { type ContextNotification, gQuery } from "../index.js";
 import { type FileData } from "./index.js";
-
+/**
+ * @deprecated
+ */
 export interface HandleUploadProps {
   file: File;
   setPercent: React.Dispatch<React.SetStateAction<number>>;

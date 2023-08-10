@@ -45,6 +45,7 @@ interface NotificationsProviderProps {
 /**
  * Notification Provider that allows use of useNotifications hook to create
  * notifications
+ * @deprecated
  */
 export function NotificationsProvider(
   props: NotificationsProviderProps
@@ -82,6 +83,7 @@ export function NotificationsProvider(
 
 /**
  * Hook to create notifications
+ * @deprecated
  */
 export function useNotifications() {
   const context = useContext(NotificationsContext);

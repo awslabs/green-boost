@@ -17,7 +17,9 @@ const amplifyToRadixScale = {
   90: 10,
   100: 12,
 };
-
+/**
+ * @deprecated
+ */
 export function getAmplifyTheme(
   t: StitchesTheme
 ): ReturnType<typeof createTheme> {

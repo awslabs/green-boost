@@ -5,12 +5,19 @@ import * as HoverCard from "@radix-ui/react-hover-card";
 import { MdInfoOutline } from "react-icons/md";
 import { Icon } from "@aws-amplify/ui-react";
 import * as styles from "./Tooltip.css.js";
-
+/**
+ * @deprecated
+ */
 export function TooltipIcon() {
   return <Icon ariaLabel="info" fontSize={20} as={MdInfoOutline} />;
 }
-
+/**
+ * @deprecated
+ */
 export type TooltipAlign = "start" | "center" | "end";
+/**
+ * @deprecated
+ */
 export type TooltipSide = "bottom" | "left" | "right" | "top";
 
 interface TooltipProps {
@@ -30,6 +37,7 @@ interface TooltipProps {
 /**
  * Tooltip - a popup that displays information related to an element when the
  * element is focused via keyboard or mouse hover
+ * @deprecatedd
  */
 export function Tooltip(props: TooltipProps): ReactElement {
   const {

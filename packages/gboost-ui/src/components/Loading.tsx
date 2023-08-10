@@ -6,7 +6,9 @@ interface LoadingProps {
 }
 const imgWidth = 100;
 const loaderSize = imgWidth * 2;
-
+/**
+ * @deprecated
+ */
 export function Loading(props: LoadingProps) {
   const { logoSrc } = props;
   return (

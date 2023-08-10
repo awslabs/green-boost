@@ -9,12 +9,16 @@ import {
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
-
+/**
+ * @deprecated
+ */
 export type SmartMultiCheckboxFieldProps<T extends FieldValues> =
   ExternalBaseSmartFieldProps &
     ControlProps<T> &
     Omit<MultiCheckboxFieldProps, "name" | "children">;
-
+/**
+ * @deprecated
+ */
 export function SmartMultiCheckboxField<T extends FieldValues>(
   props: SmartMultiCheckboxFieldProps<T>
 ): ReactElement {

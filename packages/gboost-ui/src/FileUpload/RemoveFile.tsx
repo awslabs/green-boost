@@ -5,7 +5,9 @@ interface RemoveFileProps {
   onClick: (fileName: string, event: MouseEvent) => void;
   fileName: string;
 }
-
+/**
+ * @deprecated
+ */
 export function RemoveFile(props: RemoveFileProps): ReactElement {
   const { onClick, fileName } = props;
   return (

@@ -20,6 +20,7 @@ interface DrawerProps {
 /**
  * Drawer
  * @see https://letsbuildui.dev/articles/building-a-drawer-component-with-react-portals
+ * @deprecated
  */
 export function Drawer(props: DrawerProps): ReactElement | null {
   const {

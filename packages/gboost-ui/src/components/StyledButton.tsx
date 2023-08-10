@@ -1,6 +1,8 @@
 import { Button } from "@aws-amplify/ui-react";
 import { styled } from "../stitches.config.js";
-
+/**
+ * @deprecated
+ */
 export const StyledButton = styled(Button, {
   "&:disabled": {
     bc: "$gray9",

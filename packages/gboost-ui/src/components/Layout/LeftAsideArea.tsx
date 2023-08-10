@@ -10,6 +10,7 @@ interface LeftAsideAreaProps extends ViewProps {
 /**
  * `LeftAsideArea` is a container for left aside content. This element has
  * the `grid-area: "leftAside"`
+ * @deprecated
  */
 export const LeftAsideArea = forwardRef<HTMLDivElement, LeftAsideAreaProps>(
   function LeftAsideArea(props, ref) {

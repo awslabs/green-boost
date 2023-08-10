@@ -48,7 +48,9 @@ const DropOutlineBox = styled("div", {
   color: theme.colors.blackA9,
   backgroundColor: theme.colors.gray3,
 });
-
+/**
+ * @deprecated
+ */
 export function DropOutline(props: DropOutlineProps): ReactElement {
   const handleDrag = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();

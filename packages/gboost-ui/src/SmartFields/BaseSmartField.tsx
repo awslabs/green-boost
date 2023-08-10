@@ -64,7 +64,9 @@ export function getBaseSmartFieldProps(
   }
   return baseSmartFieldProps as ExternalBaseSmartFieldProps;
 }
-
+/**
+ * @deprecated
+ */
 export function BaseSmartField(props: BaseSmartFieldProps): ReactElement {
   const {
     children,

@@ -9,7 +9,9 @@ interface NotificationsProps {
   notifications: QueueNotification[];
   removeNotification: (id: string) => void;
 }
-
+/**
+ * @deprecated
+ */
 export function Notifications(props: NotificationsProps): ReactElement {
   const { notifications, removeNotification } = props;
   return (

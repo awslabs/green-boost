@@ -8,7 +8,9 @@ import {
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
-
+/**
+ * @deprecated
+ */
 export type SmartSelectFieldProps<T extends FieldValues> =
   ExternalBaseSmartFieldProps &
     ControlProps<T> &
@@ -17,6 +19,9 @@ export type SmartSelectFieldProps<T extends FieldValues> =
     };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * @deprecated
+ */
 export function SmartSelectField<T extends FieldValues>(
   props: SmartSelectFieldProps<T>
 ): ReactElement {

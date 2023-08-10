@@ -12,14 +12,18 @@ import {
   getBaseSmartFieldProps,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
-
+/**
+ * @deprecated
+ */
 export type SmartPhoneFieldProps<T extends FieldValues> =
   ExternalBaseSmartFieldProps &
     ControlProps<T> &
     Omit<PhoneNumberFieldProps, "name" | "defaultCountryCode"> & {
       defaultCountryCode?: string;
     };
-
+/**
+ * @deprecated
+ */
 export function SmartPhoneNumberField<T extends FieldValues>(
   props: SmartPhoneFieldProps<T>
 ): ReactElement {

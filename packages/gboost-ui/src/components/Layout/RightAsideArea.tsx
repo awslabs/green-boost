@@ -7,6 +7,9 @@ interface RightAsideAreaProps extends ViewProps {
   children?: ReactNode;
 }
 
+/**
+ * @deprecated
+ */
 export const RightAsideArea = forwardRef<HTMLDivElement, RightAsideAreaProps>(
   function RightAsideArea(props, ref) {
     return (

@@ -27,7 +27,9 @@ interface CheckboxOption {
   value: string;
   labelEnd?: ReactElement;
 }
-
+/**
+ * @deprecated
+ */
 export interface MultiCheckboxFieldProps
   extends Omit<CheckboxFieldProps, "value"> {
   css?: CSS;
@@ -35,7 +37,9 @@ export interface MultiCheckboxFieldProps
   value?: string[];
   onChange?: () => void;
 }
-
+/**
+ * @deprecated
+ */
 export function MultiCheckboxField(
   props: MultiCheckboxFieldProps
 ): ReactElement {
