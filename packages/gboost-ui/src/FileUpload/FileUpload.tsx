@@ -75,7 +75,9 @@ interface FileUploadProps {
     };
   };
 }
-
+/**
+ * @deprecated
+ */
 export interface FileData {
   file: File;
   setPercent: React.Dispatch<React.SetStateAction<number>> | undefined;
@@ -87,6 +89,7 @@ export interface FileData {
 /**
  *
  * Component used for handling multi-file uploads to S3 buckets
+ * @deprecated
  */
 export function FileUpload(props: FileUploadProps): ReactElement {
   const {

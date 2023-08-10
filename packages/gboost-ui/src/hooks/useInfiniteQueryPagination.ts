@@ -25,6 +25,7 @@ interface UseInfiniteQueryProps<T> {
 /**
  * Transforms @tanstack/react-query's `useInfiniteQuery` result into
  * `onChangePagination`, `pagination`, and `rows` for gboost-ui's `QueryTable`
+ * @deprecated
  */
 export function useInfiniteQueryPagination<T>(props: UseInfiniteQueryProps<T>) {
   const { data, fetchNextPage, hasNextPage, pagination, setPagination } = props;

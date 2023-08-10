@@ -3,11 +3,12 @@ import type { Operation } from "../operations/operations";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { getMinimalOperations } from "./get-minimal-operations";
-import { getCrudDynamoOperations } from "./get-crud-dynamo-operations";
+// import { getCrudDynamoOperations } from "./get-crud-dynamo-operations";
 import { getCrudPostgresOperations } from "./get-crud-postgres-operations";
 import { getCommonOperations } from "./get-common-operations";
 import type { Answers } from "../ask";
-import type { GetOperationsParams } from "./common";
+import type { BaseOperationParams } from "./base-operation-params";
+import { getBasicUiOperations } from "./get-basic-ui-operations";
 
 /**
  * Gets operations for creating Green Boost app on users computer. Examples of
@@ -21,7 +22,7 @@ export function getTemplateOperations(answers: Answers): Operation[] {
     fileURLToPath(import.meta.url),
     "../../../../templates"
   );
-  const opsParams: GetOperationsParams = {
+  const opsParams: BaseOperationParams = {
     appId,
     appTitle,
     destinationPath,
@@ -32,16 +33,20 @@ export function getTemplateOperations(answers: Answers): Operation[] {
       ...getMinimalOperations(opsParams),
       ...getCommonOperations(opsParams),
     ],
-    [Template.CrudDynamo]: [
-      ...getCrudDynamoOperations(opsParams),
+    [Template.BasicUI]: [
+      ...getBasicUiOperations(opsParams),
       ...getCommonOperations(opsParams),
     ],
+    // [Template.CrudDynamo]: [
+    //   ...getCrudDynamoOperations(opsParams),
+    //   ...getCommonOperations(opsParams),
+    // ],
     [Template.CrudPostgres]: [
       ...getCrudPostgresOperations(opsParams),
       ...getCommonOperations(opsParams),
     ],
-    [Template.Dashboard]: [], // TODO
-    [Template.UserAuthMgmtCognito]: [], // TODO
+    // [Template.Dashboard]: [],
+    // [Template.UserAuthMgmtCognito]: [],
   };
   return operations[template];
 }

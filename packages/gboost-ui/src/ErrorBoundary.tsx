@@ -25,7 +25,9 @@ interface Props {
   ErrorComponent?: ReactElement;
   children: ReactElement;
 }
-
+/**
+ * @deprecated
+ */
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);

@@ -8,7 +8,9 @@ import { type Sort } from "./sort.js";
 import { type OnChangeSelectedParams } from "./selected.js";
 import { ActionBar } from "../ActionBar/ActionBar.js";
 import { type Row } from "./row.js";
-
+/**
+ * @deprecated
+ */
 export interface QueryTableProps<T extends Row> {
   /**
    * Background loading. Shows `Loader` below table header when true

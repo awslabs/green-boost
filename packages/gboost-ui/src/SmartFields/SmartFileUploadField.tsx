@@ -8,7 +8,9 @@ import {
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
 import { type FieldValues, useController } from "react-hook-form";
-
+/**
+ * @deprecated
+ */
 export type SmartFileUploadFieldProps<T extends FieldValues> =
   ExternalBaseSmartFieldProps &
     ControlProps<T> &
@@ -17,7 +19,9 @@ export type SmartFileUploadFieldProps<T extends FieldValues> =
       capture?: "user" | "environment";
       multiple?: boolean;
     };
-
+/**
+ * @deprecated
+ */
 export function SmartFileUploadField<T extends FieldValues>(
   props: SmartFileUploadFieldProps<T>
 ): ReactElement {

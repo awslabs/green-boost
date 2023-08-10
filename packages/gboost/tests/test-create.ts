@@ -12,13 +12,14 @@ import { Command, Option } from "@commander-js/extra-typings";
 
 const templateAnswers: Record<Template, Pick<Answers, "appId" | "appTitle">> = {
   [Template.Minimal]: { appId: "min", appTitle: "Minimal" },
-  [Template.CrudDynamo]: { appId: "crud-ddb", appTitle: "CRUD DynamoDB" },
+  [Template.BasicUI]: { appId: "basic", appTitle: "Basic UI" },
+  // [Template.CrudDynamo]: { appId: "crud-ddb", appTitle: "CRUD DynamoDB" },
   [Template.CrudPostgres]: { appId: "crud-pg", appTitle: "CRUD PostgreSQL" },
-  [Template.UserAuthMgmtCognito]: {
-    appId: "auth-cognito",
-    appTitle: "Auth Cognito",
-  },
-  [Template.Dashboard]: { appId: "dash", appTitle: "Dashboard" },
+  // [Template.UserAuthMgmtCognito]: {
+  //   appId: "auth-cognito",
+  //   appTitle: "Auth Cognito",
+  // },
+  // [Template.Dashboard]: { appId: "dash", appTitle: "Dashboard" },
 };
 
 const program = new Command();
@@ -38,7 +39,7 @@ program
         // );
         await testTemplates([
           { ...templateAnswers.Minimal, template: Template.Minimal },
-          { ...templateAnswers.CrudDynamo, template: Template.CrudDynamo },
+          { ...templateAnswers.CrudPostgres, template: Template.CrudPostgres },
         ]);
       } else if (template && template in Template) {
         await testTemplates([

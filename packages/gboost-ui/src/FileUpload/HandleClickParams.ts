@@ -4,7 +4,9 @@ import {
   type UploadProps,
 } from "./FileUploadFunctions.js";
 import { type FileData } from "./index.js";
-
+/**
+ * @deprecated
+ */
 export interface HandleClickParams {
   maxFiles: number;
   pendingFilesData: FileData[];

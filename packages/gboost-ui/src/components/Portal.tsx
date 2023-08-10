@@ -11,7 +11,9 @@ function createPortalRoot() {
 interface PortalProps {
   children: ReactElement;
 }
-
+/**
+ * @deprecated
+ */
 export function Portal(props: PortalProps): ReactElement {
   const portalRootRef = useRef(
     document.getElementById(portalId) || createPortalRoot()

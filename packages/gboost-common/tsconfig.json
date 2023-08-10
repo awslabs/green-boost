@@ -1,5 +1,5 @@
 {
-  "extends": ["@tsconfig/strictest", "@tsconfig/esm", "@tsconfig/node18"],
+  "extends": ["../../tsconfig.base.json", "@tsconfig/node18"],
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
@@ -7,7 +7,6 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "outDir": "lib",
-    "skipLibCheck": true,
   },
   "exclude": ["lib"]
 }

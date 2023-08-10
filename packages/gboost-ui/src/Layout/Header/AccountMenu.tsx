@@ -17,7 +17,9 @@ interface AccountMenuProps {
   signOut: () => unknown;
   username: string;
 }
-
+/**
+ * @deprecated
+ */
 export function AccountMenu(props: AccountMenuProps): ReactElement {
   const { email, fullName, signOut, username } = props;
   const theme = useTheme();

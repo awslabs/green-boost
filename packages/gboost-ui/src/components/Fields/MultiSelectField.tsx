@@ -88,7 +88,9 @@ function DefaultValue(props: DefaultValueProps): ReactElement {
     </StyledBadge>
   );
 }
-
+/**
+ * @deprecated
+ */
 export interface MultiSelectFieldProps {
   descriptiveText?: ReactNode;
   errorMessage?: string;
@@ -105,7 +107,9 @@ export interface MultiSelectFieldProps {
   MenuItemComponent?: typeof DefaultMenuItem;
   ValueComponent?: typeof DefaultValue;
 }
-
+/**
+ * @deprecated
+ */
 export function _MultiSelectField(
   props: MultiSelectFieldProps,
   ref: ForwardedRef<HTMLInputElement>
@@ -286,6 +290,9 @@ export function _MultiSelectField(
 }
 
 // https://fettblog.eu/typescript-react-generic-forward-refs/#option-1%3A-type-assertion
+/**
+ * @deprecated
+ */
 export const MultiSelectField = forwardRef(_MultiSelectField) as (
   props: MultiSelectFieldProps & { ref?: ForwardedRef<HTMLDivElement> }
 ) => ReactElement;

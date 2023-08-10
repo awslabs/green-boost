@@ -1,6 +1,8 @@
 import { type FileData } from "./FileUpload.js";
 import { type HandleClickParams } from "./HandleClickParams.js";
-
+/**
+ * @deprecated
+ */
 export function handleClick(params: HandleClickParams) {
   const {
     maxFiles,

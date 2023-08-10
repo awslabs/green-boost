@@ -41,7 +41,9 @@ interface NotificationContainerProps {
   onExited?: () => void;
   removeNotification: (id: string) => void;
 }
-
+/**
+ * @deprecated
+ */
 export function NotificationContainer(
   props: NotificationContainerProps
 ): ReactElement {

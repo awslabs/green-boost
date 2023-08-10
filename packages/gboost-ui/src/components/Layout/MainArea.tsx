@@ -7,6 +7,9 @@ interface MainAreaProps extends ViewProps {
   children?: ReactNode;
 }
 
+/**
+ * @deprecated
+ */
 export const MainArea = forwardRef<HTMLDivElement, MainAreaProps>(
   function MainArea(props, ref) {
     return (

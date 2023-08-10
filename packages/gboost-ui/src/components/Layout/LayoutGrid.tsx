@@ -19,6 +19,7 @@ interface LayoutGridProps extends GridProps {
  * "rightAside", and "footer", respectively.
  *
  * Please see gboost-ui's related `Header` and `NavigationAside` components.
+ * @deprecated
  */
 export const LayoutGrid = forwardRef<HTMLDivElement, LayoutGridProps>(
   function LayoutGrid(props, ref) {

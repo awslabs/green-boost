@@ -9,7 +9,9 @@ interface AccountSidebarProps {
   fullName: string;
   signOut: () => unknown;
 }
-
+/**
+ * @deprecated
+ */
 export function AccountSidebar(props: AccountSidebarProps): ReactElement {
   const { fullName, email, signOut } = props;
   return (

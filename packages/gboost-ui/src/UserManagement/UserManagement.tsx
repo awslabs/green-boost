@@ -27,7 +27,7 @@ const groupsPath = "groups";
 /**
  * Page that enables management of users in Cognito User Pool or view of
  * federated users in Cognito User Pool
- * @deprecated
+ * @deprecatedd
  */
 export function UserManagement(props: UserManagementProps): ReactElement {
   const { groupNames } = props;

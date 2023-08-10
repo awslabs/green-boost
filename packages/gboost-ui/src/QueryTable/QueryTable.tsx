@@ -34,7 +34,7 @@ const densityToPadding: Record<Density, string> = {
  * selected as this state is always required for making data queries to your
  * API. However, these props are not required as leaving them `undefined` will
  * simply remove their functionality from the component.
- *
+ * @deprecated
  */
 export function QueryTable<T extends Row>(
   props: QueryTableProps<T>

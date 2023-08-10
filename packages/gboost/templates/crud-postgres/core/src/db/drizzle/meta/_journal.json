@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1690829406629,
+      "tag": "0000_boring_maginty",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1690986344719,
+      "tag": "0001_loud_serpent_society",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1691000791477,
+      "tag": "0002_calm_mandarin",
+      "breakpoints": true
+    }
+  ]
+}

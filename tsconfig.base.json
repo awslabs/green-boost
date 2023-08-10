@@ -1,0 +1,8 @@
+{
+  "extends": ["@tsconfig/strictest", "@tsconfig/esm"],
+  "compilerOptions": {
+    "incremental": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+  },
+}

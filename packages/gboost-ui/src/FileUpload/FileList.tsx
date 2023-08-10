@@ -15,7 +15,9 @@ interface FileListProps {
   removeFile: (fileName: string, event: React.MouseEvent) => void;
   changeFileName: (oldFileName: string, newFileName: string) => boolean;
 }
-
+/**
+ * @deprecated
+ */
 export function FileList(props: FileListProps): ReactElement {
   const { filesData, setPendingFilesData, removeFile, changeFileName } = props;
   return (

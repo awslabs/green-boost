@@ -1,3 +1,6 @@
+/**
+ * @deprecated
+ */
 export interface Filter {
   columnId: any; // allows literal string typing by tRPC schema
   comparator: any; // allows literal string typing by tRPC schema

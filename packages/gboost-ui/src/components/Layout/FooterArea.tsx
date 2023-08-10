@@ -6,7 +6,9 @@ import * as styles from "./FooterArea.css";
 interface FooterAreaProps extends ViewProps {
   children?: ReactNode;
 }
-
+/**
+ * @deprecated
+ */
 export const FooterArea = forwardRef<HTMLDivElement, FooterAreaProps>(
   function FooterArea(props, ref) {
     return (

@@ -12,30 +12,17 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@types/node": "^18.15.11",
-    "eslint": "^8.37.0",
+    "@types/node": "^18.16.19",
+    "eslint": "^8.44.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.0",
-    "typescript": "^4.9.5"
+    "lint-staged": "^13.2.3",
+    "typescript": "^5.1.6"
   },
   "dependencies": {
-    "esbuild": "^0.17.15"
+    "esbuild": "^0.17.16"
   },
   "pnpm": {
-    "overrides": {
-      "xstate": "^4.33.6"
-    },
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "react": "18"
-      },
-      "ignoreMissing": [
-        "@aws-amplify/geo",
-        "@aws-amplify/core",
-        "@babel/plugin-syntax-flow",
-        "@babel/plugin-transform-react-jsx",
-        "react-native"
-      ]
-    }
+    "overrides": {},
+    "peerDependencyRules": {}
   }
 }

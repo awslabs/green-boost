@@ -7,7 +7,9 @@ interface NavigationAsideProps extends FlexProps {
   open: boolean;
   children?: ReactNode;
 }
-
+/**
+ * @deprecated
+ */
 export const NavAside = forwardRef<HTMLDivElement, NavigationAsideProps>(
   function NavAside(props, ref) {
     const { open, ...restProps } = props;

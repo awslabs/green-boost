@@ -139,6 +139,7 @@ interface CarouselProps {
 
 /**
  * Cycling slideshow of different elements such as photos, videos or text
+ * @deprecated
  */
 export function Carousel(props: CarouselProps): ReactElement {
   const {

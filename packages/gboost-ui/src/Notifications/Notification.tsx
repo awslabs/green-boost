@@ -47,7 +47,9 @@ const StyledAlert = styled(Alert, {
     },
   },
 });
-
+/**
+ * @deprecated
+ */
 export interface NotificationProps {
   body: string;
   /**
@@ -66,7 +68,9 @@ export interface NotificationProps {
   variation?: "info" | "error" | "warning" | "success";
   removeNotification: () => void;
 }
-
+/**
+ * @deprecated
+ */
 export const Notification = forwardRef<HTMLDivElement, NotificationProps>(
   (props: NotificationProps, ref) => {
     const {

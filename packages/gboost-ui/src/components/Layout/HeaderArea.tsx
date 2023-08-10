@@ -6,7 +6,9 @@ import { View, type ViewProps } from "@aws-amplify/ui-react";
 interface HeaderAreaProps extends ViewProps {
   children?: ReactNode;
 }
-
+/**
+ * @deprecated
+ */
 export const HeaderArea = forwardRef<HTMLDivElement, HeaderAreaProps>(
   function HeaderArea(props, ref) {
     return (

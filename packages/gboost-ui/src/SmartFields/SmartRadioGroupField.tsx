@@ -18,14 +18,18 @@ interface Option {
   label: string;
   value: string;
 }
-
+/**
+ * @deprecated
+ */
 export type SmartRadioGroupFieldProps<T extends FieldValues> =
   ExternalBaseSmartFieldProps &
     ControlProps<T> &
     Omit<RadioGroupFieldProps, "name" | "children"> & {
       options: Option[];
     };
-
+/**
+ * @deprecated
+ */
 export function SmartRadioGroupField<T extends FieldValues>(
   props: SmartRadioGroupFieldProps<T>
 ): ReactElement {

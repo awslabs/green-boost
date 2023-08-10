@@ -1,0 +1,1 @@
+ALTER TABLE "{{GB_APP_ID}}"."item" ALTER COLUMN "id" SET DEFAULT gen_random_uuid();

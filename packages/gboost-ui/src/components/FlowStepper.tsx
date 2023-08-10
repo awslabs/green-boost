@@ -59,7 +59,9 @@ const StyledDivider = styled(Divider, {
     },
   },
 });
-
+/**
+ * @deprecated
+ */
 export interface Step {
   /**
    * @default false
@@ -82,7 +84,9 @@ interface FlowStepperProps {
   loading?: boolean;
   steps: Step[];
 }
-
+/**
+ * @deprecated
+ */
 export function FlowStepper(props: FlowStepperProps): ReactElement {
   const { loading, steps } = props;
   return (

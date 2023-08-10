@@ -24,6 +24,7 @@ const StyledHeading = styled(Heading, { fontSize: "$8 !important" });
 /**
  * Wrapper around @aws-amplify/ui-react Authenticator that adds header
  * @link https://ui.docs.amplify.aws/components/authenticator?platform=react
+ * @deprecated
  */
 export function Authenticator(props: AuthenticatorProps): ReactElement {
   const {

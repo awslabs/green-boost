@@ -5,6 +5,9 @@ interface ErrorMessageProps {
   children: ReactNode;
 }
 
+/**
+ * @deprecated
+ */
 export function ErrorMessage(props: ErrorMessageProps): ReactElement | null {
   const { children } = props;
   if (children) {

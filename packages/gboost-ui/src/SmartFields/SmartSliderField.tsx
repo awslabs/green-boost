@@ -15,14 +15,18 @@ import {
   LabelContainer,
 } from "./BaseSmartField.js";
 import { useId } from "@mantine/hooks";
-
+/**
+ * @deprecated
+ */
 export type SmartSliderFieldProps<T extends FieldValues> =
   ExternalBaseSmartFieldProps &
     ControlProps<T> &
     Omit<SliderFieldProps, "name"> & {
       renderValue?: (v: number) => string;
     };
-
+/**
+ * @deprecated
+ */
 export function SmartSliderField<T extends FieldValues>(
   props: SmartSliderFieldProps<T>
 ): ReactElement {

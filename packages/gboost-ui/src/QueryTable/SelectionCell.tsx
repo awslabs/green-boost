@@ -25,7 +25,9 @@ interface SelectionCellProps<T extends Row> {
   row: T;
   selected: boolean;
 }
-
+/**
+ * @deprecated
+ */
 export function SelectionCell<T extends Row>(
   props: SelectionCellProps<T>
 ): ReactElement {

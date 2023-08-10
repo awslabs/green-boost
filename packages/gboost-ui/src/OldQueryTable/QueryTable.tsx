@@ -349,7 +349,7 @@ const defaultErrorMessage = "Something went wrong";
  * side pagination. First class token pagination support with page number
  * pagination also supported. Features filtering, sorting, and custom column
  * widths through columns prop.
- * @deprecated
+ * @deprecatedd
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function QueryTable<T extends Record<string, any>>(
