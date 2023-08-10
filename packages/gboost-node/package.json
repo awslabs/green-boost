@@ -1,6 +1,6 @@
 {
   "name": "gboost-node",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Green Boost UI Library of Node.js Functions",
   "type": "module",
   "exports": "./src/index.ts",

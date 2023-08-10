@@ -1,5 +1,20 @@
 # gboost
 
+## 0.19.0
+
+### Minor Changes
+
+- [#229](https://github.com/awslabs/green-boost/pull/229) [`2981455`](https://github.com/awslabs/green-boost/commit/29814554f3583ff0de01b4ed1004d6312f2a1608) Thanks [@bestickley](https://github.com/bestickley)! - Retain Lambda@Edge for faster deletion of stack and remove CloudFront logging bucket which won't delete sometimes
+
+- [#223](https://github.com/awslabs/green-boost/pull/223) [`7af36c2`](https://github.com/awslabs/green-boost/commit/7af36c286852e66435335e33d941d51ed06587a5) Thanks [@bestickley](https://github.com/bestickley)! - Upgrade to TS 5.0 and enforce stricter configuration
+
+### Patch Changes
+
+- [#224](https://github.com/awslabs/green-boost/pull/224) [`a4a499b`](https://github.com/awslabs/green-boost/commit/a4a499bfed783c7f3c1affe217b3d23a80ea52c1) Thanks [@jwhigg](https://github.com/jwhigg)! - Fixed DB IAM Username normalization
+
+- Updated dependencies [[`7af36c2`](https://github.com/awslabs/green-boost/commit/7af36c286852e66435335e33d941d51ed06587a5)]:
+  - gboost-common@0.12.0
+
 ## 0.18.2
 
 ### Patch Changes
