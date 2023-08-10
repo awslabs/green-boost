@@ -8,7 +8,7 @@ export type {
 } from "./context/NotificationsContext.js";
 export { Authenticator } from "./Authenticator.js";
 export { getAmplifyTheme } from "./amplifyTheme.js";
-export {} from "./Layout/Layout.js";
+export { Layout } from "./Layout/Layout.js";
 export type { Page } from "./page.js";
 export {
   config,

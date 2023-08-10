@@ -5,12 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "ts-node",
+      "name": "debug TS",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "/Users/stickb/Library/pnpm/node",
       "args": ["${relativeFile}"],
-      "runtimeArgs": ["--loader", "ts-node/esm"],
+      "runtimeArgs": ["--loader", "tsx"],
       "skipFiles": ["<node_internals>/**", "node_modules/**"],
       "envFile": "${workspaceFolder}/.env"
     }
