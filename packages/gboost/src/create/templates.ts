@@ -3,7 +3,7 @@ import type prompts from "prompts";
 export enum Template {
   Minimal = "Minimal",
   BasicUI = "Basic UI",
-  CrudDynamo = "CrudDynamo",
+  // CrudDynamo = "CrudDynamo",
   CrudPostgres = "CrudPostgres",
   // UserAuthMgmtCognito = "UserAuthMgmtCognito",
   // Dashboard = "Dashboard",
@@ -22,12 +22,12 @@ export const templateChoices: prompts.Choice[] = [
       "'Hello, World' web app built on Minimal template using CloudFront, WAF, S3, and Lambda.",
     value: Template.BasicUI,
   },
-  {
-    title: "CRUD App with DynamoDB",
-    description:
-      "CRUD App with table and forms built on Minimal template using DynamoDB for data storage",
-    value: Template.CrudDynamo,
-  },
+  // {
+  //   title: "CRUD App with DynamoDB",
+  //   description:
+  //     "CRUD App with table and forms built on Minimal template using DynamoDB for data storage",
+  //   value: Template.CrudDynamo,
+  // },
   {
     title: "CRUD App with Aurora Postgres",
     description:

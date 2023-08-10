@@ -3,7 +3,7 @@ import type { Operation } from "../operations/operations";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { getMinimalOperations } from "./get-minimal-operations";
-import { getCrudDynamoOperations } from "./get-crud-dynamo-operations";
+// import { getCrudDynamoOperations } from "./get-crud-dynamo-operations";
 import { getCrudPostgresOperations } from "./get-crud-postgres-operations";
 import { getCommonOperations } from "./get-common-operations";
 import type { Answers } from "../ask";
@@ -37,10 +37,10 @@ export function getTemplateOperations(answers: Answers): Operation[] {
       ...getBasicUiOperations(opsParams),
       ...getCommonOperations(opsParams),
     ],
-    [Template.CrudDynamo]: [
-      ...getCrudDynamoOperations(opsParams),
-      ...getCommonOperations(opsParams),
-    ],
+    // [Template.CrudDynamo]: [
+    //   ...getCrudDynamoOperations(opsParams),
+    //   ...getCommonOperations(opsParams),
+    // ],
     [Template.CrudPostgres]: [
       ...getCrudPostgresOperations(opsParams),
       ...getCommonOperations(opsParams),

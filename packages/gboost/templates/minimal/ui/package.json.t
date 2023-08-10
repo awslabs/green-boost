@@ -18,7 +18,7 @@
     "@mui/icons-material": "^5.13.7",
     "@mui/material": "^5.13.7",
     "gboost-ui": "^0.34.1",
-    "next": "^13.4.9",
+    "next": "13.4.12",
     "open-next": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
