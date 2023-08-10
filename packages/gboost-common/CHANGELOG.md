@@ -1,5 +1,11 @@
 # gboost-common
 
+## 0.12.0
+
+### Minor Changes
+
+- [#223](https://github.com/awslabs/green-boost/pull/223) [`7af36c2`](https://github.com/awslabs/green-boost/commit/7af36c286852e66435335e33d941d51ed06587a5) Thanks [@bestickley](https://github.com/bestickley)! - Upgrade to TS 5.0 and enforce stricter configuration
+
 ## 0.11.1
 
 ### Patch Changes

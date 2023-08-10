@@ -1,5 +1,20 @@
 # gboost-ui
 
+## 0.35.0
+
+### Minor Changes
+
+- [#228](https://github.com/awslabs/green-boost/pull/228) [`5d8f83f`](https://github.com/awslabs/green-boost/commit/5d8f83f805be0def2b017de438f70dfc3b456ca1) Thanks [@bestickley](https://github.com/bestickley)! - Deprecate all exports related to Amplify UI to support miration to MUI
+
+- [#223](https://github.com/awslabs/green-boost/pull/223) [`7af36c2`](https://github.com/awslabs/green-boost/commit/7af36c286852e66435335e33d941d51ed06587a5) Thanks [@bestickley](https://github.com/bestickley)! - Deprecate `UserManagement`
+
+- [#223](https://github.com/awslabs/green-boost/pull/223) [`7af36c2`](https://github.com/awslabs/green-boost/commit/7af36c286852e66435335e33d941d51ed06587a5) Thanks [@bestickley](https://github.com/bestickley)! - Upgrade to TS 5.0 and enforce stricter configuration
+
+### Patch Changes
+
+- Updated dependencies [[`7af36c2`](https://github.com/awslabs/green-boost/commit/7af36c286852e66435335e33d941d51ed06587a5)]:
+  - gboost-common@0.12.0
+
 ## 0.34.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # gboost-infra
 
+## 0.16.0
+
+### Minor Changes
+
+- [#223](https://github.com/awslabs/green-boost/pull/223) [`7af36c2`](https://github.com/awslabs/green-boost/commit/7af36c286852e66435335e33d941d51ed06587a5) Thanks [@bestickley](https://github.com/bestickley)! - Deprecate `UserManagement`, `UserBase`, and `OidcUserBase` because they're poor abstraction layers. User directory/pool infra is very custom and consuming developers will need to open source code to learn what's being abstracted. Recommend developers use AWS CDK's Cognito L3 constructs to setup user pools and identity providers if using Cognito and for user management developers can see `gboost create` auth template
+
+- [#223](https://github.com/awslabs/green-boost/pull/223) [`7af36c2`](https://github.com/awslabs/green-boost/commit/7af36c286852e66435335e33d941d51ed06587a5) Thanks [@bestickley](https://github.com/bestickley)! - Upgrade to TS 5.0 and enforce stricter configuration
+
+### Patch Changes
+
+- Updated dependencies [[`7af36c2`](https://github.com/awslabs/green-boost/commit/7af36c286852e66435335e33d941d51ed06587a5)]:
+  - gboost-common@0.12.0
+
 ## 0.15.3
 
 ### Patch Changes
