@@ -1,5 +1,14 @@
 # gboost-ui
 
+## 0.35.1
+
+### Patch Changes
+
+- [#230](https://github.com/awslabs/green-boost/pull/230) [`0e597d0`](https://github.com/awslabs/green-boost/commit/0e597d04f2322cf0f56ec84d949c9c2f5e8d50f7) Thanks [@bestickley](https://github.com/bestickley)! - Fix package bundling by reverting removal of .js extensions
+
+- Updated dependencies [[`0e597d0`](https://github.com/awslabs/green-boost/commit/0e597d04f2322cf0f56ec84d949c9c2f5e8d50f7)]:
+  - gboost-common@0.12.1
+
 ## 0.35.0
 
 ### Minor Changes
