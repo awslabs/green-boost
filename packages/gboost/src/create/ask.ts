@@ -2,9 +2,9 @@ import { existsSync } from "node:fs";
 import { rm } from "node:fs/promises";
 import prompts, { type PromptObject } from "prompts";
 import { pascalToKebabCase } from "gboost-common";
-import { logger } from "../utils/logger";
-import { Template, templateChoices } from "./templates";
-import { handleAborted } from "../utils/handle-aborted";
+import { logger } from "../utils/logger.js";
+import { Template, templateChoices } from "./templates.js";
+import { handleAborted } from "../utils/handle-aborted.js";
 
 export interface Answers {
   template: Template;

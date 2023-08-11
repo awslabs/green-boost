@@ -1,14 +1,14 @@
-import { Template } from "../templates";
-import type { Operation } from "../operations/operations";
+import { Template } from "../templates.js";
+import type { Operation } from "../operations/operations.js";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { getMinimalOperations } from "./get-minimal-operations";
-// import { getCrudDynamoOperations } from "./get-crud-dynamo-operations";
-import { getCrudPostgresOperations } from "./get-crud-postgres-operations";
-import { getCommonOperations } from "./get-common-operations";
-import type { Answers } from "../ask";
-import type { BaseOperationParams } from "./base-operation-params";
-import { getBasicUiOperations } from "./get-basic-ui-operations";
+import { getMinimalOperations } from "./get-minimal-operations.js";
+// import { getCrudDynamoOperations } from "./get-crud-dynamo-operations.js";
+import { getCrudPostgresOperations } from "./get-crud-postgres-operations.js";
+import { getCommonOperations } from "./get-common-operations.js";
+import type { Answers } from "../ask.js";
+import type { BaseOperationParams } from "./base-operation-params.js";
+import { getBasicUiOperations } from "./get-basic-ui-operations.js";
 
 /**
  * Gets operations for creating Green Boost app on users computer. Examples of

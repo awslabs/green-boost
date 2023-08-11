@@ -4,12 +4,12 @@ import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { NagSuppressions } from "cdk-nag";
 import { Construct } from "constructs";
 import { fileURLToPath } from "node:url";
-import { Function } from "../";
+import { Function } from "../index.js";
 import {
   type CommonUserBaseProps,
   createUserPoolGroups,
   defaultPasswordPolicy,
-} from "./common";
+} from "./common.js";
 
 export interface UserBaseProps extends CommonUserBaseProps {
   sesEmail?: string;

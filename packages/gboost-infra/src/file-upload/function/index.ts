@@ -1,9 +1,9 @@
 import type { AppSyncResolverHandler } from "aws-lambda";
-import { abortUpload } from "./abortUpload";
-import { completeUpload } from "./completeUpload";
-import { getUploadId } from "./getUploadId";
-import { getUploadPartURL } from "./getUploadPartURL";
-import { getUploadURL } from "./getUploadURL";
+import { abortUpload } from "./abortUpload.js";
+import { completeUpload } from "./completeUpload.js";
+import { getUploadId } from "./getUploadId.js";
+import { getUploadPartURL } from "./getUploadPartURL.js";
+import { getUploadURL } from "./getUploadURL.js";
 import { Logger } from "@aws-lambda-powertools/logger";
 
 const logger = new Logger({ serviceName: "greenBoostFileUpload" });

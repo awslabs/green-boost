@@ -1,16 +1,15 @@
 {
-  "extends": ["../../tsconfig.base.json", "@tsconfig/next"],
+  "extends": ["@tsconfig/strictest", "@tsconfig/next"],
   "compilerOptions": {
+    "checkJs": false, // remove once fixAmplify.js is removed
     // uncomment below once stitches code is removed!
     // https://github.com/stitchesjs/stitches/issues/1055
     // "declaration": true,
     // "declarationMap": true,
     "exactOptionalPropertyTypes": false,
-    "target": "ES6",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "checkJs": false, // remove once fixAmplify.js is removed
+    "noEmit": true,
+    "incremental": true,
+    "target": "ES2015", // allows for of loop
   },
-  "include": ["**/*.ts", "**/*.tsx",],
-  "exclude": ["lib", "node_modules"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "scripts/**/*"],
 }

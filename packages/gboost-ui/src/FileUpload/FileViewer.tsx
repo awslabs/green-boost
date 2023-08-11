@@ -86,7 +86,7 @@ export function FileViewer(props: FileViewerProps): ReactElement {
     </TableRow>
   );
 }
-function toReadableString(size: number): String {
+function toReadableString(size: number): string {
   const units = ["Bytes", "KB", "MB", "GB", "TB"];
   let divisions = 0;
   while (size > 1024) {

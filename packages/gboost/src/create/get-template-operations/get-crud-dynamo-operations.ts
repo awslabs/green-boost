@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
-import { type Operation, OperationType } from "../operations/operations";
-import type { BaseOperationParams } from "./base-operation-params";
+import { type Operation, OperationType } from "../operations/operations.js";
+import type { BaseOperationParams } from "./base-operation-params.js";
 
 export function getCrudDynamoOperations(
   params: BaseOperationParams

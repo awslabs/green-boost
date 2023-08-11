@@ -10,8 +10,8 @@ import {
 import { NagSuppressions } from "cdk-nag";
 import type { Construct } from "constructs";
 import { mergeDeep } from "gboost-common";
-import { constructDefaultProps } from "../construct-default-props";
-import * as perms from "./permissions";
+import { constructDefaultProps } from "../construct-default-props.js";
+import * as perms from "./permissions.js";
 
 export type BucketProps = CdkBucketProps;
 

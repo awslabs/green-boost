@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
-import { type Operation, OperationType } from "../operations/operations";
-import type { BaseOperationParams } from "./base-operation-params";
+import { type Operation, OperationType } from "../operations/operations.js";
+import type { BaseOperationParams } from "./base-operation-params.js";
 
 /**
  * Common operations to run at END of specific template operations
@@ -81,7 +81,7 @@ export function getCommonOperations(params: BaseOperationParams): Operation[] {
       type: OperationType.RenameFiles,
       directoryPath: params.destinationPath,
       filePattern: /.+\.t$/,
-      update: (oldFilePath) => oldFilePath.slice(0, -2),
+      update: (oldFilePath: string) => oldFilePath.slice(0, -2),
     },
   ];
 }

@@ -47,6 +47,7 @@ export async function gQuery<T>({
 }: GqlParams): Promise<T> {
   try {
     const res = await API.graphql({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       query: query as any,
       variables: vars,
       authMode,

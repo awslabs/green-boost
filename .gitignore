@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
 .envrc
-lib
+dist
 .env
 *.tsbuildinfo

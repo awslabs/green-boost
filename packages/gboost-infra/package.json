@@ -11,26 +11,26 @@
   },
   "types": "./src/index.ts",
   "publishConfig": {
-    "main": "./lib/index.js",
-    "module": "./lib/index.js",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
     "exports": {
       ".": {
-        "types": "./lib/index.d.ts",
-        "import": "./lib/index.js"
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
       },
       "./file-upload": {
-        "types": "./lib/file-upload/index.d.ts",
-        "import": "./lib/file-upload/index.js"
+        "types": "./dist/file-upload/index.d.ts",
+        "import": "./dist/file-upload/index.js"
       },
       "./user-management": {
-        "types": "./lib/user-management-upload/index.d.ts",
-        "import": "./lib/user-management-upload/index.js"
+        "types": "./dist/user-management-upload/index.d.ts",
+        "import": "./dist/user-management-upload/index.js"
       }
     },
-    "types": "./lib/index.d.ts"
+    "types": "./dist/index.d.ts"
   },
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
   "scripts": {
     "build": "tsx scripts/build.ts",
@@ -55,7 +55,6 @@
     "@aws-lambda-powertools/logger": "^1.11.0",
     "@aws-sdk/client-s3": "^3.367.0",
     "@aws-sdk/s3-request-presigner": "^3.367.0",
-    "@tsconfig/esm": "^1.0.4",
     "@tsconfig/node18": "^18.2.0",
     "@tsconfig/strictest": "^2.0.1",
     "@types/adm-zip": "^0.5.0",

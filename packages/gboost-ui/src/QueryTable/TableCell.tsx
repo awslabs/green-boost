@@ -23,6 +23,7 @@ export function TableCell<T extends Row>(
   if (col.renderCell) {
     Cell = col.renderCell(value, row);
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Cell = value as any;
   }
   return (

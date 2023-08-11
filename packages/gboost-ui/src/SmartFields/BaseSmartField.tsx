@@ -50,6 +50,7 @@ export interface _BaseSmartFieldProps {
 type BaseSmartFieldProps = _BaseSmartFieldProps & ExternalBaseSmartFieldProps;
 
 export function getBaseSmartFieldProps(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   props: Record<string, any>
 ): ExternalBaseSmartFieldProps {
   const baseSmartFieldProps: Partial<ExternalBaseSmartFieldProps> = {};

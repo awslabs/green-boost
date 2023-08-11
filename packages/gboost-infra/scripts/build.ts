@@ -5,10 +5,10 @@ import { buildFunction } from "./build-function.js";
 import { execSync } from "node:child_process";
 
 const thisFilePath = fileURLToPath(import.meta.url);
-const libDir = resolve(thisFilePath, "../../lib");
+const distDir = resolve(thisFilePath, "../../dist");
 const srcDir = resolve(thisFilePath, "../../src");
 
-rmSync(libDir, { recursive: true, force: true });
+rmSync(distDir, { recursive: true, force: true });
 execSync("pnpm exec tsc -p tsconfig.build.json", { stdio: "inherit" });
 // bundle and minify functions with esbuild
 // Note, tsconfig.build.json ignores these files so tsc transpiled js files
@@ -18,7 +18,7 @@ await buildFunction({
   outFilePath: "web-deployment/web-deploy-cr-handler.mjs",
 });
 // needed for vtl and js files that aren't built with tsc
-cpSync(srcDir, libDir, {
+cpSync(srcDir, distDir, {
   filter(source: string, destination: string) {
     // must return true for directories to recursively get to files
     if (statSync(source).isDirectory()) return true;

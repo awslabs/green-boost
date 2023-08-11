@@ -19,7 +19,7 @@ import {
   useState,
 } from "react";
 import { MdUpload } from "react-icons/md";
-import { styled } from "../../";
+import { styled } from "../../index.js";
 
 const Container = styled("div", {
   cursor: "pointer",
@@ -39,7 +39,7 @@ export type FileUploadFieldProps = Omit<TextFieldProps, "value"> &
 /**
  * @deprecated
  */
-export function _FileUploadField(
+export function IFileUploadField(
   props: FileUploadFieldProps,
   ref: ForwardedRef<HTMLInputElement>
 ): ReactElement {
@@ -111,6 +111,6 @@ export function _FileUploadField(
 /**
  * @deprecated
  */
-export const FileUploadField = forwardRef(_FileUploadField) as (
+export const FileUploadField = forwardRef(IFileUploadField) as (
   props: FileUploadFieldProps & { ref?: ForwardedRef<HTMLInputElement> }
 ) => ReactElement;

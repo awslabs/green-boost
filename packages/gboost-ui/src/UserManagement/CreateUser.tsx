@@ -56,6 +56,7 @@ export function CreateUser(props: CreateUserProps): ReactElement {
   const { notify } = useNotifications();
   const handleCreate: SubmitHandler<Schema> = useCallback(
     async ({ userAlreadyExists, ...newUser }) => {
+      userAlreadyExists;
       setSubmitting(true);
       try {
         const { createUser: createdUser } = await gQuery<CreateUserResponse>({

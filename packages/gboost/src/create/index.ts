@@ -1,9 +1,9 @@
 import kleur from "kleur";
 import { execSync } from "node:child_process";
-import { logger } from "../utils/logger";
+import { logger } from "../utils/logger.js";
 import { ask } from "./ask.js";
-import { executeOperations } from "./execute-operations";
-import { getTemplateOperations } from "./get-template-operations/get-template-operations";
+import { executeOperations } from "./execute-operations.js";
+import { getTemplateOperations } from "./get-template-operations/get-template-operations.js";
 
 /**
  * Creates a Green Boost app based on a given template

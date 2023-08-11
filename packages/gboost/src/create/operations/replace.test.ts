@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { OperationType, replace } from "./operations";
+import { OperationType, replace } from "./operations.js";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 

@@ -3,7 +3,7 @@ export {
   camelToSnake,
   lowerToPascal,
   pascalToKebabCase,
-} from "./convert-case";
+} from "./convert-case.js";
 export {
   type CognitoGroup,
   type CognitoUser,
@@ -12,6 +12,6 @@ export {
   type Filter,
   type ListUsersArgs,
   type ListUsersInGroupArgs,
-} from "./user-management";
-export { mergeDeep } from "./merge-deep";
-export { getErrorMessage } from "./get-error-message";
+} from "./user-management.js";
+export { mergeDeep } from "./merge-deep.js";
+export { getErrorMessage } from "./get-error-message.js";

@@ -3,7 +3,7 @@ import {
   AdminDeleteUserCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { AppSyncResolverEvent } from "aws-lambda";
-import { type UsernameArgs, validate } from "./validateUsernames";
+import { type UsernameArgs, validate } from "./validateUsernames.js";
 
 interface DeleteUsersParams {
   cognitoClient: CognitoIdentityProviderClient;

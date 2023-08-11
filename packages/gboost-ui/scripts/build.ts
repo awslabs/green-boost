@@ -1,14 +1,12 @@
 import { execSync } from "node:child_process";
-import { existsSync, readdirSync, rmSync } from "node:fs";
+import { readdirSync, rmSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 
-const libPath = resolve(thisFilePath, "../../lib");
-if (existsSync(libPath)) {
-  rmSync(libPath, { recursive: true });
-}
+const libPath = resolve(thisFilePath, "../../dist");
+rmSync(libPath, { force: true, recursive: true });
 execSync("tsc --project tsconfig.build.json", { stdio: "inherit" });
 removeVETypes();
 
@@ -17,6 +15,7 @@ removeVETypes();
  * is set to true such that .d.ts and .d.ts.map files are created. We want this
  * for most components, but not for vanilla extract style components so this
  * function delete those files. Note, we still keep .css.js files.
+ * @deprecated Remove once VE is removed
  */
 function removeVETypes() {
   const filePaths = listFilePaths(libPath);

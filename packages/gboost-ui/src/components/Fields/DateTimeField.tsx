@@ -27,6 +27,7 @@ export function _DateTimeField(
 ): ReactElement {
   const { type = "datetime-local" } = props;
   // as any b/c TextField thinks it has to support HTMLTextField but we don't need that
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return <TextField ref={ref as any} {...props} type={type} />;
 }
 

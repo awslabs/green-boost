@@ -1,8 +1,8 @@
 import { exec } from "node:child_process";
-import type { Answers } from "../src/create/ask";
-import { Template } from "../src/create/templates";
-import { getTemplateOperations } from "../src/create/get-template-operations/get-template-operations";
-import { executeOperations } from "../src/create/execute-operations";
+import type { Answers } from "../src/create/ask.js";
+import { Template } from "../src/create/templates.js";
+import { getTemplateOperations } from "../src/create/get-template-operations/get-template-operations.js";
+import { executeOperations } from "../src/create/execute-operations.js";
 import { tmpdir } from "node:os";
 import { mkdtemp, rm } from "node:fs/promises";
 import { resolve as resolvePath } from "node:path";

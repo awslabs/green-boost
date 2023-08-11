@@ -25,7 +25,7 @@ export interface HandleUploadProps {
 
 export interface UploadProps {
   fileType: string[] | string; //Represented as lowercase file extensions eg 'pdf'
-  maxFileSize: Number;
+  maxFileSize: number;
   bucket: string;
   fileKey: string;
 }
@@ -118,7 +118,7 @@ export function handleUpload(props: HandleUploadProps) {
       });
       // The file is not a valid file so remove it from the pending list
       setPendingFilesData((prev) => {
-        let newPendingFilesData: FileData[] = [];
+        const newPendingFilesData: FileData[] = [];
         prev.forEach((oldFileData) => {
           if (fileName !== oldFileData.fileName) {
             newPendingFilesData.push(oldFileData);
@@ -134,7 +134,7 @@ export function handleUpload(props: HandleUploadProps) {
     });
     // The file is not a valid file so remove it from the pending list
     setPendingFilesData((prev) => {
-      let newPendingFilesData: FileData[] = [];
+      const newPendingFilesData: FileData[] = [];
       prev.forEach((oldFileData) => {
         if (fileName !== oldFileData.fileName) {
           newPendingFilesData.push(oldFileData);
@@ -226,7 +226,7 @@ export async function uploadFile(
   } else {
     // Update the files hasFailed
     setPendingFilesData((prev) => {
-      let newPendingFilesData: FileData[] = [];
+      const newPendingFilesData: FileData[] = [];
       prev.forEach((oldFileData) => {
         if (uploadProps.fileKey !== oldFileData.fileName) {
           newPendingFilesData.push(oldFileData);
@@ -266,8 +266,8 @@ export async function handleMultipartUpload(
     },
   });
 
-  let multipartUpload: CompletedPart[] = [];
-  let numberOfParts =
+  const multipartUpload: CompletedPart[] = [];
+  const numberOfParts =
     Math.ceil(file.size / 5242880) > 1000
       ? 1000
       : Math.ceil(file.size / 5242880);
@@ -299,7 +299,7 @@ export async function handleMultipartUpload(
         mode: "cors",
       });
 
-      let etag = result.headers.get("ETag");
+      const etag = result.headers.get("ETag");
       if (etag != null) {
         multipartUpload[i] = {
           ETag: etag,
@@ -326,7 +326,7 @@ export async function handleMultipartUpload(
         setPercent(0);
         // Update the files hasFailed
         setPendingFilesData((prev) => {
-          let newPendingFilesData: FileData[] = [];
+          const newPendingFilesData: FileData[] = [];
           prev.forEach((oldFileData) => {
             if (fileName !== oldFileData.fileName) {
               newPendingFilesData.push(oldFileData);
@@ -384,7 +384,7 @@ export async function handleMultipartUpload(
     setPercent(0);
     // Update the files hasFailed
     setPendingFilesData((prev) => {
-      let newPendingFilesData: FileData[] = [];
+      const newPendingFilesData: FileData[] = [];
       prev.forEach((oldFileData) => {
         if (fileName !== oldFileData.fileName) {
           newPendingFilesData.push(oldFileData);

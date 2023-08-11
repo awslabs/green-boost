@@ -4,7 +4,7 @@ import {
 } from "aws-cdk-lib/aws-dynamodb";
 import type { Construct } from "constructs";
 import { mergeDeep } from "gboost-common";
-import { constructDefaultProps } from "./construct-default-props";
+import { constructDefaultProps } from "./construct-default-props.js";
 
 export type TableProps = CdkTableProps;
 
