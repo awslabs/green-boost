@@ -1,5 +1,11 @@
 # gboost-ui
 
+## 0.35.2
+
+### Patch Changes
+
+- [`5ece15f`](https://github.com/awslabs/green-boost/commit/5ece15f462c88f8dd47ec8b5567fab2f3c9cdb60) Thanks [@bestickley](https://github.com/bestickley)! - Fix gboost-ui packaged files
+
 ## 0.35.1
 
 ### Patch Changes
