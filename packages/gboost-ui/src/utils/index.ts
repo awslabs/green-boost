@@ -1,1 +1,1 @@
-export * from "./downloadLink.js";
+export * from "./download-link.js";
