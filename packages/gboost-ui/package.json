@@ -5,10 +5,7 @@
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./file-upload": "./src/FileUpload/FileUpload.ts",
-    "./smart-fields": "./src/SmartFields/smart-fields.ts",
-    "./user-management": "./src/UserManagement/UserManagement.ts"
+    ".": "./src/index.ts"
   },
   "types": "./src/index.ts",
   "publishConfig": {
@@ -18,18 +15,6 @@
       ".": {
         "types": "./dist/index.d.ts",
         "import": "./dist/index.js"
-      },
-      "./file-upload": {
-        "types": "./dist/FileUpload/FileUpload.d.ts",
-        "import": "./dist/FileUpload/FileUpload.js"
-      },
-      "./smart-fields": {
-        "types": "./dist/SmartFields/smart-fields.d.ts",
-        "import": "./dist/SmartFields/smart-fields.js"
-      },
-      "./user-management": {
-        "types": "./dist/UserManagement/UserManagement.d.ts",
-        "import": "./dist/UserManagement/UserManagement.js"
       }
     },
     "types": "./dist/index.d.ts"
@@ -44,25 +29,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@mantine/hooks": "^5.10.4",
-    "@radix-ui/colors": "^0.1.9",
-    "@radix-ui/react-dialog": "^1.0.4",
-    "@radix-ui/react-hover-card": "^1.0.6",
-    "@radix-ui/react-portal": "^1.0.3",
-    "@stitches/react": "^1.2.8",
-    "clsx": "^1.2.1",
-    "gboost-common": "workspace:^",
-    "react-icons": "^4.10.1",
-    "react-transition-group": "^4.4.5"
+    "gboost-common": "workspace:^"
   },
   "peerDependencies": {
-    "@aws-amplify/ui-react": "^4.4.3",
     "@hookform/resolvers": "^3.0.0",
-    "@tanstack/react-query": "^4.28.0",
-    "@vanilla-extract/css": "^1.11.0",
-    "@vanilla-extract/recipes": "^0.3.0",
-    "graphql": "^16.6.0",
-    "graphql-tag": "^2.12.6",
     "next": "13.4.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -73,15 +43,6 @@
     "@hookform/resolvers": {
       "optional": true
     },
-    "@tanstack/react-query": {
-      "optional": true
-    },
-    "graphql": {
-      "optional": true
-    },
-    "graphql-tag": {
-      "optional": true
-    },
     "react-hook-form": {
       "optional": true
     },
@@ -90,31 +51,21 @@
     }
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.367.0",
     "@hookform/resolvers": "^3.1.1",
-    "@tanstack/react-query": "^4.29.19",
-    "@trpc/server": "^10.34.0",
     "@tsconfig/next": "^2.0.0",
     "@tsconfig/strictest": "^2.0.1",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
-    "@types/react-transition-group": "^4.4.6",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
-    "aws-amplify": "^5.3.3",
     "eslint": "^8.44.0",
     "eslint-config-next": "13.4.12",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-config-react-app": "^7.0.1",
     "eslint-define-config": "^1.21.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "graphql": "^16.7.1",
-    "graphql-tag": "^2.12.6",
     "next": "13.4.12",
     "prettier": "^2.8.8",
     "react-hook-form": "^7.45.1",
-    "react-router-dom": "^6.14.1",
-    "rimraf": "^4.4.1",
     "tsx": "^3.12.7",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0",
@@ -129,7 +80,7 @@
     "aws",
     "serverless",
     "react",
-    "vite",
+    "next",
     "green",
     "boost",
     "gboost"

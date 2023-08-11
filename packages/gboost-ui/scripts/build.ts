@@ -5,8 +5,8 @@ import { fileURLToPath } from "node:url";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 
-const libPath = resolve(thisFilePath, "../../dist");
-rmSync(libPath, { force: true, recursive: true });
+const distPath = resolve(thisFilePath, "../../dist");
+rmSync(distPath, { force: true, recursive: true });
 execSync("tsc --project tsconfig.build.json", { stdio: "inherit" });
 removeVETypes();
 
@@ -18,7 +18,7 @@ removeVETypes();
  * @deprecated Remove once VE is removed
  */
 function removeVETypes() {
-  const filePaths = listFilePaths(libPath);
+  const filePaths = listFilePaths(distPath);
   for (const filePath of filePaths) {
     if (filePath.endsWith(".css.d.ts") || filePath.endsWith(".css.d.ts.map")) {
       rmSync(filePath);
