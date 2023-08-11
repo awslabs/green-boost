@@ -19,8 +19,8 @@
     "cdk-nag": "^2.27.65",
     "cdk-nextjs-standalone": "4.0.0-beta.1",
     "constructs": "^10.2.69",
-    "gboost-common": "^0.12.0",
-    "gboost-infra": "^0.16.0"
+    "gboost-common": "^0.12.1",
+    "gboost-infra": "^0.16.1"
   },
   "devDependencies": {
     "@types/node": "^18.16.19",
