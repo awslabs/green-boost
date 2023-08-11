@@ -1,12 +1,11 @@
 {
-  "extends": ["../../tsconfig.base.json", "@tsconfig/node18"],
+  "extends": ["@tsconfig/strictest", "@tsconfig/node18"],
   "compilerOptions": {
-    "declaration": true,
-    "declarationMap": true,
+    // don't need declaration map b/c end user is only running as cli
     "exactOptionalPropertyTypes": false,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "outDir": "lib",
+    "incremental": true,
+    "noEmit": true,
   },
-  "exclude": ["templates/**/*", "lib", "examples/**/*"],
+  "include": ["src/**/*", "tests/**/*", "scripts/**/*"],
+  "exclude": ["templates/**/*", "examples/**/*"],
 }

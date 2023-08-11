@@ -212,7 +212,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         if (allFilesComplete()) {
           //Don't remove files which failed to upload
           setPendingFilesData((prev) => {
-            let newPendingFilesData: FileData[] = [];
+            const newPendingFilesData: FileData[] = [];
             prev.forEach((oldFileData) => {
               if (oldFileData.hasFailed) {
                 newPendingFilesData.push(oldFileData);
@@ -247,7 +247,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
           if (allFilesComplete()) {
             // Don't Clear files which failed to upload
             setPendingFilesData((prev) => {
-              let newPendingFilesData: FileData[] = [];
+              const newPendingFilesData: FileData[] = [];
               prev.forEach((oldFileData) => {
                 if (oldFileData.hasFailed) {
                   newPendingFilesData.push(oldFileData);
@@ -285,7 +285,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
 
   const removeFile = useCallback((fileName: string) => {
     setPendingFilesData((oldData) => {
-      let newData: FileData[] = [];
+      const newData: FileData[] = [];
       for (let i = 0; i < oldData.length; i++) {
         const element = oldData[i];
         if (element && element.fileName !== fileName) {
@@ -306,7 +306,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
           }
         });
         if (fileNameExists) {
-          let fileParts = newFileName.split(".");
+          const fileParts = newFileName.split(".");
           let newestFileName = "";
           for (let i = 0; i < fileParts.length; i++) {
             if (i < fileParts.length - 1) {

@@ -2,7 +2,7 @@ import type { AppSyncResolverEvent } from "aws-lambda";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import type { Logger } from "@aws-lambda-powertools/logger";
-import { findIndex } from "./findIndex";
+import { findIndex } from "./findIndex.js";
 
 interface getUploadURLArgs {
   input: {

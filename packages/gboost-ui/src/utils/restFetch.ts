@@ -1,4 +1,4 @@
-interface RestFetchParams extends Omit<_RestFetchParams, "apiUrl"> {}
+type RestFetchParams = Omit<_RestFetchParams, "apiUrl">;
 
 export function restFetch<T>(params: RestFetchParams) {
   return _restFetch<T>({ ...params, apiUrl: "/" });

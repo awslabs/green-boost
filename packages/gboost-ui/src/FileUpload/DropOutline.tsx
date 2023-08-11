@@ -85,7 +85,7 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
         // Don't remove files which failed to upload
         if (allFilesComplete()) {
           setPendingFilesData((prev) => {
-            let newPendingFilesData: FileData[] = [];
+            const newPendingFilesData: FileData[] = [];
             prev.forEach((oldFileData) => {
               if (oldFileData.hasFailed) {
                 newPendingFilesData.push(oldFileData);
@@ -116,7 +116,7 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
       } else {
         // Only remove the files which have been uploaded
         setPendingFilesData((prev) => {
-          let newPendingFilesData: FileData[] = [];
+          const newPendingFilesData: FileData[] = [];
           prev.forEach((oldFileData) => {
             if (oldFileData.hasFailed) {
               newPendingFilesData.push(oldFileData);

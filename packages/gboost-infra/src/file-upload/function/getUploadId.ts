@@ -1,7 +1,7 @@
 import type { Logger } from "@aws-lambda-powertools/logger";
 import { CreateMultipartUploadCommand, S3Client } from "@aws-sdk/client-s3";
 import type { AppSyncResolverEvent } from "aws-lambda";
-import { findIndex } from "./findIndex";
+import { findIndex } from "./findIndex.js";
 
 interface getUploadIdArgs {
   input: {

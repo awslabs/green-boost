@@ -5,10 +5,12 @@ const { defineConfig } = require("eslint-define-config");
 module.exports = defineConfig({
   extends: ["../../.eslintrc.cjs"],
   ignorePatterns: [
-    "/templates/**/*.ts",
-    "/templates/**/*.tsx",
-    "/examples/**/*.ts",
-    "/examples/**/*.tsx",
+    "templates/**/*.ts",
+    "templates/**/*.tsx",
+    "examples/**/*.ts",
+    "examples/**/*.tsx",
+    "dist",
+    "node_modules",
   ],
   rules: {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs

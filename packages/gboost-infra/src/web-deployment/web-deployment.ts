@@ -21,8 +21,8 @@ import { execSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { Bucket } from "../bucket/bucket";
-import type { InputResourceProperties } from "./common";
+import type { Bucket } from "../bucket/bucket.js";
+import type { InputResourceProperties } from "./common.js";
 
 const thisFilePath = fileURLToPath(import.meta.url);
 

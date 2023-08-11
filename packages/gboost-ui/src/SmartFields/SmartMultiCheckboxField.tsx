@@ -44,6 +44,7 @@ export function SmartMultiCheckboxField<T extends FieldValues>(
         hasError={hasError || invalid}
         labelHidden
         name={name}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChange={onChange as any}
         value={value}
       />

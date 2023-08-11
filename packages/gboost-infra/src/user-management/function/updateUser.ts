@@ -7,8 +7,8 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { AppSyncResolverEvent } from "aws-lambda";
 import Joi from "joi";
-import { getCognitoIdentity } from "./getCognitoIdentity";
-import { groupNames, adminGroupNames } from "./group";
+import { getCognitoIdentity } from "./getCognitoIdentity.js";
+import { groupNames, adminGroupNames } from "./group.js";
 
 interface UpdateUserArgs {
   input: {

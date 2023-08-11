@@ -1,12 +1,10 @@
 {
-  "extends": ["../../tsconfig.base.json", "@tsconfig/node18"],
+  "extends": ["@tsconfig/strictest", "@tsconfig/node18"],
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
-    "exactOptionalPropertyTypes": false,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "outDir": "lib",
+    "incremental": true,
+    "noEmit": true,
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*", "scripts/**/*"],
 }

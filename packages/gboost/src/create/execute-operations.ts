@@ -1,4 +1,4 @@
-import { logger } from "../utils/logger";
+import { logger } from "../utils/logger.js";
 import {
   updatePackageJson,
   copy,
@@ -6,7 +6,7 @@ import {
   OperationType,
   replace,
   renameFiles,
-} from "./operations/operations";
+} from "./operations/operations.js";
 
 /**
  * Executes all operations upon destination directory

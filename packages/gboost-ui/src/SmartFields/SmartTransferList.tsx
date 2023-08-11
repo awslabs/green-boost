@@ -59,6 +59,7 @@ export function SmartTransferList<T extends FieldValues, U>(
         ref={ref}
         errorMessage={errorMessage || error?.message}
         hasError={hasError || invalid}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChange={onChange as any}
         labelHidden
         value={value}

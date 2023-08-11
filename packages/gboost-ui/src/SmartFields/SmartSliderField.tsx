@@ -62,6 +62,7 @@ export function SmartSliderField<T extends FieldValues>(
         name={name}
         label={label}
         labelHidden
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChange={onChange as any}
         value={value}
       />

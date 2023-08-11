@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Loader } from "@aws-amplify/ui-react";
 import { Box } from "../index.js";
 

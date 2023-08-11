@@ -6,7 +6,7 @@ import {
 } from "aws-cdk-lib/aws-lambda-nodejs";
 import type { Construct } from "constructs";
 import { mergeDeep } from "gboost-common";
-import { constructDefaultProps } from "./construct-default-props";
+import { constructDefaultProps } from "./construct-default-props.js";
 
 export interface FunctionProps extends NodejsFunctionProps {
   entry: string;

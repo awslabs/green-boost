@@ -11,7 +11,7 @@
     "lib/**/*"
   ],
   "scripts": {
-    "build": "rimraf lib && tsc -p tsconfig.build.json",
+    "build": "tsx scripts/build.ts",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
@@ -20,7 +20,6 @@
     "gboost-common": "workspace:^"
   },
   "devDependencies": {
-    "@tsconfig/esm": "^1.0.4",
     "@tsconfig/node18": "^18.2.0",
     "@tsconfig/strictest": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
@@ -30,7 +29,7 @@
     "eslint-define-config": "^1.21.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.8",
-    "rimraf": "^4.4.1",
+    "tsx": "^3.12.7",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0"
   },

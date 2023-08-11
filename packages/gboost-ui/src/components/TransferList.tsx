@@ -101,7 +101,7 @@ const StyledList = styled("ul", {
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function _TransferList<T extends Record<string, any>>(
+function ITransferList<T extends Record<string, any>>(
   props: TransferListProps<T>,
   ref: ForwardedRef<HTMLUListElement>
 ): ReactElement {
@@ -307,6 +307,6 @@ function _TransferList<T extends Record<string, any>>(
 /**
  * @deprecatedd
  */
-export const TransferList = forwardRef(_TransferList) as <T>(
+export const TransferList = forwardRef(ITransferList) as <T>(
   props: TransferListProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
 ) => ReactElement;

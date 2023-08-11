@@ -45,6 +45,7 @@ export function SmartMultiSelectField<T extends FieldValues>(
         hasError={hasError || invalid}
         name={name}
         labelHidden
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChange={onChange as any}
         value={value}
       />

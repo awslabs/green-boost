@@ -1,6 +1,6 @@
 import * as ncu from "npm-check-updates";
 import { resolve } from "node:path";
-import { listFilePaths } from "../src/create/operations/common";
+import { listFilePaths } from "../src/create/operations/common.js";
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 

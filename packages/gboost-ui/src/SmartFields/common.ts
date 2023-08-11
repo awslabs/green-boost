@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Control, FieldValues, FieldPath } from "react-hook-form";
 
 export interface ControlProps<T extends FieldValues> {

@@ -5,7 +5,7 @@
   "exports": "./.eslintrc.cjs",
   "devDependencies": {
     "eslint": "^8.44.0",
-    "eslint-config-next": "^13.4.9",
+    "eslint-config-next": "^13.4.12",
     "eslint-config-prettier": "^8.8.0",
     "eslint-define-config": "^1.21.0",
     "eslint-plugin-prettier": "^5.0.0",

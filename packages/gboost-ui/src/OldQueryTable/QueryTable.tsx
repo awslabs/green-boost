@@ -289,7 +289,7 @@ function tableReducer<T>(
       };
     case "changeLoading":
       return { ...state, loading: action.loading, errorMessage: "" };
-    case "changePage":
+    case "changePage": {
       let nextToken = state.nextToken;
       let prevTokens = state.prevTokens;
       if (action.page > state.page) {
@@ -311,6 +311,7 @@ function tableReducer<T>(
         prevTokens,
         page: action.page,
       };
+    }
     case "changePageSize": // reset currentToken, nextToken, prevTokens
       return {
         ...state,
@@ -431,6 +432,7 @@ export function QueryTable<T extends Record<string, any>>(
         dispatch({ type: "changeLoading", loading: true });
         const externalFilters = filters.map((f) => {
           const { id, ...externalFilter } = f;
+          id;
           return externalFilter;
         });
         const res = await onQuery({

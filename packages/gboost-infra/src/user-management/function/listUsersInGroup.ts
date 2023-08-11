@@ -5,8 +5,8 @@ import {
 import type { AppSyncResolverEvent } from "aws-lambda";
 import Joi from "joi";
 import type { CognitoUser, ListUsersInGroupArgs } from "gboost-common";
-import { transformUser } from "./user";
-import { groupNames } from "./group";
+import { transformUser } from "./user.js";
+import { groupNames } from "./group.js";
 
 // params
 interface ListUsersInGroupParams {

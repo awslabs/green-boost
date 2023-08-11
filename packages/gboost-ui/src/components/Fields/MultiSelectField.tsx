@@ -110,7 +110,7 @@ export interface MultiSelectFieldProps {
 /**
  * @deprecated
  */
-export function _MultiSelectField(
+export function IMultiSelectField(
   props: MultiSelectFieldProps,
   ref: ForwardedRef<HTMLInputElement>
 ): ReactElement {
@@ -293,6 +293,6 @@ export function _MultiSelectField(
 /**
  * @deprecated
  */
-export const MultiSelectField = forwardRef(_MultiSelectField) as (
+export const MultiSelectField = forwardRef(IMultiSelectField) as (
   props: MultiSelectFieldProps & { ref?: ForwardedRef<HTMLDivElement> }
 ) => ReactElement;
