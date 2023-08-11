@@ -12,30 +12,30 @@
   },
   "types": "./src/index.ts",
   "publishConfig": {
-    "main": "./lib/index.js",
-    "module": "./lib/index.js",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
     "exports": {
       ".": {
-        "types": "./lib/index.d.ts",
-        "import": "./lib/index.js"
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
       },
       "./file-upload": {
-        "types": "./lib/FileUpload/FileUpload.d.ts",
-        "import": "./lib/FileUpload/FileUpload.js"
+        "types": "./dist/FileUpload/FileUpload.d.ts",
+        "import": "./dist/FileUpload/FileUpload.js"
       },
       "./smart-fields": {
-        "types": "./lib/SmartFields/smart-fields.d.ts",
-        "import": "./lib/SmartFields/smart-fields.js"
+        "types": "./dist/SmartFields/smart-fields.d.ts",
+        "import": "./dist/SmartFields/smart-fields.js"
       },
       "./user-management": {
-        "types": "./lib/UserManagement/UserManagement.d.ts",
-        "import": "./lib/UserManagement/UserManagement.js"
+        "types": "./dist/UserManagement/UserManagement.d.ts",
+        "import": "./dist/UserManagement/UserManagement.js"
       }
     },
-    "types": "./lib/index.d.ts"
+    "types": "./dist/index.d.ts"
   },
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
   "scripts": {
     "build": "tsx scripts/build.ts",
