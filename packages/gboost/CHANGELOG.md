@@ -1,5 +1,11 @@
 # gboost
 
+## 0.19.3
+
+### Patch Changes
+
+- [#235](https://github.com/awslabs/green-boost/pull/235) [`1aac12f`](https://github.com/awslabs/green-boost/commit/1aac12fc9cafc086b4caec99b4fa3666d5b016fd) Thanks [@firxworx](https://github.com/firxworx)! - fix git check of `gboost create` to support all versions of git
+
 ## 0.19.2
 
 ### Patch Changes
