@@ -53,7 +53,7 @@ function ensurePnpm() {
 
 function ensureGit() {
   try {
-    execSync("git -v");
+    execSync("git --version");
   } catch (err) {
     logger.error(
       `Command not found: ${kleur.yellow(
