@@ -1,0 +1,6 @@
+# Fix Audit Issues
+On each PR, `pnpm audit` is used to detect [CVEs](https://www.redhat.com/en/topics/security/what-is-cve). The GitHub Actions Workflow will fail if any CVEs >= moderate severity are found by running the command `pnpm audit --audit-level moderate`. If the dependency is a direct dependency of your project, you should try to [update dependencies](#update-dependencies). You can learn why a dependency is in your project (dependency hierarchy) with `pnpm why <package-name>`. If the dependency is a transitive dependency (dependency of dependency), you'll need to use PNPM's [pnpm.overrides feature](https://pnpm.io/package_json#pnpmoverrides) by adding to the `package.json#pnpm.overrides` object a key/value pair like: `"<package-name>@<vulnerable-version>": "<patched-version>"`. Then run `pnpm i` to update your dependencies.
+
+Periodically, `pnpm.overrides` should be cleaned up as libraries overtime will update to patched version of packages.
+
+If there is no patched version of the library and you can safely ignore the CVE, you can add it to `pnpm.auditConfig.ignoreCves`.

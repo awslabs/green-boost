@@ -1,0 +1,13 @@
+# Prerequisites
+
+In order to use Green Boost, you'll need to do the following:
+- Install [Git](https://git-scm.com/)
+- Install [PNPM](https://pnpm.io/)
+- Install/activate [Node.js 18](https://nodejs.org/en)
+  - If you don't have a way to manage your Node.js versions, we recommend PNPM's built in [pnpm env](https://pnpm.io/cli/env) command where you can use the latest version of Node.js 18 with: `pnpm env use --global 18`
+- Setup an [AWS Account](https://aws.amazon.com/)
+  - If you're building a production grade web app, we recommend using a well-architected, multi-account AWS environment with Landing Zone. Leare more [here](https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-aws-environment/welcome.html).
+- [Bootstrap](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html) AWS Account with the CDK
+  - `cdk bootstrap aws://<account-number>/<region>`
+- Inject your AWS credentials into your terminal
+  - Not sure how to manage your AWS credentials? Checkout our guide [here](./guides/aws-credentials).

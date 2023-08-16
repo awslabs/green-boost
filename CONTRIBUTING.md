@@ -1,21 +1,12 @@
 # Contributing Guidelines
 
+See also: http://localhost:3000/overview/contributors/intro
+
 Thank you for your interest in contributing to our project. Whether it's a bug report, new feature, correction, or additional
 documentation, we greatly value feedback and contributions from our community.
 
 Please read through this document before submitting any issues or pull requests to ensure we have all the necessary
 information to effectively respond to your bug report or contribution.
-
-## Package Guidelines/Rules:
-- When building a React component or CDK/SST construct that depends on a 3rd party library outside of the core 3rd party dependencies, make those dependencies optional peer dependencies and do not export the component or construct from the index/root of the package. Export the component or construct from a subpath of the module via package.json#exports so that only consumers of the package who want to use that functionality have to install the 3rd party dependency. Core dependencies include libraries already included in the `"dependencies"` key of the package.json. Each component/construct should include any additional libraries that need to be installed in the docs.
-
-## Pull Requests
-When creating a pull request (PR) that includes functionality that should be documented in the changelog and/or update the version of a package (most changes) be sure to create a [changeset](https://github.com/changesets/changesets). Changesets are files that live within the .changeset folder and are created with `pnpm changeset` at the root of the green boost repository. You'll be asked what packages the changes were made in and what [semantic version](https://docs.npmjs.com/about-semantic-versioning) level (patch, minor, major) to apply. After you create these files via `pnpm changeset`, you can edit the generated markdown (within .changeset folder) however you'd like.
-
-When a PR is created, several continuous integration (CI) checks are run based on the [ci.yml](https://github.com/awslabs/green-boost/blob/main/.github/workflows/ci.yml) GitHub workflow. It should be required, but please make sure these pass before merging.
-
-## Releases
-[Changesets](https://github.com/changesets/changesets) is used to create releases. A release includes a [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) and entry in the GitHub [releases page](https://github.com/awslabs/green-boost/releases) of Green Boost. After merging changes into main, the changesets GitHub bot will automatically create a changeset-release/main branch and a PR titled, "Version Packages", for the packages that were updated into the main branch. When this PR is merged, the GitHub Workflow [publish.yml](https://github.com/awslabs/green-boost/blob/main/.github/workflows/publish.yml) releasing changes to NPM.
 
 ## Reporting Bugs/Feature Requests
 
