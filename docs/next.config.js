@@ -6,10 +6,10 @@ const withNextra = createWithNextra({
 });
 
 export default withNextra({
-  // images: {
-  //   unoptimized: true,
-  // },
-  // output: "export",
+  images: {
+    unoptimized: true,
+  },
+  output: "export",
   modularizeImports: {
     // https://mui.com/material-ui/guides/minimizing-bundle-size/#development-environment
     // @mui/icons-material is automatically modularized by Next.js
