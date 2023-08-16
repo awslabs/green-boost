@@ -1,0 +1,133 @@
+import { FileTree } from 'nextra/components'
+
+# Clean Code
+
+## The Problem
+There is no commonly agreed upon way to organize code for full stack cloud native web apps on AWS. This can make it challenging for greenfield projects to know where to start. Without a clear strategy for organizing code, projects can turn into a messy [big ball of mud](https://en.wikipedia.org/wiki/Anti-pattern#:~:text=A%20Big%20Ball%20of%20Mud,%2C%20and%20repeated%2C%20expedient%20repair.).
+
+In order to keep code architecture clean, this guide provides some recommendations for organizing your code. You do not have to follow it to build with Green Boost. However, keep in mind the less decisions you have to make as a developer, the faster you can build. Enforcing the right restrictions on your code can actually free you to focus on adding business value.
+
+> Freedom is not the absence of restrictions but the presence of the right restrictions - Timothy Keller
+
+## File Structure
+<FileTree>
+  <FileTree.Folder name="core" defaultOpen>
+    <FileTree.Folder name="src" defaultOpen>
+      <FileTree.Folder name="adapters" defaultOpen>
+        <FileTree.Folder name="primary" />
+        <FileTree.Folder name="secondary" />
+      </FileTree.Folder>
+      <FileTree.Folder name="db" />
+      <FileTree.Folder name="modules" defaultOpen>
+        <FileTree.Folder name="`${entity}`" defaultOpen>
+          <FileTree.File name="`${entity}.db.ts`" />
+          <FileTree.File name="`${entity}.entity.ts`" />
+          <FileTree.File name="`${entity}.repository.ts`" />
+          <FileTree.File name="`${entity}.schema.ts`" />
+          <FileTree.File name="`${action}-${entity}.usecase.ts`" />
+        </FileTree.Folder>
+        <FileTree.Folder name="`${model}`" defaultOpen>
+          <FileTree.File name="`${model}.model.ts`" />
+          <FileTree.File name="`${model}.schema.ts`" />
+          <FileTree.File name="`${action}-${model}.usecase.ts`" />
+        </FileTree.Folder>
+      </FileTree.Folder>
+    </FileTree.Folder>
+  </FileTree.Folder>
+  <FileTree.Folder name="infra" defaultOpen>
+    <FileTree.Folder name="src" defaultOpen>
+      <FileTree.Folder name="app" defaultOpen>
+        <FileTree.Folder name="stateful" defaultOpen>
+          <FileTree.File name="data-stack.ts" />
+          <FileTree.File name="network-stack.ts" />
+        </FileTree.Folder>
+        <FileTree.Folder name="stateless" defaultOpen>
+          <FileTree.File name="job-stack.ts" />
+          <FileTree.File name="monitor-stack.ts" />
+          <FileTree.File name="ui-stack.ts" />
+        </FileTree.Folder>
+      </FileTree.Folder>
+    </FileTree.Folder>
+  </FileTree.Folder>
+  <FileTree.Folder name="packages" />
+  <FileTree.Folder name="ui" defaultOpen>
+    <FileTree.Folder name="src" defaultOpen>
+      <FileTree.Folder name="app" />
+      <FileTree.Folder name="components" />
+      <FileTree.Folder name="context" />
+      <FileTree.Folder name="hooks" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+## core
+- Center of your application.
+- Contains business logic.
+- Subfolder structure inspired by the following design ideas. Learn more [here]( ../../learn/resources#clean-code).
+  - Domain Driven Design
+  - Hexagonal Architecture
+  - Vertical Slices
+- Primarily includes backend functionality.
+- Additionally includes common code shared between db, infra, and ui folders.
+- Typical Request Path: User ↔ Primary Adapter ↔ Use Case ↔ Entity/Schema ↔ Repository ↔ Secondary Adapter ↔ External API
+### adapters/primary
+- Bootstrap scripts that serve as the starting point of the program.
+- Considered primary adapters based on hexagonal architecture.
+- Drive your application.
+- Depend upon services.
+- Examples includes Lambda handlers invoked by API Gateway EventBridge.
+### adapters/secondary
+- Translate communication between the domain and the outside world.
+- Based on hexagonal architecture, these are secondary adapters.
+- Examples include a database repository, cache client, or email client.
+- Don't contain business logic. Don't depend upon modules.
+### db
+- DB related code
+- Stores migration files
+### `modules/${entity}`
+- Entities represent a single instance of your domain object saved into the DB. See more [here](https://stackoverflow.com/questions/8743995/what-is-difference-between-a-model-and-an-entity).
+- Have UUID
+- `modules/${entity}.db.ts`
+  - Defines DB table for entity.
+- `modules/${entity}.entity.ts`
+  - Class including business logic related to this entity.
+  - Depends upon schema.
+- `modules/${entity}/repository.ts`
+  - Translation layer between use case and secondary adapter.
+  - Depends on secondary adapter.
+- `modules/${entity}/schema.ts`
+  - Validation for entity to ensure business rules are followed.
+  - No dependencies.
+- `modules/${entity}/usecase.ts`
+  - Thin layer responsible for orchestrating collaboration between modules and adapters
+  - Depends upon entities, models, 
+### `modules/${model}`
+- Models represents a real world object that is related to the domain space but not necessarily persisted. See more [here](https://stackoverflow.com/questions/8743995/what-is-difference-between-a-model-and-an-entity).
+- Also known as value objects.
+- Don't create [anemic domain models](https://www.martinfowler.com/bliki/AnemicDomainModel.html) which only consist of properties/attributes.
+## infra
+- AWS Cloud Development Kit (CDK) source code for defining [stacks](https://docs.aws.amazon.com/cdk/v2/guide/stacks.html).
+### app/stateful
+- Collection of CDK Stacks that persist or store information on AWS.
+- Deployed less infrequently.
+- Examples include: network-stacks.ts, db-stack.ts, object-stack.ts.
+### app/stateless
+- Collection of CDK Stacks that do not persist or store information on AWS.
+- Deployed frequently.
+- Examples include: job-stack.ts, monitor-stack.ts, ui-stack.ts.
+### packages
+- Reusable modules across workspaces.
+- Examples include TypeScript configuration and ESLint configuration.
+## ui
+- Web user interface code
+### app
+- Define routing for Next.js filesystem based router.
+### components
+- Reusable components found across routes.
+- Don't add components here that are only used within a single routes.
+### context
+- Application wide shared state that doesn't require prop-drilling.
+- Examples include user information or preferences.
+### hooks
+- Custom hooks which extract state from components allowing for reuse.
+- Use when you find yourself copying and pasting ui code logic between components.

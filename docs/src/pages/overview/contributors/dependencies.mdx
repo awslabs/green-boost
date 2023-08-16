@@ -1,0 +1,28 @@
+# Dependencies
+
+## Dependencies vs Peer Dependencies
+When building a React component, CDK construct, or Node.js function that depends on a 3rd party library outside of the core 3rd party dependencies (listed below), make those dependencies optional peer dependencies and do not export the component or construct from the index/root of the package. Export the component or construct from a subpath of the module via package.json#exports so that only consumers of the package who want to use that functionality have to install the 3rd party dependency. Core dependencies include libraries already included in the `"dependencies"` key of the package.json. Each component/construct should include any additional libraries that need to be installed in the docs.
+
+### Core 3rd Party Dependencies
+#### gboost-infra
+- aws-cdk-lib
+- cdk-nag
+- constructs
+- gboost-common
+#### gboost-node
+- gboost-common
+#### gboost-ui
+- @emotion/cache
+- @emotion/react
+- @emotion/styled
+- @mui/icons-material
+- @mui/material
+- gboost-common
+- next
+- react
+- react-dom
+
+## Update Dependencies
+GB dependencies should be updated regularly. To update all patch and minor NPM versions, run `pnpm -r up -i`. This will launch an interactive CLI UI that allows you to pick which dependencies you want to updated. You can type `a` to update them all. For patch and minor version updated, you *should* be safe to do this.
+
+You'll also want to check for major package upgrades but tread cautiously as these new versions contain breaking changes that may or may not break GB. For major version upgrades run `pnpm -r up -i --latest`. For any major upgrades, make sure to check out the realease notes or changelog for the package on GitHub.

@@ -22,6 +22,9 @@ export class SharedConfig {
   get isLocal() {
     return this.enumStageName === StageName.Local;
   }
+  get isProd() {
+    return this.enumStageName === StageName.Prod;
+  }
   /**
    * `StageName` or string if developing locally
    */

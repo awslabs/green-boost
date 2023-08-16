@@ -2,6 +2,17 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".md", ".mdx", ".ts", ".tsx"]
+  },
+  "eslint.validate": [
+    "markdown",
+    "mdx",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "eslint.workingDirectories": [
     "./docs",
     "./packages/gboost",
@@ -9,11 +20,14 @@
     "./packages/gboost-node",
     "./packages/gboost-ui"
   ],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.preferences.importModuleSpecifierEnding": "js",
   "search.exclude": {
     "**/node_modules": true,
     "**/cdk.out": true,
-    "packages/*/lib": true,
+    "packages/*/dist": true,
   }
 }
