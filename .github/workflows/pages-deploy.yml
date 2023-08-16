@@ -22,7 +22,7 @@ jobs:
 
       - name: Build docs
         working-directory: docs
-        run: pnpm build
+        run: pnpm build && ls .
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
