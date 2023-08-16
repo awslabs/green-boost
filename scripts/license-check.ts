@@ -18,6 +18,8 @@ const allowedLicenses: (string | ((l: string) => boolean))[] = [
   "Python-2.0",
   "Unknown",
   "Unlicense",
+  "EPL",
+  "W3C",
 ];
 
 const licenseOutputString = execSync("pnpm licenses list --json", {
