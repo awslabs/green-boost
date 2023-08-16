@@ -6,6 +6,7 @@ const withNextra = createWithNextra({
 });
 
 export default withNextra({
+  basePath: "/green-boost",
   images: {
     unoptimized: true,
   },
