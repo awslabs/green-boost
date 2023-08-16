@@ -1,4 +1,4 @@
-import { removeIgnoredFiles } from "../../utils/lintStaged.js"
+import { removeIgnoredFiles } from "../utils/lintStaged.js"
 
 export default {
   "*.ts?(x)": async (files) => {
