@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - docs/**
-      - .github/workflows/pages-deploy.yaml
+      - .github/workflows/pages-deploy.yml
 
 jobs:
   deploy_docs:
