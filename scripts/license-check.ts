@@ -18,7 +18,7 @@ const allowedLicenses: (string | ((l: string) => boolean))[] = [
   "Python-2.0",
   "Unknown",
   "Unlicense",
-  "EPL",
+  (l) => l.startsWith("EPL"),
   "W3C",
 ];
 
