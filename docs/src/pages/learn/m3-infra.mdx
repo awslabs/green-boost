@@ -1,0 +1,85 @@
+import { Callout } from "nextra/components";
+
+# Module 3: Infrastructure
+To define AWS infrastructure as code, Green Boost uses the AWS Cloud Development Kit (CDK) because it allows developers to use familiar programming languages like TypeScript to define AWS infrastructure. Additionally, the AWS CDK enables easy customization, sharing, and reusing constructs or units of infrastructure.
+
+## Learn
+- AWS CDK
+  - Read through the [developer guide](https://docs.aws.amazon.com/cdk/v2/guide/how_tos.html)
+  - Do the [AWS CDK TypeScript Workshop](https://cdkworkshop.com/20-typescript.html)
+- cdk-nag: scan the [README](https://github.com/cdklabs/cdk-nag) and [AWS Solutions Rule Pack](https://github.com/cdklabs/cdk-nag/blob/main/RULES.md#awssolutions)
+- Review the `infra/` folder scaffolded by the GB CLI
+
+## Apply
+### M3.1 - Architecture Diagram
+Generate an architecture diagram of your web app with [cdk-dia](https://github.com/pistazie/cdk-dia)
+- Install [Graphviz](https://graphviz.org/) with instructions [here](https://graphviz.org/download/).
+- Within the `infra/` folder run `pnpm cdk-dia{:bash}`
+- Checkout your diagram.png!
+
+### M3.2 - Deploy the CDK Pipeline
+- You've already deployed locally your web app which is ideal for development, but for test and prod environments you'll want deployment to be automated via a Continuous Integration/Continuous Deployment (CDI/CD) Pipeline triggered by a commit to a repository. We'll use CodeCommit but keep in mind you can also use git services.
+- First, create a CodeCommit repository in your AWS account with the same name as your `appId`.
+- Commit code to the repository
+  ```bash
+  git add -A
+  git commit -m "initial commit"
+  git remote add origin <your-code-commit-repo-url>
+  git push --set-upstream origin main
+  ```
+  - If you don’t have a workflow setup for connecting to AWS CodeCommit, try this: update your `~/.gitconfig` with the below code block to use IAM credentials to authenticate to CodeCommit. For more info see [here](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-https-unixes.html). Note: make sure to change the region in below code block if you’re not using us-east-1.
+  ```ini filename=".gitconfig"
+  [credential "https://git-codecommit.us-east-1.amazonaws.com/v1/repos"]
+    helper = # reset helper
+    helper = !aws codecommit credential-helper $@
+    useHttpPath = true
+  ```
+- Run `pnpm deploy:pipeline{:bash}` within `infra/` folder.
+- Checkout the pipeline deployed in the CodePipeline AWS Console.
+- For now, you should only see a "dev" stage deployed.
+<Callout type="warning">
+AWS has a soft limit of 5 Elastic IPs (EIPs). Each stage/environment deployed uses 2 public subnets which include a NAT Gateway. Each NAT Gateway requires an EIP. Therefore, if you attempt to deploy 3 or more stages (6 EIPs) you'll surpass the limit and the deployment will fail. You can either request an increase in your EIP quota or do multi-account deployments.
+</Callout>
+
+### M3.3 - `cdk deploy`
+In order to deploy the Aurora PostgreSQL web app in module 1, you ran the command: `pnpm deploy:local{:bash}`. This command is simply an alias for the command: `cdk deploy "**" --require-approval never --no-rollback{:bash}`. You can find the alias mapping defined in `infra/package.json#scripts`. When developing your web app further, you'll likely only need to deploy updates to stacks one at a time. The `"**"{:bash}` in `cdk deploy "**"{:bash}` tells the CDK CLI to deploy all stacks. To only deploy updates to one stack, you can run `cdk deploy "*/<stack-id>" --exclusively {:bash}`. Try exclusively deploying your ui stack:
+```bash
+cdk deploy "*/ui" --exclusively
+```
+
+Other stack IDs include: data, monitor, and waf. These IDs are defined in `infra/src/app-stage.ts`. We specify a `*/` before the `<stack-id>` because in the [construct tree](https://docs.aws.amazon.com/cdk/v2/guide/constructs.html#constructs_tree) above each of the stacks is a [Stage](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.Stage.html). Stages are helpful because they allow us to encapsulate our application's stacks and deploy them locally in `infra/src/local-app.ts` or via a pipeline in `infra/src/pipeline/pipeline-app.ts`. You can specify `<stage-id>/<stack-id>` where `stage-id` is defined in `infra/src/config/config.ts` but we use a `*` because it's more concise and we're only deploying 1 stage.
+
+Exclusively deploying stacks is faster, but what if we're only changing a lambda function or another commonly changed resource and want to quickly update it without going through CloudFormation? To do this, we can use `cdk deploy{:bash}`'s [--hotswap](https://docs.aws.amazon.com/cdk/v2/guide/cli.html#cli-deploy-hotswap) option. This option attempts to update your AWS resources directly (like through AWS Lambda's `UpdateFunctionCode` API). These updates typically take under 10 seconds 🚀. Try this out by updating a route in your Next.js app (runs as Lambda function) within the `ui/src/app` folder then run:
+```bash
+cdk deploy "*/ui" --exclusively --hotswap
+```
+You'll notice the `open-next build{:bash}` process still takes a while, but the update of the Lambda function code is much faster with `--hotswap`.
+
+### M3.4 - `cdk-nag`
+cdk-nag checks CDK applications for best practices using a combination of available rule packs. GB templates use the AWS Solutions by default which enforces 130+ best practices. Take a moment to scan through those rules. Now, let's see `cdk-nag` in action.
+- Change `storageEncrypted: true{:ts}` to `false{:ts}` in `infra/src/app/stateful/data-stack.ts`.
+- Run `cdk synth "**"{:bash} --exclusively` and you should see a build error, `AwsSolutions-RDS2: The RDS instance or Aurora DB cluster does not have storage encryption enabled.`, because the `data` stack is violating the rule. This is good! `cdk-nag` is a mechanism for _preventing_ security misconfiguration, an [OWASP Top 10 category](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/).
+- Let's say you have a requirement that necessitates having unencrypted DB storage. You can suppress a rule through several different methods documented [here](https://github.com/cdklabs/cdk-nag#suppressing-a-rule). In order to suppress `AwsSolutions-RDS2` add the following code below the instantiation of `DbIamCluster`
+```ts
+NagSuppressions.addResourceSuppressions(
+  cluster.node.findChild("Resource"),
+  [
+    {
+      id: "AwsSolutions-RDS2",
+      reason:
+        "Customer requirement necessitates having unencrypted DB storage",
+    },
+  ],
+);
+```
+- Now run `cdk synth "**"{:bash}` again and your CDK app should successfully synthesize. You can view all suppressed rules in `infra/cdk.out/assembly-<appId>-<stageName>/AwsSolutions-<appId>-<stageName>-${stackId}-NagReport.csv`. This can be sent to your security team to ensure only acceptable rule suppressions are used.
+
+### M3.5 - Multi-account CDK Pipeline Deployment
+It's [best practice](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.html) to deploy stages/environments into separate AWS Accounts. In order to do this, follow the below steps.
+- Bootstrap the additional AWS account you'll deploy to with the command: `cdk bootstrap aws://<new-aws-account-number>/<new-region> --trust <original-aws-account-number>{:bash}` replacing the angle brackets with denoted values. See [here](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html) for more info.
+  - Make sure you have the correct AWS credentials in your shell to bootstrap the account.
+- Uncomment the line `// crossAccountKeys:true{:ts}` in `infra/src/pipeline/pipeline-stack.ts`.
+- Uncomment either the test or prod stage at the bottom of `infra/src/pipeline/pipeline-stack.ts`.
+- Update the static members, `stageAccounts` and `stageRegions`, of `infra/src/config/config.ts` with your new AWS account number and region.
+- Run `pnpm deploy:pipeline{:bash}` again and watch progress of pipeline as it deploys to the new AWS account.
+- Find the CloudFront Domain of your app deployed in your new AWS account and ensure your web app is working correctly.

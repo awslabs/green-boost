@@ -1,0 +1,27 @@
+# Module 5: Backend
+Green Boost (GB) uses [Node.js](https://nodejs.org/en) as it's JavaScript server side runtime, [Zod](https://zod.dev/) for schema validation, and [Drizzle](https://orm.drizzle.team/) as an ORM and migration generator.
+
+## Learn
+- Node.js: read docs on [Getting Started](https://nodejs.dev/en/learn/), [Asynchronous Work](https://nodejs.dev/en/learn/asynchronous-flow-control/), [Manipulating Files](https://nodejs.dev/en/learn/nodejs-file-stats/), and [Command Line](https://nodejs.dev/en/learn/run-nodejs-scripts-from-the-command-line/)
+- [Lambda Best Practices](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
+- Zod: scan [docs](https://zod.dev/)
+- Drizzle: scan [Drizzle ORM docs](https://orm.drizzle.team/docs/quick-start) and [Drizzle Kit docs](https://orm.drizzle.team/kit-docs/overview)
+
+## Apply
+### M4.1 DB Port Forwarding
+The Aurora PostgreSQL GB template runs a DB instance in the AWS Cloud, but how can you connect to it when developing? There are several options, but we'll use SSM Session Manager Port Forwarding. In order to do so, follow these steps:
+- You should already have the AWS CLI installed by following the [prerequisites](../overview/prereqs)
+- Install the Session Manager Plugin for the AWS CLI with the following commands from [here](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
+```bash
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/mac/sessionmanager-bundle.zip" -o "sessionmanager-bundle.zip"
+unzip sessionmanager-bundle.zip
+sudo ./sessionmanager-bundle/install -i /usr/local/sessionmanagerplugin -b /usr/local/bin/session-manager-plugin
+session-manager-plugin
+```
+- 
+
+### M4.2 Create a New Album Table
+
+### M4.3 Generate and Execute Migration
+
+### M4.4 Create a Daily Album Summary Notification

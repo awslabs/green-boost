@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- colors from https://tailwindcolor.com/ -->
+    <linearGradient id="gradient">
+      <stop offset="10%" stop-color="#A3E635" /> <!--lime-400-->
+      <stop offset="30%" stop-color="#4ADE80" /> <!--green-400-->
+      <stop offset="50%" stop-color="#34D399" /> <!--emerald-400-->
+      <stop offset="70%" stop-color="#2DD4BF" /> <!--teal-400-->
+      <stop offset="90%" stop-color="#22D3EE" /> <!--cyan-400-->
+    </linearGradient>
+  </defs>
+  <text y=".9em" fill="url(#gradient)" font-family="sans-serif" font-size="20" font-weight="bold">
+    Green Boost
+  </text>
+</svg>

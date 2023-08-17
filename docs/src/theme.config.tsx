@@ -1,4 +1,5 @@
-import { type DocsThemeConfig, useConfig } from "nextra-theme-docs";
+import { useConfig, type DocsThemeConfig } from "nextra-theme-docs";
+import { useRouter } from "next/router";
 
 const title = "Green Boost";
 const description = "Build Full Stack Cloud Native Web Apps on AWS Fast";
@@ -7,6 +8,7 @@ const url = "https://awslabs.github.io/green-boost";
 
 const docsThemeConfig: DocsThemeConfig = {
   docsRepositoryBase: repo + "/tree/main/docs",
+  head: () => <></>,
   footer: {
     text: `Apache 2.0 ${new Date().getFullYear()} © Amazon Web Services.`,
   },
@@ -20,27 +22,32 @@ const docsThemeConfig: DocsThemeConfig = {
     link: repo,
   },
   useNextSeoProps() {
+    const { asPath } = useRouter();
     const { title: pageTitle } = useConfig();
     return {
       additionalLinkTags: [
         {
           rel: "icon",
-          href: "/favicon.svg",
+          href: "/green-boost/fast-forward-emoji.svg",
           type: "image/svg+xml",
         },
       ],
-      additionalMetaTags: [
-        { name: "viewport", content: "width=device-width, initial-scale=1.0" },
-      ],
+      additionalMetaTags: [],
       canonical: url,
       description,
       openGraph: {
         title,
         description,
         url,
+        images: [
+          {
+            url: "/green-boost/green-boost-gradient.svg",
+            alt: "Green Boost",
+          },
+        ],
       },
       themeColor: "hsl(141.89999999999998, 69.2%, 58%)",
-      title: pageTitle ? `${pageTitle} - ${title}` : title,
+      title: asPath !== "/" ? `${pageTitle} - ${title}` : title,
     };
   },
 };

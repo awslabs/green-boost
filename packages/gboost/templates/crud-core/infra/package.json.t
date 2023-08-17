@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
+    "cdk-dia": "^0.10.0",
     "eslint": "^8.45.0",
     "eslint-define-config": "^1.17.0",
     "tsx": "^3.12.7",
