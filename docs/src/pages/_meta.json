@@ -18,16 +18,16 @@
     "title": "CLI",
     "type": "page"
   },
-  "ui": {
-    "title": "UI",
+  "core": {
+    "title": "Core",
     "type": "page"
   },
   "infra": {
     "title": "Infra",
     "type": "page"
   },
-  "core": {
-    "title": "Core",
+  "ui": {
+    "title": "UI",
     "type": "page"
   }
 }
