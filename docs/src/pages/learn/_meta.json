@@ -3,8 +3,8 @@
   "m1-deploy-gb-app": "M1: Deploy Green Boost Template App",
   "m2-js-ts": "M2: JavaScript/TypeScript",
   "m3-infra": "M3: Infrastructure",
-  "m4-backend": "M5: Backend",
-  "m5-frontend": "M4: Frontend",
+  "m4-backend": "M4: Backend",
+  "m5-frontend": "M5: Frontend",
   "m6-tooling": "M6: Tooling",
   "m7-clean-code": "M7: Clean Code",
   "resources": "Resources"
