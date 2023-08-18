@@ -1,0 +1,30 @@
+<!-- Experimented with. Not currently being used -->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="260"
+  height="260"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width=".25"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="lucide lucide-fast-forward"
+>
+  <defs>
+  <!-- colors from https://tailwindcolor.com/ -->
+    <linearGradient id="gradient1">
+      <stop offset="25%" stop-color="#A3E635" /> <!--lime-400-->
+      <stop offset="50%" stop-color="#4ADE80" /> <!--green-400-->
+      <stop offset="75%" stop-color="#34D399" /> <!--emerald-400-->
+    </linearGradient>
+    <linearGradient id="gradient2">
+      <stop offset="25%" stop-color="#34D399" /> <!--emerald-400-->
+      <stop offset="50%" stop-color="#2DD4BF" /> <!--teal-400-->
+      <stop offset="75%" stop-color="#22D3EE" /> <!--cyan-400-->
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" rx="2" ry="2" width="24" height="24" fill="black" />
+  <polygon points="2 19 11 12 2 5 2 19" fill="url(#gradient1)" />
+  <polygon points="13 19 22 12 13 5 13 19" fill="url(#gradient2)" />
+</svg>
