@@ -41,7 +41,7 @@ Generate an architecture diagram of your web app with [cdk-dia](https://github.c
 AWS has a soft limit of 5 Elastic IPs (EIPs). Each stage/environment deployed uses 2 public subnets which include a NAT Gateway. Each NAT Gateway requires an EIP. Therefore, if you attempt to deploy 3 or more stages (6 EIPs) you'll surpass the limit and the deployment will fail. You can either request an increase in your EIP quota or do multi-account deployments.
 </Callout>
 
-### M3.3 - `cdk deploy`
+### M3.3 - `cdk deploy` Options
 In order to deploy the Aurora PostgreSQL web app in module 1, you ran the command: `pnpm deploy:local{:bash}`. This command is simply an alias for the command: `cdk deploy "**" --require-approval never --no-rollback{:bash}`. You can find the alias mapping defined in `infra/package.json#scripts`. When developing your web app further, you'll likely only need to deploy updates to stacks one at a time. The `"**"{:bash}` in `cdk deploy "**"{:bash}` tells the CDK CLI to deploy all stacks. To only deploy updates to one stack, you can run `cdk deploy "*/<stack-id>" --exclusively {:bash}`. Try exclusively deploying your ui stack:
 ```bash
 cdk deploy "*/ui" --exclusively
@@ -58,7 +58,7 @@ You'll notice the `open-next build{:bash}` process still takes a while, but the 
 ### M3.4 - `cdk-nag`
 cdk-nag checks CDK applications for best practices using a combination of available rule packs. GB templates use the AWS Solutions by default which enforces 130+ best practices. Take a moment to scan through those rules. Now, let's see `cdk-nag` in action.
 - Change `storageEncrypted: true{:ts}` to `false{:ts}` in `infra/src/app/stateful/data-stack.ts`.
-- Run `cdk synth "**"{:bash} --exclusively` and you should see a build error, `AwsSolutions-RDS2: The RDS instance or Aurora DB cluster does not have storage encryption enabled.`, because the `data` stack is violating the rule. This is good! `cdk-nag` is a mechanism for _preventing_ security misconfiguration, an [OWASP Top 10 category](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/).
+- Run `cdk synth "**" --exclusively{:bash}` and you should see a build error, `AwsSolutions-RDS2: The RDS instance or Aurora DB cluster does not have storage encryption enabled.`, because the `data` stack is violating the rule. This is good! `cdk-nag` is a mechanism for _preventing_ security misconfiguration, an [OWASP Top 10 category](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/).
 - Let's say you have a requirement that necessitates having unencrypted DB storage. You can suppress a rule through several different methods documented [here](https://github.com/cdklabs/cdk-nag#suppressing-a-rule). In order to suppress `AwsSolutions-RDS2` add the following code below the instantiation of `DbIamCluster`
 ```ts
 NagSuppressions.addResourceSuppressions(

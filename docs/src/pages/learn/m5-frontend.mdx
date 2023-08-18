@@ -16,13 +16,13 @@ Green Boost uses the JavaScript Library, [React](https://react.dev/), the React 
 
 ## Apply
 
-### M4.1 - Run The Dev Server
+### M5.1 - Run The Dev Server
 With your DB port forwarded to your local machine as you learned in the previous [module](./m4-backend#m42---db-gui), let's run the Next.js local development server.
 - Within the `ui/` folder, run `pnpm dev`.
 - Visit http://localhost:3000 and interact with your web app locally!
 - Try changing the color of the app bar by updating `theme.colorSchemes.light.palette.primary.main{:ts}` from `colors.lagoon{:ts}` to `colors.carrot{:ts}` in `ui/src/components/theme/theme.tsx`. Save the file and then watch the update happen in your browser
 
-### M4.2 - Create The Album Table Page
+### M5.2 - Create The Album Table Page
 Continuing with our album feature request from the previous module, let's create an album table page so that users can list their albums.
 - Let's start by adding the server component: `ui/src/app/albums/page.tsx`.
   - You can follow the example from `ui/src/app/items/page.tsx`.
@@ -32,7 +32,7 @@ Continuing with our album feature request from the previous module, let's create
 - Visit http://localhost:3000/albums to see your table!
   - Notice how Next.js automatically sets up routing for you based on the file structure.
 
-### M4.3 - Create The Create/View Album Page
+### M5.3 - Create The Create/View Album Page
 Add the Create and View album page so users can create and individually view albums.
 - Add `ui/src/app/albums/new/page.tsx`, `ui/src/app/albums/new/CreateAlbum.tsx`, and `ui/src/app/albums/new/create-album-action.ts`.
   - Use `ui/src/app/items/new/**` to guide you.
@@ -47,7 +47,7 @@ Add the Create and View album page so users can create and individually view alb
 - Visit `http://localhost:3000/albums/<id>` replacing `<id>` with the id of the album you previously created.
 
 ### Bonus
-### M4.4 - Add Filtering and Sorting to Album Table Page
+### M5.4 - Add Filtering and Sorting to Album Table Page
 Congrats on enabling users to create, read, and update albums in your web app! Users have reported they want the ability to filter and sort. Add this capability
 - Create a script, `core/src/db/scripts/seed-albums.ts` to generate 10s of albums to test sorting and filtering on.
 - Update `ui/src/app/albums/AlbumsTable.tsx` to add sorting and filtering capabilities to the frontend.

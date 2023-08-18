@@ -91,7 +91,7 @@ Now create the infrastructure required to generate the daily album summary email
 - Manually trigger your rule to ensure expected output is logged.
   - You can manually trigger your rule by disabling (`aws events disable-rule --name "<rule-name>"{:bash}`) and then enabling (`aws events enable-rule --name "<rule-name>"{:bash}`)
 
-### M4.7 Setup Email with SES
+### M4.7 - Setup Email with SES
 We'll use Amazon SES to email yourself the summary email. In the future you can replace your email with the administrator's email. Follow the below steps.
 - AWS Console > SES > Verified Identities.
 - Create Identity with your email address.
