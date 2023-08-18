@@ -41,7 +41,7 @@ const docsThemeConfig: DocsThemeConfig = {
         url,
         images: [
           {
-            url: "/green-boost/og.png",
+            url: "/green-boost/og2.png",
             alt: "Green Boost",
           },
         ],
