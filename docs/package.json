@@ -1,5 +1,5 @@
 {
-  "name": "@gboost/docs",
+  "name": "gboost-docs",
   "version": "0.1.0",
   "private": true,
   "type": "module",

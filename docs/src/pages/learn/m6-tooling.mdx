@@ -1,2 +1,37 @@
 # Module 6: Tooling
-TODO
+Green Boost (GB) tooling includes: PNPM, ESLint, cdk-nag, husky, lint-staged, prettier, type checking. GB projects created with gboost create are setup as a monorepo. Lear more below
+
+## Learn
+
+- Monorepo: scan [Monorepos Explained](https://monorepo.tools/)
+    - Focus on what monorepos are and why you should use them. This explainer resource is from a 3rd party vendor but still includes valuable information. GB doesn’t use full blown monorepo tooling currently. Still considering whether additional complexity is worth it. Specifically, considering Turborepo for faster Lambda builds.
+- Package Manager: lightly scan the [PNPM docs](https://pnpm.io/)
+    - Focus on [motivation](https://pnpm.io/motivation) and [workspaces](https://pnpm.io/workspaces)
+- Static Code Analysis: lightly scan the [ESLint docs](https://eslint.org/)
+    - Focus on [core concepts](https://eslint.org/docs/latest/use/core-concepts)
+- Type Checking: lightly scan the `tsc{:bash}` (TypeScript Compiler) [docs](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
+- 3rd Party Vulnerability Scanning: read docs [here](https://docs.npmjs.com/cli/v9/commands/npm-audit)
+- Code Formatting: lightly scan the [Prettier docs](https://prettier.io/)
+    - You'll notice GB templates have no prettier configuration as they use the default prettier settings. If desired, this can be easily customized as shown in the docs.
+- Pre-commit Hooks: lightly scan the [Husky docs](https://typicode.github.io/husky/)
+
+## Apply
+
+### M6.1 - PNPM Workspaces
+- Review the `pnpm-workspace.yaml` file in root of GB repo. Understand how workspaces reference each other’s packages
+
+### M6.2 - PNPM Scripts
+- Run `pnpm lint{:bash}` and `pnpm typecheck{:bash}` and `pnpm test{:bash}` in the root of the repository. Notice how PNPM is running those commands in every workspace that has those commands within their `package.json#scripts`
+
+### M6.3 - Static Code Analysis with ESLint
+- Intentionally create a code-smell (see all rules [here](https://eslint.org/docs/latest/rules/)) and verify ESLint is runs and shows red squiggles in your editor. If you're using VS Code, you will need to install the ES Lint Extension to see linting. Also recommend the Error Lens extension if you like seeing the error in line with your code.
+- Review ESLint configuration. Add a custom ESLint rule. Understand how ESLint works with Prettier to enforce code formatting.
+
+### M6.4 NPM Audit
+- Run `pnpm audit{:bash}`. Any CVEs?
+- If you found any CVEs of sub-dependencies - dependencies that you didn't specify the version for. How can you update them? Checkout PNPM's overrides configuration option. Now override the offending package's version with the overrides configuration option and verify pnpm audit succeeds.
+
+### M6.5 - Pre-commit Hooks
+- Make an update in a TypeScript file in each each top level folder. The change can be as trivial as adding a comment.
+- Now stage and commit those changes.
+- Notice how Husky's pre-commit hook defined in `.husky/pre-commit` runs invoking `pnpm lint-staged{:bash}` which in turn runs the `.lintstagedrc.js` file in each top level folder.
