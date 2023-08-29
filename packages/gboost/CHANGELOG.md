@@ -1,5 +1,15 @@
 # gboost
 
+## 0.20.0
+
+### Minor Changes
+
+- [#243](https://github.com/awslabs/green-boost/pull/243) [`310de42`](https://github.com/awslabs/green-boost/commit/310de42774eb04fd14e8e3fb35f82e2684c16095) Thanks [@bestickley](https://github.com/bestickley)! - Add eslint-plugin-security to templates
+
+### Patch Changes
+
+- [#243](https://github.com/awslabs/green-boost/pull/243) [`310de42`](https://github.com/awslabs/green-boost/commit/310de42774eb04fd14e8e3fb35f82e2684c16095) Thanks [@bestickley](https://github.com/bestickley)! - Fix shell commands to be windows compatible
+
 ## 0.19.3
 
 ### Patch Changes
