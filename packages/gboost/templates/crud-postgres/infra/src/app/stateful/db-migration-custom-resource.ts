@@ -48,7 +48,7 @@ export class DbMigrationCustomResource extends Construct {
             return [
               `node -e "fs.mkdirSync('${convertPath(
                 resolve(outputDir, "drizzle"),
-              )}', { recursive: true})"`,
+              )}', { recursive: true })"`,
               `node -e "fs.cpSync('${convertPath(
                 resolve(inputDir, "core", "src", "db", "drizzle"),
               )}', '${convertPath(
