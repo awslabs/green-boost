@@ -10,6 +10,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-define-config": "^1.21.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-security": "^1.7.1",
     "prettier": "^3.0.0",
     "typescript": "^5.1.6"
   }
