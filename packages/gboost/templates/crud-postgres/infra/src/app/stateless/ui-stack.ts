@@ -1,5 +1,11 @@
 // @ts-nocheck
-import { CfnOutput, Duration, RemovalPolicy, Stack, type StackProps } from "aws-cdk-lib";
+import {
+  CfnOutput,
+  Duration,
+  RemovalPolicy,
+  Stack,
+  type StackProps,
+} from "aws-cdk-lib";
 import {
   SecurityPolicyProtocol,
   type DistributionProps,
