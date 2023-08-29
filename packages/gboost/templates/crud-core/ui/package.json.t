@@ -30,6 +30,7 @@
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "esbuild": "0.17.16",
     "eslint": "^8.45.0",
     "eslint-define-config": "^1.21.0",
     "typescript": "^5.1.6",

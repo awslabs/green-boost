@@ -42,10 +42,20 @@ export class DbMigrationCustomResource extends Construct {
       bundling: {
         commandHooks: {
           afterBundling: () => [],
-          beforeBundling: (inputDir, outputDir) => [
-            `mkdir -p ${outputDir}/drizzle`,
-            `cp -a ${inputDir}/core/src/db/drizzle ${outputDir}`,
-          ],
+          beforeBundling: (inputDir, outputDir) => {
+            // windows compat
+            const convertPath = (path: string) => path.replaceAll("\\", "/");
+            return [
+              `node -e "fs.mkdirSync('${convertPath(
+                resolve(outputDir, "drizzle"),
+              )}', { recursive: true })"`,
+              `node -e "fs.cpSync('${convertPath(
+                resolve(inputDir, "core", "src", "db", "drizzle"),
+              )}', '${convertPath(
+                outputDir,
+              )}', { recursive: true, force: true })"`,
+            ];
+          },
           beforeInstall: () => [],
         },
       },
