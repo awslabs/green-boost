@@ -56,7 +56,7 @@ cdk deploy "*/ui" --exclusively --hotswap
 You'll notice the `open-next build{:bash}` process still takes a while, but the update of the Lambda function code is much faster with `--hotswap`.
 
 ### M3.4 - `cdk-nag`
-cdk-nag checks CDK applications for best practices using a combination of available rule packs. GB templates use the AWS Solutions by default which enforces 130+ best practices. Take a moment to scan through those rules. Now, let's see `cdk-nag` in action.
+cdk-nag checks CDK applications for best practices using a combination of available rule packs. GB templates use the AWS Solutions by default which enforces 130+ best practices. Take a moment to scan through those [rules](https://github.com/cdklabs/cdk-nag/blob/main/RULES.md#awssolutions). Now, let's see `cdk-nag` in action.
 - Change `storageEncrypted: true{:ts}` to `false{:ts}` in `infra/src/app/stateful/data-stack.ts`.
 - Run `cdk synth "**" --exclusively{:bash}` and you should see a build error, `AwsSolutions-RDS2: The RDS instance or Aurora DB cluster does not have storage encryption enabled.`, because the `data` stack is violating the rule. This is good! `cdk-nag` is a mechanism for _preventing_ security misconfiguration, an [OWASP Top 10 category](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/).
 - Let's say you have a requirement that necessitates having unencrypted DB storage. You can suppress a rule through several different methods documented [here](https://github.com/cdklabs/cdk-nag#suppressing-a-rule). In order to suppress `AwsSolutions-RDS2` add the following code below the instantiation of `DbIamCluster`

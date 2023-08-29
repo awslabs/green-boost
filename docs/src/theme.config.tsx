@@ -21,6 +21,9 @@ const docsThemeConfig: DocsThemeConfig = {
   project: {
     link: repo,
   },
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+  },
   useNextSeoProps() {
     const { asPath } = useRouter();
     const { title: pageTitle } = useConfig();
