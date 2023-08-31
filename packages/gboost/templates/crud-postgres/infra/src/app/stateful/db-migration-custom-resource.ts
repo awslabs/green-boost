@@ -52,7 +52,7 @@ export class DbMigrationCustomResource extends Construct {
               `node -e "fs.cpSync('${convertPath(
                 resolve(inputDir, "core", "src", "db", "drizzle"),
               )}', '${convertPath(
-                outputDir,
+                resolve(outputDir, "drizzle"),
               )}', { recursive: true, force: true })"`,
             ];
           },
