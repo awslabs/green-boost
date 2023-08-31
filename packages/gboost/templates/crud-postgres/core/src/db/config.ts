@@ -10,19 +10,16 @@ import postgres from "postgres";
  * auth, otherwise use DB IAM Auth. Prefer DB IAM Auth.
  */
 const isDbIamAuth = Boolean(!process.env["DB_SECRET_ARN"]);
-const host = String(process.env["PGHOST"] || "0.0.0.0");
+const host = process.env["PGHOST"] || "0.0.0.0";
+const roHost = process.env["PGHOST_RO"] || host;
 const port = 5432;
 const user = isDbIamAuth
   ? ServerConfig.dbIamUsername
   : ServerConfig.dbAdminUsername;
-
-const writeConfig: Options<Record<string, PostgresType>> = {
-  host,
+const commonConfig: Options<Record<string, PostgresType>> = {
   port,
   database: ServerConfig.dbName,
   user,
-  password: () =>
-    isDbIamAuth ? getDbAuthToken({ host, port, user }) : getDbPassword(),
   // https://github.com/porsager/postgres#ssl
   ssl: { rejectUnauthorized: false },
   // https://solidstudio.io/blog/aws-handle-database-connection
@@ -39,10 +36,21 @@ const writeConfig: Options<Record<string, PostgresType>> = {
     },
   },
 };
+
+const writeConfig: Options<Record<string, PostgresType>> = {
+  ...commonConfig,
+  host,
+  password: () =>
+    isDbIamAuth ? getDbAuthToken({ host, port, user }) : getDbPassword(),
+};
 export const sqlWrite = postgres(writeConfig);
 
 const readConfig: Options<Record<string, PostgresType>> = {
-  ...writeConfig,
-  host: process.env["PGHOST_RO"] || host,
+  ...commonConfig,
+  host: roHost,
+  password: () =>
+    isDbIamAuth
+      ? getDbAuthToken({ host: roHost, port, user })
+      : getDbPassword(),
 };
 export const sqlRead = postgres(readConfig);

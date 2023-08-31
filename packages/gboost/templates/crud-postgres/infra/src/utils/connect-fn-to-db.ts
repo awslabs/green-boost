@@ -11,5 +11,6 @@ export function connectFnToDb(cluster: DbIamCluster, fn: GbFunction) {
   fn.connections.allowTo(cluster, Port.tcp(cluster.clusterEndpoint.port));
   cluster.grantConnect(fn);
   fn.addEnvironment("PGHOST", String(cluster.clusterEndpoint.hostname));
-  fn.addEnvironment("PGHOST_RO", String(cluster.clusterReadEndpoint.hostname));
+  // uncomment below if reader instance is added
+  // fn.addEnvironment("PGHOST_RO", String(cluster.clusterReadEndpoint.hostname));
 }
