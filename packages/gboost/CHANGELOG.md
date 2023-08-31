@@ -1,5 +1,11 @@
 # gboost
 
+## 0.20.1
+
+### Patch Changes
+
+- [#245](https://github.com/awslabs/green-boost/pull/245) [`60a2d5a`](https://github.com/awslabs/green-boost/commit/60a2d5a9e3e76e649d5049b0e1f2bd2bec720c3b) Thanks [@bestickley](https://github.com/bestickley)! - Fix file layout of migration lambda's drizzle folder for CRUD Aurora PG template
+
 ## 0.20.0
 
 ### Minor Changes
