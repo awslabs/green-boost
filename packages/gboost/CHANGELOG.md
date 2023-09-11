@@ -1,5 +1,13 @@
 # gboost
 
+## 0.20.2
+
+### Patch Changes
+
+- [#247](https://github.com/awslabs/green-boost/pull/247) [`60a1944`](https://github.com/awslabs/green-boost/commit/60a1944d836749ba6567229add6a24f4bbf2fe6c) Thanks [@bestickley](https://github.com/bestickley)! - Add SQL compatible identifiers based on app id in templates
+
+- [#247](https://github.com/awslabs/green-boost/pull/247) [`60a1944`](https://github.com/awslabs/green-boost/commit/60a1944d836749ba6567229add6a24f4bbf2fe6c) Thanks [@bestickley](https://github.com/bestickley)! - Fix code formatting in templates
+
 ## 0.20.1
 
 ### Patch Changes
