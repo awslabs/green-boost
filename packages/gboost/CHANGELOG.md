@@ -1,5 +1,11 @@
 # gboost
 
+## 0.20.3
+
+### Patch Changes
+
+- [#249](https://github.com/awslabs/green-boost/pull/249) [`5124c06`](https://github.com/awslabs/green-boost/commit/5124c061375986c11ca47cb84d9d957a186bdb20) Thanks [@bestickley](https://github.com/bestickley)! - Fix ui template formatting
+
 ## 0.20.2
 
 ### Patch Changes
