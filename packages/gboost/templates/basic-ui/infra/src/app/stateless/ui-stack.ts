@@ -90,9 +90,9 @@ export class UiStack extends Stack {
    * @link https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-delete-replicas.html
    */
   #retainEdgeFnOnDelete() {
-    const edgeFn = this.#nextjs.distribution.node
-      .findChild("EdgeFn")
-      .node.findChild("Fn");
+    const edgeFn = this.#nextjs.distribution?.node
+      .tryFindChild("EdgeFn")
+      ?.node.tryFindChild("Fn");
     if (edgeFn instanceof CdkFunction) {
       edgeFn.applyRemovalPolicy(RemovalPolicy.RETAIN);
     }

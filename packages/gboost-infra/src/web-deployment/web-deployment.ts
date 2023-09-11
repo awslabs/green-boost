@@ -193,9 +193,6 @@ export class WebDeployment extends Construct {
       lambdaPurpose,
       timeout: Duration.minutes(10),
       memorySize,
-      environment: {
-        NODE_OPTIONS: "--enable-source-maps",
-      },
     });
   }
 

@@ -7,13 +7,13 @@ import { StageName } from "./stage-name";
  */
 export class ServerConfig extends SharedConfig {
   static get dbAdminUsername() {
-    return `${SharedConfig.appId}_admin`;
+    return `${ServerConfig.sqlCompatAppId}_admin`;
   }
   static get dbIamUsername() {
-    return `${SharedConfig.appId}_iam_user`;
+    return `${ServerConfig.sqlCompatAppId}_iam_user`;
   }
   static get dbName() {
-    return `${SharedConfig.appId}_db`;
+    return `${ServerConfig.sqlCompatAppId}_db`;
   }
   /**
    * Environment variable names. No [magic strings](https://deviq.com/antipatterns/magic-strings)!
@@ -22,6 +22,12 @@ export class ServerConfig extends SharedConfig {
     STAGE_NAME: "STAGE_NAME",
     NEXT_PUBLIC_STAGE_NAME: "NEXT_PUBLIC_STAGE_NAME",
   };
+  /**
+   * Replace dashes with underscores to comply with SQL Naming conventions.
+   */
+  static get sqlCompatAppId() {
+    return SharedConfig.appId.replaceAll("-", "_");
+  }
 
   constructor(stageName?: string) {
     super(stageName || StageName.Local);

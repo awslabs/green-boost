@@ -22,7 +22,7 @@ export function Drawer(props: DrawerProps): ReactElement {
       });
   return (
     <Box
-      bgcolor={(t) => t.palette.background.paper}
+      bgcolor={(t) => t.palette["background"].paper}
       display="flex"
       height="100%"
       width={open ? "var(--drawer-width)" : "60px"}
