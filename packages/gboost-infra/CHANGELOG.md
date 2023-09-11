@@ -1,5 +1,11 @@
 # gboost-infra
 
+## 0.16.2
+
+### Patch Changes
+
+- [#247](https://github.com/awslabs/green-boost/pull/247) [`60a1944`](https://github.com/awslabs/green-boost/commit/60a1944d836749ba6567229add6a24f4bbf2fe6c) Thanks [@bestickley](https://github.com/bestickley)! - Remove default NODE_OPTION "--enable-source-maps" for lambda functions due to potential performance issues
+
 ## 0.16.1
 
 ### Patch Changes
