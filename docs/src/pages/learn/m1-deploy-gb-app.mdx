@@ -14,8 +14,8 @@ Welcome to Module 1. In this module you will deploy a Green Boost web app starti
 2. Run below commands:
 ```bash
 pnpm add -g gboost
-pnpm env use --global 18
-gboost create
+pnpm env use --global 18 # optional - ensure Node.js 18 is used
+gboost create # select CRUD Aurora PostgreSQL template
 cd <your-directory>
 pnpm i
 cd infra
