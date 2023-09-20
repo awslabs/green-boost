@@ -1,5 +1,11 @@
 # gboost
 
+## 0.20.4
+
+### Patch Changes
+
+- [#252](https://github.com/awslabs/green-boost/pull/252) [`50ca09a`](https://github.com/awslabs/green-boost/commit/50ca09a4fed2e2db95bc3122a5b9e3566e20304d) Thanks [@bestickley](https://github.com/bestickley)! - Fix issue in PostgreSQL templates where SQL identifiers are invalid if app id contains dash. Converts to underscore.
+
 ## 0.20.3
 
 ### Patch Changes
