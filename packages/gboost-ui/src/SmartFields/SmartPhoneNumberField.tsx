@@ -48,6 +48,7 @@ export function SmartPhoneNumberField<T extends FieldValues>(
       className="amplify-textfield"
     >
       <PhoneNumberField
+        crossOrigin
         {...normalizeProps(phoneNumberFieldProps)}
         id={id}
         ref={ref}

@@ -62,6 +62,8 @@ export interface TransferListProps<T> {
  * @deprecatedd
  */
 export const defaultListHeight = "300px";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const StyledFieldContainer = styled(Box, {
   display: "flex",
   flexDirection: "column",
@@ -220,6 +222,7 @@ function ITransferList<T extends Record<string, any>>(
           </StyledHeadingContainer>
           {handleFilter && (
             <StyledSearchField
+              crossOrigin
               label="Source Filter"
               labelHidden
               placeholder="Search"
@@ -232,6 +235,7 @@ function ITransferList<T extends Record<string, any>>(
             {sourceKeys.map((s) => (
               <li key={s} style={{ display: "flex" }}>
                 <CheckboxField
+                  crossOrigin
                   checked={selectedKeys.includes(s)}
                   label={render(optionsMap[s] as T)}
                   name={s}
@@ -273,6 +277,7 @@ function ITransferList<T extends Record<string, any>>(
           </StyledHeadingContainer>
           {handleFilter && (
             <StyledSearchField
+              crossOrigin
               label="Target Filter"
               labelHidden
               placeholder="Search"
@@ -285,6 +290,7 @@ function ITransferList<T extends Record<string, any>>(
             {targetKeys.map((t) => (
               <li key={t}>
                 <CheckboxField
+                  crossOrigin
                   checked={selectedKeys.includes(t)}
                   label={render(optionsMap[t] as T)}
                   name={t}

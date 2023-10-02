@@ -57,6 +57,7 @@ export function FilterValue({
     } else {
       element = (
         <TextField
+          crossOrigin
           disabled={!comparator}
           label="Value"
           labelHidden
@@ -72,6 +73,7 @@ export function FilterValue({
   } else {
     element = (
       <TextField
+        crossOrigin
         disabled
         label="Value"
         labelHidden

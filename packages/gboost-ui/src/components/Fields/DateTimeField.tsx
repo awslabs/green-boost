@@ -28,7 +28,7 @@ export function _DateTimeField(
   const { type = "datetime-local" } = props;
   // as any b/c TextField thinks it has to support HTMLTextField but we don't need that
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return <TextField ref={ref as any} {...props} type={type} />;
+  return <TextField crossOrigin ref={ref as any} {...props} type={type} />;
 }
 
 // https://fettblog.eu/typescript-react-generic-forward-refs/#option-1%3A-type-assertion
