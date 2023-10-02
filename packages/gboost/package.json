@@ -1,6 +1,6 @@
 {
   "name": "gboost",
-  "version": "0.20.4",
+  "version": "0.21.0",
   "description": "Green Boost Command Line Interface",
   "bin": {
     "gboost": "src/index.ts"
