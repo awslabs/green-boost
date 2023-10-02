@@ -66,7 +66,7 @@ export function SmartRadioGroupField<T extends FieldValues>(
         value={value}
       >
         {options.map((o) => (
-          <Radio key={o.value} value={o.value}>
+          <Radio crossOrigin key={o.value} value={o.value}>
             {o.label}
           </Radio>
         ))}

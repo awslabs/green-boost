@@ -84,6 +84,7 @@ export function MultiCheckboxField(
         {options.map((o) => (
           <CheckboxContainer key={o.value}>
             <CheckboxField
+              crossOrigin
               {...checkboxFields}
               label={o.label}
               name={o.value}

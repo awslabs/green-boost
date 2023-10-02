@@ -31,6 +31,7 @@ export function FileName(props: FileNameProps): ReactElement {
   const { notify } = useNotifications();
   return (
     <StyledTextField
+      crossOrigin
       isDisabled={isDisabled}
       ref={props.inputRef}
       labelHidden={true}

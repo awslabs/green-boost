@@ -36,6 +36,7 @@ export function SmartCheckboxField<T extends FieldValues>(
       loadingHeight={32}
     >
       <CheckboxField
+        crossOrigin
         {...normalizeProps(checkboxFieldProps)}
         id={id}
         ref={ref}

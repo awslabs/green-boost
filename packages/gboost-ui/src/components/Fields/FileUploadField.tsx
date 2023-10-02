@@ -93,6 +93,7 @@ export function IFileUploadField(
         onClick={(e) => (e.currentTarget.value = "")}
       />
       <TextField
+        crossOrigin
         {...textFieldProps}
         id={id}
         isReadOnly

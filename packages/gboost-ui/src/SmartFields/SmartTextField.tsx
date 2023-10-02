@@ -48,6 +48,7 @@ export function SmartTextField<T extends FieldValues>(
       className="amplify-textfield"
     >
       <TextField
+        crossOrigin
         {...normalizeProps(textFieldProps)}
         id={id}
         ref={ref}

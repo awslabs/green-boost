@@ -1,5 +1,5 @@
 {
-  "extends": ["@tsconfig/strictest", "@tsconfig/esm", "@tsconfig/next"],
+  "extends": ["@tsconfig/strictest", "@tsconfig/next"],
   "compilerOptions": {
     "target": "ES2017",
     "module": "ESNext",
