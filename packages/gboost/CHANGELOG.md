@@ -1,5 +1,15 @@
 # gboost
 
+## 0.21.0
+
+### Minor Changes
+
+- [#255](https://github.com/awslabs/green-boost/pull/255) [`d3f4685`](https://github.com/awslabs/green-boost/commit/d3f468598ba7566bfaced66660562a17be455538) Thanks [@bestickley](https://github.com/bestickley)! - Update cdk-nextjs-standalone
+
+### Patch Changes
+
+- [#255](https://github.com/awslabs/green-boost/pull/255) [`d3f4685`](https://github.com/awslabs/green-boost/commit/d3f468598ba7566bfaced66660562a17be455538) Thanks [@bestickley](https://github.com/bestickley)! - Remove deprecated @tsconfig/esm
+
 ## 0.20.4
 
 ### Patch Changes
