@@ -25,7 +25,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-lambda": "^3.421.0",
+    "@aws-sdk/client-lambda": "^3.423.0",
     "@commander-js/extra-typings": "^11.0.0",
     "commander": "^11.0.0",
     "gboost-common": "workspace:^",
@@ -40,14 +40,14 @@
     "@types/minimist": "^1.2.3",
     "@types/node": "^18.18.1",
     "@types/prompts": "^2.4.5",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
     "eslint": "^8.50.0",
-    "eslint-config-prettier": "^8.10.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-define-config": "^1.23.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-prettier": "^5.0.0",
     "npm-check-updates": "^16.14.4",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.3",
     "typescript": "^5.2.2"
   },
   "repository": {
