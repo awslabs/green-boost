@@ -84,7 +84,7 @@ export class Api extends Stack {
             "CloudWatch logging is too expensive to enable for all methods",
         },
       ],
-      true
+      true,
     );
     return api;
   }
@@ -101,7 +101,7 @@ export class Api extends Stack {
       accessLogDestination: new LogGroupLogDestination(
         new LogGroup(this, "LogGroup", {
           removalPolicy: isLocal ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
-        })
+        }),
       ),
     };
   }
@@ -110,7 +110,7 @@ export class Api extends Stack {
     const fn = new Function(this, "Function", {
       entry: resolve(
         thisFilePath,
-        "../../../../../core/src/entrypoints/api/handler.ts"
+        "../../../../../core/src/entrypoints/api/handler.ts",
       ),
       memorySize: 512,
       runtime: Runtime.NODEJS_18_X,
@@ -145,7 +145,7 @@ export class Api extends Stack {
           reason: "Cognito is not used for authorization",
         },
       ],
-      true
+      true,
     );
   }
 

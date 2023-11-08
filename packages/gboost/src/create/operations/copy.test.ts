@@ -43,7 +43,7 @@ describe("copy", () => {
       testSourceDirPath,
       "path",
       "to",
-      "nested"
+      "nested",
     );
     const nestedSourceFilePath = resolve(nestedSourceDirPath, testFileName);
     writeFileSync(testSourceFilePath, testFileContents);

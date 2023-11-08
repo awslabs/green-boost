@@ -21,7 +21,7 @@ export const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
  */
 export function generateDynamoUpdateParams(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  attributes: Record<string, any>
+  attributes: Record<string, any>,
 ): Pick<
   UpdateCommandInput,
   "ExpressionAttributeNames" | "ExpressionAttributeValues" | "UpdateExpression"
@@ -65,4 +65,3 @@ export function encodeLastEvaluatedKey(key: Record<string, unknown>) {
 export function decodeLastEvaluatedKey(key: string): Record<string, unknown> {
   return JSON.parse(Buffer.from(key, "base64").toString());
 }
-

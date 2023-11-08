@@ -43,7 +43,7 @@ async function create(params: CreateItem): Promise<Item> {
       Item: item,
       TableName: config.itemTableName,
       ConditionExpression: "attribute_not_exists(pk)",
-    })
+    }),
   );
   return transformItem(item);
 }
@@ -53,7 +53,7 @@ async function get(id: string) {
     new GetCommand({
       TableName: config.itemTableName,
       Key: getDefaultPrimaryKey(id),
-    })
+    }),
   );
   if (!res.Item) {
     throw new TRPCError({
@@ -99,7 +99,7 @@ async function remove(id: string) {
     new DeleteCommand({
       Key: getDefaultPrimaryKey(id),
       TableName: config.itemTableName,
-    })
+    }),
   );
 }
 
@@ -110,7 +110,7 @@ async function update(params: UpdateItemSchema) {
       TableName: config.itemTableName,
       Key: getDefaultPrimaryKey(id),
       ...generateDynamoUpdateParams(attributes),
-    })
+    }),
   );
 }
 

@@ -14,7 +14,7 @@ interface InjectFnConfigParams {
 export async function injectFnConfig(params: InjectFnConfigParams) {
   const { dummyContext, functionArn } = params;
   const response = await lambdaClient.send(
-    new GetFunctionConfigurationCommand({ FunctionName: functionArn })
+    new GetFunctionConfigurationCommand({ FunctionName: functionArn }),
   );
   process.env = {
     ...response.Environment?.Variables,

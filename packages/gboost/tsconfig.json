@@ -4,8 +4,8 @@
     // don't need declaration map b/c end user is only running as cli
     "exactOptionalPropertyTypes": false,
     "incremental": true,
-    "noEmit": true,
+    "noEmit": true
   },
   "include": ["src/**/*", "tests/**/*", "scripts/**/*"],
-  "exclude": ["templates/**/*", "examples/**/*"],
+  "exclude": ["templates/**/*", "examples/**/*"]
 }

@@ -3,7 +3,7 @@ import { type Operation, OperationType } from "../operations/operations.js";
 import type { BaseOperationParams } from "./base-operation-params.js";
 
 export function getCrudDynamoOperations(
-  params: BaseOperationParams
+  params: BaseOperationParams,
 ): Operation[] {
   const { destinationPath, templatesDirPath } = params;
   return [
