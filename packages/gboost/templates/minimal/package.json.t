@@ -12,14 +12,14 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@types/node": "^18.16.19",
-    "eslint": "^8.44.0",
+    "@types/node": "^18.18.9",
+    "eslint": "^8.53.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.3",
-    "typescript": "^5.1.6"
+    "lint-staged": "^15.0.2",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "esbuild": "^0.17.16"
+    "esbuild": "^0.19.5"
   },
   "pnpm": {
     "overrides": {},

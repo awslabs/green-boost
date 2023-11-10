@@ -6,8 +6,8 @@
     "./*": "./*"
   },
   "devDependencies": {
-    "@tsconfig/next": "^2.0.0",
-    "@tsconfig/node18": "^18.2.0",
-    "@tsconfig/strictest": "^2.0.1"
+    "@tsconfig/next": "^2.0.1",
+    "@tsconfig/node18": "^18.2.2",
+    "@tsconfig/strictest": "^2.0.2"
   }
 }

@@ -23,18 +23,18 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-lambda-powertools/logger": "^1.7.0",
-    "@aws-sdk/client-dynamodb": "^3.303.0",
-    "@aws-sdk/lib-dynamodb": "^3.303.0",
-    "@aws-sdk/smithy-client": "^3.303.0",
-    "@trpc/server": "^10.18.0",
-    "zod": "^3.21.4"
+    "@aws-lambda-powertools/logger": "^1.14.2",
+    "@aws-sdk/client-dynamodb": "^3.445.0",
+    "@aws-sdk/lib-dynamodb": "^3.445.0",
+    "@aws-sdk/smithy-client": "^3.370.0",
+    "@trpc/server": "^10.43.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@aws-sdk/types": "^3.303.0",
-    "eslint": "^8.37.0",
-    "eslint-define-config": "^1.17.0",
+    "@aws-sdk/types": "^3.433.0",
+    "eslint": "^8.53.0",
+    "eslint-define-config": "^1.24.1",
     "typescript": "^4.9.5",
-    "vitest": "^0.29.8"
+    "vitest": "^0.34.6"
   }
 }
