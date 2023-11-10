@@ -35,7 +35,7 @@ export class Function extends NodejsFunction {
     const newProps = mergeDeep(
       defaultFunctionProps,
       constructDefaultProps?.function,
-      props
+      props,
     );
     super(scope, id, newProps);
     this._functionNode().addMetadata("gboost:function-entrypoint", props.entry);

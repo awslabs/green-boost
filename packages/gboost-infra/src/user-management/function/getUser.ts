@@ -27,7 +27,7 @@ function validate(args: GetUserArgs) {
 }
 
 export async function getUser(
-  params: GetUserParams
+  params: GetUserParams,
 ): Promise<CognitoUser | Omit<CognitoUser, "groups">> {
   const { cognitoClient, event, userPoolId } = params;
   validate(event.arguments);
@@ -38,13 +38,13 @@ export async function getUser(
         new AdminGetUserCommand({
           UserPoolId: userPoolId,
           Username: username,
-        })
+        }),
       ),
       cognitoClient.send(
         new AdminListGroupsForUserCommand({
           UserPoolId: userPoolId,
           Username: username,
-        })
+        }),
       ),
     ]);
     const user = transformUser(res1);
@@ -59,7 +59,7 @@ export async function getUser(
       new AdminGetUserCommand({
         UserPoolId: userPoolId,
         Username: username,
-      })
+      }),
     );
     return transformUser(user);
   }

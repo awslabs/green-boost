@@ -21,9 +21,9 @@ export async function deleteUsers(params: DeleteUsersParams): Promise<unknown> {
         new AdminDeleteUserCommand({
           UserPoolId: userPoolId,
           Username: u,
-        })
-      )
-    )
+        }),
+      ),
+    ),
   );
   return usernames;
 }

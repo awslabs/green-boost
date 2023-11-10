@@ -47,19 +47,19 @@ export class GraphqlApi extends AwsGraphqlApi {
             "The AWSAppSyncPushToCloudWatchLogsRole is not overly permissives",
         },
       ],
-      true
+      true,
     );
   }
 
   override addLambdaDataSource(
     id: string,
     lambdaFunction: IFunction,
-    options?: DataSourceOptions
+    options?: DataSourceOptions,
   ): LambdaDataSource {
     const lambdaDataSource = super.addLambdaDataSource(
       id,
       lambdaFunction,
-      options
+      options,
     );
     NagSuppressions.addResourceSuppressions(
       lambdaDataSource,
@@ -70,7 +70,7 @@ export class GraphqlApi extends AwsGraphqlApi {
             "Allow AppSync to invoke any version/alias of the specified lambda data source",
         },
       ],
-      true
+      true,
     );
     return lambdaDataSource;
   }

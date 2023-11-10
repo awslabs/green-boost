@@ -54,7 +54,7 @@ export async function createUser(props: CreateUserParams): Promise<unknown> {
       UserPoolId: userPoolId,
       Username: username,
       UserAttributes: userAttributes,
-    })
+    }),
   );
   await Promise.all(
     groups.map((g) =>
@@ -63,9 +63,9 @@ export async function createUser(props: CreateUserParams): Promise<unknown> {
           GroupName: g,
           Username: username,
           UserPoolId: userPoolId,
-        })
-      )
-    )
+        }),
+      ),
+    ),
   );
   if (!res.User) throw new Error("Error while creating user");
   const user = transformUser(res.User);

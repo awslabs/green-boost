@@ -113,7 +113,7 @@ export class WebDeployment extends Construct {
     if (buildConfig) {
       if (!existsSync(buildConfig.workingDirectory)) {
         throw new Error(
-          `directoryPath: ${buildConfig.workingDirectory} does not exist`
+          `directoryPath: ${buildConfig.workingDirectory} does not exist`,
         );
       }
       const envs = this.#getEnv(buildConfig.environment);
@@ -177,7 +177,7 @@ export class WebDeployment extends Construct {
     if (isDev) {
       codePath = resolve(
         thisFilePath,
-        "../../../lib/web-deployment/web-deploy-cr-handler"
+        "../../../lib/web-deployment/web-deploy-cr-handler",
       );
     } else {
       codePath = resolve(thisFilePath, "../web-deploy-cr-handler-handler");

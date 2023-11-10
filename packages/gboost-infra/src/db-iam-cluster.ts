@@ -38,7 +38,7 @@ export class DbIamCluster extends CdkDatabaseCluster {
           DBClusterIdentifier: this.clusterIdentifier,
         },
         physicalResourceId: PhysicalResourceId.fromResponse(
-          "DBClusters.0.DbClusterResourceId"
+          "DBClusters.0.DbClusterResourceId",
         ),
       },
       policy: AwsCustomResourcePolicy.fromSdkCalls({
@@ -54,10 +54,10 @@ export class DbIamCluster extends CdkDatabaseCluster {
             "Cannot scope resource with cluster identifier (instead of *) b/c it's unknown",
         },
       ],
-      true
+      true,
     );
     this.resourceId = customResource.getResponseField(
-      "DBClusters.0.DbClusterResourceId"
+      "DBClusters.0.DbClusterResourceId",
     );
   }
 

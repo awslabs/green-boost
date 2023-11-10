@@ -27,7 +27,7 @@ export class UserManagement extends Construct {
 
     const fileExt = import.meta.url.slice(-2);
     const entry = fileURLToPath(
-      new URL(`./function/index.${fileExt}`, import.meta.url)
+      new URL(`./function/index.${fileExt}`, import.meta.url),
     );
     const userFn = new Function(this, "UserFunction", {
       entry,
@@ -60,7 +60,7 @@ export class UserManagement extends Construct {
                 service: "cognito-idp",
                 resource: `userpool/${userPoolId}`,
               },
-              Stack.of(this)
+              Stack.of(this),
             ),
           ],
         }),

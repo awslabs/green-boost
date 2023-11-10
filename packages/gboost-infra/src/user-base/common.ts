@@ -23,7 +23,7 @@ export interface UserPoolGroupProps
 export function createUserPoolGroups(
   scope: Construct,
   groups: UserPoolGroupProps[],
-  userPoolId: string
+  userPoolId: string,
 ) {
   for (const group of groups) {
     const { groupName, precedence, description } = group;

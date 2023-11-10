@@ -13,7 +13,7 @@ interface ResetPasswordsParams {
 }
 
 export async function resetPasswords(
-  params: ResetPasswordsParams
+  params: ResetPasswordsParams,
 ): Promise<unknown> {
   const { cognitoClient, event, userPoolId } = params;
   validate(event.arguments);
@@ -24,9 +24,9 @@ export async function resetPasswords(
         new AdminResetUserPasswordCommand({
           UserPoolId: userPoolId,
           Username: u,
-        })
-      )
-    )
+        }),
+      ),
+    ),
   );
   return usernames;
 }
