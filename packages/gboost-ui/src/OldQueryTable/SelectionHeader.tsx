@@ -35,7 +35,7 @@ interface SelectionHeaderProps<T> {
 }
 
 export function SelectionHeader<T>(
-  props: SelectionHeaderProps<T>
+  props: SelectionHeaderProps<T>,
 ): ReactElement {
   const {
     enableSingleSelect,

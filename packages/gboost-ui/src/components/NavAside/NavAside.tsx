@@ -26,5 +26,5 @@ export const NavAside = forwardRef<HTMLDivElement, NavigationAsideProps>(
         {props.children}
       </Flex>
     );
-  }
+  },
 );

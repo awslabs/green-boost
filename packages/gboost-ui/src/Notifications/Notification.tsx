@@ -95,6 +95,6 @@ export const Notification = forwardRef<HTMLDivElement, NotificationProps>(
         {body}
       </StyledAlert>
     );
-  }
+  },
 );
 Notification.displayName = "Notification";

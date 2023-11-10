@@ -51,13 +51,13 @@ type BaseSmartFieldProps = _BaseSmartFieldProps & ExternalBaseSmartFieldProps;
 
 export function getBaseSmartFieldProps(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  props: Record<string, any>
+  props: Record<string, any>,
 ): ExternalBaseSmartFieldProps {
   const baseSmartFieldProps: Partial<ExternalBaseSmartFieldProps> = {};
   for (const p in props) {
     if (
       externalBaseSmartFieldKeys.includes(
-        p as keyof ExternalBaseSmartFieldProps
+        p as keyof ExternalBaseSmartFieldProps,
       )
     ) {
       baseSmartFieldProps[p as keyof ExternalBaseSmartFieldProps] = props[p];

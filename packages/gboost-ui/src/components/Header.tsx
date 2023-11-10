@@ -16,31 +16,30 @@ interface HeaderProps {
 /**
  * @deprecated
  */
-export const Header = forwardRef<HTMLDivElement, HeaderProps>(function Header(
-  props,
-  ref
-) {
-  const { leftSide, open, rightSide, setOpen } = props;
-  return (
-    <Flex
-      as="header"
-      alignItems="center"
-      gap="xxs"
-      height="100%"
-      padding="small"
-      ref={ref}
-    >
-      <Button gap="xxs" variation="link" onClick={() => setOpen(!open)}>
-        <Icon
-          as={open ? MdMenuOpen : MdMenu}
-          ariaLabel={open ? "open menu" : "menu"}
-          fontSize="x-large"
-        />
-      </Button>
-      <Flex justifyContent="space-between">
-        {leftSide}
-        {rightSide}
+export const Header = forwardRef<HTMLDivElement, HeaderProps>(
+  function Header(props, ref) {
+    const { leftSide, open, rightSide, setOpen } = props;
+    return (
+      <Flex
+        as="header"
+        alignItems="center"
+        gap="xxs"
+        height="100%"
+        padding="small"
+        ref={ref}
+      >
+        <Button gap="xxs" variation="link" onClick={() => setOpen(!open)}>
+          <Icon
+            as={open ? MdMenuOpen : MdMenu}
+            ariaLabel={open ? "open menu" : "menu"}
+            fontSize="x-large"
+          />
+        </Button>
+        <Flex justifyContent="space-between">
+          {leftSide}
+          {rightSide}
+        </Flex>
       </Flex>
-    </Flex>
-  );
-});
+    );
+  },
+);

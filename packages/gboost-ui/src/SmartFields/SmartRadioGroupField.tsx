@@ -31,7 +31,7 @@ export type SmartRadioGroupFieldProps<T extends FieldValues> =
  * @deprecated
  */
 export function SmartRadioGroupField<T extends FieldValues>(
-  props: SmartRadioGroupFieldProps<T>
+  props: SmartRadioGroupFieldProps<T>,
 ): ReactElement {
   const {
     control,

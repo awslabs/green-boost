@@ -26,7 +26,7 @@ export type SmartTextFieldProps<T extends FieldValues> =
  * @deprecated
  */
 export function SmartTextField<T extends FieldValues>(
-  props: SmartTextFieldProps<T>
+  props: SmartTextFieldProps<T>,
 ): ReactElement {
   const { control, errorMessage, hasError, name, ...textFieldProps } = props;
   const id = useId();

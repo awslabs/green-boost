@@ -33,7 +33,7 @@ interface ActionBarProps<T extends Row> {
  * Bar of actions across top of table
  */
 export function ActionBar<T extends Row>(
-  props: ActionBarProps<T>
+  props: ActionBarProps<T>,
 ): ReactElement {
   const {
     columns,
@@ -51,7 +51,7 @@ export function ActionBar<T extends Row>(
   } = props;
   const filterColumns = useMemo(
     () => columns.filter((c) => c.filterOptions),
-    [columns]
+    [columns],
   );
   let finalHeading: ReactNode;
   if (typeof heading === "string") {

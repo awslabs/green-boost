@@ -64,7 +64,7 @@ export function NewFilterRow({
         return newFilter;
       });
     },
-    [filter, filterColumnsObj]
+    [filter, filterColumnsObj],
   );
   return (
     <>

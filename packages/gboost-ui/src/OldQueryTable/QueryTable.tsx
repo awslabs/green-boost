@@ -200,7 +200,7 @@ interface QueryTableProps<T> {
   onSelect?: (
     action: SelectAction,
     allSelectedRows: T[],
-    actionRow?: T
+    actionRow?: T,
   ) => void;
   /**
    * Options for page sizes
@@ -273,7 +273,7 @@ type Action<T> =
 
 function tableReducer<T>(
   state: TableState<T>,
-  action: Action<T>
+  action: Action<T>,
 ): TableState<T> {
   switch (action.type) {
     case "changeColumnVisibility":
@@ -354,7 +354,7 @@ const defaultErrorMessage = "Something went wrong";
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function QueryTable<T extends Record<string, any>>(
-  props: QueryTableProps<T>
+  props: QueryTableProps<T>,
 ): ReactElement {
   const {
     columns = [],
@@ -404,7 +404,7 @@ export function QueryTable<T extends Record<string, any>>(
   ] = useReducer<Reducer<TableState<T>, Action<T>>>(tableReducer, {
     columnVisibility: columns.reduce(
       (prev, cur) => ({ ...prev, [cur.name]: true }),
-      {}
+      {},
     ),
     density: initDensity,
     errorMessage: "",
@@ -481,7 +481,7 @@ export function QueryTable<T extends Record<string, any>>(
         type: "sort",
         sorts: disableMultiSort ? [...sorts, sort] : [sort],
       }),
-    [disableMultiSort, sorts]
+    [disableMultiSort, sorts],
   );
   const handleUpdateSort = useCallback(
     (column: string, direction: "asc" | "desc") => {
@@ -495,7 +495,7 @@ export function QueryTable<T extends Record<string, any>>(
       }
       dispatch({ type: "sort", sorts: newSorts });
     },
-    [sorts]
+    [sorts],
   );
   const handleRemoveSort = useCallback(
     (column: string) => {
@@ -504,7 +504,7 @@ export function QueryTable<T extends Record<string, any>>(
         sorts: sorts.filter((s) => s.column !== column),
       });
     },
-    [sorts]
+    [sorts],
   );
   const handleSelect = useCallback(
     (row: T) => {
@@ -512,7 +512,7 @@ export function QueryTable<T extends Record<string, any>>(
       dispatch({ type: "changeSelected", selected: newSelected });
       onSelect("select", newSelected, row);
     },
-    [enableSingleSelect, onSelect, selected]
+    [enableSingleSelect, onSelect, selected],
   );
   const handleUnselect = useCallback(
     (row: T) => {
@@ -520,7 +520,7 @@ export function QueryTable<T extends Record<string, any>>(
       dispatch({ type: "changeSelected", selected: newSelected });
       onSelect("unselect", newSelected, row);
     },
-    [getRowId, onSelect, selected]
+    [getRowId, onSelect, selected],
   );
   const handleSelectAll = useCallback(() => {
     dispatch({ type: "changeSelected", selected: rows });
@@ -532,13 +532,13 @@ export function QueryTable<T extends Record<string, any>>(
   }, [onSelect]);
   const visibleColumns = useMemo(
     () => columns.filter((c) => columnVisibility[c.name]),
-    [columns, columnVisibility]
+    [columns, columnVisibility],
   );
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const gridTemplateColumns = useMemo(() => {
     let gridTempCols = visibleColumns.reduce(
       (prev, cur) => `${prev} ${cur.width || defaultColWidth}`,
-      ""
+      "",
     );
     if (enableSelect) gridTempCols = `${selectColWidth}px ` + gridTempCols;
     return gridTempCols;
@@ -606,7 +606,7 @@ export function QueryTable<T extends Record<string, any>>(
           filterButtonRef={filterButtonRef}
           heading={heading}
           onChangeColumnVisibility={(
-            columnVisibility: Record<string, boolean>
+            columnVisibility: Record<string, boolean>,
           ) => dispatch({ type: "changeColumnVisibility", columnVisibility })}
           onChangeDensity={(density) =>
             dispatch({ type: "changeDensity", density })

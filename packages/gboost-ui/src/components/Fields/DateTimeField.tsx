@@ -23,7 +23,7 @@ export type DateTimeFieldProps = TextFieldProps &
  */
 export function _DateTimeField(
   props: DateTimeFieldProps,
-  ref: ForwardedRef<HTMLInputElement>
+  ref: ForwardedRef<HTMLInputElement>,
 ): ReactElement {
   const { type = "datetime-local" } = props;
   // as any b/c TextField thinks it has to support HTMLTextField but we don't need that
@@ -36,5 +36,5 @@ export function _DateTimeField(
  * @deprecated
  */
 export const DateTimeField = forwardRef(_DateTimeField) as (
-  props: DateTimeFieldProps & { ref?: ForwardedRef<HTMLInputElement> }
+  props: DateTimeFieldProps & { ref?: ForwardedRef<HTMLInputElement> },
 ) => ReactElement;

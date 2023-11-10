@@ -61,7 +61,7 @@ export function ActionBar<T>(props: ActionBarProps<T>): ReactElement {
   } = props;
   const filterColumns = useMemo(
     () => columns.filter((c) => c.filterOptions),
-    [columns]
+    [columns],
   );
   return (
     <Box

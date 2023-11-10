@@ -28,7 +28,7 @@ interface TableHeaderCellProps<T> {
 }
 
 export function TableHeaderCell<T>(
-  props: TableHeaderCellProps<T>
+  props: TableHeaderCellProps<T>,
 ): ReactElement {
   const {
     activeFilter,

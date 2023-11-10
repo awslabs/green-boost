@@ -96,7 +96,7 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
         }
       }
     },
-    [allFilesComplete, pendingFilesData.length, setPendingFilesData]
+    [allFilesComplete, pendingFilesData.length, setPendingFilesData],
   );
 
   const handleDragOut = useCallback((e: React.DragEvent<HTMLDivElement>) => {
@@ -184,13 +184,13 @@ export function DropOutline(props: DropOutlineProps): ReactElement {
     (event: React.MouseEvent) => {
       handleUpload(event);
     },
-    [handleUpload]
+    [handleUpload],
   );
   const handleExternalClear = useCallback(
     (event: React.MouseEvent) => {
       handleClear(event);
     },
-    [handleClear]
+    [handleClear],
   );
 
   if (props.buttonRef) {

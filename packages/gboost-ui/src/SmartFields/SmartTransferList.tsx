@@ -14,7 +14,7 @@ import { useId } from "@mantine/hooks";
  */
 export type SmartTransferListProps<
   T extends FieldValues,
-  U
+  U,
 > = ExternalBaseSmartFieldProps &
   ControlProps<T> &
   Omit<TransferListProps<U>, "name" | "value" | "onChange">;
@@ -28,7 +28,7 @@ export type SmartTransferListProps<
  * @deprecate
  */
 export function SmartTransferList<T extends FieldValues, U>(
-  props: SmartTransferListProps<T, U>
+  props: SmartTransferListProps<T, U>,
 ): ReactElement {
   const {
     control,

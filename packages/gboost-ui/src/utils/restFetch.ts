@@ -36,7 +36,7 @@ interface _RestFetchParams extends RequestInit {
  */
 async function _restFetch<T>(
   boundParams: _RestFetchParams,
-  params?: _RestFetchParams
+  params?: _RestFetchParams,
 ): Promise<T> {
   const combinedParams = {
     ...boundParams,
@@ -51,7 +51,7 @@ async function _restFetch<T>(
   } = combinedParams;
   const queryString = Object.entries(query).reduce(
     (prev, [k, v], i) => prev + (i === 0 ? "" : "&") + k + "=" + v,
-    ""
+    "",
   );
   const fullPath = apiUrl + path + "?" + queryString;
   const res = await fetch(fullPath, restParams);

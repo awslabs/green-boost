@@ -45,7 +45,7 @@ interface NotificationContainerProps {
  * @deprecated
  */
 export function NotificationContainer(
-  props: NotificationContainerProps
+  props: NotificationContainerProps,
 ): ReactElement {
   // rest includes props passed by <TransitionGroup>
   const {
@@ -62,7 +62,7 @@ export function NotificationContainer(
     if (notification.timeout !== Infinity) {
       timeout.current = window.setTimeout(
         () => removeNotification(notification.id),
-        notification.timeout || 5000
+        notification.timeout || 5000,
       );
       return () => window.clearTimeout(timeout.current);
     }

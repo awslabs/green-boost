@@ -38,7 +38,7 @@ export function UserManagement(props: UserManagementProps): ReactElement {
         value: g,
         label: g.replace(/([A-Z])/g, " $1").trim(), // add space between capital letters
       })),
-    [groupNames]
+    [groupNames],
   );
   const [tab, setTab] = useState(0);
   const [showTabs, setShowTabs] = useState(true);

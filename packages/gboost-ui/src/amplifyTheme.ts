@@ -21,7 +21,7 @@ const amplifyToRadixScale = {
  * @deprecated
  */
 export function getAmplifyTheme(
-  t: StitchesTheme
+  t: StitchesTheme,
 ): ReturnType<typeof createTheme> {
   return createTheme({
     name: "gb",
@@ -43,14 +43,14 @@ export function getAmplifyTheme(
               ...prev,
               [amplify]: t.colors[`primary${radix}`],
             }),
-            {}
+            {},
           ),
           secondary: Object.entries(amplifyToRadixScale).reduce(
             (prev, [amplify, radix]) => ({
               ...prev,
               [amplify]: t.colors[`secondary${radix}`],
             }),
-            {}
+            {},
           ),
         },
       },

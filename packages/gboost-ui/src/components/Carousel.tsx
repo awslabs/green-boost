@@ -162,7 +162,7 @@ export function Carousel(props: CarouselProps): ReactElement {
         }
       });
     },
-    [children.length]
+    [children.length],
   );
   const interval = useInterval(() => cycleActive("next"), int);
   useEffect(() => {

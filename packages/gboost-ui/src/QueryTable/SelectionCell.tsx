@@ -29,7 +29,7 @@ interface SelectionCellProps<T extends Row> {
  * @deprecated
  */
 export function SelectionCell<T extends Row>(
-  props: SelectionCellProps<T>
+  props: SelectionCellProps<T>,
 ): ReactElement {
   const { enableSingleSelect, padding, onSelect, onUnselect, row, selected } =
     props;

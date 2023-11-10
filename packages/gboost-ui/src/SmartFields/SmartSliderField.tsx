@@ -28,7 +28,7 @@ export type SmartSliderFieldProps<T extends FieldValues> =
  * @deprecated
  */
 export function SmartSliderField<T extends FieldValues>(
-  props: SmartSliderFieldProps<T>
+  props: SmartSliderFieldProps<T>,
 ): ReactElement {
   const {
     control,

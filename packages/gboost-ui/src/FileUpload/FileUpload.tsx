@@ -59,7 +59,7 @@ interface FileUploadProps {
    * Overrides default clear behavior
    */
   onClear?: (
-    setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>
+    setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>,
   ) => void;
   /**
    * Buttons displayed inside the component
@@ -109,7 +109,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
   const inputFile = useRef<HTMLInputElement>(null);
   const { notify } = useNotifications();
   const [cursor, updateCursor] = useState(
-    deactivated ? `not-allowed` : `pointer`
+    deactivated ? `not-allowed` : `pointer`,
   );
   const [pendingFilesData, setPendingFilesData] = useState<FileData[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -186,11 +186,11 @@ export function FileUpload(props: FileUploadProps): ReactElement {
             isUploaded: false,
             fileName: file.name,
             hasFailed: false,
-          })
+          }),
         );
       }
     },
-    [pendingFilesData]
+    [pendingFilesData],
   );
 
   const handleClickUpload = useCallback(
@@ -202,7 +202,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
         });
       }
     },
-    [addFileToPending]
+    [addFileToPending],
   );
 
   const handleBoxClick = useCallback(() => {
@@ -280,7 +280,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       notify,
       pendingFilesData.length,
       uploading,
-    ]
+    ],
   );
 
   const removeFile = useCallback((fileName: string) => {
@@ -342,7 +342,7 @@ export function FileUpload(props: FileUploadProps): ReactElement {
       }
       return !fileNameExists;
     },
-    [pendingFilesData]
+    [pendingFilesData],
   );
 
   return (

@@ -42,7 +42,7 @@ export interface TransferListProps<T> {
   onFilter?: (
     filterText: string,
     listOptions: T[],
-    listType?: TransferListType
+    listType?: TransferListType,
   ) => T[] | Promise<T[]>;
   /**
    * If getKey is not defined, each option object must have `key` property
@@ -105,7 +105,7 @@ const StyledList = styled("ul", {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ITransferList<T extends Record<string, any>>(
   props: TransferListProps<T>,
-  ref: ForwardedRef<HTMLUListElement>
+  ref: ForwardedRef<HTMLUListElement>,
 ): ReactElement {
   const {
     errorMessage,
@@ -130,9 +130,9 @@ function ITransferList<T extends Record<string, any>>(
     () =>
       options.reduce(
         (prev, cur) => ({ ...prev, [getKey(cur)]: cur }),
-        {} as Record<string, T>
+        {} as Record<string, T>,
       ),
-    [getKey, options]
+    [getKey, options],
   );
   useEffect(() => {
     async function filter() {
@@ -143,7 +143,7 @@ function ITransferList<T extends Record<string, any>>(
         let filteredItems = handleFilter(
           sourceFilter,
           initSourceKeys.map((k) => optionsMap[k] as T),
-          "source"
+          "source",
         );
         if ("then" in filteredItems) {
           filteredItems = await filteredItems;
@@ -161,7 +161,7 @@ function ITransferList<T extends Record<string, any>>(
         let filteredItems = handleFilter(
           targetFilter,
           initTargetKeys.map((k) => optionsMap[k] as T),
-          "target"
+          "target",
         );
         if ("then" in filteredItems) {
           filteredItems = await filteredItems;
@@ -191,7 +191,7 @@ function ITransferList<T extends Record<string, any>>(
       onChange(nextTargetKeys);
       setSelectedKeys([]);
     },
-    [getKey, onChange, options, selectedKeys, targetKeys]
+    [getKey, onChange, options, selectedKeys, targetKeys],
   );
   const handleCheck = useCallback(
     (key: string, checked: boolean) => {
@@ -199,11 +199,11 @@ function ITransferList<T extends Record<string, any>>(
         setSelectedKeys((selectedKeys) => [...selectedKeys, key]);
       } else {
         setSelectedKeys((selectedKeys) =>
-          selectedKeys.filter((k) => k !== key)
+          selectedKeys.filter((k) => k !== key),
         );
       }
     },
-    [setSelectedKeys]
+    [setSelectedKeys],
   );
   return (
     <StyledFieldContainer>
@@ -314,5 +314,5 @@ function ITransferList<T extends Record<string, any>>(
  * @deprecatedd
  */
 export const TransferList = forwardRef(ITransferList) as <T>(
-  props: TransferListProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
+  props: TransferListProps<T> & { ref?: ForwardedRef<HTMLDivElement> },
 ) => ReactElement;

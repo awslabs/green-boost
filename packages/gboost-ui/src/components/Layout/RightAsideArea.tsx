@@ -20,5 +20,5 @@ export const RightAsideArea = forwardRef<HTMLDivElement, RightAsideAreaProps>(
         ref={ref}
       />
     );
-  }
+  },
 );

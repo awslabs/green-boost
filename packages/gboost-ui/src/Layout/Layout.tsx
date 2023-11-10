@@ -104,7 +104,7 @@ export function Layout(props: LayoutProps): ReactElement {
   } = props;
   const theme = useTheme();
   const mqLg = useMediaQuery(
-    `(min-width: ${theme.breakpoints?.values?.large}px)`
+    `(min-width: ${theme.breakpoints?.values?.large}px)`,
   );
   // initial state makes sidebar open for laptop but closed for tablet and mobile
   const [open, setOpen] = useState(mqLg);

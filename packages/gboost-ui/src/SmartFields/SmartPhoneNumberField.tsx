@@ -25,7 +25,7 @@ export type SmartPhoneFieldProps<T extends FieldValues> =
  * @deprecated
  */
 export function SmartPhoneNumberField<T extends FieldValues>(
-  props: SmartPhoneFieldProps<T>
+  props: SmartPhoneFieldProps<T>,
 ): ReactElement {
   const {
     control,

@@ -31,14 +31,14 @@ interface ListUsersInGroupResponse {
 export function UsersInGroupTable(): ReactElement {
   const theme = useTheme();
   const mqLg = useMediaQuery(
-    `(min-width: ${theme.breakpoints?.values?.large}px)`
+    `(min-width: ${theme.breakpoints?.values?.large}px)`,
   );
   const mqXl = useMediaQuery(`(min-width: ${theme.breakpoints?.values?.xl}px)`);
   const { groupName } = useParams();
   const titleSize = useTitleSize();
   const handleQuery = useCallback(
     async function handleQuery(
-      params: OnQueryParams
+      params: OnQueryParams,
     ): Promise<OnQueryReturnValue<CognitoUser>> {
       const { pageSize: limit, nextToken } = params;
       if (!groupName) return { errorMessage: "Group Name is missing" };
@@ -60,7 +60,7 @@ export function UsersInGroupTable(): ReactElement {
         return { errorMessage: "Error fetching user data" };
       }
     },
-    [groupName]
+    [groupName],
   );
   const columns: Column<CognitoUser>[] = useMemo(
     () => [
@@ -113,7 +113,7 @@ export function UsersInGroupTable(): ReactElement {
         width: !mqXl ? "0" : "2fr",
       },
     ],
-    [mqLg, mqXl]
+    [mqLg, mqXl],
   );
   return (
     <Container>
