@@ -18,7 +18,7 @@
     "aws-cdk-lib": "^2.110.0",
     "cdk-monitoring-constructs": "^6.5.0",
     "cdk-nag": "^2.27.193",
-    "cdk-nextjs-standalone": "^4.0.0-beta.11",
+    "cdk-nextjs-standalone": "^4.0.0-beta.12",
     "constructs": "^10.3.0",
     "gboost-common": "^0.12.1",
     "gboost-infra": "^0.16.2"
