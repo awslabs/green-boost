@@ -1,5 +1,5 @@
 // @ts-check
-import { removeIgnoredFiles } from "@min1/utils";
+import { removeIgnoredFiles } from "@GB_APP_ID/utils";
 
 export default {
   "*.ts": async (files) => {
