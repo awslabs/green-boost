@@ -33,8 +33,8 @@
   "devDependencies": {
     "@aws-sdk/types": "^3.451.0",
     "eslint": "^8.53.0",
-    "eslint-define-config": "^1.24.1",
-    "typescript": "^4.9.5",
+    "eslint-define-config": "^2.0.0",
+    "typescript": "^5.2.2",
     "vitest": "^0.34.6"
   }
 }

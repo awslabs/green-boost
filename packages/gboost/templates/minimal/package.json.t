@@ -12,7 +12,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@types/node": "^18.18.9",
+    "@types/node": "^20.9.1",
     "eslint": "^8.53.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.1.0",

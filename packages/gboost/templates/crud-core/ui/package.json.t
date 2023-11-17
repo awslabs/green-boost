@@ -21,8 +21,8 @@
     "@mui/material": "^5.14.18",
     "@mui/x-data-grid": "^6.18.1",
     "gboost-ui": "^0.35.2",
-    "next": "13.5.6",
-    "open-next": "^1.4.0",
+    "next": "14.0.3",
+    "open-next": "^2.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2"
@@ -32,7 +32,7 @@
     "@types/react-dom": "^18.2.15",
     "esbuild": "0.19.5",
     "eslint": "^8.53.0",
-    "eslint-define-config": "^1.24.1",
+    "eslint-define-config": "^2.0.0",
     "typescript": "^5.2.2",
     "vitest": "^0.34.6",
     "webpack": "^5.89.0"

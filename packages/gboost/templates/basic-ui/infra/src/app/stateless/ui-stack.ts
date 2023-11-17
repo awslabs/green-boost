@@ -82,33 +82,6 @@ export class UiStack extends Stack {
         reason: "Server access logs not needed on Next.js bucket",
       },
     ]);
-    const bucketDeploymentFnPolicy = this.#nextjs.node
-      .findChild("StaticAssets")
-      .node.findChild("BucketDeployment")
-      .node.findChild("Fn")
-      .node.findChild("ServiceRole")
-      .node.findChild("DefaultPolicy")
-      .node.findChild("Resource");
-    NagSuppressions.addResourceSuppressions(bucketDeploymentFnPolicy, [
-      {
-        id: "AwsSolutions-IAM5",
-        reason:
-          "Bucket Deployment lambda can access any object in code asset bucket",
-      },
-    ]);
-    const serverFnPolicy = this.#nextjs.node
-      .findChild("Server")
-      .node.findChild("Fn")
-      .node.findChild("ServiceRole")
-      .node.findChild("DefaultPolicy")
-      .node.findChild("Resource");
-    NagSuppressions.addResourceSuppressions(serverFnPolicy, [
-      {
-        id: "AwsSolutions-IAM5",
-        reason:
-          "Next.js server function can read/write any object in Next.js bucket",
-      },
-    ]);
     const bucketDeployment = this.#nextjs.node
       .findChild("StaticAssets")
       .node.tryFindChild("BucketDeployment");
@@ -127,6 +100,33 @@ export class UiStack extends Stack {
         },
       ]);
     }
+    const serverFnPolicy = this.#nextjs.node
+      .findChild("Server")
+      .node.findChild("Fn")
+      .node.findChild("ServiceRole")
+      .node.findChild("DefaultPolicy")
+      .node.findChild("Resource");
+    NagSuppressions.addResourceSuppressions(serverFnPolicy, [
+      {
+        id: "AwsSolutions-IAM5",
+        reason:
+          "Next.js server function can read/write any object in Next.js bucket",
+      },
+    ]);
+    const serverBucketDeploymentFnPolicy = this.#nextjs.node
+      .findChild("Server")
+      .node.findChild("BucketDeployment")
+      .node.findChild("Fn")
+      .node.findChild("ServiceRole")
+      .node.findChild("DefaultPolicy")
+      .node.findChild("Resource");
+    NagSuppressions.addResourceSuppressions(serverBucketDeploymentFnPolicy, [
+      {
+        id: "AwsSolutions-IAM5",
+        reason:
+          "Next.js server bucket deployment function can read/write any object code asset bucket",
+      },
+    ]);
     const imgOptFnPolicy = this.#nextjs.node
       .findChild("ImgOptFn")
       .node.findChild("ServiceRole")

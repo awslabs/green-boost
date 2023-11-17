@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "eslint": "^8.53.0",
-    "eslint-define-config": "^1.24.1",
+    "eslint-define-config": "^2.0.0",
     "typescript": "^5.2.2",
     "vitest": "^0.34.6"
   }
