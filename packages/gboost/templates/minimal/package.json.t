@@ -15,7 +15,7 @@
     "@types/node": "^18.18.9",
     "eslint": "^8.53.0",
     "husky": "^8.0.3",
-    "lint-staged": "^15.0.2",
+    "lint-staged": "^15.1.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {

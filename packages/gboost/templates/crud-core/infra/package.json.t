@@ -14,10 +14,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "aws-cdk": "^2.105.0",
-    "aws-cdk-lib": "^2.105.0",
+    "aws-cdk": "^2.110.0",
+    "aws-cdk-lib": "^2.110.0",
     "cdk-monitoring-constructs": "^5.10.4",
-    "cdk-nag": "^2.27.188",
+    "cdk-nag": "^2.27.193",
     "cdk-nextjs-standalone": "^4.0.0-beta.10",
     "constructs": "^10.3.0",
     "gboost-common": "^0.12.1",
@@ -28,7 +28,7 @@
     "cdk-dia": "^0.10.0",
     "eslint": "^8.53.0",
     "eslint-define-config": "^1.24.1",
-    "tsx": "^4.0.0",
+    "tsx": "^4.1.3",
     "typescript": "^5.2.2",
     "vitest": "^0.34.6"
   }

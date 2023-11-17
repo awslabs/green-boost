@@ -17,10 +17,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-lambda-powertools/logger": "^1.14.2",
-    "@aws-sdk/client-secrets-manager": "^3.445.0",
-    "@aws-sdk/rds-signer": "^3.445.0",
-    "drizzle-kit": "^0.20.1",
+    "@aws-lambda-powertools/logger": "^1.16.0",
+    "@aws-sdk/client-secrets-manager": "^3.451.0",
+    "@aws-sdk/rds-signer": "^3.451.0",
+    "drizzle-kit": "^0.20.4",
     "drizzle-orm": "^0.29.0",
     "postgres": "^3.4.3",
     "zod": "^3.22.4"
