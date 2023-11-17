@@ -2,9 +2,6 @@ import webpack from "webpack";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
   async headers() {
     return [
       {
