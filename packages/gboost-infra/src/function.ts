@@ -23,7 +23,7 @@ const defaultFunctionProps: NodejsFunctionProps = {
     // https://twitter.com/vvoyer/status/1498436054851981320
     // NODE_OPTIONS: "--enable-source-maps",
   },
-  runtime: Runtime.NODEJS_18_X,
+  runtime: Runtime.NODEJS_20_X,
 };
 
 /**
