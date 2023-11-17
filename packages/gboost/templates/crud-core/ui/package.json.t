@@ -20,7 +20,7 @@
     "@mui/lab": "5.0.0-alpha.153",
     "@mui/material": "^5.14.18",
     "@mui/x-data-grid": "^6.18.1",
-    "gboost-ui": "^0.35.2",
+    "gboost-ui": "^0.36.0",
     "next": "14.0.3",
     "open-next": "^2.3.2",
     "react": "^18.2.0",
