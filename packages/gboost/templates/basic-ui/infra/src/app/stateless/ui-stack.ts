@@ -109,20 +109,24 @@ export class UiStack extends Stack {
           "Next.js server function can read/write any object in Next.js bucket",
       },
     ]);
-    const serverBucketDeploymentFnPolicy = this.#nextjs.node
-      .findChild("Server")
-      .node.findChild("BucketDeployment")
-      .node.findChild("Fn")
-      .node.findChild("ServiceRole")
-      .node.findChild("DefaultPolicy")
-      .node.findChild("Resource");
-    NagSuppressions.addResourceSuppressions(serverBucketDeploymentFnPolicy, [
-      {
-        id: "AwsSolutions-IAM5",
-        reason:
-          "Next.js server bucket deployment function can read/write any object code asset bucket",
-      },
-    ]);
+    const bucketDeployment = this.#nextjs.node
+      .findChild("StaticAssets")
+      .node.tryFindChild("BucketDeployment");
+    if (bucketDeployment) {
+      // bucket deployment is undefined on cdk destroy
+      const bucketDeploymentFnPolicy = bucketDeployment.node
+        .findChild("Fn")
+        .node.findChild("ServiceRole")
+        .node.findChild("DefaultPolicy")
+        .node.findChild("Resource");
+      NagSuppressions.addResourceSuppressions(bucketDeploymentFnPolicy, [
+        {
+          id: "AwsSolutions-IAM5",
+          reason:
+            "Bucket Deployment lambda can access any object in code asset bucket",
+        },
+      ]);
+    }
     const imgOptFnPolicy = this.#nextjs.node
       .findChild("ImgOptFn")
       .node.findChild("ServiceRole")
