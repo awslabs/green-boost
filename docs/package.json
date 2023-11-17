@@ -13,7 +13,7 @@
   "dependencies": {
     "gboost-ui": "workspace:^",
     "lucide-react": "^0.292.0",
-    "next": "13.5.3",
+    "next": "14.0.3",
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",
     "react": "^18.2.0",
@@ -26,7 +26,7 @@
     "@types/react-dom": "^18.2.15",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.53.0",
-    "eslint-define-config": "^1.24.1",
+    "eslint-define-config": "^2.0.0",
     "eslint-plugin-mdx": "^2.2.0",
     "eslint-plugin-react": "^7.33.2",
     "postcss": "^8.4.31",
