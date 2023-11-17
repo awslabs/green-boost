@@ -14,9 +14,9 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "eslint": "^8.44.0",
-    "eslint-define-config": "^1.21.0",
-    "typescript": "^5.1.6",
-    "vitest": "^0.33.0"
+    "eslint": "^8.53.0",
+    "eslint-define-config": "^2.0.0",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   }
 }

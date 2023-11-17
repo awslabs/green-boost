@@ -15,7 +15,7 @@ interface TableCellProps<T extends Row> {
   padding: string;
 }
 export function TableCell<T extends Row>(
-  props: TableCellProps<T>
+  props: TableCellProps<T>,
 ): ReactElement {
   const { col, padding, row } = props;
   let Cell: ReactElement | undefined | string = undefined;

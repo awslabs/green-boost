@@ -119,7 +119,7 @@ export function UpdateUser(props: UpdateUserProps): ReactElement {
         setSubmitting(false);
       }
     },
-    [navigate, notify]
+    [navigate, notify],
   );
   return (
     <Container>

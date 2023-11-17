@@ -16,7 +16,7 @@ interface PortalProps {
  */
 export function Portal(props: PortalProps): ReactElement {
   const portalRootRef = useRef(
-    document.getElementById(portalId) || createPortalRoot()
+    document.getElementById(portalId) || createPortalRoot(),
   );
   useEffect(() => {
     document.body.appendChild(portalRootRef.current);

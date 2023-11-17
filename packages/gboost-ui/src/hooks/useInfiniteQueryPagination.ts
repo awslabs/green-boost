@@ -45,7 +45,7 @@ export function useInfiniteQueryPagination<T>(props: UseInfiniteQueryProps<T>) {
       fetchNextPage({ pageParam: nextCursor });
       setPagination(newPagination);
     },
-    [data, fetchNextPage, setPagination]
+    [data, fetchNextPage, setPagination],
   );
 
   return { rows: items, onChangePagination, pagination: qtPagination };

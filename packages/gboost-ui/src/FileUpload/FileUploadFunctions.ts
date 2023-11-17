@@ -98,7 +98,7 @@ export function handleUpload(props: HandleUploadProps) {
           notify,
           uploadProps,
           file,
-          setPendingFilesData
+          setPendingFilesData,
         );
       } else {
         updateCursor(`wait`);
@@ -108,7 +108,7 @@ export function handleUpload(props: HandleUploadProps) {
           fileName,
           uploadProps,
           setPendingFilesData,
-          notify
+          notify,
         );
       }
     } else {
@@ -148,7 +148,7 @@ export function handleUpload(props: HandleUploadProps) {
 export async function getURL(
   fileProps: FileProps,
   notify: (notification: ContextNotification) => void,
-  uploadProps: UploadProps
+  uploadProps: UploadProps,
 ): Promise<{ url: string } | undefined> {
   try {
     const {
@@ -180,7 +180,7 @@ export async function uploadFile(
   notify: (notification: ContextNotification) => void,
   uploadProps: UploadProps,
   file: File,
-  setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>
+  setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>,
 ) {
   setPercent(0.1);
   const response = await getURL(fileProps, notify, uploadProps);
@@ -251,7 +251,7 @@ export async function handleMultipartUpload(
   fileName: string,
   uploadProps: UploadProps,
   setPendingFilesData: React.Dispatch<React.SetStateAction<FileData[]>>,
-  notify: (notification: ContextNotification) => void
+  notify: (notification: ContextNotification) => void,
 ) {
   setPercent(0.1);
   const {

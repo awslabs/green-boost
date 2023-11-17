@@ -4,7 +4,7 @@ import type { IConstruct } from "constructs";
 export function suppressCdkLogRetention(construct: IConstruct) {
   if (
     construct.node.path.match(
-      /.+LogRetention[a-z0-9]{32}\/ServiceRole\/DefaultPolicy\/Resource$/
+      /.+LogRetention[a-z0-9]{32}\/ServiceRole\/DefaultPolicy\/Resource$/,
     )
   ) {
     NagSuppressions.addResourceSuppressions(construct, [

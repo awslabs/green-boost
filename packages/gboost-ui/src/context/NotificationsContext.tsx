@@ -48,7 +48,7 @@ interface NotificationsProviderProps {
  * @deprecated
  */
 export function NotificationsProvider(
-  props: NotificationsProviderProps
+  props: NotificationsProviderProps,
 ): ReactElement {
   const {
     add,
@@ -61,7 +61,7 @@ export function NotificationsProvider(
   });
   const removeNotification = useCallback(
     (id: string) => update((state) => state.filter((s) => s.id !== id)),
-    [update]
+    [update],
   );
   const contextValue: INotificationsContext = {
     notify: (notification: ContextNotification) => {
@@ -89,7 +89,7 @@ export function useNotifications() {
   const context = useContext(NotificationsContext);
   if (context === undefined) {
     throw new Error(
-      "useNotifications must be used within a NotificationProvider"
+      "useNotifications must be used within a NotificationProvider",
     );
   }
   return context;

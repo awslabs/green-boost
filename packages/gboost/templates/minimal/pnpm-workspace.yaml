@@ -1,7 +1,8 @@
-- 'core'
-- 'infra'
-- 'packages/eslint-config-next'
-- 'packages/eslint-config-node'
-- 'packages/tsconfig'
-- 'packages/utils'
-- 'ui'
+packages: 
+  - "core"
+  - "infra"
+  - "packages/eslint-config-next"
+  - "packages/eslint-config-node"
+  - "packages/tsconfig"
+  - "packages/utils"
+  - "ui"

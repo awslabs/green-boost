@@ -14,7 +14,7 @@ export const handler: PostConfirmationTriggerHandler = async (event) => {
       UserPoolId: event.userPoolId,
       GroupName: defaultGroupName,
       Username: event.userName,
-    })
+    }),
   );
   return event;
 };

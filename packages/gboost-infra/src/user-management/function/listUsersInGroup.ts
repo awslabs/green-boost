@@ -32,7 +32,7 @@ function validate(args: ListUsersInGroupArgs) {
 }
 
 export async function listUsersInGroup(
-  params: ListUsersInGroupParams
+  params: ListUsersInGroupParams,
 ): Promise<unknown> {
   const { cognitoClient, event, userPoolId } = params;
   validate(event.arguments);
@@ -44,7 +44,7 @@ export async function listUsersInGroup(
       GroupName: input.groupName,
       Limit: limit,
       NextToken: input?.nextToken,
-    })
+    }),
   );
   const users: Omit<CognitoUser, "groups">[] = [];
   if (resp.Users) {

@@ -41,7 +41,7 @@ export type FileUploadFieldProps = Omit<TextFieldProps, "value"> &
  */
 export function IFileUploadField(
   props: FileUploadFieldProps,
-  ref: ForwardedRef<HTMLInputElement>
+  ref: ForwardedRef<HTMLInputElement>,
 ): ReactElement {
   const { id: _id, onChange, value, ...textFieldProps } = props;
   const id = useId(_id);
@@ -51,7 +51,7 @@ export function IFileUploadField(
   if (ref) refs.push(ref);
   const mergedRef = useMergedRef(...refs);
   const [uncontrolledValue, setUncontrolledValue] = useState<FileList | null>(
-    null
+    null,
   );
   const uncontrolledOnChange: ChangeEventHandler<HTMLInputElement> =
     useCallback((e) => {
@@ -75,7 +75,7 @@ export function IFileUploadField(
     (e) => {
       if (e.key === "Enter") fileInputRef.current?.click();
     },
-    []
+    [],
   );
   return (
     <Container onClick={handleSelectFile} onKeyUp={handleKeyPress}>
@@ -113,5 +113,5 @@ export function IFileUploadField(
  * @deprecated
  */
 export const FileUploadField = forwardRef(IFileUploadField) as (
-  props: FileUploadFieldProps & { ref?: ForwardedRef<HTMLInputElement> }
+  props: FileUploadFieldProps & { ref?: ForwardedRef<HTMLInputElement> },
 ) => ReactElement;

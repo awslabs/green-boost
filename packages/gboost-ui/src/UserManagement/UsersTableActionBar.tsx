@@ -35,7 +35,7 @@ interface UsersTableActionBarProps {
 }
 
 export function UsersTableActionBar(
-  props: UsersTableActionBarProps
+  props: UsersTableActionBarProps,
 ): ReactElement {
   const { refreshRef, selectedUsers } = props;
   const { notify } = useNotifications();
@@ -67,14 +67,14 @@ export function UsersTableActionBar(
           (u) =>
             !u.enabled ||
             !u.email_verified ||
-            u.status !== CognitoUserStatus.Confirmed
+            u.status !== CognitoUserStatus.Confirmed,
         ),
       update: selectedUsers.length !== 1,
     };
   }, [selectedUsers]);
   const usernames = useMemo(
     () => selectedUsers.map((u) => u.username),
-    [selectedUsers]
+    [selectedUsers],
   );
   const joinedUsernames = useMemo(() => usernames.join(", "), [usernames]);
   const handleDelete = useCallback(async () => {

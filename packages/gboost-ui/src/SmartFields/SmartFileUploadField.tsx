@@ -23,7 +23,7 @@ export type SmartFileUploadFieldProps<T extends FieldValues> =
  * @deprecated
  */
 export function SmartFileUploadField<T extends FieldValues>(
-  props: SmartFileUploadFieldProps<T>
+  props: SmartFileUploadFieldProps<T>,
 ): ReactElement {
   const { control, errorMessage, hasError, name, ...fileUploadFieldProps } =
     props;
@@ -43,7 +43,7 @@ export function SmartFileUploadField<T extends FieldValues>(
       };
       _onChange(newEvent);
     },
-    [_onChange]
+    [_onChange],
   );
   return (
     <BaseSmartField

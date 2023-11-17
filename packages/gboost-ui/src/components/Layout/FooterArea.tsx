@@ -18,5 +18,5 @@ export const FooterArea = forwardRef<HTMLDivElement, FooterAreaProps>(
         ref={ref}
       />
     );
-  }
+  },
 );

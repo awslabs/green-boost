@@ -82,20 +82,24 @@ export class UiStack extends Stack {
         reason: "Server access logs not needed on Next.js bucket",
       },
     ]);
-    const bucketDeploymentFnPolicy = this.#nextjs.node
+    const bucketDeployment = this.#nextjs.node
       .findChild("StaticAssets")
-      .node.findChild("BucketDeployment")
-      .node.findChild("Fn")
-      .node.findChild("ServiceRole")
-      .node.findChild("DefaultPolicy")
-      .node.findChild("Resource");
-    NagSuppressions.addResourceSuppressions(bucketDeploymentFnPolicy, [
-      {
-        id: "AwsSolutions-IAM5",
-        reason:
-          "Bucket Deployment lambda can access any object in code asset bucket",
-      },
-    ]);
+      .node.tryFindChild("BucketDeployment");
+    if (bucketDeployment) {
+      // bucket deployment is undefined on cdk destroy
+      const bucketDeploymentFnPolicy = bucketDeployment.node
+        .findChild("Fn")
+        .node.findChild("ServiceRole")
+        .node.findChild("DefaultPolicy")
+        .node.findChild("Resource");
+      NagSuppressions.addResourceSuppressions(bucketDeploymentFnPolicy, [
+        {
+          id: "AwsSolutions-IAM5",
+          reason:
+            "Bucket Deployment lambda can access any object in code asset bucket",
+        },
+      ]);
+    }
     const serverFnPolicy = this.#nextjs.node
       .findChild("Server")
       .node.findChild("Fn")

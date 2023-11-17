@@ -4,7 +4,7 @@ import type { IConstruct } from "constructs";
 export function suppressCdkCustomResourceProvider(construct: IConstruct) {
   if (
     construct.node.path.endsWith(
-      "Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource"
+      "Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource",
     )
   ) {
     NagSuppressions.addResourceSuppressions(construct, [

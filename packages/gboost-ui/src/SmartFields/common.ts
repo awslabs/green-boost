@@ -22,7 +22,7 @@ const customProps = [
  * attribute names
  */
 export function normalizeProps<T extends Record<string, any>>(
-  props: T
+  props: T,
 ): Omit<T, (typeof customProps)[number]> {
   const _props: Record<string, any> = {};
   for (const p of Object.keys(props)) {

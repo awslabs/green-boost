@@ -20,7 +20,7 @@ export type SmartMultiSelectFieldProps<T extends FieldValues> =
  * @deprecated
  */
 export function SmartMultiSelectField<T extends FieldValues>(
-  props: SmartMultiSelectFieldProps<T>
+  props: SmartMultiSelectFieldProps<T>,
 ): ReactElement {
   const { control, errorMessage, hasError, name, ...multiSelectFieldProps } =
     props;

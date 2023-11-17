@@ -14,22 +14,22 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "aws-cdk": "^2.88.0",
-    "aws-cdk-lib": "^2.88.0",
-    "cdk-monitoring-constructs": "^5.3.4",
-    "cdk-nag": "^2.27.76",
-    "cdk-nextjs-standalone": "^4.0.0-beta.1",
-    "constructs": "^10.2.69",
+    "aws-cdk": "^2.110.0",
+    "aws-cdk-lib": "^2.110.0",
+    "cdk-monitoring-constructs": "^6.5.0",
+    "cdk-nag": "^2.27.193",
+    "cdk-nextjs-standalone": "^4.0.0-beta.12",
+    "constructs": "^10.3.0",
     "gboost-common": "^0.12.1",
     "gboost-infra": "^0.16.2"
   },
   "devDependencies": {
-    "@types/node": "^18.15.11",
+    "@types/node": "^20.9.1",
     "cdk-dia": "^0.10.0",
-    "eslint": "^8.45.0",
-    "eslint-define-config": "^1.17.0",
-    "tsx": "^3.12.7",
-    "typescript": "^5.1.6",
-    "vitest": "^0.33.0"
+    "eslint": "^8.53.0",
+    "eslint-define-config": "^2.0.0",
+    "tsx": "^4.1.3",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   }
 }

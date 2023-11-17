@@ -64,7 +64,7 @@ export const handler: CdkCustomResourceHandler = async (event) => {
       const filePaths = listFilePaths(unzipDirPath);
       if (Object.keys(environment).length) {
         console.log(
-          "Replacing environment variables: " + JSON.stringify(environment)
+          "Replacing environment variables: " + JSON.stringify(environment),
         );
         replaceEnvVars({ environment, filePaths });
       }
@@ -102,7 +102,7 @@ interface DownloadFileParams {
 async function downloadFile(params: DownloadFileParams) {
   const { bucket, key, destinationPath } = params;
   const data = await s3.send(
-    new GetObjectCommand({ Bucket: bucket, Key: key })
+    new GetObjectCommand({ Bucket: bucket, Key: key }),
   );
   return new Promise(async (resolve, reject) => {
     const body = data.Body;
@@ -159,7 +159,7 @@ function replaceEnvVars(params: ReplaceEnvVarsParams) {
           return matchedEnvVar;
         } else {
           console.warn(
-            `Could not find matched value: ${matched} in environment object. Returning ""`
+            `Could not find matched value: ${matched} in environment object. Returning ""`,
           );
           return "";
         }
@@ -191,14 +191,14 @@ async function emptyBucket(bucketName: string) {
           new DeleteObjectsCommand({
             Bucket: bucketName,
             Delete: { Objects: objects },
-          })
-        )
+          }),
+        ),
       );
     }
   } while (nextToken);
   await Promise.all(deleteObjectPromises);
   console.log(
-    `Number of objects deleted for bucket ${bucketName}: ${numObjectsDeleted}`
+    `Number of objects deleted for bucket ${bucketName}: ${numObjectsDeleted}`,
   );
 }
 
@@ -231,7 +231,7 @@ function uploadObjects(params: UploadObjectsParams) {
     };
   });
   return Promise.all(
-    putObjectInputs.map((input) => s3.send(new PutObjectCommand(input)))
+    putObjectInputs.map((input) => s3.send(new PutObjectCommand(input))),
   );
 }
 
@@ -246,6 +246,6 @@ function createInvalidation(params: CreateInvalidationParams) {
         CallerReference: new Date().toISOString(),
         Paths: { Items: ["/*"], Quantity: 1 },
       },
-    })
+    }),
   );
 }

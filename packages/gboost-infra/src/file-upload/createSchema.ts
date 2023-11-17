@@ -109,7 +109,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: uploadURLType.attribute(),
-    })
+    }),
   );
 
   api.addQuery(
@@ -120,7 +120,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: uploadIdType.attribute(),
-    })
+    }),
   );
 
   api.addQuery(
@@ -131,7 +131,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: uploadURLPartType.attribute(),
-    })
+    }),
   );
 
   api.addQuery(
@@ -142,7 +142,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: completeUploadType.attribute(),
-    })
+    }),
   );
 
   api.addQuery(
@@ -153,6 +153,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: abortUploadType.attribute(),
-    })
+    }),
   );
 }

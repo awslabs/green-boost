@@ -79,7 +79,7 @@ export class FileUpload extends Construct {
 
           if (
             corsSettings[corsIndex]?.allowedMethods.includes(
-              "PUT" as HttpMethods
+              "PUT" as HttpMethods,
             )
           ) {
             allowedMethodsExists = true;
@@ -101,7 +101,7 @@ export class FileUpload extends Construct {
       }
 
       const bucketLogicalId = Stack.of(this).getLogicalId(
-        buckets[i]?.bucket.node.defaultChild as CfnBucket
+        buckets[i]?.bucket.node.defaultChild as CfnBucket,
       );
       NagSuppressions.addResourceSuppressions(
         uploadFn,
@@ -121,7 +121,7 @@ export class FileUpload extends Construct {
             ],
           },
         ],
-        true
+        true,
       );
     }
 

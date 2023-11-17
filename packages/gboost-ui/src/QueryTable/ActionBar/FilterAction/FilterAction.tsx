@@ -31,7 +31,7 @@ function serializeFilter(f: Filter): string {
 }
 
 export function FilterAction<T extends Row>(
-  props: FilterActionProps<T>
+  props: FilterActionProps<T>,
 ): ReactElement {
   const {
     disableMultiFilter,
@@ -44,12 +44,12 @@ export function FilterAction<T extends Row>(
     const filterColumnIds = filterColumns.map((f) => f.id).join(", ");
     if (!initFilters) {
       console.warn(
-        `filterOptions were set for column(s): ${filterColumnIds} but filters wasn't passed to QueryTable as a prop`
+        `filterOptions were set for column(s): ${filterColumnIds} but filters wasn't passed to QueryTable as a prop`,
       );
     }
     if (!onChangeFilters) {
       console.warn(
-        `filterOptions were set for column(s): ${filterColumnIds} but onChangeFilters wasn't passed to QueryTable as a prop`
+        `filterOptions were set for column(s): ${filterColumnIds} but onChangeFilters wasn't passed to QueryTable as a prop`,
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,14 +57,17 @@ export function FilterAction<T extends Row>(
   const filters = useMemo(() => initFilters || [], [initFilters]);
   const filterColumnsObj = useMemo(
     () =>
-      filterColumns.reduce((prev, cur) => {
-        prev[String(cur.id)] = {
-          filterOptions: cur.filterOptions,
-          name: cur.headerName,
-        };
-        return prev;
-      }, {} as Record<string, { filterOptions?: FilterOptions; name: string }>),
-    [filterColumns]
+      filterColumns.reduce(
+        (prev, cur) => {
+          prev[String(cur.id)] = {
+            filterOptions: cur.filterOptions,
+            name: cur.headerName,
+          };
+          return prev;
+        },
+        {} as Record<string, { filterOptions?: FilterOptions; name: string }>,
+      ),
+    [filterColumns],
   );
   const columnOptions: ColumnOption[] = useMemo(
     () =>
@@ -72,7 +75,7 @@ export function FilterAction<T extends Row>(
         id: k,
         headerName: v.name,
       })),
-    [filterColumnsObj]
+    [filterColumnsObj],
   );
   const handleCreateFilter = useCallback(
     (filter: Filter) => {
@@ -80,7 +83,7 @@ export function FilterAction<T extends Row>(
         onChangeFilters(disableMultiFilter ? [filter] : [...filters, filter]);
       }
     },
-    [disableMultiFilter, filters, onChangeFilters]
+    [disableMultiFilter, filters, onChangeFilters],
   );
   const handleUpdateFilter = useCallback(
     (oldFilter: Filter, newFilter: Filter) => {
@@ -96,18 +99,18 @@ export function FilterAction<T extends Row>(
         onChangeFilters(newFilters);
       }
     },
-    [filters, onChangeFilters]
+    [filters, onChangeFilters],
   );
   const handleRemoveFilter = useCallback(
     (filter: Filter) => {
       if (onChangeFilters) {
         const newFilters = filters.filter(
-          (f) => serializeFilter(f) !== serializeFilter(filter)
+          (f) => serializeFilter(f) !== serializeFilter(filter),
         );
         onChangeFilters(newFilters);
       }
     },
-    [filters, onChangeFilters]
+    [filters, onChangeFilters],
   );
   const showNewFilter =
     (disableMultiFilter && filters.length === 0) || !disableMultiFilter;

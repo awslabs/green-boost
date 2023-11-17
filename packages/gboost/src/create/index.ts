@@ -18,7 +18,7 @@ export async function create() {
   const message =
     "\n" +
     `✅ Done! Change directory into your new repo: ${kleur.yellow(
-      `cd ${answers.directory}`
+      `cd ${answers.directory}`,
     )}` +
     "\n" +
     `📦 Install dependencies with ${kleur.yellow("pnpm i")}` +
@@ -26,11 +26,11 @@ export async function create() {
     `Quick Guide:` +
     "\n" +
     `🚀 Deploy your web app: ${kleur.yellow("cd infra")} then ${kleur.yellow(
-      "pnpm deploy:local"
+      "pnpm deploy:local",
     )}` +
     "\n" +
     `🧹 Clean up: ${kleur.yellow("cd infra")} then ${kleur.yellow(
-      "pnpm destroy:local"
+      "pnpm destroy:local",
     )}` +
     "\n" +
     `See README.md on how to develop frontend with fast refresh and backend with hotswaps` +
@@ -44,8 +44,8 @@ function ensurePnpm() {
   } catch (err) {
     logger.error(
       `Command not found: ${kleur.yellow(
-        "pnpm"
-      )}. Please install: https://pnpm.io/installation`
+        "pnpm",
+      )}. Please install: https://pnpm.io/installation`,
     );
     throw err;
   }
@@ -57,8 +57,8 @@ function ensureGit() {
   } catch (err) {
     logger.error(
       `Command not found: ${kleur.yellow(
-        "git"
-      )}. Please install: https://git-scm.com`
+        "git",
+      )}. Please install: https://git-scm.com`,
     );
     throw err;
   }

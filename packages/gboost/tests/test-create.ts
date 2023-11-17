@@ -28,7 +28,7 @@ program
   .description("CLI to test 'gboost create' templates")
   .option("--all")
   .addOption(
-    new Option("--template <template>").choices(Object.values(Template))
+    new Option("--template <template>").choices(Object.values(Template)),
   )
   .action(async ({ all, template }) => {
     try {
@@ -85,7 +85,7 @@ function testTemplates(answers: Omit<Answers, "directory">[]) {
       } finally {
         await rm(tmpDir, { force: true, recursive: true });
       }
-    })
+    }),
   );
 }
 

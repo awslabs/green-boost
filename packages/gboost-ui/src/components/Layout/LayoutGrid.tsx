@@ -73,5 +73,5 @@ export const LayoutGrid = forwardRef<HTMLDivElement, LayoutGridProps>(
         {footerArea}
       </Grid>
     );
-  }
+  },
 );

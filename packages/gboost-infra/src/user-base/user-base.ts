@@ -32,7 +32,7 @@ export class UserBase extends Construct {
 
     const fileExt = import.meta.url.slice(-2);
     const entry = fileURLToPath(
-      new URL(`./post-confirmation.${fileExt}`, import.meta.url)
+      new URL(`./post-confirmation.${fileExt}`, import.meta.url),
     );
     const postConfirmationFn = new Function(this, "PostConfirmationFunction", {
       entry,
@@ -46,7 +46,7 @@ export class UserBase extends Construct {
             Arn.format(
               // TODO: lock down resource but how to get around circular dep?
               { service: "cognito-idp", resource: "userpool/*" },
-              Stack.of(this)
+              Stack.of(this),
             ),
           ],
         }),

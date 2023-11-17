@@ -55,14 +55,14 @@ export function UsersTable(props: UsersTableProps): ReactElement {
       oldSelectedUsers.map(
         (oldSelectedUser) =>
           users.find(
-            (u) => u.username === oldSelectedUser.username
-          ) as CognitoUser
-      )
+            (u) => u.username === oldSelectedUser.username,
+          ) as CognitoUser,
+      ),
     );
   }, [users]);
   const handleQuery = useCallback(
     async function handleQuery(
-      params: OnQueryParams
+      params: OnQueryParams,
     ): Promise<OnQueryReturnValue<CognitoUser>> {
       const { filters, pageSize: limit, nextToken } = params;
       const vars: ListUsersArgs = {
@@ -87,11 +87,11 @@ export function UsersTable(props: UsersTableProps): ReactElement {
         return { errorMessage: "Error fetching user data" };
       }
     },
-    [setUsers]
+    [setUsers],
   );
   const theme = useTheme();
   const mqLg = useMediaQuery(
-    `(min-width: ${theme.breakpoints?.values?.large}px)`
+    `(min-width: ${theme.breakpoints?.values?.large}px)`,
   );
   const mqXl = useMediaQuery(`(min-width: ${theme.breakpoints?.values?.xl}px)`);
   const columns: Column<CognitoUser>[] = useMemo(
@@ -201,7 +201,7 @@ export function UsersTable(props: UsersTableProps): ReactElement {
         width: !mqXl ? "0" : "2fr",
       },
     ],
-    [mqLg, mqXl]
+    [mqLg, mqXl],
   );
   const refreshRef = useRef<HTMLButtonElement>(null);
   return (

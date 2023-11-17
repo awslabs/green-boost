@@ -30,7 +30,7 @@ interface TableHeaderCellProps<T extends Row> {
 }
 
 export function TableHeaderCell<T extends Row>(
-  props: TableHeaderCellProps<T>
+  props: TableHeaderCellProps<T>,
 ): ReactElement {
   const {
     activeFilter,

@@ -84,7 +84,7 @@ export function CreateUser(props: CreateUserProps): ReactElement {
         setSubmitting(false);
       }
     },
-    [navigate, notify, setValue]
+    [navigate, notify, setValue],
   );
   useEffect(() => {
     const subscription = watch((_value, { name }) => {

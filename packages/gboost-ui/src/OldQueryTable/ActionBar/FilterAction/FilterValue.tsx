@@ -28,7 +28,7 @@ export function FilterValue({
     (e) => {
       if (e.key === "Enter") handleEnterValue();
     },
-    [handleEnterValue]
+    [handleEnterValue],
   );
   let element: ReactElement;
   if (filterOptions) {

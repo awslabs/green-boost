@@ -18,7 +18,7 @@ export class PipelineStack extends Stack {
     const repo = Repository.fromRepositoryName(
       this,
       "CodeCommitRepo",
-      "{{GB_APP_ID}}",
+      Config.appId,
     );
     const pipeline = new CodePipeline(this, "CdkPipeline", {
       // crossAccountKeys: true,

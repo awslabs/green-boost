@@ -19,7 +19,7 @@ export function Overlay(props: OverlayProps): ReactElement {
             pointerEvents: "auto",
           }
         : {},
-    [show]
+    [show],
   );
   return (
     <Box

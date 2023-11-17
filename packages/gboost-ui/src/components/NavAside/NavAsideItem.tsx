@@ -18,5 +18,5 @@ export const NavAsideItem = forwardRef<HTMLDivElement, NavAsideItemProps>(
         <div className={styles.labelContainer}>{label}</div>
       </Flex>
     );
-  }
+  },
 );

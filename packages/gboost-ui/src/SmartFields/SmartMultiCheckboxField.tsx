@@ -20,7 +20,7 @@ export type SmartMultiCheckboxFieldProps<T extends FieldValues> =
  * @deprecated
  */
 export function SmartMultiCheckboxField<T extends FieldValues>(
-  props: SmartMultiCheckboxFieldProps<T>
+  props: SmartMultiCheckboxFieldProps<T>,
 ): ReactElement {
   const id = useId();
   const { control, errorMessage, hasError, name, ...checkboxFieldProps } =

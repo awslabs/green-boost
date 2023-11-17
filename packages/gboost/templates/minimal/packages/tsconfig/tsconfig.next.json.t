@@ -3,6 +3,6 @@
   "compilerOptions": {
     "target": "ES2017",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-  },
+    "moduleResolution": "Bundler"
+  }
 }

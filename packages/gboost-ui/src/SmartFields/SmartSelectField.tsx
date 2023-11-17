@@ -23,7 +23,7 @@ export type SmartSelectFieldProps<T extends FieldValues> =
  * @deprecated
  */
 export function SmartSelectField<T extends FieldValues>(
-  props: SmartSelectFieldProps<T>
+  props: SmartSelectFieldProps<T>,
 ): ReactElement {
   const { children, errorMessage, hasError, control, name, ...textFieldProps } =
     props;

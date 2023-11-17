@@ -18,7 +18,7 @@ type UserAttrName = (typeof userAttrNames)[number];
 export function transformUser(
   // UserType is returned by List commands and
   // AdminGetUserCommandOuput is returned by Get command
-  user: UserType | AdminGetUserCommandOutput
+  user: UserType | AdminGetUserCommandOutput,
 ): Omit<CognitoUser, "groups"> {
   let attributes: AttributeType[] | undefined;
   if ("Attributes" in user) {

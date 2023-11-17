@@ -30,7 +30,7 @@ interface TableBodyProps<T extends Row> {
 }
 
 export function TableBody<T extends Row>(
-  props: TableBodyProps<T>
+  props: TableBodyProps<T>,
 ): ReactElement {
   const {
     enableSingleSelect,
@@ -48,7 +48,7 @@ export function TableBody<T extends Row>(
   useEffect(() => {
     if (rowsFirstElement && !getRowId(rowsFirstElement)) {
       console.warn(
-        "QueryTable: Either 'id' is not a key in rows[0] or getRowId(rows[0]) is returning undefined. Please fix so that each row has a unique identifier."
+        "QueryTable: Either 'id' is not a key in rows[0] or getRowId(rows[0]) is returning undefined. Please fix so that each row has a unique identifier.",
       );
     }
   }, [getRowId, rowsFirstElement]);
@@ -56,7 +56,7 @@ export function TableBody<T extends Row>(
     if (selected) {
       return selected.reduce(
         (prev, cur) => ({ ...prev, [getRowId(cur)]: true }),
-        {}
+        {},
       );
     } else {
       return {};
@@ -72,7 +72,7 @@ export function TableBody<T extends Row>(
         });
       }
     },
-    [onChangeSelected, selected]
+    [onChangeSelected, selected],
   );
   const handleUnselect = useCallback(
     (row: T) => {
@@ -84,7 +84,7 @@ export function TableBody<T extends Row>(
         });
       }
     },
-    [getRowId, onChangeSelected, selected]
+    [getRowId, onChangeSelected, selected],
   );
   let body: ReactElement[];
   if (!rows.length && loading) {

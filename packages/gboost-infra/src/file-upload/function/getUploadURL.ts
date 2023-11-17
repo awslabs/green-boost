@@ -26,7 +26,7 @@ export async function getUploadURL(params: getUploadURLParams) {
 
   if (process.env["BUCKET_MAP"]) {
     const bucketMap: { bucket: string; baseKey: string }[] = JSON.parse(
-      process.env["BUCKET_MAP"]
+      process.env["BUCKET_MAP"],
     );
     const i = findIndex(bucketMap, bucket);
     if (i === -1) {

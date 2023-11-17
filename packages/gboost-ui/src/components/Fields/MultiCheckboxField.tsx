@@ -41,7 +41,7 @@ export interface MultiCheckboxFieldProps
  * @deprecated
  */
 export function MultiCheckboxField(
-  props: MultiCheckboxFieldProps
+  props: MultiCheckboxFieldProps,
 ): ReactElement {
   const {
     css,
@@ -66,7 +66,7 @@ export function MultiCheckboxField(
         setValue(value.filter((el) => el !== e.target.value));
       }
     },
-    [setValue, value]
+    [setValue, value],
   );
   return (
     <Container aria-invalid={hasError} css={css}>

@@ -37,7 +37,7 @@ interface TableHeaderProps<T extends Row> {
 }
 
 export function TableHeader<T extends Row>(
-  props: TableHeaderProps<T>
+  props: TableHeaderProps<T>,
 ): ReactElement {
   const {
     enableSingleSelect,
@@ -59,12 +59,12 @@ export function TableHeader<T extends Row>(
     if (sortColumnIds) {
       if (!sorts) {
         console.warn(
-          `sortable was set to true for column(s): ${sortColumnIds} but sorts wasn't passed to QueryTable as a prop`
+          `sortable was set to true for column(s): ${sortColumnIds} but sorts wasn't passed to QueryTable as a prop`,
         );
       }
       if (!onChangeSorts) {
         console.warn(
-          `sortable was set to true for column(s): ${sortColumnIds} but onChangeSorts wasn't passed to QueryTable as a prop`
+          `sortable was set to true for column(s): ${sortColumnIds} but onChangeSorts wasn't passed to QueryTable as a prop`,
         );
       }
     }
@@ -94,7 +94,7 @@ export function TableHeader<T extends Row>(
         onChangeSorts(sorts ? [...sorts, sort] : [sort]);
       }
     },
-    [onChangeSorts, sorts]
+    [onChangeSorts, sorts],
   );
   const handleUpdateSort = useCallback(
     (columnId: string, direction: SortDirection) => {
@@ -110,7 +110,7 @@ export function TableHeader<T extends Row>(
         onChangeSorts(newSorts);
       }
     },
-    [onChangeSorts, sorts]
+    [onChangeSorts, sorts],
   );
   const handleRemoveSort = useCallback(
     (columnId: string) => {
@@ -119,7 +119,7 @@ export function TableHeader<T extends Row>(
         onChangeSorts(newSorts);
       }
     },
-    [onChangeSorts, sorts]
+    [onChangeSorts, sorts],
   );
   return (
     <StyledTableHead className="amplify_table__head">

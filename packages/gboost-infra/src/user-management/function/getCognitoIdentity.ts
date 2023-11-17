@@ -6,14 +6,14 @@ interface AppSyncIdentityCognitoCustom extends AppSyncIdentityCognito {
 }
 
 export function getCognitoIdentity(
-  e: AppSyncResolverEvent<unknown>
+  e: AppSyncResolverEvent<unknown>,
 ): AppSyncIdentityCognitoCustom {
   const identity = e.identity as AppSyncIdentityCognitoCustom;
   if (identity?.groups !== null) {
     return identity;
   } else {
     throw new Error(
-      "AppSyncResolverEvent does not have cognito identity with groups"
+      "AppSyncResolverEvent does not have cognito identity with groups",
     );
   }
 }

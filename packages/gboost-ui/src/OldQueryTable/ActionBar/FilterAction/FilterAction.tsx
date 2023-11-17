@@ -51,14 +51,17 @@ export function FilterAction<T>({
 }: FilterActionProps<T>): ReactElement {
   const filterColumnsObj = useMemo(
     () =>
-      filterColumns.reduce((prev, cur) => {
-        prev[String(cur.accessor)] = {
-          filterOptions: cur.filterOptions,
-          name: cur.name,
-        };
-        return prev;
-      }, {} as Record<string, { filterOptions?: FilterOptions; name: string }>),
-    [filterColumns]
+      filterColumns.reduce(
+        (prev, cur) => {
+          prev[String(cur.accessor)] = {
+            filterOptions: cur.filterOptions,
+            name: cur.name,
+          };
+          return prev;
+        },
+        {} as Record<string, { filterOptions?: FilterOptions; name: string }>,
+      ),
+    [filterColumns],
   );
   const columnOptions: ColumnOption[] = useMemo(
     () =>
@@ -66,7 +69,7 @@ export function FilterAction<T>({
         accessor: k,
         name: v.name,
       })),
-    [filterColumnsObj]
+    [filterColumnsObj],
   );
   const handleCreateFilter = useCallback(
     (filter: InternalFilter) => {
@@ -74,7 +77,7 @@ export function FilterAction<T>({
       newFilters.push(filter);
       onFilter(newFilters);
     },
-    [disableMultiFilter, filters, onFilter]
+    [disableMultiFilter, filters, onFilter],
   );
   const handleUpdateFilter = useCallback(
     (id: string, filter: InternalFilter) => {
@@ -88,14 +91,14 @@ export function FilterAction<T>({
       }
       onFilter(newFilters);
     },
-    [filters, onFilter]
+    [filters, onFilter],
   );
   const handleRemoveFilter = useCallback(
     (id: string) => {
       const newFilters = filters.filter((f) => f.id !== id);
       onFilter(newFilters);
     },
-    [filters, onFilter]
+    [filters, onFilter],
   );
   const showNewFilter =
     (disableMultiFilter && filters.length === 0) || !disableMultiFilter;

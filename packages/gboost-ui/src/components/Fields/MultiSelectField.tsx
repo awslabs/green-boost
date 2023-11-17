@@ -112,7 +112,7 @@ export interface MultiSelectFieldProps {
  */
 export function IMultiSelectField(
   props: MultiSelectFieldProps,
-  ref: ForwardedRef<HTMLInputElement>
+  ref: ForwardedRef<HTMLInputElement>,
 ): ReactElement {
   const {
     descriptiveText,
@@ -156,7 +156,7 @@ export function IMultiSelectField(
         });
       }
     },
-    [controlledValue, options.length, onChange]
+    [controlledValue, options.length, onChange],
   );
   const handleClickMultiSelectInput = useCallback(() => {
     setOpen((o) => {
@@ -178,13 +178,13 @@ export function IMultiSelectField(
       } else {
         setValue((oldValues) => {
           const newValues = oldValues.filter(
-            (oldValue) => oldValue !== removeValue
+            (oldValue) => oldValue !== removeValue,
           );
           return newValues;
         });
       }
     },
-    [controlledValue, onChange]
+    [controlledValue, onChange],
   );
   useEffect(() => {
     if (controlledValue) setValue(controlledValue);
@@ -198,7 +198,7 @@ export function IMultiSelectField(
         setOpen(true);
       }
     },
-    []
+    [],
   );
   return (
     <View
@@ -294,5 +294,5 @@ export function IMultiSelectField(
  * @deprecated
  */
 export const MultiSelectField = forwardRef(IMultiSelectField) as (
-  props: MultiSelectFieldProps & { ref?: ForwardedRef<HTMLDivElement> }
+  props: MultiSelectFieldProps & { ref?: ForwardedRef<HTMLDivElement> },
 ) => ReactElement;

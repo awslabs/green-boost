@@ -36,7 +36,7 @@ interface SelectionHeaderProps<T extends Row> {
 }
 
 export function SelectionHeader<T extends Row>(
-  props: SelectionHeaderProps<T>
+  props: SelectionHeaderProps<T>,
 ): ReactElement {
   const {
     enableSingleSelect,

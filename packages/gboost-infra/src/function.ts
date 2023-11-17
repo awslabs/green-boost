@@ -23,7 +23,7 @@ const defaultFunctionProps: NodejsFunctionProps = {
     // https://twitter.com/vvoyer/status/1498436054851981320
     // NODE_OPTIONS: "--enable-source-maps",
   },
-  runtime: Runtime.NODEJS_18_X,
+  runtime: Runtime.NODEJS_20_X,
 };
 
 /**
@@ -35,7 +35,7 @@ export class Function extends NodejsFunction {
     const newProps = mergeDeep(
       defaultFunctionProps,
       constructDefaultProps?.function,
-      props
+      props,
     );
     super(scope, id, newProps);
     this._functionNode().addMetadata("gboost:function-entrypoint", props.entry);

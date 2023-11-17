@@ -19,5 +19,5 @@ export const MainArea = forwardRef<HTMLDivElement, MainAreaProps>(
         ref={ref}
       />
     );
-  }
+  },
 );

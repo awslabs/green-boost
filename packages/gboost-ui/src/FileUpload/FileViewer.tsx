@@ -33,7 +33,7 @@ export function FileViewer(props: FileViewerProps): ReactElement {
         } else {
           return oldFileData;
         }
-      })
+      }),
     );
   }, [fileData.fileName, setPendingFilesData]);
 

@@ -32,7 +32,7 @@ async function get(id: string): Promise<ItemEntity | undefined> {
 }
 
 async function list(input: ListItemsSchema): Promise<ItemEntity[]> {
-  let qb = dbRead.select().from(item);
+  let qb = dbRead.select().from(item).$dynamic();;
   const {
     filterField,
     filterOperator,

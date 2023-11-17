@@ -51,7 +51,7 @@ export function FilterRow({
       }
       handleUpdateFilter(filter, newFilter);
     },
-    [filter, filterColumnsObj, handleUpdateFilter]
+    [filter, filterColumnsObj, handleUpdateFilter],
   );
   const handleChangeComparator: ChangeEventHandler<HTMLSelectElement> =
     useCallback(
@@ -64,7 +64,7 @@ export function FilterRow({
         };
         handleUpdateFilter(filter, newFilter);
       },
-      [filter, handleUpdateFilter]
+      [filter, handleUpdateFilter],
     );
   const handleChangeValue = useCallback(() => {
     handleUpdateFilter(filter, { ...filter, value });

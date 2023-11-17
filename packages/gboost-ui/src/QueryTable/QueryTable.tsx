@@ -37,7 +37,7 @@ const densityToPadding: Record<Density, string> = {
  * @deprecated
  */
 export function QueryTable<T extends Row>(
-  props: QueryTableProps<T>
+  props: QueryTableProps<T>,
 ): ReactElement {
   const {
     bgLoading,
@@ -73,21 +73,21 @@ export function QueryTable<T extends Row>(
     Record<string, boolean>
   >(
     initColumnVisibility ??
-      columns.reduce((prev, cur) => ({ ...prev, [cur.id]: !cur.hide }), {})
+      columns.reduce((prev, cur) => ({ ...prev, [cur.id]: !cur.hide }), {}),
   );
   // allow changing columns prop to affect column visibility - helpful when
   // dynamically adding columns
   useEffect(
     () =>
       setColumnVisibility(
-        columns.reduce((prev, cur) => ({ ...prev, [cur.id]: !cur.hide }), {})
+        columns.reduce((prev, cur) => ({ ...prev, [cur.id]: !cur.hide }), {}),
       ),
-    [columns]
+    [columns],
   );
   const [density, setDensity] = useState<Density>(initDensity);
   const visibleColumns = useMemo(
     () => columns.filter((c) => columnVisibility[c.id as string]),
-    [columns, columnVisibility]
+    [columns, columnVisibility],
   );
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
@@ -98,7 +98,7 @@ export function QueryTable<T extends Row>(
   const gridTemplateColumns = useMemo(() => {
     let gridTempCols = visibleColumns.reduce(
       (prev, cur) => `${prev} ${cur.width || defaultColumnWidth}`,
-      ""
+      "",
     );
     if (selected) gridTempCols = `${selectColWidth}px ` + gridTempCols;
     return gridTempCols;

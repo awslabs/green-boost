@@ -40,8 +40,8 @@ export function Pagination(props: PaginationProps): ReactElement {
     if (!pageSizeOptions.includes(pageSize)) {
       console.warn(
         `pageSize of ${pageSize} passed into QueryTable is not in pageSizeOptions: ${JSON.stringify(
-          pageSizeOptions
-        )}. This will likely cause unexpected behavior.`
+          pageSizeOptions,
+        )}. This will likely cause unexpected behavior.`,
       );
     }
   }, [pageSize, pageSizeOptions]);
@@ -56,7 +56,7 @@ export function Pagination(props: PaginationProps): ReactElement {
         });
       }
     },
-    [hasMorePages, onChangePagination, pageSize, totalPages]
+    [hasMorePages, onChangePagination, pageSize, totalPages],
   );
   return (
     <Box css={{ mt: "$2" }}>

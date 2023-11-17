@@ -12,7 +12,7 @@ interface ColumnVisibilityActionProps<T extends Row> {
 }
 
 export function ColumnVisibilityAction<T extends Row>(
-  props: ColumnVisibilityActionProps<T>
+  props: ColumnVisibilityActionProps<T>,
 ): ReactElement {
   const {
     columns,
@@ -23,9 +23,9 @@ export function ColumnVisibilityAction<T extends Row>(
     () =>
       columns.reduce(
         (prev, cur) => ({ ...prev, [cur.id]: cur.headerName }),
-        {}
+        {},
       ),
-    [columns]
+    [columns],
   );
   return (
     <Dialog

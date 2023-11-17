@@ -9,7 +9,7 @@ interface ColumnVisibilityActionProps {
 }
 
 export function ColumnVisibilityAction(
-  props: ColumnVisibilityActionProps
+  props: ColumnVisibilityActionProps,
 ): ReactElement {
   const {
     columnVisibility,
