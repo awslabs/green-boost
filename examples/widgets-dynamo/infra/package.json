@@ -7,7 +7,7 @@
     "deploy:local": "cdk deploy \"**\" --require-approval never",
     "deploy:pipeline": "cdk --app \"./node_modules/.bin/ts-node src/pipeline/pipeline-app.ts\" deploy \"*\"",
     "destroy:local": "cdk destroy --force \"**\"",
-    "destroy:pipeline": "cdk --app \"./node_modules/.bin/ts-node src/pipeline/pipeline-app.ts\" --force destroy \"*\"",
+    "destroy:pipeline": "cdk --app \"./node_modules/.bin/ts-node src/pipeline/pipeline-app.ts\" destroy --force \"*\"",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "vitest run --passWithNoTests",
     "watch:api": "cdk watch \"*/api\" --hotswap-fallback --exclusively",
