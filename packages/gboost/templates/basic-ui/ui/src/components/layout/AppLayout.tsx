@@ -28,7 +28,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       }}
     >
       <Box
-        bgcolor={(t) => t.palette.primary.main}
+        bgcolor={(t) => t.palette["primary"].main}
         sx={{
           height: "var(--app-bar-height)",
           gridArea: "header",

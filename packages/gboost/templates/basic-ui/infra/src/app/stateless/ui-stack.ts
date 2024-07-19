@@ -9,14 +9,8 @@ import {
   FunctionUrlAuthType,
   Function as CdkFunction,
 } from "aws-cdk-lib/aws-lambda";
-import {
-  SecurityPolicyProtocol,
-  type DistributionProps,
-} from "aws-cdk-lib/aws-cloudfront";
-import { Bucket } from "gboost-infra";
+import { type DistributionProps } from "aws-cdk-lib/aws-cloudfront";
 import { NagSuppressions } from "cdk-nag";
-import { SharedConfig } from "@{{GB_APP_ID}}/core/shared";
-import { type CfnBucket } from "aws-cdk-lib/aws-s3";
 
 interface UiProps extends StackProps {
   config: Config;
@@ -39,11 +33,7 @@ export class UiStack extends Stack {
   #createNextjsSite() {
     const nextjs = new Nextjs(this, "Nextjs", {
       nextjsPath: resolve(thisFilePath, "../../../../../ui"),
-      isPlaceholder: false,
       defaults: {
-        assetDeployment: {
-          bucket: this.#createAssetDeploymentBucket(),
-        },
         lambda: {
           environment: {
             [Config.envVarNames.STAGE_NAME]: this.#props.config.stageName,
@@ -54,8 +44,7 @@ export class UiStack extends Stack {
           cdk: {
             distribution: {
               webAclId: this.#props.webAclArn,
-              minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_2_2021,
-              comment: `${SharedConfig.appId} Distribution for stage: ${
+              comment: `${Config.appId} Distribution for stage: ${
                 this.#props.config.stageName
               }`,
             } as unknown as DistributionProps,
@@ -69,97 +58,85 @@ export class UiStack extends Stack {
     return nextjs;
   }
 
-  #createAssetDeploymentBucket(): Bucket {
-    const bucket = new Bucket(this, "NextjsAssetDeploymentBucket", {
-      autoDeleteObjects: true,
-      removalPolicy: RemovalPolicy.DESTROY,
-    });
-    if (bucket.node.defaultChild) {
-      NagSuppressions.addResourceSuppressions(bucket.node.defaultChild, [
-        {
-          id: "AwsSolutions-S1",
-          reason: "CloudFront Access Logs bucket doesn't need access logs",
-        },
-      ]);
-    }
-    return bucket;
-  }
-
   /**
    * Don't fail on CloudFormation delete due to replicated function
    * @link https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-delete-replicas.html
    */
   #retainEdgeFnOnDelete() {
-    const edgeFn = this.#nextjs.distribution.node
-      .findChild("EdgeFn")
-      .node.findChild("Fn");
+    const edgeFn = this.#nextjs.distribution?.node
+      .tryFindChild("EdgeFn")
+      ?.node.tryFindChild("Fn");
     if (edgeFn instanceof CdkFunction) {
       edgeFn.applyRemovalPolicy(RemovalPolicy.RETAIN);
     }
   }
 
   #suppressNags() {
-    const configBucket = this.#nextjs.node
-      .findChild("ServerFn")
-      .node.findChild("NextjsConfigBucket");
-    NagSuppressions.addResourceSuppressions(
-      configBucket,
-      [
-        {
-          id: "AwsSolutions-S1",
-          reason: "Next.js config bucket doesn't need server access logs",
-        },
-        {
-          id: "AwsSolutions-S10",
-          reason: "TODO: remove me once cdk-nextjs-standalone is updated",
-        },
-      ],
-      true,
-    );
-    const lambdaCodeRewriter = this.#nextjs.node
-      .findChild("ServerFn")
-      .node.findChild("LambdaCodeRewriter")
-      .node.findChild("RewriteOnEventHandler");
-    NagSuppressions.addResourceSuppressions(
-      lambdaCodeRewriter,
-      [
-        {
-          id: "AwsSolutions-L1",
-          reason: "TODO: remove me once cdk-nextjs-standalone is updated",
-        },
+    const staticAssetsBucket = this.#nextjs.node
+      .findChild("StaticAssets")
+      .node.findChild("Bucket")
+      .node.findChild("Resource");
+    NagSuppressions.addResourceSuppressions(staticAssetsBucket, [
+      {
+        id: "AwsSolutions-S1",
+        reason: "Server access logs not needed on Next.js bucket",
+      },
+    ]);
+    const bucketDeployment = this.#nextjs.node
+      .findChild("StaticAssets")
+      .node.tryFindChild("BucketDeployment");
+    if (bucketDeployment) {
+      // bucket deployment is undefined on cdk destroy
+      const bucketDeploymentFnPolicy = bucketDeployment.node
+        .findChild("Fn")
+        .node.findChild("ServiceRole")
+        .node.findChild("DefaultPolicy")
+        .node.findChild("Resource");
+      NagSuppressions.addResourceSuppressions(bucketDeploymentFnPolicy, [
         {
           id: "AwsSolutions-IAM5",
           reason:
-            "Next.js code rewriter can write to any object in CDK assets bucket",
+            "Bucket Deployment lambda can access any object in code asset bucket",
         },
-      ],
-      true,
-    );
-    const serverHandlerPolicy = this.#nextjs.node
-      .findChild("ServerHandler")
+      ]);
+    }
+    const serverFnPolicy = this.#nextjs.node
+      .findChild("Server")
+      .node.findChild("Fn")
       .node.findChild("ServiceRole")
       .node.findChild("DefaultPolicy")
       .node.findChild("Resource");
-    NagSuppressions.addResourceSuppressions(serverHandlerPolicy, [
+    NagSuppressions.addResourceSuppressions(serverFnPolicy, [
       {
         id: "AwsSolutions-IAM5",
-        reason: "Next.js server handler can write to analysis input bucket",
+        reason:
+          "Next.js server function can read/write any object in Next.js bucket",
+      },
+    ]);
+    const serverBucketDeploymentFnPolicy = this.#nextjs.node
+      .findChild("Server")
+      .node.findChild("BucketDeployment")
+      .node.findChild("Fn")
+      .node.findChild("ServiceRole")
+      .node.findChild("DefaultPolicy")
+      .node.findChild("Resource");
+    NagSuppressions.addResourceSuppressions(serverBucketDeploymentFnPolicy, [
+      {
+        id: "AwsSolutions-IAM5",
+        reason:
+          "Next.js server bucket deployment function can read/write any object code asset bucket",
       },
     ]);
     const imgOptFnPolicy = this.#nextjs.node
       .findChild("ImgOptFn")
-      .node.findChild("get-image-policy")
+      .node.findChild("ServiceRole")
+      .node.findChild("DefaultPolicy")
       .node.findChild("Resource");
-    const bucket = this.#nextjs.bucket;
-    const bucketLogicalId = Stack.of(this).getLogicalId(
-      bucket.node.defaultChild as CfnBucket,
-    );
     NagSuppressions.addResourceSuppressions(imgOptFnPolicy, [
       {
         id: "AwsSolutions-IAM5",
         reason:
           "Next.js Image Optimization Function can access any object in Next.js bucket",
-        appliesTo: [`Resource::<${bucketLogicalId}.Arn>/*`],
       },
     ]);
     const distribution = this.#nextjs.node
@@ -178,16 +155,12 @@ export class UiStack extends Stack {
     ]);
     const revalidationQueue = this.#nextjs.node
       .findChild("Revalidation")
-      .node.findChild("RevalidationQueue")
+      .node.findChild("Queue")
       .node.findChild("Resource");
     NagSuppressions.addResourceSuppressions(revalidationQueue, [
       {
         id: "AwsSolutions-SQS3",
         reason: "Revalidation Queue doesn't need DLQ.",
-      },
-      {
-        id: "AwsSolutions-SQS4",
-        reason: "TODO: remove once this is fixed in cdk-nextjs-standalone",
       },
     ]);
   }

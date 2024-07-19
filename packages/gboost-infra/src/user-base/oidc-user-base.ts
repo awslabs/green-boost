@@ -98,7 +98,7 @@ export class OidcUserBase extends Construct {
         scopes: idpScopes,
         userPool: this.userPool,
         ...userPoolIdentityProviderOidcProps,
-      }
+      },
     );
 
     this.userPoolClient = new UserPoolClient(this, "UserPoolClient", {
@@ -112,7 +112,7 @@ export class OidcUserBase extends Construct {
       ],
       // TODO: maybe need readAttributes and writeAttributes?
       writeAttributes: new ClientAttributes().withStandardAttributes(
-        standardWriteAttributes
+        standardWriteAttributes,
       ),
       userPool: this.userPool,
       ...userPoolClientProps,

@@ -164,7 +164,7 @@ export class StaticSite extends Construct {
         responseHeadersPolicy: new ResponseHeadersPolicy(
           this,
           "ResponseHeadersPolicy",
-          responseHeadersPolicyProps
+          responseHeadersPolicyProps,
         ),
       },
       domainNames,

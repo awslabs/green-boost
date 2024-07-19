@@ -33,7 +33,7 @@ export class Bucket extends CdkBucket {
     const newProps = mergeDeep(
       defaultBucketProps,
       constructDefaultProps.bucket,
-      props
+      props,
     );
     super(scope, id, newProps);
     this.#id = id;
@@ -63,7 +63,7 @@ export class Bucket extends CdkBucket {
             ],
           },
         ],
-      }
+      },
     );
     NagSuppressions.addResourceSuppressions(serverAccessLogsBucket, [
       {

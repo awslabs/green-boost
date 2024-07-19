@@ -1,6 +1,6 @@
 export function findIndex(
   bucketMap: { bucket: string; baseKey: string }[],
-  bucket: string
+  bucket: string,
 ) {
   let i = 0;
   let notFound = true;

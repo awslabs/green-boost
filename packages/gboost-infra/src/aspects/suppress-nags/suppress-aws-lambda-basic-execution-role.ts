@@ -34,7 +34,7 @@ export function suppressAwsLambdaBasicExecutionRole(construct: IConstruct) {
                 "The Lambda Basic Execution Role does not grant excessive access",
             },
           ],
-          true
+          true,
         );
       }
     }

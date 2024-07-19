@@ -8,6 +8,6 @@
     "src/**/*.test.ts",
     // custom resource functions are bundled by esbuild. see scripts/build.ts
     "./src/web-deployment/web-deploy-cr-handler/**",
-    "scripts/**/*",
+    "scripts/**/*"
   ]
 }

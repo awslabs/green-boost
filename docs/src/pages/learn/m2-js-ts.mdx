@@ -1,0 +1,31 @@
+# Module 2: JavaScript/TypeScript
+Green Boost uses TypeScript (TS) on the frontend, backend, and to define your infrastructure. The better you know TS, the better you'll be able to navigate each layer of your full stack web apps.
+
+## Learn
+- JavaScript: read/scan the [MDN JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)
+  - TS is a superset of JavaScript (JS), so the better you know JS, the better you know TS.
+- TypeScript: read the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- TypeScript Playground Examples: go to the [TypeScript Playground](https://www.typescriptlang.org/play), click on the Examples tab, and read/tinker with the preset examples covering
+  - Primitives
+  - Type Primitives
+  - Meta-Types
+  - Language
+  - Language Extensions
+
+## Apply
+You've been told that in addition to supporting an items table (which the template already has), you also need to support an albums table where a user can store their albums. To begin, you'll need to write use case functions to perform the basic create, read, update, and delete functions. These functions should be type-safe and performant. For now, you can use the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/) to mock your DB calls with the fake "https://jsonplaceholder.typicode.com/albums" resource. See guide [here](https://jsonplaceholder.typicode.com/guide/).
+
+### M2.1 - Create Use Case
+Write a `core/src/modules/albums/create-album.usecase.ts` file that creates an album. Albums have a `userId`, `id`, and `title`. Ensure the `userId` and `id` are integers and the `title` is no longer than 100 characters. Additionally, you must ensure the user exists before creating the album.
+
+### M2.2 - Test Function
+Now test your function. Create a temporary file at `core/src/modules/albums/test.ts`. Import the function you created in the last step, then run `pnpm tsx src/modules/albums/test.ts` with your current working directory as `core/`. Ensure you're logging the response of the JSONPlaceholder API to ensure a "successful" creation (the API responds like you successfully created the resource even though it isn't actually created).
+
+### M2.3 - Debug Line-By-Line
+Test your function with an invalid input, ensure the function throws an error with line-by-line debugging. To do this, set a [breakpoint](https://code.visualstudio.com/docs/editor/debugging#_breakpoints) on the line you want to begin line-by-line debugging with and then run your `pnpm tsx ...` command within VS Code's [JavaScript Debug Terminal](https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_javascript-debug-terminal).
+
+### M2.4 - Other Use Cases
+Create functions in a similar manner that read, update, and delete albums and then test them. Don't worry about organizing your code in a clean code architecture format like `core/src/modules/item/**`, we'll refactor this code in [module 7](./m7-clean-code).
+
+### M2.5 - Bulk Import
+Now you've been tasked to create a use case function that bulk imports or creates albums. This function will accept an array of objects. The JSONPlaceholder API doesn't have a bulk create API, so you'll need to make individual requests. Make sure this function is performant by `await{:ts}`ing in parallel rather than serially.

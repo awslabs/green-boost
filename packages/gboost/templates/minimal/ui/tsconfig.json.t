@@ -1,12 +1,10 @@
 {
-  "extends": [
-    "@{{GB_APP_ID}}/tsconfig/tsconfig.next.json"
-  ],
+  "extends": ["@{{GB_APP_ID}}/tsconfig/tsconfig.next.json"],
   "compilerOptions": {
     "exactOptionalPropertyTypes": false,
     "paths": {
       "@/*": ["./src/*"],
-    },
+    }
   },
   "include": [
     "next-env.d.ts",

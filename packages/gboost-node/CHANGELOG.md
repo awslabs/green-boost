@@ -1,5 +1,16 @@
 # gboost-node
 
+## 0.4.0
+
+### Minor Changes
+
+- [#260](https://github.com/awslabs/green-boost/pull/260) [`4680cc1`](https://github.com/awslabs/green-boost/commit/4680cc1e2290e5838f4b613980b48591683dbe99) Thanks [@bestickley](https://github.com/bestickley)! - Update Dependencies
+
+### Patch Changes
+
+- Updated dependencies [[`4680cc1`](https://github.com/awslabs/green-boost/commit/4680cc1e2290e5838f4b613980b48591683dbe99)]:
+  - gboost-common@0.13.0
+
 ## 0.3.1
 
 ### Patch Changes

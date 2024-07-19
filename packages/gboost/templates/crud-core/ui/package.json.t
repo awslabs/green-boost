@@ -15,25 +15,26 @@
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@hookform/resolvers": "^3.1.1",
-    "@mui/icons-material": "^5.14.1",
-    "@mui/lab": "5.0.0-alpha.138",
-    "@mui/material": "^5.14.1",
-    "@mui/x-data-grid": "^6.10.2",
-    "gboost-ui": "^0.35.2",
-    "next": "13.4.12",
-    "open-next": "^1.4.0",
+    "@hookform/resolvers": "^3.3.2",
+    "@mui/icons-material": "^5.14.18",
+    "@mui/lab": "5.0.0-alpha.153",
+    "@mui/material": "^5.14.18",
+    "@mui/x-data-grid": "^6.18.1",
+    "gboost-ui": "^0.36.0",
+    "next": "14.0.3",
+    "open-next": "^2.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.45.2"
+    "react-hook-form": "^7.48.2"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "eslint": "^8.45.0",
-    "eslint-define-config": "^1.21.0",
-    "typescript": "^5.1.6",
-    "vitest": "^0.33.0",
-    "webpack": "^5.88.2"
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "esbuild": "0.19.5",
+    "eslint": "^8.53.0",
+    "eslint-define-config": "^2.0.0",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6",
+    "webpack": "^5.89.0"
   }
 }

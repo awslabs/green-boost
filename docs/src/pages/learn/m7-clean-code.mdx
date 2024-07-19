@@ -1,0 +1,36 @@
+# Module 7: Clean Code Architecture
+Green Boost repositories organize code such that it is modular, adaptable, and maintainable. The code organization techniques used draw upon ideas from Domain Driven Design, Hexagonal Architecture, and Vertical Slice Architecture.
+
+## Learn
+- Read Serverless Clean Architecture & Code with Domain-Driven Design Articles
+  - Note, these articles have enterprise use cases in mind. The GB app you created in week 1 is meant to be approachable so you won't see all of these concepts within the GB /core workspace
+  - Read [Part 1: Intro, What, Why](https://blog.serverlessadvocate.com/serverless-clean-architecture-code-with-domain-driven-design-852796846d28). Focus on hexagonal and onion architecture concepts
+  - Optional: read [Part 2: Aggregates, Value Objects, Events](https://blog.serverlessadvocate.com/serverless-clean-architecture-code-with-domain-driven-design-part-2-9ad0882ff85b)
+  - Optional: read [Part 3: DDD](https://blog.serverlessadvocate.com/serverless-architecture-layers-ddd-part-3-the-domain-layer-43ffce28806f)
+  - Optional: read [Part 4: The Data Layer](https://blog.serverlessadvocate.com/serverless-architecture-layers-ddd-part-4-the-data-layer-8d27b5889034)
+- The previous series sets up a lot of boilerplate code designed to help you organize an enterprise grade app with DDD in mind. But what if you're building a simpler app?
+  - Read [Serverless Light Weight Clean Code Approach](https://blog.serverlessadvocate.com/serverless-lightweight-clean-code-approach-84133c90eeeb)
+- Read Amazon Prescriptive Guidance: [Building hexagonal architectures on AWS](https://docs.aws.amazon.com/pdfs/prescriptive-guidance/latest/hexagonal-architectures/hexagonal-architectures.pdf)
+- Read [Vertical Slice Architecture](https://www.jimmybogard.com/vertical-slice-architecture/)
+
+## Apply
+### M7.1 - Architectures Compared
+- Why is the onion/evolutionary architecture beneficial?
+- What potential issues do you see if domain code (inner layer) starts depending upon adapters (outer layers)?
+- What's the benefit of organizing code into vertical slices?
+- How does adding a new feature compare between code organized horizontally (by onion layer) or vertically (by feature)?
+
+### M7.2 - Code Architecture of /core
+- Review the code architecture of `core/src/modules/item/*`. Do you think it's modular, adaptable, and flexible? Why or why not?
+- Review the code architecture of `core/src/modules/album/*`. How does it compare?
+
+### M7.3 - Refactor Album
+- Refactor `core/src/modules/album/*` to follow code architecture best practices.
+- Use `core/src/modules/item/*` as a guide.
+
+### M7.4 - DB Refactor
+Users cannot get enough of your new album feature. The load on the Aurora PostgreSQL cluster is too great.
+- Refactor the persistence of your album entities to DynamoDB.
+- Did isolating the code interacting with the DB in a repository file simplify refactoring to DynamoDB?
+
+Thank you for completing the Green Boost Learn Modules. Congrats! 🎉

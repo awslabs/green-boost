@@ -4,7 +4,7 @@ import type { IConstruct } from "constructs";
 export function suppressCdkMonitoringConstructs(construct: IConstruct) {
   if (
     construct.node.path.endsWith(
-      "/SecretsManagerMetricsPublisher/Lambda/ServiceRole/DefaultPolicy/Resource"
+      "/SecretsManagerMetricsPublisher/Lambda/ServiceRole/DefaultPolicy/Resource",
     )
   ) {
     NagSuppressions.addResourceSuppressions(construct, [
@@ -17,7 +17,7 @@ export function suppressCdkMonitoringConstructs(construct: IConstruct) {
   }
   if (
     construct.node.path.endsWith(
-      "/SecretsManagerMetricsPublisher/Lambda/Resource"
+      "/SecretsManagerMetricsPublisher/Lambda/Resource",
     )
   ) {
     NagSuppressions.addResourceSuppressions(construct, [

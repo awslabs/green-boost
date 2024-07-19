@@ -56,7 +56,7 @@ export async function listUsers(params: ListUsersParams): Promise<unknown> {
       Filter: filterString,
       Limit: limit,
       PaginationToken: nextToken,
-    })
+    }),
   );
   const users: Omit<CognitoUser, "groups">[] = [];
   if (resp.Users) {

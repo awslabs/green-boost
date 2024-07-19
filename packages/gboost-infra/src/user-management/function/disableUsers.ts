@@ -12,7 +12,7 @@ interface DisableUsersParams {
 }
 
 export async function disableUsers(
-  params: DisableUsersParams
+  params: DisableUsersParams,
 ): Promise<unknown> {
   const { cognitoClient, event, userPoolId } = params;
   validate(event.arguments);
@@ -23,9 +23,9 @@ export async function disableUsers(
         new AdminDisableUserCommand({
           UserPoolId: userPoolId,
           Username: u,
-        })
-      )
-    )
+        }),
+      ),
+    ),
   );
   return usernames;
 }

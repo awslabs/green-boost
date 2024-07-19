@@ -5,6 +5,6 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "search.exclude": {
     "**/node_modules": true,
-    "**/cdk.out": true,
+    "**/cdk.out": true
   }
 }

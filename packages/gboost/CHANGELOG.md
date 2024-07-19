@@ -1,5 +1,68 @@
 # gboost
 
+## 0.22.0
+
+### Minor Changes
+
+- [#260](https://github.com/awslabs/green-boost/pull/260) [`4680cc1`](https://github.com/awslabs/green-boost/commit/4680cc1e2290e5838f4b613980b48591683dbe99) Thanks [@bestickley](https://github.com/bestickley)! - Update Dependencies
+
+### Patch Changes
+
+- Updated dependencies [[`4680cc1`](https://github.com/awslabs/green-boost/commit/4680cc1e2290e5838f4b613980b48591683dbe99)]:
+  - gboost-common@0.13.0
+
+## 0.21.0
+
+### Minor Changes
+
+- [#255](https://github.com/awslabs/green-boost/pull/255) [`d3f4685`](https://github.com/awslabs/green-boost/commit/d3f468598ba7566bfaced66660562a17be455538) Thanks [@bestickley](https://github.com/bestickley)! - Update cdk-nextjs-standalone
+
+### Patch Changes
+
+- [#255](https://github.com/awslabs/green-boost/pull/255) [`d3f4685`](https://github.com/awslabs/green-boost/commit/d3f468598ba7566bfaced66660562a17be455538) Thanks [@bestickley](https://github.com/bestickley)! - Remove deprecated @tsconfig/esm
+
+## 0.20.4
+
+### Patch Changes
+
+- [#252](https://github.com/awslabs/green-boost/pull/252) [`50ca09a`](https://github.com/awslabs/green-boost/commit/50ca09a4fed2e2db95bc3122a5b9e3566e20304d) Thanks [@bestickley](https://github.com/bestickley)! - Fix issue in PostgreSQL templates where SQL identifiers are invalid if app id contains dash. Converts to underscore.
+
+## 0.20.3
+
+### Patch Changes
+
+- [#249](https://github.com/awslabs/green-boost/pull/249) [`5124c06`](https://github.com/awslabs/green-boost/commit/5124c061375986c11ca47cb84d9d957a186bdb20) Thanks [@bestickley](https://github.com/bestickley)! - Fix ui template formatting
+
+## 0.20.2
+
+### Patch Changes
+
+- [#247](https://github.com/awslabs/green-boost/pull/247) [`60a1944`](https://github.com/awslabs/green-boost/commit/60a1944d836749ba6567229add6a24f4bbf2fe6c) Thanks [@bestickley](https://github.com/bestickley)! - Add SQL compatible identifiers based on app id in templates
+
+- [#247](https://github.com/awslabs/green-boost/pull/247) [`60a1944`](https://github.com/awslabs/green-boost/commit/60a1944d836749ba6567229add6a24f4bbf2fe6c) Thanks [@bestickley](https://github.com/bestickley)! - Fix code formatting in templates
+
+## 0.20.1
+
+### Patch Changes
+
+- [#245](https://github.com/awslabs/green-boost/pull/245) [`60a2d5a`](https://github.com/awslabs/green-boost/commit/60a2d5a9e3e76e649d5049b0e1f2bd2bec720c3b) Thanks [@bestickley](https://github.com/bestickley)! - Fix file layout of migration lambda's drizzle folder for CRUD Aurora PG template
+
+## 0.20.0
+
+### Minor Changes
+
+- [#243](https://github.com/awslabs/green-boost/pull/243) [`310de42`](https://github.com/awslabs/green-boost/commit/310de42774eb04fd14e8e3fb35f82e2684c16095) Thanks [@bestickley](https://github.com/bestickley)! - Add eslint-plugin-security to templates
+
+### Patch Changes
+
+- [#243](https://github.com/awslabs/green-boost/pull/243) [`310de42`](https://github.com/awslabs/green-boost/commit/310de42774eb04fd14e8e3fb35f82e2684c16095) Thanks [@bestickley](https://github.com/bestickley)! - Fix shell commands to be windows compatible
+
+## 0.19.3
+
+### Patch Changes
+
+- [#235](https://github.com/awslabs/green-boost/pull/235) [`1aac12f`](https://github.com/awslabs/green-boost/commit/1aac12fc9cafc086b4caec99b4fa3666d5b016fd) Thanks [@firxworx](https://github.com/firxworx)! - fix git check of `gboost create` to support all versions of git
+
 ## 0.19.2
 
 ### Patch Changes

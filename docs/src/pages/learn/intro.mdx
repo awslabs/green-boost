@@ -1,0 +1,16 @@
+# Introduction
+
+## Summary
+The purpose of this training is to bring you up to speed with Green Boost (GB), a toolkit to build full stack cloud native web apps faster on AWS. Module 1 takes you through deploying a GB web app with the GB CLI. Then, subsequent modules dive deep into various aspects of your GB App including: infrastructure, frontend, backend, tooling, and clean code architecture.
+
+## Why Green Boost?
+GB was built to speed up [AWS Professional Services](https://aws.amazon.com/professional-services/) delivery of web apps to customers. Many web apps have similar needs when it comes to setting up a repository, authentication, user management, CI/CD pipelines, etc. GB's goal is provide the undifferentiated heavy lifting in these common areas. To do this, GB provides an opinionated way to build these common web app components.
+
+## Does Green Boost Fit Every Use Case?
+GB is not for all use cases. Some customers have technology requirements that are not compatible with GB. That's ok. To achieve higher development speeds, GB makes assumptions about what technologies are used. Similar to how AWS recommends enterprise customers go all-in on AWS to leverage features higher up the stack that result in faster development instead of the“multi-cloud approach that restricts customers to build with the lowest common denominator of the cloud (containers, k8s, etc.), so GB recommends building with prescribed technologies. However, if a customer has a strong opinion on one part of the stack, then you still may be able to build with GB. For example, although GB uses React, a customer could use Angular or Vue instead but they would not be able to leverage GB's UI component library, `gboost-ui`.
+
+## Toolkit
+GB is a toolkit that leverages several key technologies including: TypeScript, React, AWS Cloud Development Kit (CDK), and Node.js. GB also uses other 3rd party open source tools/libraries/frameworks to help build web apps that delight customers with their quality and speed. The benefits of using 3rd party open source tools are new features and bug fixes by the community, community support (StackOverflow Q&As), and lighter maintenance burden on the GB team. 3rd party tools also have risks being maintained by another individual/organization. It's a tradeoff the GB team tries to carefully navigate. With that said, GB is not only an ad-hoc tool. The GB CLI generates a full stack web app for you which you'll do in the first training module.
+
+## Module Topics
+You may scan through this training and think, “Wait, what is GB actually doing?” This training intentionally doesn't dive into constructs, components, and functions exported from GB's libraries. Instead it focuses on the tools GB apps are built with so you'll have a more holistic, over-arching understanding of how to deliver a GB app. In the future, additional trainings will cover those libraries more in depth.

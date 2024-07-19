@@ -1,0 +1,15 @@
+# Prerequisites
+
+In order to use Green Boost, you'll need to do the following:
+- Install [Git](https://git-scm.com/)
+- Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- Install [PNPM](https://pnpm.io/)
+- Install/activate [Node.js 18](https://nodejs.org/en)
+  - If you don't have a way to manage your Node.js versions, we recommend PNPM's built in [pnpm env](https://pnpm.io/cli/env) command where you can use the latest version of Node.js 18 with: `pnpm env use --global 18`
+- Setup an [AWS Account](https://aws.amazon.com/)
+  - If you're building a production grade web app, we recommend using a well-architected, multi-account AWS environment with Landing Zone. Learn more [here](https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-aws-environment/welcome.html).
+- [Bootstrap](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html) AWS Account with the CDK
+  - `cdk bootstrap aws://<account-number>/<region>`
+  - Ensure you've bootstrapped *us-east-1* and the region you're deploying to if different than *us-east-1*. This is required for CloudFront Lambda@Edge Functions.
+- Inject your AWS credentials into your terminal
+  - Not sure how to manage your AWS credentials? Checkout our guide [here](./guides/aws-credentials).

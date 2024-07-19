@@ -12,10 +12,10 @@ const thisFilePath = fileURLToPath(import.meta.url);
  */
 async function main() {
   const templateFilePaths = listFilePaths(
-    resolve(thisFilePath, "../../templates")
+    resolve(thisFilePath, "../../templates"),
   );
   const pkgJsonPaths = templateFilePaths.filter((p) =>
-    p.endsWith("package.json.t")
+    p.endsWith("package.json.t"),
   );
   const updatedPkgJsons = await Promise.all(
     pkgJsonPaths.map((packageFile) =>
@@ -26,8 +26,8 @@ async function main() {
         jsonAll: true,
         silent: false,
         packageManager: "pnpm",
-      })
-    )
+      }),
+    ),
   );
 
   let i = 0;

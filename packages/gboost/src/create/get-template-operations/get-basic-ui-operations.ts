@@ -22,7 +22,7 @@ export function getBasicUiOperations(params: BaseOperationParams): Operation[] {
       type: OperationType.UpdatePackageJson,
       sourcePaths: [resolve(destinationPath, "infra/package.json.t")],
       devDependencies: {
-        [`cdk-nextjs-standalone`]: "^3.2.1",
+        [`cdk-nextjs-standalone`]: "^4.0.0-beta.9",
       },
     },
   ];

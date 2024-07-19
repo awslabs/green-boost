@@ -20,7 +20,7 @@ export function getTemplateOperations(answers: Answers): Operation[] {
   const destinationPath = resolve(directory);
   const templatesDirPath = resolve(
     fileURLToPath(import.meta.url),
-    "../../../../templates"
+    "../../../../templates",
   );
   const opsParams: BaseOperationParams = {
     appId,

@@ -129,11 +129,13 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       // selectionSetGraphQL and selectionSetList return are not serialized by default
       // so we need custom VTL to get access to know whether to get groups
       requestMappingTemplate: MappingTemplate.fromFile(
-        fileURLToPath(new URL("./includeSelectionSetList.vtl", import.meta.url))
+        fileURLToPath(
+          new URL("./includeSelectionSetList.vtl", import.meta.url),
+        ),
       ),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: userType.attribute(),
-    })
+    }),
   );
   api.addQuery(
     "listGroupsForUser",
@@ -147,7 +149,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
         isRequiredList: true,
         isList: true,
       }),
-    })
+    }),
   );
   api.addQuery(
     "listGroups",
@@ -156,7 +158,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: groupConnection.attribute({ isRequired: true }),
-    })
+    }),
   );
   api.addQuery(
     "listUsersInGroup",
@@ -166,7 +168,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: userConnection.attribute({ isRequired: true }),
-    })
+    }),
   );
   api.addQuery(
     "listUsers",
@@ -176,7 +178,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: userConnection.attribute({ isRequired: true }),
-    })
+    }),
   );
 
   // Mutations
@@ -188,7 +190,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: userType.attribute({ isRequired: true }),
-    })
+    }),
   );
   api.addMutation(
     "deleteUsers",
@@ -205,7 +207,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: GraphqlType.string(),
-    })
+    }),
   );
   api.addMutation(
     "disableUsers",
@@ -222,7 +224,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: GraphqlType.string(),
-    })
+    }),
   );
   api.addMutation(
     "enableUsers",
@@ -239,7 +241,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: GraphqlType.string(),
-    })
+    }),
   );
   api.addMutation(
     "resetPasswords",
@@ -256,7 +258,7 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: GraphqlType.string(),
-    })
+    }),
   );
   api.addMutation(
     "updateUser",
@@ -267,6 +269,6 @@ export function createSchema(api: GraphqlApi, dataSource: BaseDataSource) {
       requestMappingTemplate: MappingTemplate.lambdaRequest(),
       responseMappingTemplate: MappingTemplate.lambdaResult(),
       returnType: GraphqlType.string(),
-    })
+    }),
   );
 }

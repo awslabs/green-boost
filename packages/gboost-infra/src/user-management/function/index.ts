@@ -17,7 +17,7 @@ const userPoolId = process.env["USER_POOL_ID"] as string;
 
 export async function handler(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  event: AppSyncResolverEvent<any>
+  event: AppSyncResolverEvent<any>,
 ): Promise<unknown> {
   const params = {
     cognitoClient,
@@ -51,7 +51,7 @@ export async function handler(
         return updateUser(params);
       default:
         throw new Error(
-          `unknown event.info.fieldName: ${event.info.fieldName}`
+          `unknown event.info.fieldName: ${event.info.fieldName}`,
         );
     }
   } catch (e) {

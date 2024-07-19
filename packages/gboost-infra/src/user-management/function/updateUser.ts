@@ -68,8 +68,8 @@ export async function updateUser(params: UpdateUserParams): Promise<string> {
           UserPoolId: userPoolId,
           Username: username,
           UserAttributes: userAttributes,
-        })
-      )
+        }),
+      ),
     );
   }
   if (groups) {
@@ -85,7 +85,7 @@ async function updateGroups(params: UpdateUserParams): Promise<void> {
     new AdminListGroupsForUserCommand({
       UserPoolId: userPoolId,
       Username: event.arguments.input.username,
-    })
+    }),
   );
   if (!res1.Groups) throw new Error("no groups for user");
   const oldGroups = res1.Groups.map((g) => g.GroupName as string);
@@ -99,8 +99,8 @@ async function updateGroups(params: UpdateUserParams): Promise<void> {
             GroupName: oldGroup,
             UserPoolId: userPoolId,
             Username: event.arguments.input.username,
-          })
-        )
+          }),
+        ),
       );
     }
   }
@@ -112,8 +112,8 @@ async function updateGroups(params: UpdateUserParams): Promise<void> {
             GroupName: newGroup,
             UserPoolId: userPoolId,
             Username: event.arguments.input.username,
-          })
-        )
+          }),
+        ),
       );
     }
   }

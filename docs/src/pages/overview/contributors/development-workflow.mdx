@@ -1,0 +1,18 @@
+# Development Workflow
+
+1. Open an issue [here](https://github.com/awslabs/green-boost/issues) describing your feature or fix.
+1. Create a branch using a descriptive name that references the issue like `feat-123-description` or `fix-123-description`.
+1. Add feature, fix bug, refactor, etc.
+1. Create changeset by running `pnpm changeset` in root of repo. Answer prompts, typically you'll be creating a minor change
+1. Stage changes _including_ changeset file (i.e. `git add -A`)
+1. Commit changes. Husky git commits should trigger lint-staged to run validating your staged files
+1. Push branch and open a PR into awslabs/green-boost's main branch.
+1. Work with Green Boost team to refactor PR and then wait for PR to be merged!
+
+## Pull Requests
+When creating a pull request (PR) that includes functionality that should be documented in the changelog and/or update the version of a package (most changes) be sure to create a [changeset](https://github.com/changesets/changesets). Changesets are files that live within the .changeset folder and are created with `pnpm changeset` at the root of the green boost repository. You'll be asked what packages the changes were made in and what [semantic version](https://docs.npmjs.com/about-semantic-versioning) level (patch, minor, major) to apply. After you create these files via `pnpm changeset`, you can edit the generated markdown (within .changeset folder) however you'd like.
+
+When a PR is created, several continuous integration (CI) checks are run based on the [ci.yml](https://github.com/awslabs/green-boost/blob/main/.github/workflows/ci.yml) GitHub workflow. It should be required, but please make sure these pass before merging.
+
+## Releases
+[Changesets](https://github.com/changesets/changesets) is used to create releases. A release includes a [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) and entry in the GitHub [releases page](https://github.com/awslabs/green-boost/releases) of Green Boost. After merging changes into main, the changesets GitHub bot will automatically create a changeset-release/main branch and a PR titled, "Version Packages", for the packages that were updated into the main branch. When this PR is merged, the GitHub Workflow [publish.yml](https://github.com/awslabs/green-boost/blob/main/.github/workflows/publish.yml) releasing changes to NPM.

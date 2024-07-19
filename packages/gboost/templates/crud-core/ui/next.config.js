@@ -2,9 +2,6 @@ import webpack from "webpack";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
   async headers() {
     return [
       {
@@ -35,7 +32,7 @@ const nextConfig = {
       new webpack.IgnorePlugin({
         // https://github.com/aws-amplify/amplify-js/issues/11030
         resourceRegExp: /^aws-crt|@aws-sdk\/signature-v4-crt$/,
-      })
+      }),
     );
     return config;
   },

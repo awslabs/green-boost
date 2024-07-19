@@ -37,7 +37,7 @@ function authz(e: AppSyncResolverEvent<ListGroupsForUser>) {
 }
 
 export async function listGroupsForUser(
-  params: ListGroupsForUserParams
+  params: ListGroupsForUserParams,
 ): Promise<unknown> {
   const { cognitoClient, event, userPoolId } = params;
   validate(event.arguments);
@@ -46,7 +46,7 @@ export async function listGroupsForUser(
     new AdminListGroupsForUserCommand({
       UserPoolId: userPoolId,
       Username: event.arguments.username,
-    })
+    }),
   );
   const groups: Group[] = [];
   if (res.Groups) {

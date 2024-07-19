@@ -45,7 +45,7 @@ export async function setupFn(params: RunFnParams) {
   const callFnPath = fileURLToPath(new URL("call-fn." + ext, import.meta.url));
   // --cwdMode look for tsconfig.json in developer's directory instead of node_modules
   command += `ts-node-esm --cwdMode ${callFnPath} -h ${handlerPath} -c ${JSON.stringify(
-    dummyContext
+    dummyContext,
   )} `;
   if (event) {
     if (event[0] === "{") {

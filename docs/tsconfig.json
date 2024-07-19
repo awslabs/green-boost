@@ -1,13 +1,18 @@
 {
-  // This file is not used in compilation. It is here just for a nice editor experience.
-  "extends": "../tsconfig.json",
+  "extends": ["@tsconfig/strictest", "@tsconfig/next"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "skipLibCheck": true,
-    "types": ["node", "@docusaurus/module-type-aliases", "@docusaurus/theme-classic"],
+    "exactOptionalPropertyTypes": false,
     "paths": {
-      "@site/*": ["./*"]
+      "@/*": ["./src/*"],
     },
-    "jsx": "react-jsx",
   },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+  ]
 }

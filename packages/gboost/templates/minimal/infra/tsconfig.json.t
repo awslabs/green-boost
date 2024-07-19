@@ -3,5 +3,5 @@
   "exclude": ["cdk.out"],
   "compilerOptions": {
     "exactOptionalPropertyTypes": false
-  },
+  }
 }

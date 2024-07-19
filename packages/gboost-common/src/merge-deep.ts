@@ -21,7 +21,7 @@ export function mergeDeep<T extends object>(
         } else if (isObject(pVal) && isObject(oVal)) {
           result[key] = mergeDeep(
             pVal as Record<string, unknown>,
-            oVal as Record<string, unknown>
+            oVal as Record<string, unknown>,
           );
         } else {
           result[key] = oVal;

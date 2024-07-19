@@ -41,7 +41,7 @@ const questions: PromptObject<keyof Answers>[] = [
     name: "appId",
     type: "text",
     // Part of CDK Stack name and used as scope to prefix all PNPM workspaces within monorepo
-    // Also cloud formation stacks name restrictions only allow alphanumeric and hyphens
+    // Also cloudformation stacks name restrictions only allow alphanumeric and hyphens
     message: "App ID (lowercase alphanumeric and hyphens only):",
     initial: "myapp",
     validate(v) {

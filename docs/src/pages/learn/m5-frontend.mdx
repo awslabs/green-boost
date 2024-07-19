@@ -1,0 +1,54 @@
+import { Callout } from "nextra/components";
+
+# Module 5: Frontend
+
+Green Boost uses the JavaScript Library, [React](https://react.dev/), the React Framework, [Next.js](https://nextjs.org/), and the UI Component Library, [Material UI](https://mui.com/).
+
+## Learn
+- React: read React's new and interactive [learning plan](https://react.dev/learn).
+- Next.js: read Next.js' [docs](https://nextjs.org/docs) focusing on Project Structure, React Essentials, Routing, Data Fetching, and Rendering.
+  - Notice how React Server Components enable fetching data directly in components and passing that data via props client components. This means you don't have to build backend for frontend APIs you'd traditionally need with a single page application (SPA).
+  - Notice how server actions enable server side mutation functions to exist within (or besides) the client components calling it. Next.js transparently handles the network requests for you.
+<Callout type="warning">
+  Co-locating client and server code is productivity boost, but also a potential security concern. Checkout the guide on [Configuration](../overview/guides/configuration) to ensure server code doesn't get into client bundles.
+</Callout>
+- Material UI: scan the [docs](https://mui.com/material-ui/getting-started/) and list of components offered.
+
+## Apply
+
+### M5.1 - Run The Dev Server
+With your DB port forwarded to your local machine as you learned in the previous [module](./m4-backend#m42---db-gui), let's run the Next.js local development server.
+- Within the `ui/` folder, run `pnpm dev`.
+- Visit http://localhost:3000 and interact with your web app locally!
+- Try changing the color of the app bar by updating `theme.colorSchemes.light.palette.primary.main{:ts}` from `colors.lagoon{:ts}` to `colors.carrot{:ts}` in `ui/src/components/theme/theme.tsx`. Save the file and then watch the update happen in your browser
+
+### M5.2 - Create The Album Table Page
+Continuing with our album feature request from the previous module, let's create an album table page so that users can list their albums.
+- Let's start by adding the server component: `ui/src/app/albums/page.tsx`.
+  - You can follow the example from `ui/src/app/items/page.tsx`.
+  - Make sure to call `listAlbumsUseCase` which you refactored in the [last module](./m4-backend#m44---refactor-crud-use-cases)
+- Now create the client component: `ui/src/app/albums/AlbumsTable.tsx`.
+  - Follow the example from `ui/src/app/items/ItemsTable.tsx` excluding any code related to filtering and sorting.
+- Visit http://localhost:3000/albums to see your table!
+  - Notice how Next.js automatically sets up routing for you based on the file structure.
+
+### M5.3 - Create The Create/View Album Page
+Add the Create and View album page so users can create and individually view albums.
+- Add `ui/src/app/albums/new/page.tsx`, `ui/src/app/albums/new/CreateAlbum.tsx`, and `ui/src/app/albums/new/create-album-action.ts`.
+  - Use `ui/src/app/items/new/**` to guide you.
+  - Ensure you're using the `createAlbumUseCase` function in `ui/src/app/albums/new/create-album-action.ts` you refactored in the [last module](./m4-backend#m44---refactor-crud-use-cases)
+- Visit http://localhost:3000/albums/new and create a new album. Note, the id created
+- Give users a way to access the page to create a new album by adding a toolbar to the top of the table. Add `ui/src/app/albums/AlbumsToolbar.tsx` and update `ui/src/app/albums/AlbumsTable.tsx` to reference it.
+  - Use `ui/src/app/items/ItemsToolbar.tsx` to guide you.
+- Add `ui/src/app/albums/[id]/page.tsx`, `ui/src/app/albums/[id]/CreateItem.tsx`, and `ui/src/app/albums/[id]/update-album-action.ts`.
+  - Note the special bracket syntax (`[id]`) is a Next.js [convention for dynamic routes](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes#convention).
+  - Use `ui/src/app/items/[id]/**` to guide you.
+  - Ensure you're using the `updateAlbumUseCase` function in `ui/src/app/albums/new/update-album-action.ts` you refactored in the [last module](./m4-backend#m44---refactor-crud-use-cases)
+- Visit `http://localhost:3000/albums/<id>` replacing `<id>` with the id of the album you previously created.
+
+### Bonus
+### M5.4 - Add Filtering and Sorting to Album Table Page
+Congrats on enabling users to create, read, and update albums in your web app! Users have reported they want the ability to filter and sort. Add this capability
+- Create a script, `core/src/db/scripts/seed-albums.ts` to generate 10s of albums to test sorting and filtering on.
+- Update `ui/src/app/albums/AlbumsTable.tsx` to add sorting and filtering capabilities to the frontend.
+- Update `core/src/modules/albums/list-albums.usecase.ts` to accept parameters necessary for  filtering and sorting.

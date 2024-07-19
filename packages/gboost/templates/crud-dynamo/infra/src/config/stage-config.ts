@@ -73,7 +73,7 @@ export class StageConfig extends CoreStageConfig {
       };
     return mergeDeep(
       this.#baseConstructDefaultProps,
-      stageConstructDefaultProps[this.enumStageName]
+      stageConstructDefaultProps[this.enumStageName],
     );
   }
   get env(): Environment {

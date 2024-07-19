@@ -39,7 +39,7 @@ export async function listGroups(params: ListGroupsParams): Promise<unknown> {
       UserPoolId: userPoolId,
       Limit: limit,
       NextToken: event.arguments.input?.nextToken,
-    })
+    }),
   );
   const groups: Group[] = [];
   if (res.Groups) {

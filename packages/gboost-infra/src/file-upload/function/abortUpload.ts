@@ -25,7 +25,7 @@ export async function abortUpload(params: abortUploadParams) {
   const { logger } = params;
   if (process.env["BUCKET_MAP"]) {
     const bucketMap: { bucket: string; baseKey: string }[] = JSON.parse(
-      process.env["BUCKET_MAP"]
+      process.env["BUCKET_MAP"],
     );
     const i = findIndex(bucketMap, bucket);
     if (i === -1) {
@@ -37,7 +37,7 @@ export async function abortUpload(params: abortUploadParams) {
           Bucket: bucket,
           Key: bucketMap[i]?.baseKey + fileName,
           UploadId: uploadId,
-        })
+        }),
       );
       return {
         statusCode: response.$metadata.httpStatusCode,

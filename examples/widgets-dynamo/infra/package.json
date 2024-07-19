@@ -23,8 +23,8 @@
     "cdk-monitoring-constructs": "^2.6.4",
     "cdk-nag": "^2.22.34",
     "constructs": "^10.1.277",
-    "gboost-common": "^0.12.1",
-    "gboost-infra": "^0.16.1",
+    "gboost-common": "^0.13.0",
+    "gboost-infra": "^0.17.0",
     "vite": "^4.1.4",
     "vite-node": "^0.29.2"
   },

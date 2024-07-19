@@ -1,5 +1,24 @@
 # gboost-infra
 
+## 0.17.0
+
+### Minor Changes
+
+- [#260](https://github.com/awslabs/green-boost/pull/260) [`4680cc1`](https://github.com/awslabs/green-boost/commit/4680cc1e2290e5838f4b613980b48591683dbe99) Thanks [@bestickley](https://github.com/bestickley)! - Update Function construct to Node.js 20
+
+- [#260](https://github.com/awslabs/green-boost/pull/260) [`4680cc1`](https://github.com/awslabs/green-boost/commit/4680cc1e2290e5838f4b613980b48591683dbe99) Thanks [@bestickley](https://github.com/bestickley)! - Update Dependencies
+
+### Patch Changes
+
+- Updated dependencies [[`4680cc1`](https://github.com/awslabs/green-boost/commit/4680cc1e2290e5838f4b613980b48591683dbe99)]:
+  - gboost-common@0.13.0
+
+## 0.16.2
+
+### Patch Changes
+
+- [#247](https://github.com/awslabs/green-boost/pull/247) [`60a1944`](https://github.com/awslabs/green-boost/commit/60a1944d836749ba6567229add6a24f4bbf2fe6c) Thanks [@bestickley](https://github.com/bestickley)! - Remove default NODE_OPTION "--enable-source-maps" for lambda functions due to potential performance issues
+
 ## 0.16.1
 
 ### Patch Changes

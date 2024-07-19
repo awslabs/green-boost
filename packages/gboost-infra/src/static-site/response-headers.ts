@@ -331,21 +331,21 @@ interface XssProtection {
 }
 
 export function getResponseHeadersPolicyProps(
-  responseHeaders?: ResponseHeaders
+  responseHeaders?: ResponseHeaders,
 ): ResponseHeadersPolicyProps {
   return {
     corsBehavior: getCorsBehavior(responseHeaders?.corsHeaders),
     customHeadersBehavior: getCustomHeadersBehavior(
-      responseHeaders?.customHeaders
+      responseHeaders?.customHeaders,
     ),
     securityHeadersBehavior: getSecurityHeadersBehavior(
-      responseHeaders?.securityHeaders
+      responseHeaders?.securityHeaders,
     ),
   };
 }
 
 export function getCorsBehavior(
-  corsHeaders?: CorsHeaders
+  corsHeaders?: CorsHeaders,
 ): ResponseHeadersCorsBehavior | undefined {
   if (corsHeaders) {
     return {
@@ -364,7 +364,7 @@ export function getCorsBehavior(
 }
 
 export function getCustomHeadersBehavior(
-  customHeaders: Record<string, string> | undefined
+  customHeaders: Record<string, string> | undefined,
 ): ResponseCustomHeadersBehavior | undefined {
   if (customHeaders) {
     return {
@@ -380,11 +380,11 @@ export function getCustomHeadersBehavior(
 }
 
 export function getSecurityHeadersBehavior(
-  inputSecurityHeaders?: SecurityHeaders
+  inputSecurityHeaders?: SecurityHeaders,
 ): ResponseSecurityHeadersBehavior | undefined {
   const contentSecurityPolicy: ResponseHeadersContentSecurityPolicy = {
     contentSecurityPolicy: getCsp(
-      inputSecurityHeaders?.contentSecurityPolicy ?? {}
+      inputSecurityHeaders?.contentSecurityPolicy ?? {},
     ), // will get default csps
     override: true,
   };

@@ -22,9 +22,9 @@ export async function enableUsers(params: EnableUsersParams): Promise<unknown> {
         new AdminEnableUserCommand({
           UserPoolId: userPoolId,
           Username: u,
-        })
-      )
-    )
+        }),
+      ),
+    ),
   );
   return usernames;
 }

@@ -17,19 +17,19 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-lambda-powertools/logger": "^1.11.1",
-    "@aws-sdk/client-secrets-manager": "^3.379.1",
-    "@aws-sdk/rds-signer": "^3.379.1",
-    "drizzle-kit": "^0.19.12",
-    "drizzle-orm": "^0.27.2",
-    "postgres": "^3.3.5",
-    "zod": "^3.21.4"
+    "@aws-lambda-powertools/logger": "^1.16.0",
+    "@aws-sdk/client-secrets-manager": "^3.451.0",
+    "@aws-sdk/rds-signer": "^3.451.0",
+    "drizzle-kit": "^0.20.4",
+    "drizzle-orm": "^0.29.0",
+    "postgres": "^3.4.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.119",
-    "eslint": "^8.45.0",
-    "eslint-define-config": "^1.17.0",
-    "typescript": "^5.1.6",
-    "vitest": "^0.33.0"
+    "@types/aws-lambda": "^8.10.126",
+    "eslint": "^8.53.0",
+    "eslint-define-config": "^2.0.0",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   }
 }

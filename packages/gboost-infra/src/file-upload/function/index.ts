@@ -30,7 +30,7 @@ export const handler: AppSyncResolverHandler<any, any> = (event, context) => {
         return abortUpload(params);
       default:
         throw new Error(
-          `unknown event.infor.fieldname: ${event.info.fieldName}`
+          `unknown event.infor.fieldname: ${event.info.fieldName}`,
         );
     }
   } catch (error) {

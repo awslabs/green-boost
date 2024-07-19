@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "outDir": "dist",
+    "outDir": "dist"
   },
-  "exclude": ["src/**/*.test.ts", "scripts/**/*"],
+  "exclude": ["src/**/*.test.ts", "scripts/**/*"]
 }

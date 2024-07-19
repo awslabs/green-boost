@@ -1,0 +1,33 @@
+{
+  "index": {
+    "display": "hidden",
+    "title": "Green Boost",
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "overview": {
+    "title": "Overview",
+    "type": "page"
+  },
+  "learn": {
+    "title": "Learn",
+    "type": "page"
+  },
+  "cli": {
+    "title": "CLI",
+    "type": "page"
+  },
+  "core": {
+    "title": "Core",
+    "type": "page"
+  },
+  "infra": {
+    "title": "Infra",
+    "type": "page"
+  },
+  "ui": {
+    "title": "UI",
+    "type": "page"
+  }
+}
