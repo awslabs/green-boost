@@ -18,6 +18,7 @@ interface DbIamClusterProps extends CdkDatabaseClusterProps {
 /**
  * Aurora Database Cluster for use with IAM Authentication. Adds `grantConnect`
  * method discussed here: https://github.com/aws/aws-cdk/issues/11851.
+ * @deprecated This is now possible in aws-cdk-lib
  */
 export class DbIamCluster extends CdkDatabaseCluster {
   dbIamUser: string;
@@ -61,13 +62,13 @@ export class DbIamCluster extends CdkDatabaseCluster {
     );
   }
 
-  grantConnect(grantee: IGrantable) {
-    Grant.addToPrincipal({
+  override grantConnect(grantee: IGrantable, dbUser?: string) {
+    return Grant.addToPrincipal({
       actions: ["rds-db:connect"],
       grantee,
       resourceArns: [
         Stack.of(this).formatArn({
-          resource: `dbuser:${this.resourceId}/${this.dbIamUser}`,
+          resource: `dbuser:${this.resourceId}/${dbUser || this.dbIamUser}`,
           service: "rds-db",
         }),
       ],

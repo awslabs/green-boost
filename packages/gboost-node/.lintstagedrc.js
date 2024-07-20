@@ -1,11 +1,10 @@
-import { removeIgnoredFiles } from "../../utils/lintStaged.js";
-
 export default {
-  "*.ts?(x)": async (files) => {
-    const filesToLint = await removeIgnoredFiles(files);
+  "*.ts": (files) => {
+    const joinedFiles = files.join(" ");
     return [
-      `eslint --fix --max-warnings=0 ${filesToLint}`,
-      `vitest related --run ${files}`,
+      `eslint --max-warnings=0 --no-warn-ignored ${joinedFiles}`,
+      `prettier --write ${joinedFiles}`,
+      `vitest related --run ${joinedFiles}`,
       "tsc --noEmit",
     ];
   },
