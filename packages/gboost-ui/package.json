@@ -24,6 +24,7 @@
   ],
   "scripts": {
     "build": "tsx scripts/build.ts",
+    "format": "prettier --write .",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
@@ -32,44 +33,14 @@
     "gboost-common": "workspace:^"
   },
   "peerDependencies": {
-    "@hookform/resolvers": "^3.0.0",
-    "next": "13.4.12",
+    "next": "^14.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.43.9",
-    "zod": "^3.21.4"
-  },
-  "peerDependenciesMeta": {
-    "@hookform/resolvers": {
-      "optional": true
-    },
-    "react-hook-form": {
-      "optional": true
-    },
-    "zod": {
-      "optional": true
-    }
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@hookform/resolvers": "^3.1.1",
-    "@tsconfig/next": "^2.0.0",
-    "@tsconfig/strictest": "^2.0.1",
     "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
-    "eslint": "^8.44.0",
-    "eslint-config-next": "13.4.12",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-define-config": "^1.21.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "next": "13.4.12",
-    "prettier": "^2.8.8",
-    "react-hook-form": "^7.45.1",
-    "tsx": "^3.12.7",
-    "typescript": "^5.1.6",
-    "vitest": "^0.33.0",
-    "zod": "^3.21.4"
+    "@types/react-dom": "^18.3.0",
+    "next": "^14.2.5"
   },
   "repository": {
     "type": "git",
@@ -78,7 +49,8 @@
   },
   "keywords": [
     "aws",
-    "serverless",
+    "cloud",
+    "native",
     "react",
     "next",
     "green",

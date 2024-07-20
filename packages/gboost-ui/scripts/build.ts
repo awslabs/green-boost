@@ -31,6 +31,7 @@ function removeVETypes() {
  */
 function listFilePaths(dirPath: string): string[] {
   const filePaths: string[] = [];
+  // eslint-disable-next-line security/detect-non-literal-fs-filename
   const directory = readdirSync(dirPath, { withFileTypes: true });
   for (const d of directory) {
     const filePath = resolve(dirPath, d.name);

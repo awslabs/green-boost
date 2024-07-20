@@ -104,7 +104,7 @@ async function downloadFile(params: DownloadFileParams) {
   const data = await s3.send(
     new GetObjectCommand({ Bucket: bucket, Key: key }),
   );
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const body = data.Body;
     if (body instanceof Readable) {
       const writeStream = createWriteStream(destinationPath);
@@ -149,6 +149,7 @@ interface ReplaceEnvVarsParams {
 }
 function replaceEnvVars(params: ReplaceEnvVarsParams) {
   const { filePaths, environment } = params;
+  // eslint-disable-next-line security/detect-non-literal-regexp
   const findRegExp = new RegExp(Object.keys(environment).join("|"), "g");
   for (const filePath of filePaths) {
     if (filePath.endsWith(".js")) {
