@@ -1,5 +1,11 @@
 # gboost
 
+## 0.22.1
+
+### Patch Changes
+
+- [#259](https://github.com/awslabs/green-boost/pull/259) [`29387e2`](https://github.com/awslabs/green-boost/commit/29387e297c9b9e8737fc521a945f4bec9ad2d014) Thanks [@leodDEV](https://github.com/leodDEV)! - infra: cdk destroy command correction
+
 ## 0.22.0
 
 ### Minor Changes
