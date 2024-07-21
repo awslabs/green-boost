@@ -17,7 +17,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.14.18",
-    "gboost-ui": "^0.36.0",
+    "gboost-ui": "^0.37.0",
     "next": "14.0.3",
     "open-next": "^2.3.2",
     "react": "^18.2.0",
