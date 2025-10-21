@@ -9,6 +9,9 @@ on:
       - docs/**
       - .github/workflows/pages-deploy.yml
 
+permissions:
+  contents: write
+
 jobs:
   deploy_docs:
     name: Deploy Docs to GitHub Pages
